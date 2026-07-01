@@ -4,10 +4,13 @@
       "path": "."
     },
     {
-      "path": "../isabella"
+      "path": "isabella"
     },
     {
-      "path": "../tayyeb"
+      "path": "tayyeb"
+    },
+    {
+      "path": "miguel"
     }
   ]
 }
