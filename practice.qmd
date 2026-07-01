@@ -1,3 +1,4 @@
+```{r}
 # MIMOSA2 Simulation 
 # Isabella and Tayyeb
 # 26 June 2026
@@ -121,3 +122,4 @@ vax_fit_2$pi_est |> round(2)
 vax_fit_2$thetahat
 getZ(vax_fit_2) |> round(2)
 getFDR(vax_fit_2) |> round(2)
+```

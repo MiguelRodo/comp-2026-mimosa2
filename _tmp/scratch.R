@@ -1,38 +1,19 @@
-```{r}
-#| include: false
-library(MIMOSA2)
-library(ggplot2)
-library(DataTidy26VaccQFTDose)
-library(optimx)
-library(MIMOSA2)
-library(matrixStats)
-library(dplyr)
-library(ggplot2)
-library(tidyr)
-
-fn_vec <- list.files("R", full.names = TRUE)
-for (i in seq_along(fn_vec)) {
-  source(fn_vec[[i]])
-}
-```
-
-```{r}
 #-------------------------------------------------------------------------------
 # Stress-test matrix: 
 # This creates all possible combinations to test
 stresstest_mat = expand.grid(
-  Distribution = c("Beta","Logit Normal","Exponential Gamma",
-                   "Odds Gamma","Unit Lognormal","Simplex"),
+  Distribution = c("Beta","Uniform","Logit-Normal","X/(1+X)"),
   P            = c(20,50,100,500),
   Effect       = c(1e-10,5e-4,1e-2),
   Phi          = c(100,2000),
   stringsAsFactors = FALSE
-)
-
+)[1:2,]
+  
 # Store results:
 results_summary = data.frame()
 
-for (i in 1:nrow(stresstest_mat)){
+for (i in 1:nrow(stresstest_mat))
+{
   dist = stresstest_mat$Distribution[i]
   p    = stresstest_mat$P[i]
   eff  = stresstest_mat$Effect[i]
@@ -46,12 +27,24 @@ for (i in 1:nrow(stresstest_mat)){
              ", phi = ", phi, "\n"))
   
   # Simulate:
-  sim = simulate_MIMOSA2_alt_prior(effect = eff, phi = phi, 
-                                   P=p, prior = dist)
+  sim = switch(dist,
+               "Beta"         = simulate_MIMOSA2(effect=eff,
+                                                 phi=phi,
+                                                 P=p),
+               "Uniform"      = simulate_MIMOSA2_uniform(effect=eff,
+                                                         phi=phi,
+                                                         P=p),
+               "Logit-Normal" = simulate_MIMOSA2_logitnorm(effect=eff,
+                                                           phi=phi,
+                                                           P=p),
+               "X/(1+X)"      = simulate_MIMOSA2_rexp(effect=eff,
+                                                      phi=phi,
+                                                      P=p)
+               )
   
   # Define truth responder logic:
   # ^R: starts with R (Responders = TRUE)
-  true_responder = sim$truth %in% c("R1","R2","R3","R4")
+  true_responder = grepl("^R",sim$truth)
   
   # Fit model:
   fit_error = FALSE        # Assumes model runs successfully 
@@ -136,4 +129,3 @@ for (i in 1:nrow(stresstest_mat)){
   # Combine results: 
   results_summary = rbind(results_summary,row_res)
 }
-```
