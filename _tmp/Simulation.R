@@ -1,0 +1,123 @@
+# MIMOSA2 Simulation 
+# Isabella and Tayyeb
+# 26 June 2026
+
+#-------------------------------------------------------------------------------
+library(MIMOSA2)
+library(ggplot2)
+
+sim1 = simulate_MIMOSA2()
+mim1 = MIMOSA2(Ntot=sim1$Ntot,ns1=sim1$ns1,ns0=sim1$ns0,nu1=sim1$nu1,nu0=sim1$nu0)
+fit1 = with(sim1,mim1)
+table(fit1=c("R1","R2","R3","R4","NR1","NR2","NR3","NSR","NSR2","NSR3","NSR4")[max.col(fit1$z)],truth = sim1$truth)
+
+# Boxplot:
+Boxplot(obj=fit1,truth=sim1$truth)
+
+p = with(sim1,{p = do.call(cbind,mget(colnames(Ntot)))/Ntot;colnames(p)=c("pu1","ps1","pu0","ps0");data.frame(p,truth)})
+
+ggplot(reshape2::melt(p,value.var=c("pu1","ps1","pu0","ps0")))+
+  geom_boxplot(outlier.color=NA)+
+  facet_wrap(~variable)+
+  geom_jitter(width=0.1)+
+  aes(x=truth,y=value)
+
+#ggplot(p)+
+#  geom_boxplot(outlier.color=NA)+
+#  geom_jitter()+
+#  aes(x=truth,y=ps1-pu1-ps0+pu0,col=as.factor(apply(fit1$inds,1,which.max)))
+
+# Create dataframe: 
+plot_data = data.frame(
+  truth=as.factor(sim1$truth),
+  effect_size=(sim1$ns1/sim1$Ntot[,"ns1"])-(sim1$nu1/sim1$Ntot[,"nu1"]) - 
+    (sim1$ns0/sim1$Ntot[,"ns0"])+(sim1$nu0/sim1$Ntot[,"nu0"]),
+  fitted_comp=as.factor(apply(mim1$inds,1,which.max))
+)
+
+# Plot:
+ggplot(plot_data,
+       aes(x=truth,y=effect_size))+
+  geom_boxplot(outlier.color=NA,
+               fill="gray95",
+               color="gray40")+
+  geom_jitter(aes(col=fitted_comp),
+              size=3, 
+              width=0.1, 
+              alpha=0.7)+
+  labs(
+    x="Truth",
+    y="(ps1 - pu1) - (ps0 - pu0)",
+    col="Fitted Component"
+  ) +
+  theme_minimal()
+
+#-------------------------------------------------------------------------------
+library(MIMOSA2)
+library(DataTidy26VaccQFTDose)
+library(tidyverse)
+
+dat = data_tidy_counts_ag
+dat = dat|>
+  filter(stim=="uns"|stim=="mtb") |> 
+  filter(n_dose==1) |>
+  filter(visit%in%c("d0","d224")) |> 
+  pivot_wider(names_from = c(stim,visit),names_sep = "_",
+              values_from = c(parent_count,count))|>
+  filter(pop=="any_cyt") |> 
+  na.omit()
+
+Ntot = dat[,c(11,9,12,10)] |> as.matrix();colnames(Ntot) = c("ns1","ns0","nu1","nu0")
+
+ns0 = dat[,13]|> unlist() |> as.vector()
+nu0 = dat[,14]|> unlist() |> as.vector()
+ns1 = dat[,15]|> unlist() |> as.vector()
+nu1 = dat[,16]|> unlist() |> as.vector()
+mean(ns0)
+mean(nu0)
+mean(ns1)
+mean(nu1)
+
+vax_fit_1 <- MIMOSA2(Ntot,ns1,nu1,ns0,nu0)
+
+
+
+dat_2 = data_tidy_counts_ag
+dat_2 = dat_2 |>
+  filter(stim=="uns"|stim=="mtb") |> 
+  filter(n_dose==1) |>
+  filter(visit%in%c("d0","d14")) |> 
+  pivot_wider(names_from = c(stim,visit),names_sep = "_",
+              values_from = c(parent_count,count))|>
+  filter(pop=="any_cyt") |> 
+  na.omit()
+
+names(dat_2)
+
+Ntot = dat_2[,c(11,9,12,10)] |> as.matrix();colnames(Ntot) = c("ns1","ns0","nu1","nu0")
+
+ns0 = dat_2[,13]|> unlist() |> as.vector()
+nu0 = dat_2[,14]|> unlist() |> as.vector()
+ns1 = dat_2[,15]|> unlist() |> as.vector()
+nu1 = dat_2[,16]|> unlist() |> as.vector()
+mean(ns0)
+mean(nu0)
+mean(ns1)
+mean(nu1)
+
+vax_fit_2 <- MIMOSA2(Ntot,ns1,nu1,ns0,nu0)
+
+
+apply(vax_fit_1$inds,1,which.max)
+vax_fit_1$z |> round(2)
+vax_fit_1$pi_est |> round(2)
+vax_fit_1$thetahat
+getZ(vax_fit_1) |> round(2)
+getFDR(vax_fit_1) |> round(2)
+
+apply(vax_fit_2$inds,1,which.max)
+vax_fit_2$z |> round(2)
+vax_fit_2$pi_est |> round(2)
+vax_fit_2$thetahat
+getZ(vax_fit_2) |> round(2)
+getFDR(vax_fit_2) |> round(2)
