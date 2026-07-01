@@ -1,5 +1,5 @@
 {
-  "image": "ghcr.io/miguelrodo/devcontainers-2026-mimosa-stan:v1",
+  "image": "ghcr.io/miguelrodo/devcontainers-2026-mimosa-stan:v1.2.0",
   "customizations": {
     "vscode": {
       "extensions": [
