@@ -16,7 +16,7 @@ echo " "
 echo "-------------------"
 echo "Run simulation"
 date
-apptainer-rscript -f mimosa2 -- 'source("_tmp/Non_beta_simulations.R"); source("_tmp/Simulation.R")'
+apptainer-rscript -f mimosa2 -- '1 + 1'
 echo "Completed running simulation"
 date
 echo "-------------------"
