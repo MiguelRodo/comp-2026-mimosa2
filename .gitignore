@@ -1,3 +1,8 @@
 isabella
 tayyeb
 miguel
+_tmp/log/sbatch/test
+Rplots.pdf
+_output
+.nfs*
+_tmp/scratch.R
