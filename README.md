@@ -16,4 +16,10 @@ For more information, please contact:
 
 ## Details
 
-[Methods, timeline, team, data sources, software/tools, etc.]
+### HPC
+`
+Once you have cloned the repo down to `/scratch/$USER/projects/mimosa2`:
+
+- Run `apptainer-run -f mimosa` in that directory
+- Run `R`
+
