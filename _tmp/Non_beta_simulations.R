@@ -1,3 +1,6 @@
+my_libs <- "/scratch/abrmoe030/R_libs"
+.libPaths(c(my_libs, .libPaths()))
+
 library(MIMOSA2)
 library(ggplot2)
 

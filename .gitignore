@@ -6,3 +6,5 @@ Rplots.pdf
 _output
 .nfs*
 _tmp/scratch.R
+_tmp/log/sbatch/sim
+_tmp/log/sbatch/pak

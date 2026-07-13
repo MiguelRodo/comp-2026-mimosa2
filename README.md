@@ -30,7 +30,7 @@ Once you have cloned the repo down to `/scratch/$USER/projects/mimosa2`:
 #### Running `R` in batch mode
 
 - Log into hpc using powershell: `ssh <username>@hex.uct.ac.za`
-- Switch to project directory: `cd /scratch/$USER/projects/mimosa2`
+- Switch to project directory: ``
 - Run `slurm-sbatch <path/to/script>`, e.g. `slurm-sbatch scripts/slurm/test.sh`
 - To check job is running, run `slurm-squeue`
 - To check job history, look in `_tmp/log/sbatch/<name_of_script>`
