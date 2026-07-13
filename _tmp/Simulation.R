@@ -1,3 +1,6 @@
+my_libs <- "/scratch/abrmoe030/R_libs"
+.libPaths(c(my_libs, .libPaths()))
+
 # MIMOSA2 Simulation 
 # Isabella and Tayyeb
 # 26 June 2026
