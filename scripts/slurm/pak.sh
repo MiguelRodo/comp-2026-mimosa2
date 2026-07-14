@@ -16,7 +16,7 @@ echo " "
 echo "-------------------"
 echo "Installing packages"
 date
-apptainer-rscript -f mimosa2 -- 'source("_tmp/scratch.R")
+apptainer-rscript -f mimosa2 -- 'source("_tmp/scratch.R")'
 echo "Completed Installing packages"
 date
 echo "-------------------"

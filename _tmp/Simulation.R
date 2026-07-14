@@ -1,11 +1,14 @@
-my_libs <- "/scratch/abrmoe030/R_libs"
-.libPaths(c(my_libs, .libPaths()))
-
 # MIMOSA2 Simulation 
 # Isabella and Tayyeb
 # 26 June 2026
 
 #-------------------------------------------------------------------------------
+my_libs <- "/scratch/abrmoe030/R_libs"
+.libPaths(c(my_libs, .libPaths()))
+
+library(future)
+library(future.apply)
+plan(multicore, workers = as.numeric(Sys.getenv("SLURM_NTASKS", 2)))
 # Proportion of true responders: 
 # True responders distributed evenly across components 1-4
 # Non-responders distributed evenly across components 5-8
@@ -47,8 +50,8 @@ master_obs_list = list()
 #-------------------------------------------------------------------------------
 # Baseline simulation
 #-------------------------------------------------------------------------------
-# For loop to simulation from stress test matrix: 
-for (i in 1:nrow(stresstest_mat)){
+
+ run_single_simulation <- function(i) {
   dist     = stresstest_mat$Distribution[i]
   comp_nm  = stresstest_mat$Comp_Name[i]
   p        = stresstest_mat$P[i]
@@ -212,12 +215,14 @@ for (i in 1:nrow(stresstest_mat)){
     Log2_FC      = log_fold_change
   )
   
-  # Store results:
-  master_obs_list[[i]] = scenario_obs
+ return(scenario_obs)
 }
+message("Starting parallel simulations...")
 
-# Combine:
-results_continuous = do.call(rbind, master_obs_list)
+master_obs_list <- future_lapply(1:nrow(stresstest_mat), run_single_scenario, future.seed = TRUE)
+results_continuous <- do.call(rbind, master_obs_list)
+
+if (!dir.exists("_simulations")) dir.create("_simulations", recursive = TRUE)
 
 # Save results: 
 save(results_summary, 
