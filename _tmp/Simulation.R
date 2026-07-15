@@ -12,15 +12,20 @@ plan(multicore, workers = as.numeric(Sys.getenv("SLURM_NTASKS", 2)))
 # Proportion of true responders: 
 # True responders distributed evenly across components 1-4
 # Non-responders distributed evenly across components 5-8
-responders25 = c(rep(0.25 / 4, 4), rep(0.75 / 4, 4))
-responders50 = c(rep(0.50 / 4, 4), rep(0.50 / 4, 4))
-responders75 = c(rep(0.75 / 4, 4), rep(0.25 / 4, 4))
+responders00  = c(rep(0.00 / 4, 4), rep(1.00 / 4, 4))
+responders25  = c(rep(0.25 / 4, 4), rep(0.75 / 4, 4))
+responders50  = c(rep(0.50 / 4, 4), rep(0.50 / 4, 4))
+responders75  = c(rep(0.75 / 4, 4), rep(0.25 / 4, 4))
+responders100 = c(rep(1.00 / 4, 4), rep(0.00 / 4, 4))
+
 
 # Combine into a named list for tracking:
 component_list = list(
+  "Prop_0.00" = responders00,
   "Prop_0.25" = responders25,
   "Prop_0.50" = responders50,
-  "Prop_0.75" = responders75
+  "Prop_0.75" = responders75,
+  "Prop_1.00" = responders100
 )
 
 # Cell count scenarios: 
@@ -28,15 +33,16 @@ component_list = list(
 rng_list = list(
   "Wide_High"  = c(10000, 150000),
   "Medium_Low" = c(5000, 10000),
-  "Sparse"     = c(2000, 5000)
+  "Sparse"     = c(2000, 5000),
+  "V_Sparse"   = c(1000,2000)
 )
 
 # Build simulation grid:
 stresstest_mat = expand.grid(
   Distribution   = c("Beta"),
   Comp_Name      = names(component_list),
-  P              = c(20, 50, 100),
-  Effect         = c(1e-10, 5e-4, 1e-2),
+  P              = c(10, 20, 30, 50, 75, 100),
+  Effect         = c(1e-3, 5e-4, 2.5e-4, 1.25e-4, 6.25e-5),
   Rng_Name       = names(rng_list),
   Phi            = c(2000),
   Replication    = 1:5, 
@@ -44,8 +50,8 @@ stresstest_mat = expand.grid(
 )
 
 # Initialize objects to store results:
-results_summary = data.frame()
-master_obs_list = list()
+# results_summary = data.frame()
+# master_obs_list = list()
 
 #-------------------------------------------------------------------------------
 # Baseline simulation
@@ -196,7 +202,7 @@ master_obs_list = list()
   )
   
   # Combine results:
-  results_summary = rbind(results_summary, row_res)
+  # results_summary = rbind(results_summary, row_res)
   
   # Store results:
   scenario_obs = data.frame(
@@ -215,16 +221,21 @@ master_obs_list = list()
     Log2_FC      = log_fold_change
   )
   
- return(scenario_obs)
+ # return(scenario_obs)
+   return(list(summary = row_res, continuous = scenario_obs))
 }
 message("Starting parallel simulations...")
 
 master_obs_list <- future_lapply(1:nrow(stresstest_mat), run_single_simulation, future.seed = TRUE)
-results_continuous <- do.call(rbind, master_obs_list)
+
+results_summary    <- do.call(rbind, lapply(master_results_list, function(x) x$summary))
+results_continuous <- do.call(rbind, lapply(master_results_list, function(x) x$continuous))
+
+# results_continuous <- do.call(rbind, master_obs_list)
 
 if (!dir.exists("_simulations")) dir.create("_simulations", recursive = TRUE)
 
 # Save results: 
 save(results_summary, 
      results_continuous,
-     file = '_simulations/Simulation_1.1.Rdata')
+     file = '_simulations/Simulation_2.0.Rdata')
