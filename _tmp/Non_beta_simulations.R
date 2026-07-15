@@ -36,8 +36,14 @@ simulate_MIMOSA2_alt_prior = function(effect = 5e-4,
     PHI = phi
   }
   
-  n = round(P * pis)
-  n[8] = P-sum(n[1:7])
+n = round(P * pis)
+  n[8] = max(P - sum(n[1:7]), 0)
+  
+  # Shave off counts one by one from the largest components until the sum equals P
+  while (sum(n) > P) {
+    idx = which.max(n)
+    n[idx] = n[idx] - 1
+  }
   
   PS0=PS1=PU0=PU1=NULL
   is_beta = prior %in% c("beta","b","B","Beta")
