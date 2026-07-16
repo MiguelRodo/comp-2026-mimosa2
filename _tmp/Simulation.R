@@ -228,8 +228,8 @@ message("Starting parallel simulations...")
 
 master_obs_list <- future_lapply(1:nrow(stresstest_mat), run_single_simulation, future.seed = TRUE)
 
-results_summary    <- do.call(rbind, lapply(master_results_list, function(x) x$summary))
-results_continuous <- do.call(rbind, lapply(master_results_list, function(x) x$continuous))
+results_summary    <- do.call(rbind, lapply(master_obs_list, function(x) x$summary))
+results_continuous <- do.call(rbind, lapply(master_obs_list, function(x) x$continuous))
 
 # results_continuous <- do.call(rbind, master_obs_list)
 
