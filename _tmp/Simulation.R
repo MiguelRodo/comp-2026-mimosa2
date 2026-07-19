@@ -9,6 +9,7 @@ my_libs <- "/scratch/abrmoe030/R_libs"
 library(future)
 library(future.apply)
 plan(multicore, workers = as.numeric(Sys.getenv("SLURM_NTASKS", 2)))
+
 # Proportion of true responders: 
 # True responders distributed evenly across components 1-4
 # Non-responders distributed evenly across components 5-8
@@ -17,7 +18,6 @@ responders25  = c(rep(0.25 / 4, 4), rep(0.75 / 4, 4))
 responders50  = c(rep(0.50 / 4, 4), rep(0.50 / 4, 4))
 responders75  = c(rep(0.75 / 4, 4), rep(0.25 / 4, 4))
 responders100 = c(rep(1.00 / 4, 4), rep(0.00 / 4, 4))
-
 
 # Combine into a named list for tracking:
 component_list = list(
@@ -34,7 +34,7 @@ rng_list = list(
   "Wide_High"  = c(10000, 150000),
   "Medium_Low" = c(5000, 10000),
   "Sparse"     = c(2000, 5000),
-  "V_Sparse"   = c(1000,2000)
+  "V_Sparse"   = c(1000, 2000)
 )
 
 # Build simulation grid:
@@ -49,15 +49,10 @@ stresstest_mat = expand.grid(
   stringsAsFactors = FALSE
 )
 
-# Initialize objects to store results:
-# results_summary = data.frame()
-# master_obs_list = list()
-
 #-------------------------------------------------------------------------------
-# Baseline simulation
+# Main Simulation Worker
 #-------------------------------------------------------------------------------
-
- run_single_simulation <- function(i) {
+run_single_simulation <- function(i) {
   dist     = stresstest_mat$Distribution[i]
   comp_nm  = stresstest_mat$Comp_Name[i]
   p        = stresstest_mat$P[i]
@@ -69,7 +64,6 @@ stresstest_mat = expand.grid(
   active_components = component_list[[comp_nm]]
   active_rng        = rng_list[[rng_nm]]
   
-  # Print out scenario we are running:
   cat(paste0("Running simulation ", i, "/", nrow(stresstest_mat),
              ": Distribution = ", dist,
              ", Responder Prop = ", comp_nm,
@@ -92,42 +86,17 @@ stresstest_mat = expand.grid(
   # Define truth responder logic:
   true_responder = as.numeric(sim$truth %in% c("R1","R2","R3","R4"))
   
-  # Fisher's exact test (one-sided):
-  fisher_p = sapply(1:p, function(j) {
-    mat = matrix(c(sim$ns1[j], sim$Ntot[j]-sim$ns1[j], 
-                   sim$nu1[j], sim$Ntot[j]-sim$nu1[j]), 
-                 nrow = 2)
-    fisher.test(mat, alternative="greater")$p.value
-  })
+  # Call the DiD_GLM function sourced from Non_beta_simulations
+  did_glm_prob = DiD_GLM(sim$Ntot, sim$ns1, sim$nu1, sim$ns0, sim$nu0)
   
-  # Log-fold change (LFC):
-  prop_s = sim$ns1/sim$Ntot
-  prop_u = sim$nu1/sim$Ntot
-  log_fold_change = log2((prop_s+1e-5)/(prop_u+1e-5))
+  # Log-fold change (LFC) using matrix column names
+  prop_s = sim$ns1 / sim$Ntot[, "ns1"]
+  prop_u = sim$nu1 / sim$Ntot[, "nu1"]
+  log_fold_change = log2((prop_s + 1e-5) / (prop_u + 1e-5))
   
-  # Likelihood ratio test (LRT):
-  lrt_p = sapply(1:p, function(j) { 
-    fit_null = glm(cbind(c(sim$ns1[j], sim$nu1[j]),
-                         c(sim$Ntot[j]-sim$ns1[j], sim$Ntot[j]-sim$nu1[j])) ~ 1, 
-                   family = binomial)
-    group = factor(c("S","U"))
-    fit_alt  = glm(cbind(c(sim$ns1[j], sim$nu1[j]),
-                         c(sim$Ntot[j]-sim$ns1[j], sim$Ntot[j]-sim$nu1[j])) ~ group, 
-                   family = binomial)
-    lrt_stat = 2*(logLik(fit_alt)-logLik(fit_null))
-    p_val = pchisq(as.numeric(lrt_stat), df=1, lower.tail=FALSE)
-    
-    if (prop_s[j] < prop_u[j]) {
-      p_val = 1 - (p_val/2)
-    } else {
-      p_val = p_val / 2
-    }
-    return(p_val)
-  })
-  
-  # Fit model:
-  fit_error = FALSE        # Assumes model runs successfully
-  fit       = tryCatch({   # tryCatch() prevents whole simulation from crashing
+  # Fit MIMOSA2 Model:
+  fit_error = FALSE        
+  fit       = tryCatch({   
     MIMOSA2(
       Ntot    = sim$Ntot,
       ns1     = sim$ns1,
@@ -139,7 +108,7 @@ stresstest_mat = expand.grid(
     )
   },
   error = function(e) {
-    fit_error <<- TRUE     # Mark run as failure
+    fit_error <<- TRUE     
     return(NULL)
   })
   
@@ -150,31 +119,28 @@ stresstest_mat = expand.grid(
   tFDR_001   = NA_real_
   tFDR_005   = NA_real_
   
-  # Evaluate metrics:
+  # Evaluate MIMOSA metrics:
   if (fit_error == FALSE && is.null(fit) == FALSE) {
     iterations = length(fit$inds)
     mimosa_prob = rowSums(fit$z[, 1:4, drop = FALSE])
     
-    # Extract response calls:
-    rescall_001 = getResponse(fit, threshold=0.01) # 1% FDR
-    rescall_005 = getResponse(fit, threshold=0.05) # 5% FDR
+    rescall_001 = getResponse(fit, threshold=0.01) 
+    rescall_005 = getResponse(fit, threshold=0.05) 
     
-    # Calculate sensitivity:
-    if (any(true_responder==1)) {
-      TPR_001 = sum(rescall_001 & true_responder==1) / sum(true_responder==1)
+    if (any(true_responder == 1)) {
+      TPR_001 = sum(rescall_001 & true_responder == 1) / sum(true_responder == 1)
     } else {
       TPR_001 = NA
     } 
     
-    # Calculate empirical FDR:
     tFDR_001 = if (sum(rescall_001) > 0) {
-      sum(rescall_001 & true_responder!=1) / sum(rescall_001)
+      sum(rescall_001 & true_responder != 1) / sum(rescall_001)
     } else {
       0
     }
     
     tFDR_005 = if (sum(rescall_005) > 0) {
-      sum(rescall_005 & true_responder!=1) / sum(rescall_005)
+      sum(rescall_005 & true_responder != 1) / sum(rescall_005)
     } else {
       0
     }
@@ -184,7 +150,7 @@ stresstest_mat = expand.grid(
     mimosa_prob = rep(NA_real_, p)
   }
   
-  # Store results:
+  # Store summary results:
   row_res = data.frame(
     Distribution = dist,
     Res_prop     = comp_nm,
@@ -201,10 +167,7 @@ stresstest_mat = expand.grid(
     stringsAsFactors = FALSE
   )
   
-  # Combine results:
-  # results_summary = rbind(results_summary, row_res)
-  
-  # Store results:
+  # Store observation-level results:
   scenario_obs = data.frame(
     Distribution = dist,
     Res_prop     = comp_nm,
@@ -216,22 +179,20 @@ stresstest_mat = expand.grid(
     Subject_id   = 1:p,
     Truth        = true_responder,
     MIMOSA2_prob = mimosa_prob,
-    Fisher_p     = fisher_p,
-    LRT_P        = lrt_p,
-    Log2_FC      = log_fold_change
+    DiD_GLM_prob = did_glm_prob,
+    Log2_FC      = log_fold_change,
+    stringsAsFactors = FALSE
   )
   
- # return(scenario_obs)
-   return(list(summary = row_res, continuous = scenario_obs))
+  return(list(summary = row_res, continuous = scenario_obs))
 }
+
 message("Starting parallel simulations...")
 
 master_obs_list <- future_lapply(1:nrow(stresstest_mat), run_single_simulation, future.seed = TRUE)
 
 results_summary    <- do.call(rbind, lapply(master_obs_list, function(x) x$summary))
 results_continuous <- do.call(rbind, lapply(master_obs_list, function(x) x$continuous))
-
-# results_continuous <- do.call(rbind, master_obs_list)
 
 if (!dir.exists("_simulations")) dir.create("_simulations", recursive = TRUE)
 
