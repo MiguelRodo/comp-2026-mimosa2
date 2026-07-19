@@ -58,3 +58,4 @@ sim2.0_plot = ggplot(data = plot_aggregated,
   )
 
 print(sim2.0_plot)
+
