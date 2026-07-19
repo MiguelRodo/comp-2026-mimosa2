@@ -597,3 +597,32 @@ n = round(P * pis)
   
   return(list(Ntot=Ntot, ns0=ns0, ns1=ns1, nu0=nu0, nu1=nu1, truth=truth))
 }
+
+DiD_GLM <- function(Ntot, ns1, nu1, ns0, nu0) {
+  P <- nrow(Ntot)
+  ind_ids <- 1:P
+  df <- data.frame(
+    Individual = rep(ind_ids, times = 4),
+    Time_Point = rep(c("Active", "Active", "Baseline", "Baseline"), each = P),
+    Stimulation = rep(c("Stimulated", "Unstimulated", "Stimulated", "Unstimulated"), each = P),
+    Positives = c(ns1, nu1, ns0, nu0),
+    Total = c(Ntot[, 2], Ntot[, 1], Ntot[, 4], Ntot[, 3])
+  )
+  df$Negatives <- df$Total - df$Positives
+  df$Time_Point  <- factor(df$Time_Point, levels = c("Baseline", "Active"))
+  df$Stimulation <- factor(df$Stimulation, levels = c("Unstimulated", "Stimulated"))
+  
+  responder_probs <- rep(NA,P)
+  for (i in 1:P) {
+    test_mod <- glm(cbind(Positives,Negatives)~Time_Point*Stimulation,family = "binomial",data = df[df$Individual==i,]) |> summary()
+    
+    if (test_mod$coefficients["Time_PointActive:StimulationStimulated","Estimate"]>=0){
+      responder_probs[i] <- (test_mod$coefficients["Time_PointActive:StimulationStimulated",c("Pr(>|z|)")]/2)
+    } else{
+      responder_probs[i] <- 0.95
+    }
+  }
+  
+  responder_probs <- 1-responder_probs
+  return(responder_probs)
+}
