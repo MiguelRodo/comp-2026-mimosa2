@@ -13,19 +13,19 @@ plan(multicore, workers = as.numeric(Sys.getenv("SLURM_NTASKS", 2)))
 # Proportion of true responders: 
 # True responders distributed evenly across components 1-4
 # Non-responders distributed evenly across components 5-8
-responders00  = c(rep(0.00 / 4, 4), rep(1.00 / 4, 4))
+responders00  = c(rep(0.10 / 4, 4), rep(0.90 / 4, 4))
 responders25  = c(rep(0.25 / 4, 4), rep(0.75 / 4, 4))
 responders50  = c(rep(0.50 / 4, 4), rep(0.50 / 4, 4))
 responders75  = c(rep(0.75 / 4, 4), rep(0.25 / 4, 4))
-responders100 = c(rep(1.00 / 4, 4), rep(0.00 / 4, 4))
+responders100 = c(rep(0.90 / 4, 4), rep(0.10 / 4, 4))
 
 # Combine into a named list for tracking:
 component_list = list(
-  "Prop_0.00" = responders00,
+  "Prop_0.10" = responders00,
   "Prop_0.25" = responders25,
   "Prop_0.50" = responders50,
   "Prop_0.75" = responders75,
-  "Prop_1.00" = responders100
+  "Prop_0.90" = responders90
 )
 
 # Cell count scenarios: 
@@ -45,7 +45,7 @@ stresstest_mat = expand.grid(
   Effect         = c(1e-3, 5e-4, 2.5e-4, 1.25e-4, 6.25e-5),
   Rng_Name       = names(rng_list),
   Phi            = c(2000),
-  Replication    = 1:5, 
+  Replication    = 1:10, 
   stringsAsFactors = FALSE
 )
 

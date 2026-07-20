@@ -59,3 +59,83 @@ sim2.0_plot = ggplot(data = plot_aggregated,
 
 print(sim2.0_plot)
 
+#==============================================================
+#DiD comparison
+#==============================================================
+
+library(tidyverse)
+library(plotROC)
+
+# 1. Load your dataset
+
+
+# 2. Prepare data for plotting (drop rows where MIMOSA failed/returned NaN)
+ROC_data_prepared <- results_continuous %>%
+  filter(!is.na(MIMOSA2_prob), !is.na(DiD_GLM_prob)) %>%
+  pivot_longer(
+    cols      = c(MIMOSA2_prob, DiD_GLM_prob),
+    names_to  = "Method",
+    values_to = "Score"
+  ) %>%
+  mutate(
+    Method = case_when(
+      Method == "MIMOSA2_prob" ~ "MIMOSA2",
+      Method == "DiD_GLM_prob"  ~ "DiD Baseline"
+    ),
+    # Create clean factor labels for plotting
+    Sample_Size = paste0("N: ", P),
+    Effect_Label = paste0("Effect: ", Effect)
+  )
+
+# 3. Generate the ROC Plot grid 
+# (You can swap the facet variables depending on which slice you want to look at)
+
+ggplot(data = ROC_data_prepared,
+       mapping = aes(d = Truth,
+                     m = Score,
+                     colour = Cell_range,               # 🎨 Color represents Cell Count range
+                     linetype = Method,                 # ── Linetype represents the Model type
+                     group = interaction(Method, Cell_range))) + 
+  geom_roc(n.cuts = 0, size = 1) +
+  geom_abline(slope = 1, intercept = 0, linetype = 'dashed', colour = 'grey50') +
+  
+  facet_grid(P ~ Effect, labeller = label_both) + 
+  
+  # 🌟 high-contrast color palette 🌟
+  scale_colour_manual(
+    values = c(
+      "Wide_High"  = "#2c7bb6",  # Clean Deep Blue
+      "Medium_Low" = "#abd9e9",  # Light Ice Blue
+      "Sparse"     = "#fdae61",  # Vibrant Orange
+      "V_Sparse"   = "#d7191c"   # High-visibility Crimson Red
+    )
+  ) +
+  
+  theme_bw() +
+  labs(
+    title    = 'ROC Performance across Simulation Parameters',
+    x        = 'False Positive Rate (1 - Specificity)',
+    y        = 'True Positive Rate (Sensitivity)',
+    colour   = 'Cell Count Range',
+    linetype = 'Model Framework'
+  ) +
+  theme(
+    legend.position = 'bottom',
+    legend.box      = 'vertical', 
+    plot.title      = element_text(face = 'bold', hjust = 0.5),
+    strip.text      = element_text(size = 9, face = "bold")
+  )
+
+# 4. Calculate AUROC values dynamically
+AUROC <- ROC_data_prepared %>%
+  group_by(Res_prop, P, Cell_range, Effect, Method) %>%
+  filter(length(unique(Truth)) == 2) %>% 
+  do(plotROC::calc_auc(
+    ggplot(., aes(d = Truth, m = Score)) + geom_roc()
+  )) %>%
+  ungroup() %>%
+  rename(AUROC = AUC)
+
+print(head(AUROC))
+
+print(ROC_plot)
