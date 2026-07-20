@@ -44,6 +44,10 @@ n = round(P * pis)
     idx = which.max(n)
     n[idx] = n[idx] - 1
   }
+  while (sum(n) < P) {
+    idx = which.min(n)
+    n[idx] = n[idx] + 1
+  }
   
   PS0=PS1=PU0=PU1=NULL
   is_beta = prior %in% c("beta","b","B","Beta")
