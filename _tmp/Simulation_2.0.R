@@ -4,8 +4,6 @@ library(ggplot2)
 setwd("~/GitHub/comp-2026-mimosa2/")
 load('_simulations/Simulation_2.0.Rdata')
 
-library(ggplot2)
-
 # 1. Filter for successful runs
 plot_data = subset(results_summary, Status == "Success")
 
@@ -22,8 +20,8 @@ plot_aggregated$Effect_fact = factor(plot_aggregated$Effect,
 
 # 4. Clean up the Proportion labels so they fit nicely on the facet strips
 plot_aggregated$Res_prop_clean = factor(plot_aggregated$Res_prop,
-                                        levels = c("Prop_0.00", "Prop_0.25", "Prop_0.50", "Prop_0.75", "Prop_1.00"),
-                                        labels = c("0% Resp", "25% Resp", "50% Resp", "75% Resp", "100% Resp"))
+                                        levels = c("Prop_0.10", "Prop_0.25", "Prop_0.50", "Prop_0.75", "Prop_0.90"),
+                                        labels = c("10% Resp", "25% Resp", "50% Resp", "75% Resp", "90% Resp"))
 
 # 5. Clean, Professional Line Plot
 sim2.0_plot = ggplot(data = plot_aggregated,
@@ -99,7 +97,7 @@ ggplot(data = ROC_data_prepared,
   geom_roc(n.cuts = 0, size = 1) +
   geom_abline(slope = 1, intercept = 0, linetype = 'dashed', colour = 'grey50') +
   
-  facet_grid(P ~ Effect, labeller = label_both) + 
+  facet_grid(Res_prop ~ Effect, labeller = label_both) + 
   
   # 🌟 high-contrast color palette 🌟
   scale_colour_manual(
@@ -123,7 +121,14 @@ ggplot(data = ROC_data_prepared,
     legend.position = 'bottom',
     legend.box      = 'vertical', 
     plot.title      = element_text(face = 'bold', hjust = 0.5),
-    strip.text      = element_text(size = 9, face = "bold")
+    
+    # 🌟 FIXES FOR THE RIGHT STRIP LABELS 🌟
+    strip.text.x    = element_text(size = 9, face = "bold"), # Keeps top labels clean
+    strip.text.y    = element_text(size = 9, face = "bold", angle = 0, hjust = 0), # Un-rotates the right labels
+    strip.background = element_rect(fill = "grey95"),
+    
+    # Adds a small cushion on the right margin of the entire plot canvas so nothing clips
+    plot.margin     = margin(t = 10, r = 20, b = 10, l = 10, unit = "pt") 
   )
 
 # 4. Calculate AUROC values dynamically
