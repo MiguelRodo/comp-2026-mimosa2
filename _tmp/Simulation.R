@@ -17,7 +17,7 @@ responders00  = c(rep(0.10 / 4, 4), rep(0.90 / 4, 4))
 responders25  = c(rep(0.25 / 4, 4), rep(0.75 / 4, 4))
 responders50  = c(rep(0.50 / 4, 4), rep(0.50 / 4, 4))
 responders75  = c(rep(0.75 / 4, 4), rep(0.25 / 4, 4))
-responders100 = c(rep(0.90 / 4, 4), rep(0.10 / 4, 4))
+responders90 = c(rep(0.90 / 4, 4), rep(0.10 / 4, 4))
 
 # Combine into a named list for tracking:
 component_list = list(
