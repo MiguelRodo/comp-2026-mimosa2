@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #SBATCH --nodes=1
-#SBATCH --ntasks=15
+#SBATCH --ntasks=20
 #SBATCH --job-name="sim"
 #SBATCH --partition=ada
 
