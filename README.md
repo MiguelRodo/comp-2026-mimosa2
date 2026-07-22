@@ -16,6 +16,15 @@ For more information, please contact:
 
 ## Details
 
+### Installing `R` packages
+
+```r
+if (!requireNamespace("pak", quietly = TRUE)) {
+  utils::install.packages("pak")
+}
+pak::local_install_dev_deps()
+```
+
 ### HPC
 
 #### Running `R` interactively
