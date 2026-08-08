@@ -38,7 +38,9 @@ sim2.0_plot = ggplot(data = plot_aggregated,
   scale_y_continuous(limits = c(0, 1), breaks = c(0, 0.5, 1)) +
   
   # Styling
-  theme_bw(base_size = 11) +
+  # theme_bw(base_size = 11) +
+  cowplot::theme_cowplot(font_size = 11) +
+  cowplot::background_grid(major = "xy") +
   scale_color_brewer(palette = "Set1") + 
   labs(
     title = "MIMOSA2 Sensitivity Analysis (Mean Across Replicates)",
