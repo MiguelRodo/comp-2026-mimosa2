@@ -144,3 +144,5 @@ AUROC <- ROC_data_prepared %>%
 print(head(AUROC))
 
 print(ROC_plot)
+
+View(AUROC[AUROC$Cell_range=='Wide_High',])
