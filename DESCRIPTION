@@ -1,0 +1,29 @@
+Package: comp2026mimosa2
+Title: Assess MIMOSA2
+Version: 0.0.0.9000
+Authors@R:
+    person("Miguel", "Rodo", email = "miguel.rodo@uct.ac.za",
+           role = c("aut", "cre"))
+Description: Infrastructure and analyses for assessing the performance of
+    MIMOSA2 using simulated and vaccine-trial data.
+License: GPL-3
+Encoding: UTF-8
+Depends:
+    R (>= 4.2.0)
+Imports:
+    DataTidy26VaccQFTDose,
+    dplyr,
+    future,
+    future.apply,
+    ggplot2,
+    knitr,
+    matrixStats,
+    MIMOSA2,
+    optimx,
+    plotROC,
+    reshape2,
+    tidyr,
+    tidyverse
+Remotes:
+    RGLab/MIMOSA2,
+    SATVILab/DataTidy26VaccQFTDose
