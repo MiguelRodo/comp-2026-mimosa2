@@ -617,7 +617,7 @@ DiD_GLM <- function(Ntot, ns1, nu1, ns0, nu0) {
   
   responder_probs <- rep(NA,P)
   for (i in 1:P) {
-    test_mod <- glm(cbind(Positives,Negatives)~Time_Point*Stimulation,family = "binomial",data = df[df$Individual==i,]) |> summary()
+    test_mod <- glm(cbind(Positives,Negatives)~Time_Point*Stimulation,family = binomial("identity"),data = df[df$Individual==i,]) |> summary()
     
     if (test_mod$coefficients["Time_PointActive:StimulationStimulated","Estimate"]>=0){
       responder_probs[i] <- (test_mod$coefficients["Time_PointActive:StimulationStimulated",c("Pr(>|z|)")]/2)
