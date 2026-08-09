@@ -36,8 +36,7 @@ simulate_MIMOSA2_alt_prior = function(effect = 5e-4,
     PHI = phi
   }
   
-n = round(P * pis)
-  n[8] = max(P - sum(n[1:7]), 0)
+n = floor(P * pis)
   
   # Shave off counts one by one from the largest components until the sum equals P
   while (sum(n) > P) {
