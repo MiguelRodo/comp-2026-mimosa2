@@ -31,10 +31,9 @@ component_list = list(
 # Cell count scenarios: 
 # Combine your rng cell counts into a named list for tracking:
 rng_list = list(
-  "Wide_High"  = c(10000, 150000),
-  "Medium_Low" = c(5000, 10000),
-  "Sparse"     = c(2000, 5000),
-  "V_Sparse"   = c(1000, 2000)
+  "High"  = c(10000, 10000),
+  "Medium" = c(5000, 5000),
+  "Sparse"     = c(2000, 2000)
 )
 
 # Build simulation grid:
@@ -45,7 +44,7 @@ stresstest_mat = expand.grid(
   Effect         = c(1e-3, 5e-4, 2.5e-4, 1.25e-4, 6.25e-5),
   Rng_Name       = names(rng_list),
   Phi            = c(2000),
-  Replication    = 1:10, 
+  Replication    = 1:30, 
   stringsAsFactors = FALSE
 )
 
