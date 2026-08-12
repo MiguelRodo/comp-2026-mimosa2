@@ -26,7 +26,7 @@ rgamma_exp = function(num_draws, target_mean, gamma_dispersion){
   return(outs)
 }
 
-rgamma_exp(100000,mu_0,68) %>% var()
+rgamma_exp(100000,mu_0,69) %>% var()
 
 match_logitnorm_phi <- function(mu, phi_beta = 5000) {
   # 1. Target Beta variance given precision phi_beta
@@ -79,7 +79,7 @@ rlogitnorm = function(num_draws, target_mean, component_phi) {
   return(draws)
 }
 
-rlogitnorm(100000,mu_0,1.45) %>% var()
+rlogitnorm(100000,mu_0,1.455) %>% var()
 
 match_simplex_phi <- function(mu, phi_beta = 5000) {
   # Target Beta variance
@@ -149,4 +149,20 @@ rsimplex = function(num_draws, target_mean, component_phi) {
   return(x / (1 + x))
 }
 
-rsimplex(100000,mu_0,5000) %>% var()
+rsimplex(1000000,mu_0,5000) %>% var()
+
+rbeta(100000,mu_0*5000,(1-mu_0)*5000) %>% var()
+
+rbeta(100000,mu_0*5000,(1-mu_0)*5000) %>% hist(breaks = 250)
+rgamma_exp(1000000,mu_0,69) %>% hist(breaks = 250)
+rlogitnorm(1000000,mu_0,1.455) %>% hist(breaks = 250)
+rsimplex(1000000,mu_0,5000) %>% hist(breaks = 250)
+
+ggplot()+geom_density(aes(x=rbeta(100000,mu_0*5000,(1-mu_0)*5000)))+
+  theme_classic()
+ggplot()+geom_density(aes(x=rgamma_exp(1000000,mu_0,69)))+
+  theme_classic()
+ggplot()+geom_density(aes(x=rlogitnorm(1000000,mu_0,1.455)))+
+  theme_classic()
+ggplot()+geom_density(aes(x=rsimplex(1000000,mu_0,5000)))+
+  theme_classic()
