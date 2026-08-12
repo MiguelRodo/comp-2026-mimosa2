@@ -601,7 +601,6 @@ n = floor(P * pis)
   return(list(Ntot=Ntot, ns0=ns0, ns1=ns1, nu0=nu0, nu1=nu1, truth=truth))
 }
 
-library(brglm2)
 
 DiD_GLM <- function(Ntot, ns1, nu1, ns0, nu0) {
   P <- nrow(Ntot)
