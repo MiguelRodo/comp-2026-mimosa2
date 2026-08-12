@@ -31,9 +31,9 @@ component_list = list(
 # Cell count scenarios: 
 # Combine your rng cell counts into a named list for tracking:
 rng_list = list(
-  "High"  = c(10000, 10000),
-  "Medium" = c(5000, 5000),
-  "Sparse"     = c(2000, 2000)
+  "High"  = c(250000, 250000),
+  "Medium" = c(100000, 100000),
+  "Sparse"     = c(15000, 15000)
 )
 
 # Build simulation grid:
@@ -87,6 +87,9 @@ run_single_simulation <- function(i) {
   
   # Call the DiD_GLM function sourced from Non_beta_simulations
   did_glm_prob = DiD_GLM(sim$Ntot, sim$ns1, sim$nu1, sim$ns0, sim$nu0)
+  
+  #Call the DiD function with shrinkage
+  did_glm_shrink_prob = DiD_ash_shrinkage(sim$Ntot, sim$ns1, sim$nu1, sim$ns0, sim$nu0)
   
   # Log-fold change (LFC) using matrix column names
   prop_s = sim$ns1 / sim$Ntot[, "ns1"]
@@ -179,6 +182,7 @@ run_single_simulation <- function(i) {
     Truth        = true_responder,
     MIMOSA2_prob = mimosa_prob,
     DiD_GLM_prob = did_glm_prob,
+    DiD_ASH_prob = did_glm_shrink_prob,
     Log2_FC      = log_fold_change,
     stringsAsFactors = FALSE
   )
