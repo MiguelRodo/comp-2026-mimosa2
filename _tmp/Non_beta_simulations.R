@@ -3,6 +3,7 @@ my_libs <- "/scratch/abrmoe030/R_libs"
 
 library(MIMOSA2)
 library(ggplot2)
+library(ashr)
 
 simulate_MIMOSA2_alt_prior = function(effect = 5e-4, 
                                       bg_effect = 0,
@@ -679,4 +680,42 @@ DiD_GLM <- function(Ntot, ns1, nu1, ns0, nu0) {
   }
   
   return(1 - responder_probs)
+}
+
+DiD_ash_shrinkage <- function(Ntot, ns1, nu1, ns0, nu0) {
+  
+  Ntot_mat <- as.matrix(Ntot)
+  N_AS <- as.numeric(Ntot_mat[, "ns1"]); N_AU <- as.numeric(Ntot_mat[, "nu1"])
+  N_BS <- as.numeric(Ntot_mat[, "ns0"]); N_BU <- as.numeric(Ntot_mat[, "nu0"])
+  
+  ns1 <- as.numeric(ns1); nu1 <- as.numeric(nu1)
+  ns0 <- as.numeric(ns0); nu0 <- as.numeric(nu0)
+  
+  # Raw proportions
+  p_AS <- ns1 / N_AS
+  p_AU <- nu1 / N_AU
+  p_BS <- ns0 / N_BS
+  p_BU <- nu0 / N_BU
+  
+  DiD <- (p_AS - p_AU) - (p_BS - p_BU)
+  
+  # Jeffreys variance estimation (same as your original)
+  v_AS <- (ns1 + 0.5) / (N_AS + 1)
+  v_AU <- (nu1 + 0.5) / (N_AU + 1)
+  v_BS <- (ns0 + 0.5) / (N_BS + 1)
+  v_BU <- (nu0 + 0.5) / (N_BU + 1)
+  
+  var_DiD <- v_AS * (1 - v_AS) / N_AS +
+    v_AU * (1 - v_AU) / N_AU +
+    v_BS * (1 - v_BS) / N_BS +
+    v_BU * (1 - v_BU) / N_BU
+  
+  SE <- sqrt(var_DiD)
+  
+  # Adaptive shrinkage: flexible unimodal mixture, one-sided
+  # (responders assumed to have DiD >= 0, no "negative responder" concept)
+  fit <- ashr::ash(betahat = DiD, sebetahat = SE, mixcompdist = "halfuniform")
+  
+  # Posterior probability that the true effect is positive
+  return(fit$result$PositiveProb)
 }

@@ -85,14 +85,15 @@ library(plotROC)
 ROC_data_prepared <- results_continuous %>%
   filter(!is.na(MIMOSA2_prob), !is.na(DiD_GLM_prob)) %>%
   pivot_longer(
-    cols      = c(MIMOSA2_prob, DiD_GLM_prob),
+    cols      = c(MIMOSA2_prob, DiD_GLM_prob, DiD_ASH_prob),
     names_to  = "Method",
     values_to = "Score"
   ) %>%
   mutate(
     Method = case_when(
       Method == "MIMOSA2_prob" ~ "MIMOSA2",
-      Method == "DiD_GLM_prob"  ~ "DiD Baseline"
+      Method == "DiD_GLM_prob"  ~ "DiD Baseline",
+      Method == "DiD_ASH_prob" ~ "DiD Shrinkage"
     ),
     # Create clean factor labels for plotting
     Sample_Size = paste0("N: ", P),
