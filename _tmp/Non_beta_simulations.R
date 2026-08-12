@@ -608,13 +608,13 @@ DiD_GLM <- function(Ntot, ns1, nu1, ns0, nu0) {
   ind_ids <- 1:P
   
   df <- data.frame(
-    Individual = rep(ind_ids, times = 4),
-    Time_Point = rep(c("Active", "Active", "Baseline", "Baseline"), each = P),
+    Individual  = rep(ind_ids, times = 4),
+    Time_Point  = rep(c("Active", "Active", "Baseline", "Baseline"), each = P),
     Stimulation = rep(c("Stimulated", "Unstimulated", "Stimulated", "Unstimulated"), each = P),
-    Positives = c(ns1, nu1, ns0, nu0),
-    Total = c(Ntot[, 2], Ntot[, 1], Ntot[, 4], Ntot[, 3])
+    Positives   = c(ns1, nu1, ns0, nu0),
+    Total       = c(Ntot[, "ns1"], Ntot[, "nu1"], Ntot[, "ns0"], Ntot[, "nu0"])
   )
-  df$Negatives <- df$Total - df$Positives
+  df$Negatives   <- df$Total - df$Positives
   df$Time_Point  <- factor(df$Time_Point, levels = c("Baseline", "Active"))
   df$Stimulation <- factor(df$Stimulation, levels = c("Unstimulated", "Stimulated"))
   
@@ -623,18 +623,40 @@ DiD_GLM <- function(Ntot, ns1, nu1, ns0, nu0) {
   for (i in 1:P) {
     df_ind <- df[df$Individual == i, ]
     
-    # Safely fit brglm2 model
-    fit <- tryCatch({
-      glm(
-        cbind(Positives, Negatives) ~ Time_Point * Stimulation,
-        family = binomial(link = "identity"),
-        data   = df_ind,
-        method = "brglmFit",
-        type   = "AS_mean" # Adjusted score equations for bias reduction
-      )
-    }, error = function(e) NULL)
+    # Compute starting values from observed cell proportions
+    p_AS <- df_ind$Positives[1] / df_ind$Total[1]
+    p_AU <- df_ind$Positives[2] / df_ind$Total[2]
+    p_BS <- df_ind$Positives[3] / df_ind$Total[3]
+    p_BU <- df_ind$Positives[4] / df_ind$Total[4]
     
-    # If fit fails or coefficients are NA, fallback to non-responder default
+    # Nudge exact 0s and 1s inside (0, 1)
+    eps <- 1e-5
+    p_AS <- pmax(pmin(p_AS, 1 - eps), eps)
+    p_AU <- pmax(pmin(p_AU, 1 - eps), eps)
+    p_BS <- pmax(pmin(p_BS, 1 - eps), eps)
+    p_BU <- pmax(pmin(p_BU, 1 - eps), eps)
+    
+    start_vals <- c(
+      "(Intercept)"                             = p_BU,
+      "Time_PointActive"                        = p_AU - p_BU,
+      "StimulationStimulated"                   = p_BS - p_BU,
+      "Time_PointActive:StimulationStimulated" = (p_AS - p_AU) - (p_BS - p_BU)
+    )
+    
+    # Suppress temporary step-halving boundary warnings inside the loop
+    fit <- suppressWarnings(
+      tryCatch({
+        glm(
+          cbind(Positives, Negatives) ~ Time_Point * Stimulation,
+          family  = binomial(link = "identity"),
+          data    = df_ind,
+          start   = start_vals,
+          control = glm.control(maxit = 200, epsilon = 1e-8)
+        )
+      }, error = function(e) NULL)
+    )
+    
+    # Check convergence
     if (is.null(fit) || !fit$converged) {
       responder_probs[i] <- 0.95
       next
@@ -657,6 +679,5 @@ DiD_GLM <- function(Ntot, ns1, nu1, ns0, nu0) {
     }
   }
   
-  responder_probs <- 1 - responder_probs
-  return(responder_probs)
+  return(1 - responder_probs)
 }
