@@ -601,9 +601,12 @@ n = floor(P * pis)
   return(list(Ntot=Ntot, ns0=ns0, ns1=ns1, nu0=nu0, nu1=nu1, truth=truth))
 }
 
+library(brglm2)
+
 DiD_GLM <- function(Ntot, ns1, nu1, ns0, nu0) {
   P <- nrow(Ntot)
   ind_ids <- 1:P
+  
   df <- data.frame(
     Individual = rep(ind_ids, times = 4),
     Time_Point = rep(c("Active", "Active", "Baseline", "Baseline"), each = P),
@@ -615,17 +618,45 @@ DiD_GLM <- function(Ntot, ns1, nu1, ns0, nu0) {
   df$Time_Point  <- factor(df$Time_Point, levels = c("Baseline", "Active"))
   df$Stimulation <- factor(df$Stimulation, levels = c("Unstimulated", "Stimulated"))
   
-  responder_probs <- rep(NA,P)
+  responder_probs <- numeric(P)
+  
   for (i in 1:P) {
-    test_mod <- glm(cbind(Positives,Negatives)~Time_Point*Stimulation,family = "binomial",data = df[df$Individual==i,]) |> summary()
+    df_ind <- df[df$Individual == i, ]
     
-    if (test_mod$coefficients["Time_PointActive:StimulationStimulated","Estimate"]>=0){
-      responder_probs[i] <- (test_mod$coefficients["Time_PointActive:StimulationStimulated",c("Pr(>|z|)")]/2)
-    } else{
+    # Safely fit brglm2 model
+    fit <- tryCatch({
+      glm(
+        cbind(Positives, Negatives) ~ Time_Point * Stimulation,
+        family = binomial(link = "identity"),
+        data   = df_ind,
+        method = "brglmFit",
+        type   = "AS_mean" # Adjusted score equations for bias reduction
+      )
+    }, error = function(e) NULL)
+    
+    # If fit fails or coefficients are NA, fallback to non-responder default
+    if (is.null(fit) || !fit$converged) {
+      responder_probs[i] <- 0.95
+      next
+    }
+    
+    coef_matrix <- summary(fit)$coefficients
+    param_name  <- "Time_PointActive:StimulationStimulated"
+    
+    if (param_name %in% rownames(coef_matrix)) {
+      est  <- coef_matrix[param_name, "Estimate"]
+      pval <- coef_matrix[param_name, "Pr(>|z|)"]
+      
+      if (!is.na(est) && est >= 0) {
+        responder_probs[i] <- pval / 2
+      } else {
+        responder_probs[i] <- 0.95
+      }
+    } else {
       responder_probs[i] <- 0.95
     }
   }
   
-  responder_probs <- 1-responder_probs
+  responder_probs <- 1 - responder_probs
   return(responder_probs)
 }
