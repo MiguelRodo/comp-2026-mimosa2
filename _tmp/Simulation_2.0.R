@@ -2,7 +2,8 @@ library(ggplot2)
 library(cowplot)
 library(Hmisc) # Required for mean_cl_boot
 
-setwd("~/GitHub/comp-2026-mimosa2/")
+setwd("GitHub/comp-2026-mimosa2")
+setwd("C:/Github/comp-2026-mimosa2") # for Bella 
 load('_simulations/Simulation_2.0.Rdata')
 
 # 1. Filter for successful runs (DO NOT aggregate yet)
@@ -159,4 +160,4 @@ print(head(AUROC))
 
 print(ROC_plot)
 
-View(AUROC[AUROC$Cell_range=='Wide_High',])
+View(AUROC[AUROC$Cell_range=='High',])
