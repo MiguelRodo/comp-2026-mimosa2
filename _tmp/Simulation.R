@@ -89,8 +89,7 @@ run_single_simulation <- function(i) {
   did_glm_prob = DiD_GLM(sim$Ntot, sim$ns1, sim$nu1, sim$ns0, sim$nu0)
   
   #Call the DiD function with shrinkage
-  did_glm_shrink_prob = DiD_ash_shrinkage(sim$Ntot, sim$ns1, sim$nu1, sim$ns0, sim$nu0)
-  
+
   # Log-fold change (LFC) using matrix column names
   prop_s = sim$ns1 / sim$Ntot[, "ns1"]
   prop_u = sim$nu1 / sim$Ntot[, "nu1"]
