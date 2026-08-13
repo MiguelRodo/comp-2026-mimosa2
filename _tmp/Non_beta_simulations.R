@@ -682,7 +682,109 @@ DiD_GLM <- function(Ntot, ns1, nu1, ns0, nu0) {
   return(1 - responder_probs)
 }
 
-DiD_ash_shrinkage <- function(Ntot, ns1, nu1, ns0, nu0) {
+# ==============================================================================
+# Helper: Numerically Stable Log-Sum-Exp for Vectorized Inputs
+# ==============================================================================
+log_sum_exp_2 <- function(a, b) {
+  max_val <- pmax(a, b)
+  max_val + log(exp(a - max_val) + exp(b - max_val))
+}
+
+# ==============================================================================
+# Helper: Empirical Bayes Variance Shrinkage
+# Shrinks noisy individual sample variances toward a global inverse-Gamma prior.
+# Prevents low-count/zero-event gates from creating zero or infinite variances.
+# ==============================================================================
+shrink_variances_eb <- function(var_D, df_raw = 4, floor_val = 1e-8) {
+  # Floor raw variances to prevent zeroes
+  var_safe <- pmax(var_D, floor_val)
+  
+  # Log-transform variances for robust moment estimation
+  log_v <- log(var_safe)
+  mean_log_v <- mean(log_v, na.rm = TRUE)
+  var_log_v  <- var(log_v, na.rm = TRUE)
+  
+  # Method of moments estimation for inverse-Gamma prior parameters (d0, s02)
+  # Trigonometric psi-function variance approximation: trigamma(d0 / 2) ~ var_log_v
+  d0 <- max(1, 2 / max(0.01, var_log_v - trigamma(df_raw / 2)))
+  s02 <- exp(mean_log_v)
+  
+  # Moderated variance: Weighted average of raw variance and prior target
+  var_shrunk <- (d0 * s02 + df_raw * var_safe) / (d0 + df_raw)
+  return(pmax(var_shrunk, floor_val))
+}
+
+# ==============================================================================
+# Main Model: Upgraded EM Mixture Model with Variance Shrinkage & Log-Likelihood
+# ==============================================================================
+fit_shrunk_mixture_EM <- function(D, var_D, max_iter = 200, tol = 1e-6, prior = 0.1, use_eb = TRUE) {
+  N <- length(D)
+  
+  # 1. Apply Empirical Bayes shrinkage if requested
+  var_clean <- if (use_eb) shrink_variances_eb(var_D) else pmax(var_D, 1e-8)
+  sd_D <- sqrt(var_clean)
+  
+  # 2. Smart Initialization
+  p <- pmin(pmax(prior, 0.01), 0.99)
+  pos_diffs <- D[D > 0]
+  mu <- if (length(pos_diffs) > 0) max(1e-4, quantile(pos_diffs, 0.75, na.rm = TRUE)) else 1e-3
+  
+  log_lik_history <- numeric(max_iter)
+  
+  for (iter in 1:max_iter) {
+    p_old  <- p
+    mu_old <- mu
+    
+    # --- E-Step (In Log-Space) ---
+    log_f0 <- dnorm(D, mean = 0,  sd = sd_D, log = TRUE)
+    log_f1 <- dnorm(D, mean = mu, sd = sd_D, log = TRUE)
+    
+    log_num0 <- log(1 - p) + log_f0
+    log_num1 <- log(p)     + log_f1
+    
+    # Marginal log-likelihood per observation
+    log_marginal <- log_sum_exp_2(log_num0, log_num1)
+    
+    # Track total log-likelihood across cohort
+    log_lik_history[iter] <- sum(log_marginal)
+    
+    # Posterior responsibilities
+    log_gamma <- log_num1 - log_marginal
+    gamma     <- exp(log_gamma)
+    gamma[is.na(gamma)] <- 0
+    
+    # --- M-Step ---
+    # Update responder proportion
+    p <- mean(gamma)
+    p <- pmin(pmax(p, 1e-12), 1 - 1e-12) # Clamp away from 0/1 boundary
+    
+    # Update responder mean (Weighted Least Squares with shrunk precision weights)
+    weights <- gamma / var_clean
+    sum_w   <- sum(weights)
+    mu      <- if (sum_w > 0) max(1e-6, sum(weights * D) / sum_w) else 1e-6
+    
+    # --- Convergence Check ---
+    param_diff <- max(abs(p - p_old), abs(mu - mu_old))
+    if (param_diff < tol) {
+      log_lik_history <- log_lik_history[1:iter]
+      break
+    }
+  }
+  
+  return(list(
+    p               = p,
+    mu              = mu,
+    prob_responder  = gamma,
+    var_shrunk      = var_clean,
+    iterations      = iter,
+    log_lik_history = log_lik_history
+  ))
+}
+
+# ==============================================================================
+# DiD Wrapper Function for Simulation Pipelines
+# ==============================================================================
+DiD_mixture_shrunk <- function(Ntot, ns1, nu1, ns0, nu0, use_eb = TRUE) {
   
   Ntot_mat <- as.matrix(Ntot)
   N_AS <- as.numeric(Ntot_mat[, "ns1"]); N_AU <- as.numeric(Ntot_mat[, "nu1"])
@@ -699,7 +801,7 @@ DiD_ash_shrinkage <- function(Ntot, ns1, nu1, ns0, nu0) {
   
   DiD <- (p_AS - p_AU) - (p_BS - p_BU)
   
-  # Jeffreys variance estimation (same as your original)
+  # Jeffreys variance estimation for counts
   v_AS <- (ns1 + 0.5) / (N_AS + 1)
   v_AU <- (nu1 + 0.5) / (N_AU + 1)
   v_BS <- (ns0 + 0.5) / (N_BS + 1)
@@ -710,12 +812,6 @@ DiD_ash_shrinkage <- function(Ntot, ns1, nu1, ns0, nu0) {
     v_BS * (1 - v_BS) / N_BS +
     v_BU * (1 - v_BU) / N_BU
   
-  SE <- sqrt(var_DiD)
-  
-  # Adaptive shrinkage: flexible unimodal mixture, one-sided
-  # (responders assumed to have DiD >= 0, no "negative responder" concept)
-  fit <- ashr::ash(betahat = DiD, sebetahat = SE, mixcompdist = "halfuniform")
-  
-  # Posterior probability that the true effect is positive
-  return(fit$result$PositiveProb)
+  fit_shrunk_mixture_EM(DiD, var_DiD, use_eb = use_eb)
 }
+

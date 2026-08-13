@@ -86,15 +86,14 @@ library(plotROC)
 ROC_data_prepared <- results_continuous %>%
   filter(!is.na(MIMOSA2_prob), !is.na(DiD_GLM_prob)) %>%
   pivot_longer(
-    cols      = c(MIMOSA2_prob, DiD_GLM_prob, DiD_ASH_prob),
+    cols      = c(MIMOSA2_prob, DiD_GLM_prob),
     names_to  = "Method",
     values_to = "Score"
   ) %>%
   mutate(
     Method = case_when(
       Method == "MIMOSA2_prob" ~ "MIMOSA2",
-      Method == "DiD_GLM_prob"  ~ "DiD Baseline",
-      Method == "DiD_ASH_prob" ~ "DiD Shrinkage"
+      Method == "DiD_GLM_prob"  ~ "DiD Baseline"
     ),
     # Create clean factor labels for plotting
     Sample_Size = paste0("N: ", P),
@@ -104,23 +103,69 @@ ROC_data_prepared <- results_continuous %>%
 # 3. Generate the ROC Plot grid 
 # (You can swap the facet variables depending on which slice you want to look at)
 
+did_cutoff_points <- results_continuous %>%
+  filter(!is.na(DiD_GLM_prob), !is.na(Truth)) %>%
+  group_by(Res_prop, Effect, Cell_range) %>%
+  summarise(
+    # Rejection decision at p <= 0.01
+    pred_positive = DiD_GLM_prob >= 0.99,
+    
+    # Calculate rates
+    FPR = mean(pred_positive[Truth == 0], na.rm = TRUE),
+    TPR = mean(pred_positive[Truth == 1], na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    Method = "DiD Baseline" # Matches your linetype label
+  )
+
 ggplot(data = ROC_data_prepared,
        mapping = aes(d = Truth,
                      m = Score,
-                     colour = Cell_range,               # 🎨 Color represents Cell Count range
-                     linetype = Method,                 # ── Linetype represents the Model type
+                     colour = Cell_range,
+                     linetype = Method,
                      group = interaction(Method, Cell_range))) + 
-  geom_roc(n.cuts = 0, size = 1) +
-  geom_abline(slope = 1, intercept = 0, linetype = 'dashed', colour = 'grey50') +
   
-  facet_grid(Res_prop ~ Effect, labeller = label_both) + 
+  geom_roc(n.cuts = 0, size = 0.9) +
   
-  # 🌟 high-contrast color palette 🌟
+  # Reference line
+  geom_abline(slope = 1, intercept = 0, linetype = 'dotted', colour = 'grey40', linewidth = 0.6) +
+  
+  # --- ADD THIS LAYER FOR THE THRESHOLD POINTS ---
+  geom_point(
+    data = did_cutoff_points,
+    aes(x = FPR, y = TPR, fill = Cell_range),
+    inherit.aes = FALSE, # Prevent inheritance of 'd' and 'm' from geom_roc
+    shape = 21,
+    color = "black",
+    size = 2.5,
+    stroke = 0.8,
+    show.legend = FALSE
+  ) +
+  # -----------------------------------------------
+
+facet_grid(Res_prop ~ Effect, labeller = label_both) + 
+  
   scale_colour_manual(
     values = c(
-      "Sparse" = "magenta",  # Light Ice Blue
-      "Medium"     = "violet",  # Vibrant Orange
-      "High"   = "purple"   # High-visibility Crimson Red
+      "Sparse" = "magenta",
+      "Medium" = "violet",
+      "High"   = "purple"
+    )
+  ) +
+  
+  scale_fill_manual(
+    values = c(
+      "Sparse" = "magenta",
+      "Medium" = "violet",
+      "High"   = "purple"
+    )
+  ) +
+  
+  scale_linetype_manual(
+    values = c(
+      "MIMOSA2"      = "solid",
+      "DiD Baseline" = "dashed"
     )
   ) +
   
@@ -133,17 +178,13 @@ ggplot(data = ROC_data_prepared,
     linetype = 'Model Framework'
   ) +
   theme(
-    legend.position = 'bottom',
-    legend.box      = 'vertical', 
-    plot.title      = element_text(face = 'bold', hjust = 0.5),
-    
-    # 🌟 FIXES FOR THE RIGHT STRIP LABELS 🌟
-    strip.text.x    = element_text(size = 9, face = "bold"), # Keeps top labels clean
-    strip.text.y    = element_text(size = 9, face = "bold", angle = 0, hjust = 0), # Un-rotates the right labels
+    legend.position  = 'bottom',
+    legend.box       = 'vertical', 
+    plot.title       = element_text(face = 'bold', hjust = 0.5),
+    strip.text.x     = element_text(size = 9, face = "bold"),
+    strip.text.y     = element_text(size = 9, face = "bold", angle = 0, hjust = 0),
     strip.background = element_rect(fill = "grey95"),
-    
-    # Adds a small cushion on the right margin of the entire plot canvas so nothing clips
-    plot.margin     = margin(t = 10, r = 20, b = 10, l = 10, unit = "pt") 
+    plot.margin      = margin(t = 10, r = 20, b = 10, l = 10, unit = "pt")
   )
 
 # 4. Calculate AUROC values dynamically
@@ -155,6 +196,8 @@ AUROC <- ROC_data_prepared %>%
   )) %>%
   ungroup() %>%
   rename(AUROC = AUC)
+
+write.table(AUROC,"auc.text")
 
 print(head(AUROC))
 
