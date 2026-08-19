@@ -1,4 +1,4 @@
-match_gamma_dispersion <- function(mu, phi_beta = 5000) {
+match_gamma_dispersion <- function(mu, phi_beta = 10000) {
   target_var <- (mu * (1 - mu)) / (1 + phi_beta)
   
   variance_diff <- function(k) {
@@ -16,8 +16,9 @@ match_gamma_dispersion <- function(mu, phi_beta = 5000) {
 
 # Example for baseline background mean:
 mu_0 <- 1e-4
-equivalent_k <- match_gamma_dispersion(mu_0, phi_beta = 5000)
+equivalent_k <- match_gamma_dispersion(mu_0, phi_beta = 10000)
 print(equivalent_k)
+# 113.2494
 
 
 rgamma_exp = function(num_draws, target_mean, gamma_dispersion){
@@ -26,7 +27,7 @@ rgamma_exp = function(num_draws, target_mean, gamma_dispersion){
   return(outs)
 }
 
-rgamma_exp(100000,mu_0,69) %>% var()
+rgamma_exp(100000,mu_0,113) %>% var()
 
 match_logitnorm_phi <- function(mu, phi_beta = 5000) {
   # 1. Target Beta variance given precision phi_beta
@@ -69,7 +70,10 @@ match_logitnorm_phi <- function(mu, phi_beta = 5000) {
   ))
 }
 
-match_logitnorm_phi(mu_0,5000)
+match_logitnorm_phi(mu_0,10000)
+
+# $equivalent_phi
+# [1] 2.05
 
 rlogitnorm = function(num_draws, target_mean, component_phi) {
   if (num_draws <= 0) return(numeric(0))
@@ -79,7 +83,7 @@ rlogitnorm = function(num_draws, target_mean, component_phi) {
   return(draws)
 }
 
-rlogitnorm(100000,mu_0,1.455) %>% var()
+rlogitnorm(100000,mu_0,2.05) %>% var()
 
 match_simplex_phi <- function(mu, phi_beta = 5000) {
   # Target Beta variance
@@ -132,7 +136,7 @@ match_simplex_phi <- function(mu, phi_beta = 5000) {
   return(res$root)
 }
 
-match_simplex_phi(mu_0,5000)
+match_simplex_phi(mu_0,10000)
 
 rsimplex = function(num_draws, target_mean, component_phi) {
   if (num_draws <= 0) return(numeric(0))
@@ -149,7 +153,7 @@ rsimplex = function(num_draws, target_mean, component_phi) {
   return(x / (1 + x))
 }
 
-rsimplex(1000000,mu_0,5000) %>% var()
+rsimplex(1000000,mu_0,10000) %>% var()
 
 rbeta(100000,mu_0*5000,(1-mu_0)*5000) %>% var()
 
