@@ -184,7 +184,6 @@ run_single_simulation <- function(i) {
     Truth        = true_responder,
     MIMOSA2_prob = mimosa_prob,
     DiD_GLM_prob = did_glm_prob,
-    DiD_ASH_prob = did_glm_shrink_prob,
     Log2_FC      = log_fold_change,
     stringsAsFactors = FALSE
   )
