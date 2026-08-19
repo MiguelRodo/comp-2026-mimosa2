@@ -465,6 +465,192 @@ kable(AUROC_matrix,
 # |6.2e-05     |Medium     |0.845   |0.869        |
 # |6.2e-05     |Low        |0.749   |0.775        |
 
+# Table: AUROC values 
+AUROC_matrix_2 <- AUROC |>
+  mutate(
+    Cell_range = factor(Cell_range, levels = c("High", "Medium", "Low")),
+    Effect_clean = formatC(Effect, format = "e", digits = 1),
+    Method = factor(Method, levels = c("MIMOSA2", "DiD Baseline")) # Ensures MIMOSA2 is first
+  ) |>
+  group_by(Effect_clean, Cell_range, Method) |>
+  summarise(
+    Mean_AUROC = sprintf("%.3f", mean(AUROC, na.rm = TRUE)), 
+    .groups = "drop"
+  ) |>
+  arrange(Effect_clean, Cell_range, Method) |>
+  # Combine MIMOSA2 and DiD Baseline into "val1, val2"
+  group_by(Effect_clean, Cell_range) |>
+  summarise(
+    Combined_AUROC = paste(Mean_AUROC, collapse = ", "),
+    .groups = "drop"
+  ) |>
+  # Pivot Cell_range to columns
+  pivot_wider(
+    names_from = Cell_range,
+    values_from = Combined_AUROC
+  ) |>
+  arrange(Effect_clean)
+
+# Save as file: 
+write.table(
+  AUROC_matrix_2, 
+  "auc_summary_matrix_2.txt", 
+  sep = "\t", 
+  row.names = FALSE, 
+  quote = FALSE
+)
+
+# Render Table: 
+kable(
+  AUROC_matrix_2, 
+  caption = 'AUROC values (MIMOSA2, DiD Baseline)',
+  col.names = c("Effect Size", "High", "Medium", "Low")
+)
+
+# Table: AUROC values (MIMOSA2, DiD Baseline)
+# 
+# |Effect Size |High         |Medium       |Low          |
+# |:-----------|:------------|:------------|:------------|
+# |1.0e-03     |0.954, 0.916 |0.943, 0.903 |0.903, 0.854 |
+# |1.2e-04     |0.909, 0.876 |0.881, 0.849 |0.783, 0.759 |
+# |2.5e-04     |0.930, 0.892 |0.903, 0.869 |0.820, 0.783 |
+# |5.0e-04     |0.944, 0.903 |0.929, 0.887 |0.854, 0.811 |
+# |6.2e-05     |0.900, 0.872 |0.869, 0.845 |0.775, 0.749 |
+
+# Simulation count table:
+Sim_count_matrix <- ROC_data_prepared |>
+  mutate(
+    Cell_range = factor(Cell_range, levels = c("High", "Medium", "Low")),
+    Effect_clean = formatC(Effect, format = "e", digits = 1),
+    Method = factor(Method, levels = c("MIMOSA2", "DiD Baseline")) # Ensures MIMOSA2 is first
+  ) |>
+  group_by(Effect_clean, Cell_range, Method) |>
+  summarise(
+    N_sims = n(), 
+    .groups = "drop"
+  ) |>
+  arrange(Effect_clean, Cell_range, Method) |>
+  # Combine MIMOSA2 and DiD Baseline simulation counts
+  group_by(Effect_clean, Cell_range) |>
+  summarise(
+    Combined_Count = paste(N_sims, collapse = ", "),
+    .groups = "drop"
+  ) |>
+  # Pivot Cell_range to columns
+  pivot_wider(
+    names_from = Cell_range,
+    values_from = Combined_Count
+  ) |>
+  arrange(Effect_clean)
+
+# Save as file:
+write.table(
+  Sim_count_matrix, 
+  "simulation_counts_matrix.txt", 
+  sep = "\t", 
+  row.names = FALSE, 
+  quote = FALSE
+)
+
+# Render Table:
+kable(
+  Sim_count_matrix, 
+  caption = 'Simulation Counts (MIMOSA2, DiD Baseline)',
+  col.names = c("Effect Size", "High", "Medium", "Low")
+)
+
+# Table: Simulation Counts (MIMOSA2, DiD Baseline)
+# 
+# |Effect Size |High         |Medium       |Low          |
+# |:-----------|:------------|:------------|:------------|
+# |1.0e-03     |42750, 42750 |42750, 42750 |42750, 42750 |
+# |1.2e-04     |42750, 42750 |42750, 42750 |42750, 42750 |
+# |2.5e-04     |42750, 42750 |42750, 42750 |42740, 42740 |
+# |5.0e-04     |42750, 42750 |42750, 42750 |42750, 42750 |
+# |6.2e-05     |42750, 42750 |42750, 42750 |42750, 42750 |
+
+# Individual confidence intervals: 
+get_auc_diff_matrix <- function(auc_matrix, sim_matrix, r = 0.5, prop_pos = 0.5, digits = 3) {
+  
+  # Helper to compute Hanley & McNeil SE for a single AUC and sample size N
+  calc_se <- function(auc, n) {
+    n1 <- round(n * prop_pos)
+    n0 <- n - n1
+    q1 <- auc / (2 - auc)
+    q2 <- (2 * (auc^2)) / (1 + auc)
+    var_auc <- (auc * (1 - auc) + (n1 - 1) * (q1 - auc^2) + (n0 - 1) * (q2 - auc^2)) / (n1 * n0)
+    return(sqrt(var_auc))
+  }
+  
+  # Helper to process a single cell string pair
+  process_cell <- function(auc_str, sim_str) {
+    if (is.na(auc_str) || is.na(sim_str)) return(NA_character_)
+    
+    # Parse numbers from comma-separated strings
+    aucs <- as.numeric(trimws(unlist(strsplit(as.character(auc_str), ","))))
+    sims <- as.numeric(trimws(unlist(strsplit(as.character(sim_str), ","))))
+    
+    auc1 <- aucs[1] # MIMOSA2
+    auc2 <- aucs[2] # DiD Baseline
+    n1   <- sims[1]
+    n2   <- sims[2]
+    
+    # Compute SEs
+    se1 <- calc_se(auc1, n1)
+    se2 <- calc_se(auc2, n2)
+    
+    # Paired standard error of difference
+    se_diff <- sqrt(se1^2 + se2^2 - 2 * r * se1 * se2)
+    diff <- auc1 - auc2
+    
+    ci_lower <- diff - 1.96 * se_diff
+    ci_upper <- diff + 1.96 * se_diff
+    
+    # Format output as "Diff [Lower, Upper]"
+    fmt <- paste0("%.", digits, "f")
+    return(sprintf(paste0(fmt, " [", fmt, ", ", fmt, "]"), diff, ci_lower, ci_upper))
+  }
+  
+  # Initialize output structure
+  diff_matrix <- auc_matrix
+  value_cols <- setdiff(colnames(auc_matrix), colnames(auc_matrix)[1])
+  
+  # Loop over numeric columns
+  for (col in value_cols) {
+    diff_matrix[[col]] <- mapply(
+      process_cell, 
+      auc_matrix[[col]], 
+      sim_matrix[[col]]
+    )
+  }
+  
+  return(diff_matrix)
+}
+
+# Generate the matrix:
+AUC_Diff_matrix <- get_auc_diff_matrix(
+  auc_matrix = AUROC_matrix_2, 
+  sim_matrix = Sim_count_matrix, 
+  r = 0.5
+)
+
+# Render formatted table:
+kable(
+  AUC_Diff_matrix, 
+  caption = 'Δ AUROC (MIMOSA2 - DiD Baseline) with 95% Confidence Intervals',
+  col.names = c("Effect Size", "High", "Medium", "Low")
+)
+
+# Table: Δ AUROC (MIMOSA2 - DiD Baseline) with 95% Confidence Intervals
+# 
+# |Effect Size |High                 |Medium               |Low                  |
+# |:-----------|:--------------------|:--------------------|:--------------------|
+# |1.0e-03     |0.038 [0.036, 0.040] |0.040 [0.037, 0.043] |0.049 [0.046, 0.052] |
+# |1.2e-04     |0.033 [0.030, 0.036] |0.032 [0.028, 0.036] |0.024 [0.020, 0.028] |
+# |2.5e-04     |0.038 [0.035, 0.041] |0.034 [0.031, 0.037] |0.037 [0.033, 0.041] |
+# |5.0e-04     |0.041 [0.038, 0.044] |0.042 [0.039, 0.045] |0.043 [0.039, 0.047] |
+# |6.2e-05     |0.028 [0.025, 0.031] |0.024 [0.020, 0.028] |0.026 [0.021, 0.031] |
+  
 # -----------------------------------------------------------------------------
 # Overlay AUC values to clean plot:
 # -----------------------------------------------------------------------------
