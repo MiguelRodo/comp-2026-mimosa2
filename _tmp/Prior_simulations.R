@@ -60,7 +60,7 @@ run_single_simulation <- function(i) {
   p        = stresstest_mat$P[i]
   eff      = stresstest_mat$Effect[i]
   rng_nm   = stresstest_mat$Rng_Name[i]
-  phi      = stresstest_mat$Distribution_Phi[[i]][2] 
+  phi      = as.numeric(stresstest_mat$Distribution_Phi[[i]][2])
   rep_id   = stresstest_mat$Replication[i]
   
   active_components = component_list[[comp_nm]]
