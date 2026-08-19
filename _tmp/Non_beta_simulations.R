@@ -9,9 +9,10 @@ simulate_MIMOSA2_alt_prior = function(effect = 5e-4,
                                       bg_effect = 0,
                                       baseline_stim_effect=2.5e-4,
                                       baseline_background=1e-4,
-                                      phi = 5000,
+                                      phi = 10000,
                                       P = 100,
-                                      rng = c(100000,150000), prior="beta",
+                                      rng = c(100000,150000), 
+                                      prior="beta",
                                       components=rep(1/8,8)) {
   if (effect < 0) stop("'effect' must be nonnegative.")
   if (baseline_stim_effect < 0) stop("'baseline_stim_effect' must be nonnegative.")
@@ -71,10 +72,60 @@ n = floor(P * pis)
   is_unit_lognormal = prior %in% c("Unit_lognormal", "Unit lognormal", "unit_lognormal", 
                                    "unit lognormal", "Uln", "ULN", "uln")
   is_simplex = prior %in% c("Simplex", "simplex", "S", "s", "Sx", "SX", "sx")
+  is_bernoulli_beta = prior %in% c("Bernoulli_beta", "bernoulli_beta", "Bernoulli beta",
+                                   "bernoulli beta", "Bb", "BB", "bb")
   
   # ==========================================
   # Samplers Suite
   # ==========================================
+  rbernoulli_beta_mixture = function(num_draws, target_mean, component_phi, p_bernoulli = 0.25) {
+    if (num_draws <= 0) return(numeric(0))
+    
+    # 1. Target Marginal Variance of Beta(target_mean, component_phi)
+    var_marginal = (target_mean * (1 - target_mean)) / (component_phi + 1)
+    
+    # 2. Target Conditional Variance (0.125 * marginal variance)
+    var_cond = 0.125 * var_marginal
+    
+    # 3. Between-component variance needed: Var_between = Var_marginal - Var_cond
+    var_between = var_marginal - var_cond
+    
+    # 4. Difference between conditional means: delta = mu1 - mu0
+    delta = sqrt(var_between / (p_bernoulli * (1 - p_bernoulli)))
+    
+    # 5. Conditional Means
+    mu1 = target_mean + (1 - p_bernoulli) * delta
+    mu0 = target_mean - p_bernoulli * delta
+    
+    if (mu0 <= 0 || mu1 >= 1) {
+      stop(sprintf(
+        "Variance too large relative to mean (mu = %e). Conditional means [%e, %e] exceed (0, 1).",
+        target_mean, mu0, mu1
+      ))
+    }
+    
+    # 6. Solve precision parameters phi_1 and phi_0 for conditional variance = 0.125 * var_marginal
+    phi1 = (mu1 * (1 - mu1) / var_cond) - 1
+    phi0 = (mu0 * (1 - mu0) / var_cond) - 1
+    
+    # 7. Sample Z ~ Bernoulli(p)
+    z = rbinom(num_draws, size = 1, prob = p_bernoulli)
+    
+    # 8. Sample X | Z ~ Beta(alpha_k, beta_k)
+    draws = numeric(num_draws)
+    n1 = sum(z == 1)
+    n0 = num_draws - n1
+    
+    if (n1 > 0) {
+      draws[z == 1] = rbeta(n1, shape1 = mu1 * phi1, shape2 = (1 - mu1) * phi1)
+    }
+    if (n0 > 0) {
+      draws[z == 0] = rbeta(n0, shape1 = mu0 * phi0, shape2 = (1 - mu0) * phi0)
+    }
+    
+    return(draws)
+  }
+  
   rlogitnorm = function(num_draws, target_mean, component_phi) {
     if (num_draws <= 0) return(numeric(0))
     sdlogit   = 1 / sqrt(component_phi)
@@ -170,6 +221,9 @@ n = floor(P * pis)
     } else if (is_simplex) {
       pu1 = rsimplex(n[k], MU1, PHI[1])
       pu0 = rsimplex(n[k], MU0, PHI[2])
+    } else if (is_bernoulli_beta) {
+      pu1 = rbeta(n[k], MU1 * PHI[1], (1 - MU1) * PHI[1])
+      pu0 = rbeta(n[k], MU0 * PHI[2], (1 - MU0) * PHI[2])
     }
     
     while (any(ps1 - pu1 <= ps0 - pu0 | ps1 <= pu1)) {
@@ -199,6 +253,9 @@ n = floor(P * pis)
       } else if (is_simplex) {
         ps1[bar] <- rsimplex(foo, MS1, PHI[4])
         ps0[bar] <- rsimplex(foo, MS0, PHI[3])
+      } else if (is_bernoulli_beta) {
+        ps1[bar] <- rbernoulli_beta_mixture(foo, MS1, PHI[4])
+        ps0[bar] <- rbeta(foo, MS0 * PHI[3], (1 - MS0) * PHI[3])
       }
     }
     if (effect == 0) { ps1 = ps0 }
@@ -250,6 +307,11 @@ n = floor(P * pis)
       pu0 = rsimplex(n[k], MU0, PHI[2])
       ps0 = pu0
       ps1 = rsimplex(n[k], MS1, PHI[4])
+    } else if (is_bernoulli_beta) {
+      pu1 = rbeta(n[k], MU1 * PHI[1], (1 - MU1) * PHI[1])
+      pu0 = rbeta(n[k], MU0 * PHI[2], (1 - MU0) * PHI[2])
+      ps0 = pu0
+      ps1 = rbernoulli_beta_mixture(n[k], MS1, PHI[4])
     }
     
     while(any(ps1 - pu1 <= 0)) { 
@@ -279,6 +341,9 @@ n = floor(P * pis)
       } else if (is_simplex) {
         pu1[bar] = rsimplex(foo, MU1, PHI[1])
         ps1[bar] = rsimplex(foo, MS1, PHI[4])
+      } else if (is_bernoulli_beta) {
+        pu1[bar] = rbeta(foo, MU1 * PHI[1], (1 - MU1) * PHI[1])
+        ps1[bar] = rbernoulli_beta_mixture(foo, MS1, PHI[4])
       }
     }
     PU1=c(PU1,pu1); PU0=c(PU0,pu0); PS1=c(PS1,ps1); PS0=c(PS0,ps0)
@@ -321,6 +386,10 @@ n = floor(P * pis)
       ps0 = ps1 = rsimplex(n[k], MS1, PHI[4])
       pu0 = rsimplex(n[k], MU0, PHI[2])
       pu1 = rsimplex(n[k], MU1, PHI[1])
+    } else if (is_bernoulli_beta) {
+      ps0 = ps1 = rbernoulli_beta_mixture(n[k], MS1, PHI[4])
+      pu0 = rbeta(n[k], MU0*PHI[2], (1-MU0)*PHI[2])
+      pu1 = rbeta(n[k], MU1*PHI[1], (1-MU1)*PHI[1])
     }
     
     while(any(ps1-pu1 <= ps0 - pu0 | ps1<=pu1 | pu0<=pu1)){
@@ -350,6 +419,9 @@ n = floor(P * pis)
       } else if (is_simplex) {
         pu0[bar] = rsimplex(foo, MU0, PHI[2])
         pu1[bar] = rsimplex(foo, MU1, PHI[1])
+      } else if (is_bernoulli_beta) {
+        pu0[bar] = rbeta(foo, MU0 * PHI[2], (1 - MU0) * PHI[2])
+        pu1[bar] = rbeta(foo, MU1 * PHI[1], (1 - MU1) * PHI[1])
       }
     }
     PU1=c(PU1,pu1); PU0=c(PU0,pu0); PS1=c(PS1,ps1); PS0=c(PS0,ps0)
@@ -392,6 +464,10 @@ n = floor(P * pis)
       pu0 = pu1 = rsimplex(n[k], MU0, PHI[2])
       ps1 = rsimplex(n[k], MS1, PHI[4])
       ps0 = rsimplex(n[k], MS0, PHI[3])
+    } else if (is_bernoulli_beta) {
+      pu0 = pu1 = rbeta(n[k], MU0*PHI[2], (1-MU0)*PHI[2])
+      ps1 = rbernoulli_beta_mixture(n[k], MS1, PHI[4])
+      ps0 = rbeta(n[k], MS0*PHI[3], (1-MS0)*PHI[3])
     }
     
     while(any(ps1-pu1 <= ps0 - pu0 | ps1<=pu1 | ps1<=ps0)){
@@ -421,6 +497,9 @@ n = floor(P * pis)
       } else if (is_simplex) {
         ps0[bar] = rsimplex(foo, MS0, PHI[3])
         ps1[bar] = rsimplex(foo, MS1, PHI[4])
+      } else if (is_bernoulli_beta) {
+        ps0[bar] = rbeta(foo, MS0 * PHI[3], (1 - MS0) * PHI[3])
+        ps1[bar] = rbernoulli_beta_mixture(foo, MS1, PHI[4])
       }
     }
     PU1=c(PU1,pu1); PU0=c(PU0,pu0); PS1=c(PS1,ps1); PS0=c(PS0,ps0)
@@ -455,6 +534,9 @@ n = floor(P * pis)
     } else if (is_simplex) {
       ps1 = pu1 = rsimplex(n[k], MU1, PHI[1])
       ps0 = pu0 = rsimplex(n[k], MU0, PHI[2])
+    } else if (is_bernoulli_beta) {
+      ps1 = pu1 = rbernoulli_beta_mixture(n[k], MU1, PHI[1])
+      ps0 = pu0 = rbeta(n[k], MU0*PHI[2], (1-MU0)*PHI[2])
     }
     PU1=c(PU1,pu1); PU0=c(PU0,pu0); PS1=c(PS1,ps1); PS0=c(PS0,ps0)
   }
@@ -496,6 +578,10 @@ n = floor(P * pis)
       ps1 = pu1 = rsimplex(n[k], MU1, PHI[1])
       ps0 = rsimplex(n[k], MS0, PHI[3])
       pu0 = rsimplex(n[k], MU0, PHI[2])
+    } else if (is_bernoulli_beta) {
+      ps1 = pu1 = rbernoulli_beta_mixture(n[k], MU1, PHI[1])
+      ps0 = rbeta(n[k], MS0*PHI[3], (1-MS0)*PHI[3])
+      pu0 = rbeta(n[k], MU0*PHI[2], (1-MU0)*PHI[2])
     }
     
     while(any(ps0 < pu0)){
@@ -525,6 +611,9 @@ n = floor(P * pis)
       } else if (is_simplex) {
         ps0[bar] = rsimplex(foo, MS0, PHI[3])
         pu0[bar] = rsimplex(foo, MU0, PHI[2])
+      } else if (is_bernoulli_beta) {
+        ps0[bar] = rbeta(foo, MS0 * PHI[3], (1 - MS0) * PHI[3])
+        pu0[bar] = rbeta(foo, MU0 * PHI[2], (1 - MU0) * PHI[2])
       }
     }
     PU1=c(PU1,pu1); PU0=c(PU0,pu0); PS1=c(PS1,ps1); PS0=c(PS0,ps0)
@@ -551,6 +640,8 @@ n = floor(P * pis)
       ps1=ps0=pu1=pu0 = runit_lognormal(n[k], MU0, PHI[2])
     } else if (is_simplex) {
       ps1=ps0=pu1=pu0 = rsimplex(n[k], MU0, PHI[2])
+    } else if (is_bernoulli_beta) {
+      ps1=ps0=pu1=pu0 = rbernoulli_beta_mixture(n[k], MU0, PHI[2])
     }
     PU1=c(PU1,pu1); PU0=c(PU0,pu0); PS1=c(PS1,ps1); PS0=c(PS0,ps0)
   }
@@ -584,6 +675,9 @@ n = floor(P * pis)
     } else if (is_simplex) {
       ps0 = ps1 = rsimplex(n[k], MS0, PHI[3])
       pu0 = pu1 = rsimplex(n[k], MU0, PHI[2])
+    } else if (is_bernoulli_beta) {
+      ps0 = ps1 = rbernoulli_beta_mixture(n[k], MS0, PHI[3])
+      pu0 = pu1 = rbeta(n[k], MU0*PHI[2], (1-MU0)*PHI[2])
     }
     PU1=c(PU1,pu1); PU0=c(PU0,pu0); PS1=c(PS1,ps1); PS0=c(PS0,ps0)
   }
@@ -815,3 +909,7 @@ DiD_mixture_shrunk <- function(Ntot, ns1, nu1, ns0, nu0, use_eb = TRUE) {
   fit_shrunk_mixture_EM(DiD, var_DiD, use_eb = use_eb)
 }
 
+# simulate_MIMOSA2_alt_prior(prior='logit_normal')
+# simulate_MIMOSA2_alt_prior(prior='simplex')
+# simulate_MIMOSA2_alt_prior(prior='exponential_gamma')
+simulate_MIMOSA2_alt_prior(prior='bb')
