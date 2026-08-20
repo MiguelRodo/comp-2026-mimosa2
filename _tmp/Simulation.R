@@ -97,21 +97,22 @@ run_single_simulation <- function(i) {
   
   # Fit MIMOSA2 Model:
   fit_error = FALSE        
-  fit       = tryCatch({   
+ fit <- tryCatch({
+  withTimeout({
     MIMOSA2(
       Ntot    = sim$Ntot,
       ns1     = sim$ns1,
       nu1     = sim$nu1,
       ns0     = sim$ns0,
       nu0     = sim$nu0,
-      maxit   = 100,
+      maxit   = 30,
       verbose = FALSE
     )
-  },
-  error = function(e) {
-    fit_error <<- TRUE     
-    return(NULL)
-  })
+  }, timeout = 600, onTimeout = "error") # Throws an error after 45 seconds
+}, error = function(e) {
+  message("MIMOSA2 fit timed out or failed: ", e$message)
+  return(NULL)
+})
   
   # Initialize point metrics:
   status     = "Success"
