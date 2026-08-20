@@ -8,7 +8,9 @@ my_libs <- "/scratch/abrmoe030/R_libs"
 
 library(future)
 library(future.apply)
-plan(multicore, workers = as.numeric(Sys.getenv("SLURM_NTASKS", 2)))
+n_cores <- future::availableCores()
+plan(multisession, workers = n_cores)
+cat(paste0("Running on ", n_cores, " parallel workers...\n"))
 
 # Proportion of true responders: 
 # True responders distributed evenly across components 1-4
@@ -107,7 +109,7 @@ run_single_simulation <- function(i) {
       nu1     = sim$nu1,
       ns0     = sim$ns0,
       nu0     = sim$nu0,
-      maxit   = 100,
+      maxit   = 30,
       verbose = FALSE
     )
   },
