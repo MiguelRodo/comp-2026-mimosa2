@@ -9,13 +9,7 @@ my_libs <- "/scratch/abrmoe030/R_libs"
 library(future)
 library(future.apply)
 
-slurm_cores <- as.numeric(Sys.getenv("SLURM_NTASKS", NA))
-
-if (!is.na(slurm_cores) && slurm_cores > 0) {
-  n_workers <- slurm_cores
-} else {
-  n_workers <- future::availableCores()
-}
+n_workers <- parallelly::availableCores()
 
 plan(multisession, workers = n_workers)
 cat(paste0("Running on ", n_workers, " parallel workers...\n"))
