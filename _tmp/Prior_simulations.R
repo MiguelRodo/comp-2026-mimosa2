@@ -8,9 +8,17 @@ my_libs <- "/scratch/abrmoe030/R_libs"
 
 library(future)
 library(future.apply)
-n_cores <- future::availableCores()
-plan(multisession, workers = n_cores)
-cat(paste0("Running on ", n_cores, " parallel workers...\n"))
+
+slurm_cores <- as.numeric(Sys.getenv("SLURM_NTASKS", NA))
+
+if (!is.na(slurm_cores) && slurm_cores > 0) {
+  n_workers <- slurm_cores
+} else {
+  n_workers <- future::availableCores()
+}
+
+plan(multisession, workers = n_workers)
+cat(paste0("Running on ", n_workers, " parallel workers...\n"))
 
 # Proportion of true responders: 
 # True responders distributed evenly across components 1-4
