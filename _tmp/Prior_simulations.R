@@ -9,7 +9,10 @@ my_libs <- "/scratch/abrmoe030/R_libs"
 library(future)
 library(future.apply)
 
-n_workers <- parallelly::availableCores()
+options(parallelly.maxWorkers.localhost = Inf)
+
+# Explicitly read from environment or force 20
+n_workers <- as.numeric(Sys.getenv("SLURM_CPUS_PER_TASK", 20))
 
 plan(multisession, workers = n_workers)
 cat(paste0("Running on ", n_workers, " parallel workers...\n"))
