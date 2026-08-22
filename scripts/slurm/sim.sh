@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 #SBATCH --nodes=1
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=20
-#SBATCH --mem=32G
+#SBATCH --ntasks=20
 #SBATCH --job-name="sim"
 #SBATCH --partition=ada
 start_time=$(date +%s)
@@ -12,9 +10,7 @@ echo "HOSTNAME: $HOSTNAME"
 echo " "
 echo " "
 echo " "
-export APPTAINERENV_SLURM_CPUS_PER_TASK=$SLURM_CPUS_PER_TASK
 echo "-------------------"
-echo "Run simulation on $SLURM_CPUS_PER_TASK cores"
 date
 
 apptainer-rscript -f mimosa2 -- 'source("_tmp/Non_beta_simulations.R"); source("_tmp/Prior_simulations.R")'
