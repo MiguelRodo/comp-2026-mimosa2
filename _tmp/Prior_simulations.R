@@ -8,30 +8,18 @@ my_libs <- "/scratch/abrmoe030/R_libs"
 
 library(future)
 library(future.apply)
+library(future)
+library(future.apply)
+plan(multicore, workers = as.numeric(Sys.getenv("SLURM_NTASKS", 20)))
 
-options(parallelly.maxWorkers.localhost = Inf)
-
-# Explicitly read from environment or force 20
-n_workers <- as.numeric(Sys.getenv("SLURM_CPUS_PER_TASK", 20))
-
-plan(multisession, workers = n_workers)
-cat(paste0("Running on ", n_workers, " parallel workers...\n"))
-
-# Proportion of true responders: 
-# True responders distributed evenly across components 1-4
-# Non-responders distributed evenly across components 5-8
 responders00  = c(rep(0.10 / 4, 4), rep(0.90 / 4, 4))
-responders25  = c(rep(0.25 / 4, 4), rep(0.75 / 4, 4))
 responders50  = c(rep(0.50 / 4, 4), rep(0.50 / 4, 4))
-responders75  = c(rep(0.75 / 4, 4), rep(0.25 / 4, 4))
 responders90 = c(rep(0.90 / 4, 4), rep(0.10 / 4, 4))
 
 # Combine into a named list for tracking:
 component_list = list(
   "Prop_0.10" = responders00,
-  "Prop_0.25" = responders25,
   "Prop_0.50" = responders50,
-  "Prop_0.75" = responders75,
   "Prop_0.90" = responders90
 )
 
@@ -51,12 +39,13 @@ stresstest_mat = expand.grid(
                             c("SX",10000),
                             c("BB",10000)),
   Comp_Name      = names(component_list),
-  P              = c(10, 20, 30, 50, 75, 100),
-  Effect         = c(1e-3, 5e-4, 2.5e-4, 1.25e-4, 6.25e-5),
+  P              = c(10, 30, 100),
+  Effect         = c(1e-3, 2.5e-4, 1.25e-4, 6.25e-5),
   Rng_Name       = names(rng_list),
   Replication    = 1:30, 
   stringsAsFactors = FALSE
 )
+
 
 #-------------------------------------------------------------------------------
 # Main Simulation Worker
