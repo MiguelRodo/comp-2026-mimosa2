@@ -8,7 +8,7 @@ my_libs <- "/scratch/abrmoe030/R_libs"
 
 library(future)
 library(future.apply)
-library(R.utils)
+library(callr)
 plan(multicore, workers = as.numeric(Sys.getenv("SLURM_NTASKS", 2)))
 
 cat("SLURM_NTASKS as seen by R:", Sys.getenv("SLURM_NTASKS", "NOT SET"), "\n")
@@ -104,19 +104,17 @@ run_single_simulation <- function(i) {
   # Fit MIMOSA2 Model:
   fit_error = FALSE        
 fit <- tryCatch({
-  R.utils::withTimeout({
-    MIMOSA2(
-      Ntot    = sim$Ntot,
-      ns1     = sim$ns1,
-      nu1     = sim$nu1,
-      ns0     = sim$ns0,
-      nu0     = sim$nu0,
-      maxit   = 30,
-      verbose = FALSE
-    )
-  }, timeout = 420, onTimeout = "error")
-},
-error = function(e) {
+  callr::r(
+    func = function(Ntot, ns1, nu1, ns0, nu0, libs) {
+      .libPaths(c(libs, .libPaths()))
+      MIMOSA2(Ntot = Ntot, ns1 = ns1, nu1 = nu1, ns0 = ns0, nu0 = nu0,
+              maxit = 30, verbose = FALSE)
+    },
+    args = list(Ntot = sim$Ntot, ns1 = sim$ns1, nu1 = sim$nu1,
+                ns0 = sim$ns0, nu0 = sim$nu0, libs = my_libs),
+    timeout = 420
+  )
+}, error = function(e) {
   fit_error <<- TRUE
   return(NULL)
 })
