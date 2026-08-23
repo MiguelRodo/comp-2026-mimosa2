@@ -11,6 +11,8 @@ library(future.apply)
 library(R.utils)
 plan(multicore, workers = as.numeric(Sys.getenv("SLURM_NTASKS", 2)))
 
+cat("SLURM_NTASKS as seen by R:", Sys.getenv("SLURM_NTASKS", "NOT SET"), "\n")
+
 responders50  = c(rep(0.50 / 4, 4), rep(0.50 / 4, 4))
 
 # Combine into a named list for tracking:
