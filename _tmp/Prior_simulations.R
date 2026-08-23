@@ -8,19 +8,13 @@ my_libs <- "/scratch/abrmoe030/R_libs"
 
 library(future)
 library(future.apply)
-library(future)
-library(future.apply)
-plan(multicore, workers = as.numeric(Sys.getenv("SLURM_NTASKS", 20)))
+plan(multicore, workers = as.numeric(Sys.getenv("SLURM_NTASKS", 2)))
 
-responders00  = c(rep(0.10 / 4, 4), rep(0.90 / 4, 4))
 responders50  = c(rep(0.50 / 4, 4), rep(0.50 / 4, 4))
-responders90 = c(rep(0.90 / 4, 4), rep(0.10 / 4, 4))
 
 # Combine into a named list for tracking:
 component_list = list(
-  "Prop_0.10" = responders00,
-  "Prop_0.50" = responders50,
-  "Prop_0.90" = responders90
+  "Prop_0.50" = responders50
 )
 
 # Cell count scenarios: 
@@ -28,7 +22,8 @@ component_list = list(
 rng_list = list(
   "High"  = c(250000, 250000),
   "Medium" = c(100000, 100000),
-  "Sparse"     = c(15000, 15000)
+  "Low"     = c(15000, 15000),
+  "Very Low"= c(7000,7000)
 )
 
 # Build simulation grid:
@@ -39,17 +34,18 @@ stresstest_mat = expand.grid(
                             c("SX",10000),
                             c("BB",10000)),
   Comp_Name      = names(component_list),
-  P              = c(10, 30, 100),
+  P              = c(50),
   Effect         = c(1e-3, 2.5e-4, 1.25e-4, 6.25e-5),
   Rng_Name       = names(rng_list),
   Replication    = 1:30, 
   stringsAsFactors = FALSE
 )
 
-
 #-------------------------------------------------------------------------------
 # Main Simulation Worker
 #-------------------------------------------------------------------------------
+log_file <- "sim_progress.log"
+
 run_single_simulation <- function(i) {
   dist     = stresstest_mat$Distribution_Phi[[i]][1]
   comp_nm  = stresstest_mat$Comp_Name[i]
@@ -69,7 +65,9 @@ run_single_simulation <- function(i) {
              ", Effect = ", format(eff, scientific=FALSE, drop0trailing=TRUE),
              ", Rep = ", rep_id,
              ", Cell Range = ", rng_nm,
-             ", phi = ", phi, "\n"))
+             ", phi = ", phi, "\n"),
+                file = log_file, append = TRUE)
+  flush(stdout())
   
   # Simulate:
   sim = simulate_MIMOSA2_alt_prior(
