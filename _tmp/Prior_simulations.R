@@ -44,7 +44,12 @@ stresstest_mat = expand.grid(
 #-------------------------------------------------------------------------------
 # Main Simulation Worker
 #-------------------------------------------------------------------------------
-log_file <- "sim_progress.log"
+log_dir  <- "_tmp"
+log_file <- file.path(log_dir, "sim_progress.log")
+
+if (!dir.exists(log_dir)) dir.create(log_dir, recursive = TRUE)
+
+file.create(log_file)
 
 run_single_simulation <- function(i) {
   dist     = stresstest_mat$Distribution_Phi[[i]][1]
