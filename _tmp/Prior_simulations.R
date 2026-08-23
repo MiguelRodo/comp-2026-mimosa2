@@ -8,6 +8,7 @@ my_libs <- "/scratch/abrmoe030/R_libs"
 
 library(future)
 library(future.apply)
+library(R.utils)
 plan(multicore, workers = as.numeric(Sys.getenv("SLURM_NTASKS", 2)))
 
 responders50  = c(rep(0.50 / 4, 4), rep(0.50 / 4, 4))
@@ -72,7 +73,7 @@ run_single_simulation <- function(i) {
              ", Cell Range = ", rng_nm,
              ", phi = ", phi, "\n"),
                 file = log_file, append = TRUE)
-  flush(stdout())
+
   
   # Simulate:
   sim = simulate_MIMOSA2_alt_prior(
@@ -99,7 +100,8 @@ run_single_simulation <- function(i) {
   
   # Fit MIMOSA2 Model:
   fit_error = FALSE        
-  fit       = tryCatch({   
+fit <- tryCatch({
+  R.utils::withTimeout({
     MIMOSA2(
       Ntot    = sim$Ntot,
       ns1     = sim$ns1,
@@ -109,11 +111,12 @@ run_single_simulation <- function(i) {
       maxit   = 30,
       verbose = FALSE
     )
-  },
-  error = function(e) {
-    fit_error <<- TRUE     
-    return(NULL)
-  })
+  }, timeout = 420, onTimeout = "error")
+},
+error = function(e) {
+  fit_error <<- TRUE
+  return(NULL)
+})
   
   # Initialize point metrics:
   status     = "Success"
