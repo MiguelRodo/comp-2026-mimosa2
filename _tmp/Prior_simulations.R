@@ -108,7 +108,7 @@ fit <- tryCatch({
       .libPaths(c(libs, .libPaths()))
       MIMOSA2(Ntot = Ntot, ns1 = ns1, nu1 = nu1, ns0 = ns0, nu0 = nu0,
               maxit = 30, verbose = FALSE)
-    },
+    }
     args = list(Ntot = sim$Ntot, ns1 = sim$ns1, nu1 = sim$nu1,
                 ns0 = sim$ns0, nu0 = sim$nu0, libs = my_libs),
     timeout = 420
