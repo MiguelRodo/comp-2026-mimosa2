@@ -104,19 +104,19 @@ run_single_simulation <- function(i) {
   # Fit MIMOSA2 Model:
   fit_error = FALSE        
 fit <- tryCatch({
-    func = function(Ntot, ns1, nu1, ns0, nu0, libs) {
-      .libPaths(c(libs, .libPaths()))
-      MIMOSA2(Ntot = Ntot, ns1 = ns1, nu1 = nu1, ns0 = ns0, nu0 = nu0,
-              maxit = 30, verbose = FALSE)
-    }
-    args = list(Ntot = sim$Ntot, ns1 = sim$ns1, nu1 = sim$nu1,
-                ns0 = sim$ns0, nu0 = sim$nu0, libs = my_libs),
-    timeout = 420
+  MIMOSA2(
+    Ntot = sim$Ntot,
+    ns1 = sim$ns1,
+    nu1 = sim$nu1,
+    ns0 = sim$ns0,
+    nu0 = sim$nu0,
+    maxit = 30,
+    verbose = FALSE
+  )
 }, error = function(e) {
   fit_error <<- TRUE
   return(NULL)
 })
-  
   # Initialize point metrics:
   status     = "Success"
   iterations = NA_real_
