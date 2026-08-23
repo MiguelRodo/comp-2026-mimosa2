@@ -12,6 +12,8 @@ library(R.utils)
 plan(multicore, workers = as.numeric(Sys.getenv("SLURM_NTASKS", 2)))
 
 cat("SLURM_NTASKS as seen by R:", Sys.getenv("SLURM_NTASKS", "NOT SET"), "\n")
+cat("future::nbrOfWorkers() reports:", future::nbrOfWorkers(), "\n")
+cat("future::supportsMulticore() reports:", future::supportsMulticore(), "\n")
 
 responders50  = c(rep(0.50 / 4, 4), rep(0.50 / 4, 4))
 
