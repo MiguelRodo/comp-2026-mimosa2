@@ -45,11 +45,6 @@ stresstest_mat = expand.grid(
 #-------------------------------------------------------------------------------
 # Main Simulation Worker
 #-------------------------------------------------------------------------------
-# To run locally: 
-# setwd("C:/GitHub/comp-2026-mimosa2")
-# log_dir = './_tmp'
-# log_file = file.path(log_dir,'sim_progress.log')
-
 log_dir  <- "/scratch/abrmoe030/projects/mimosa2/_tmp"
 log_file <- file.path(log_dir, "sim_progress.log")
 
