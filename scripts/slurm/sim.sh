@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 #SBATCH --nodes=1
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=20
+#SBATCH --ntasks=20
 #SBATCH --job-name="sim"
 #SBATCH --partition=ada
 start_time=$(date +%s)
