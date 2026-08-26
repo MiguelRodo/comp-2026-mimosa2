@@ -8,7 +8,7 @@ my_libs <- "/scratch/abrmoe030/R_libs"
 
 library(future)
 library(future.apply)
-library(R.utils)
+library(callr)
 
 plan(multicore, workers = as.numeric(Sys.getenv("SLURM_NTASKS", 2)))
 
@@ -103,29 +103,33 @@ run_single_simulation <- function(i) {
   log_fold_change = log2((prop_s + 1e-5) / (prop_u + 1e-5))
   
   # Fit MIMOSA2 Model:
-  fit_error = FALSE        
-fit <- tryCatch({
+# Fit MIMOSA2 Model with OS-level hard timeout
 
-  R.utils::withTimeout(
-    MIMOSA2(
-      Ntot = sim$Ntot,
-      ns1 = sim$ns1,
-      nu1 = sim$nu1,
-      ns0 = sim$ns0,
-      nu0 = sim$nu0,
-      maxit = 30,
-      verbose = FALSE
-    ),
-    timeout = 120,
-    onTimeout = "error"
-  )
+gc(verbose = FALSE)
 
-}, error = function(e) {
-
-  fit_error <<- TRUE
-  return(NULL)
-
-})
+  fit_error = FALSE
+  
+  fit <- tryCatch({
+    callr::r_with_time_limit(
+      function(sim_data) {
+        # Explicit package reference
+        MIMOSA2::MIMOSA2(
+          Ntot    = sim_data$Ntot,
+          ns1     = sim_data$ns1,
+          nu1     = sim_data$nu1,
+          ns0     = sim_data$ns0,
+          nu0     = sim_data$nu0,
+          maxit   = 30,
+          verbose = FALSE
+        )
+      },
+      args = list(sim_data = sim),
+      timeout = 120 # Hard 2-minute kill
+    )
+  }, error = function(e) {
+    fit_error <<- TRUE
+    return(NULL)
+  })
   # Initialize point metrics:
   status     = "Success"
   iterations = NA_real_
