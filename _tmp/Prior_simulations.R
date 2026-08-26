@@ -10,11 +10,13 @@ library(future)
 library(future.apply)
 library(callr)
 
-plan(multicore, workers = as.numeric(Sys.getenv("SLURM_NTASKS", 2)))
+n_workers <- as.integer(Sys.getenv("SLURM_CPUS_PER_TASK", "2"))
 
-cat("SLURM_NTASKS as seen by R:", Sys.getenv("SLURM_NTASKS", "NOT SET"), "\n")
-cat("future::nbrOfWorkers() reports:", future::nbrOfWorkers(), "\n")
-cat("future::supportsMulticore() reports:", future::supportsMulticore(), "\n")
+plan(multisession,workers = n_workers)
+
+cat("SLURM_CPUS_PER_TASK:", Sys.getenv("SLURM_CPUS_PER_TASK"), "\n")
+cat("future::nbrOfWorkers():", future::nbrOfWorkers(), "\n")
+cat("future::supportsMulticore():", future::supportsMulticore(), "\n")
 
 responders50  = c(rep(0.50 / 4, 4), rep(0.50 / 4, 4))
 
@@ -206,15 +208,54 @@ gc(verbose = FALSE)
 }
 
 message("Starting parallel simulations...")
+#-------------------------------------------------------------------------------
+# Sequential Replication Loop with Incremental Auto-Saving
+#-------------------------------------------------------------------------------
+output_dir <- "_simulations"
+output_file <- file.path(output_dir, "Simulation_3.0.Rdata")
 
-master_obs_list <- future_lapply(1:nrow(stresstest_mat), run_single_simulation, future.seed = TRUE, future.scheduling = Inf)
+if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
 
-results_summary    <- do.call(rbind, lapply(master_obs_list, function(x) x$summary))
-results_continuous <- do.call(rbind, lapply(master_obs_list, function(x) x$continuous))
+# Initialize master containers
+results_summary <- data.frame()
+results_continuous <- data.frame()
 
-if (!dir.exists("_simulations")) dir.create("_simulations", recursive = TRUE)
+# Get unique replications in order (1 to 30)
+unique_reps <- sort(unique(stresstest_mat$Replication))
 
-# Save results: 
-save(results_summary, 
-     results_continuous,
-     file = '_simulations/Simulation_3.0.Rdata')
+message("Starting simulations sequentially by replication...")
+
+for (rep_id in unique_reps) {
+  
+  cat(sprintf("\n========================================\nProcessing Replication %d of %d\n========================================\n", 
+              rep_id, max(unique_reps)))
+  
+  # Filter parameter grid for current replication only
+  rep_indices <- which(stresstest_mat$Replication == rep_id)
+  
+  # Run all parameter grid configurations for this replication in parallel
+  rep_results_list <- future_lapply(
+    rep_indices, 
+    run_single_simulation, 
+    future.seed = TRUE,
+    future.scheduling = Inf
+  )
+  
+  # Bind results for the current replication
+  rep_summary    <- do.call(rbind, lapply(rep_results_list, function(x) x$summary))
+  rep_continuous <- do.call(rbind, lapply(rep_results_list, function(x) x$continuous))
+  
+  # Append to master datasets
+  results_summary    <- rbind(results_summary, rep_summary)
+  results_continuous <- rbind(results_continuous, rep_continuous)
+  
+  # Overwrite save file with cumulative results up to current replication
+  save(results_summary, 
+       results_continuous, 
+       file = output_file)
+  
+  cat(sprintf("Successfully saved cumulative results through Replication %d to %s\n", 
+              rep_id, output_file))
+}
+
+message("All replications completed successfully.")
