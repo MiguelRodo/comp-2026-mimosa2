@@ -8,6 +8,17 @@ start_time=$(date +%s)
 
 echo "HOSTNAME: $HOSTNAME"
 
+echo "SLURM_CPUS_PER_TASK=$SLURM_CPUS_PER_TASK"
+echo "SLURM_NTASKS=$SLURM_NTASKS"
+echo "SLURM_JOB_CPUS_PER_NODE=$SLURM_JOB_CPUS_PER_NODE"
+echo "SLURM_CPUS_ON_NODE=$SLURM_CPUS_ON_NODE"
+
+echo "SLURM CPU affinity:"
+taskset -pc $$
+
+echo "Available processors:"
+nproc
+
 echo " "
 echo " "
 echo " "
