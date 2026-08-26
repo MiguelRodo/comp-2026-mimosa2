@@ -18,15 +18,27 @@ simulate_MIMOSA2_alt_prior = function(effect = 5e-4,
   if (baseline_stim_effect < 0) stop("'baseline_stim_effect' must be nonnegative.")
   if (bg_effect < 0) stop("'bg_effect' must be nonnegative.")
   if (sum(components)!=1) stop("Component proportions must sum to one")
-  
+  if (length(rng) %% 2 != 0) {
+    stop("'rng' must be a vector of even length containing (min, max) pairs.")
+  }
+
+  rng_8 <- rep_len(rng, 8)
   K = 8
   n = rep(0, K)
-  
   pis = components
   R = NULL
   D = 4
   
-  Ntot = matrix(round(runif(P * D, rng[1], rng[2])), ncol = D, nrow = P)
+ # Extract min and max bounds for each of the D = 4 columns
+  mins <- rng_8[seq(1, 7, by = 2)]
+  maxs <- rng_8[seq(2, 8, by = 2)]
+  
+  # Draw Ntot column-by-column using column-specific uniform bounds
+  Ntot <- matrix(0, nrow = P, ncol = D)
+  for (d in 1:D) {
+    Ntot[, d] <- round(runif(P, min = mins[d], max = maxs[d]))
+  }
+  
   MU0 = baseline_background
   MS0 = baseline_stim_effect + MU0
   MU1 = MU0 + bg_effect
@@ -837,7 +849,7 @@ fit_shrunk_mixture_EM <- function(D, var_D, max_iter = 200, tol = 1e-6, prior = 
     log_num1 <- log(p)     + log_f1
     
     # Marginal log-likelihood per observation
-    log_marginal <- log_sum_exp_2(log_num0, log_num1)
+    log_marginal <- log_num0+log_num1
     
     # Track total log-likelihood across cohort
     log_lik_history[iter] <- sum(log_marginal)
@@ -888,28 +900,155 @@ DiD_mixture_shrunk <- function(Ntot, ns1, nu1, ns0, nu0, use_eb = TRUE) {
   ns0 <- as.numeric(ns0); nu0 <- as.numeric(nu0)
   
   # Raw proportions
-  p_AS <- ns1 / N_AS
-  p_AU <- nu1 / N_AU
-  p_BS <- ns0 / N_BS
-  p_BU <- nu0 / N_BU
+  p_AS <- (ns1 / N_AS) |> sqrt() |> asin()
+  p_AU <- (nu1 / N_AU) |> sqrt() |> asin()
+  p_BS <- (ns0 / N_BS) |> sqrt() |> asin()
+  p_BU <- (nu0 / N_BU) |> sqrt() |> asin()
   
   DiD <- (p_AS - p_AU) - (p_BS - p_BU)
+
   
-  # Jeffreys variance estimation for counts
-  v_AS <- (ns1 + 0.5) / (N_AS + 1)
-  v_AU <- (nu1 + 0.5) / (N_AU + 1)
-  v_BS <- (ns0 + 0.5) / (N_BS + 1)
-  v_BU <- (nu0 + 0.5) / (N_BU + 1)
-  
-  var_DiD <- v_AS * (1 - v_AS) / N_AS +
-    v_AU * (1 - v_AU) / N_AU +
-    v_BS * (1 - v_BS) / N_BS +
-    v_BU * (1 - v_BU) / N_BU
+  var_DiD <- p_AS * (1 - p_AS) / N_AS +
+    p_AU * (1 - p_AU) / N_AU +
+    p_BS * (1 - p_BS) / N_BS +
+    p_BU * (1 - p_BU) / N_BU
   
   fit_shrunk_mixture_EM(DiD, var_DiD, use_eb = use_eb)
 }
 
-# simulate_MIMOSA2_alt_prior(prior='logit_normal')
-# simulate_MIMOSA2_alt_prior(prior='simplex')
-# simulate_MIMOSA2_alt_prior(prior='exponential_gamma')
-simulate_MIMOSA2_alt_prior(prior='bb')
+# ==============================================================================
+# Bivariate (D, log-variance) Mixture Model
+#
+#   (D_i, Y_i) | z_i=k ~ BVN(mu_k, Sigma_k),  Y_i = log(var_hat_i)
+#   mu_0 = (0, muY0),  mu_1 = (mu, muY1)
+#
+#   Uses the RAW (un-stabilized) plug-in variance for Y_i deliberately -
+#   the model exploits the mean-variance coupling via rho_k rather than
+#   removing it. Do not arcsine-transform Y_i's input variance for this model.
+#
+#   Closed-form EM throughout (weighted moments + weighted linear regression),
+#   no nested numerical optimization required.
+# ==============================================================================
+
+log_bvn <- function(D, Y, muD, muY, sigmaD2, sigmaY2, rho) {
+  sD <- sqrt(sigmaD2); sY <- sqrt(sigmaY2)
+  zD <- (D - muD) / sD
+  zY <- (Y - muY) / sY
+  omr2 <- max(1 - rho^2, 1e-8)
+  -log(2*pi) - log(sD) - log(sY) - 0.5*log(omr2) -
+    (zD^2 - 2*rho*zD*zY + zY^2) / (2*omr2)
+}
+
+# Weighted moment-matching / weighted regression for one mixture component.
+# force_zero_intercept = TRUE fixes mu_D = 0 (the null component).
+fit_component <- function(D, Y, w, force_zero_intercept = FALSE) {
+  sw  <- sum(w)
+  muY <- sum(w * Y) / sw
+  Yc  <- Y - muY
+  sigmaY2 <- max(sum(w * Yc^2) / sw, 1e-10)
+  
+  if (force_zero_intercept) {
+    muD <- 0
+    b   <- sum(w * D * Yc) / sum(w * Yc^2)
+    resid <- D - b * Yc
+  } else {
+    muD <- sum(w * D) / sw
+    Dc  <- D - muD
+    b   <- sum(w * Dc * Yc) / sum(w * Yc^2)
+    resid <- Dc - b * Yc
+  }
+  
+  resid_var <- max(sum(w * resid^2) / sw, 1e-10)
+  sigmaD2   <- max(resid_var + b^2 * sigmaY2, 1e-10)
+  rho       <- b * sqrt(sigmaY2) / sqrt(sigmaD2)
+  rho       <- max(min(rho, 0.999), -0.999)
+  
+  list(muD = muD, muY = muY, sigmaD2 = sigmaD2, sigmaY2 = sigmaY2, rho = rho)
+}
+
+fit_bvn_mixture_EM <- function(D, Y, max_iter = 200, tol = 1e-8, n_restarts = 5) {
+  N <- length(D)
+  
+  run_once <- function(p_init, mu_init) {
+    p <- p_init
+    comp0 <- list(muD = 0,       muY = mean(Y), sigmaD2 = var(D), sigmaY2 = var(Y), rho = 0)
+    comp1 <- list(muD = mu_init, muY = mean(Y), sigmaD2 = var(D), sigmaY2 = var(Y), rho = 0)
+    
+    ll_hist <- numeric(max_iter)
+    gamma <- rep(NA_real_, N)
+    
+    for (iter in 1:max_iter) {
+      p_old <- p; mu_old <- comp1$muD
+      
+      log_f0 <- log_bvn(D, Y, comp0$muD, comp0$muY, comp0$sigmaD2, comp0$sigmaY2, comp0$rho)
+      log_f1 <- log_bvn(D, Y, comp1$muD, comp1$muY, comp1$sigmaD2, comp1$sigmaY2, comp1$rho)
+      
+      log_num0 <- log(1 - p) + log_f0
+      log_num1 <- log(p)     + log_f1
+      maxl <- pmax(log_num0, log_num1)
+      log_marg <- maxl + log(exp(log_num0 - maxl) + exp(log_num1 - maxl))
+      ll_hist[iter] <- sum(log_marg)
+      
+      gamma <- exp(log_num1 - log_marg)
+      gamma[is.na(gamma)] <- 0
+      
+      p <- pmin(pmax(mean(gamma), 1e-8), 1 - 1e-8)
+      
+      comp0 <- fit_component(D, Y, 1 - gamma, force_zero_intercept = TRUE)
+      comp1 <- fit_component(D, Y, gamma,     force_zero_intercept = FALSE)
+      comp1$muD <- max(1e-6, comp1$muD)   # mu >= 0 constraint (no negative responders)
+      
+      if (abs(p - p_old) + abs(comp1$muD - mu_old) < tol) {
+        ll_hist <- ll_hist[1:iter]; break
+      }
+    }
+    
+    list(p = p, mu = comp1$muD, comp0 = comp0, comp1 = comp1,
+         prob_responder = gamma, iterations = iter,
+         loglik = ll_hist[length(ll_hist)])
+  }
+  
+  pos_diffs  <- D[D > 0]
+  mu_default <- if (length(pos_diffs) > 0) max(1e-4, mean(pos_diffs)) else 1e-3
+  inits <- list(
+    c(0.3, mu_default),
+    c(0.5, as.numeric(quantile(D, 0.75))),
+    c(0.5, as.numeric(quantile(D, 0.90))),
+    c(0.2, as.numeric(quantile(D, 0.85))),
+    c(0.6, as.numeric(quantile(D, 0.60)))
+  )
+  inits <- inits[seq_len(min(n_restarts, length(inits)))]
+  inits <- lapply(inits, function(x) { x[2] <- max(1e-6, x[2]); x })
+  
+  fits <- lapply(inits, function(x) tryCatch(run_once(x[1], x[2]), error = function(e) NULL))
+  fits <- Filter(Negate(is.null), fits)
+  if (length(fits) == 0) stop("All EM restarts failed.")
+  
+  fits[[which.max(sapply(fits, function(f) f$loglik))]]
+}
+
+# ------------------------------------------------------------------------------
+# Wrapper — uses RAW Jeffreys variance for Y_i, deliberately not arcsine-stabilized
+# ------------------------------------------------------------------------------
+DiD_bvn_mixture <- function(Ntot, ns1, nu1, ns0, nu0, ...) {
+  Ntot_mat <- as.matrix(Ntot)
+  N_AS <- as.numeric(Ntot_mat[, "ns1"]); N_AU <- as.numeric(Ntot_mat[, "nu1"])
+  N_BS <- as.numeric(Ntot_mat[, "ns0"]); N_BU <- as.numeric(Ntot_mat[, "nu0"])
+  
+  ns1 <- as.numeric(ns1); nu1 <- as.numeric(nu1)
+  ns0 <- as.numeric(ns0); nu0 <- as.numeric(nu0)
+  
+  p_AS <- ns1 / N_AS; p_AU <- nu1 / N_AU
+  p_BS <- ns0 / N_BS; p_BU <- nu0 / N_BU
+  D <- (p_AS - p_AU) - (p_BS - p_BU)
+  
+  v_AS <- (ns1 + 0.5) / (N_AS + 1); v_AU <- (nu1 + 0.5) / (N_AU + 1)
+  v_BS <- (ns0 + 0.5) / (N_BS + 1); v_BU <- (nu0 + 0.5) / (N_BU + 1)
+  
+  var_D <- v_AS*(1-v_AS)/N_AS + v_AU*(1-v_AU)/N_AU + v_BS*(1-v_BS)/N_BS + v_BU*(1-v_BU)/N_BU
+  Y <- log(pmax(var_D, 1e-12))
+  
+  fit_bvn_mixture_EM(D, Y, ...)
+}
+
+
