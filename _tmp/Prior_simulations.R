@@ -6,13 +6,26 @@
 my_libs <- "/scratch/abrmoe030/R_libs"
 .libPaths(c(my_libs, .libPaths()))
 
+library(callr)
+
 library(future)
 library(future.apply)
-library(callr)
+library(parallelly)
+
+cat("CPUs according to SLURM:\n")
+cat("  SLURM_CPUS_PER_TASK =", Sys.getenv("SLURM_CPUS_PER_TASK"), "\n")
+
+cat("CPUs according to R:\n")
+cat("  detectCores() =", parallel::detectCores(), "\n")
+cat("  availableCores() =", parallelly::availableCores(), "\n")
 
 n_workers <- as.integer(Sys.getenv("SLURM_CPUS_PER_TASK", "2"))
 
-plan(multisession,workers = n_workers)
+cat("Attempting", n_workers, "workers\n")
+
+plan(multisession, workers = n_workers)
+
+cat("future::nbrOfWorkers() =", future::nbrOfWorkers(), "\n")
 
 cat("SLURM_CPUS_PER_TASK:", Sys.getenv("SLURM_CPUS_PER_TASK"), "\n")
 cat("future::nbrOfWorkers():", future::nbrOfWorkers(), "\n")
