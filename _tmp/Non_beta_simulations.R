@@ -18,15 +18,27 @@ simulate_MIMOSA2_alt_prior = function(effect = 5e-4,
   if (baseline_stim_effect < 0) stop("'baseline_stim_effect' must be nonnegative.")
   if (bg_effect < 0) stop("'bg_effect' must be nonnegative.")
   if (sum(components)!=1) stop("Component proportions must sum to one")
-  
+  if (length(rng) %% 2 != 0) {
+    stop("'rng' must be a vector of even length containing (min, max) pairs.")
+  }
+
+  rng_8 <- rep_len(rng, 8)
   K = 8
   n = rep(0, K)
-  
   pis = components
   R = NULL
   D = 4
   
-  Ntot = matrix(round(runif(P * D, rng[1], rng[2])), ncol = D, nrow = P)
+ # Extract min and max bounds for each of the D = 4 columns
+  mins <- rng_8[seq(1, 7, by = 2)]
+  maxs <- rng_8[seq(2, 8, by = 2)]
+  
+  # Draw Ntot column-by-column using column-specific uniform bounds
+  Ntot <- matrix(0, nrow = P, ncol = D)
+  for (d in 1:D) {
+    Ntot[, d] <- round(runif(P, min = mins[d], max = maxs[d]))
+  }
+  
   MU0 = baseline_background
   MS0 = baseline_stim_effect + MU0
   MU1 = MU0 + bg_effect
