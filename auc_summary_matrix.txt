@@ -1,16 +1,46 @@
-Effect_clean	Cell_range	DiD Baseline	MIMOSA2
-1.0e-03	High	0.916	0.954
-1.0e-03	Medium	0.903	0.943
-1.0e-03	Low	0.854	0.903
-1.2e-04	High	0.876	0.909
-1.2e-04	Medium	0.849	0.881
-1.2e-04	Low	0.759	0.783
-2.5e-04	High	0.892	0.930
-2.5e-04	Medium	0.869	0.903
-2.5e-04	Low	0.783	0.820
-5.0e-04	High	0.903	0.944
-5.0e-04	Medium	0.887	0.929
-5.0e-04	Low	0.811	0.854
-6.2e-05	High	0.872	0.900
-6.2e-05	Medium	0.845	0.869
-6.2e-05	Low	0.749	0.775
+Res_prop_clean	Effect_clean	Cell_range	DiD Baseline	MIMOSA2
+10% responders	1.0e-03	High	0.920	0.956
+50% responders	1.0e-03	High	0.910	0.950
+90% responders	1.0e-03	High	0.916	0.952
+10% responders	1.0e-03	Medium	0.918	0.947
+50% responders	1.0e-03	Medium	0.899	0.942
+90% responders	1.0e-03	Medium	0.898	0.940
+10% responders	1.0e-03	Low	0.871	0.895
+50% responders	1.0e-03	Low	0.842	0.899
+90% responders	1.0e-03	Low	0.853	0.906
+10% responders	1.2e-04	High	0.876	0.916
+50% responders	1.2e-04	High	0.875	0.906
+90% responders	1.2e-04	High	0.872	0.900
+10% responders	1.2e-04	Medium	0.848	0.880
+50% responders	1.2e-04	Medium	0.837	0.877
+90% responders	1.2e-04	Medium	0.861	0.889
+10% responders	1.2e-04	Low	0.765	0.781
+50% responders	1.2e-04	Low	0.772	0.794
+90% responders	1.2e-04	Low	0.759	0.781
+10% responders	2.5e-04	High	0.895	0.930
+50% responders	2.5e-04	High	0.885	0.928
+90% responders	2.5e-04	High	0.893	0.932
+10% responders	2.5e-04	Medium	0.868	0.908
+50% responders	2.5e-04	Medium	0.871	0.903
+90% responders	2.5e-04	Medium	0.874	0.901
+10% responders	2.5e-04	Low	0.782	0.803
+50% responders	2.5e-04	Low	0.778	0.821
+90% responders	2.5e-04	Low	0.778	0.824
+10% responders	5.0e-04	High	0.914	0.952
+50% responders	5.0e-04	High	0.899	0.945
+90% responders	5.0e-04	High	0.900	0.941
+10% responders	5.0e-04	Medium	0.883	0.930
+50% responders	5.0e-04	Medium	0.884	0.927
+90% responders	5.0e-04	Medium	0.890	0.928
+10% responders	5.0e-04	Low	0.815	0.841
+50% responders	5.0e-04	Low	0.805	0.860
+90% responders	5.0e-04	Low	0.823	0.867
+10% responders	6.2e-05	High	0.874	0.901
+50% responders	6.2e-05	High	0.870	0.898
+90% responders	6.2e-05	High	0.876	0.902
+10% responders	6.2e-05	Medium	0.840	0.865
+50% responders	6.2e-05	Medium	0.847	0.874
+90% responders	6.2e-05	Medium	0.847	0.870
+10% responders	6.2e-05	Low	0.745	0.761
+50% responders	6.2e-05	Low	0.749	0.772
+90% responders	6.2e-05	Low	0.759	0.784

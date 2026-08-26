@@ -8,7 +8,7 @@ library(tidyverse)
 library(ggplot2)
 library(cowplot)
 library(plotROC)
-library(Hmisc) # Required for mean_cl_boot
+library(Hmisc) 
 library(dplyr)
 library(tidyr)
 library(knitr)
@@ -18,8 +18,10 @@ setwd("C:/Github/comp-2026-mimosa2")
 load('_simulations/Simulation_2.0.Rdata')
 
 #-------------------------------------------------------------------------------
-# TPR (sensitivity) vs 1% Nominal FDR 
-# This gives a 5x6 grid 
+# Sensitivity analysis of MIMOSA2
+# TPR at 1% FDR 
+# 'base_plot' 
+# All simulation conditions 
 #-------------------------------------------------------------------------------
 # Filter data:
 plot_data = subset(results_summary, Status == 'Success')
@@ -33,14 +35,13 @@ plot_data$Cell_range = factor(
 
 # Format effect sizes:
 unique_effects = sort(unique(plot_data$Effect), decreasing = TRUE)
-
 plot_data$Effect_fact = factor(
   plot_data$Effect,
   levels = unique_effects,
   labels = formatC(unique_effects, format = "e", digits = 1)
 )
 
-# Relabel Res_prop: 
+# Relabel 'Res_prop': 
 plot_data$Res_prop_clean = factor(
   plot_data$Res_prop,
   levels = c("Prop_0.10", "Prop_0.25", "Prop_0.50", "Prop_0.75", "Prop_0.90"),
@@ -80,20 +81,20 @@ base_plot = ggplot(data = plot_data,
                      breaks = c(0, 0.5, 1.0), 
                      expand = c(0.02, 0.02)) +
   scale_color_manual(values = c("High" = "deeppink", 
-                                "Medium" = "blue", 
-                                "Low" = "purple")) +
+                                "Medium" = "steelblue3", 
+                                "Low" = "orange")) +
   scale_fill_manual(values = c("High" = "deeppink", 
-                               "Medium" = "blue", 
-                               "Low" = "purple")) +
+                               "Medium" = "steelblue3", 
+                               "Low" = "orange")) +
   labs(
-    title = "Sensitivity Analysis of MIMOSA2.",
+    title = "Sensitivity analysis of MIMOSA2.",
     subtitle = "True positive rate (TPR) at 1% nominal false discovery rate (FDR) threshold.",
     x = "Effect size",
-    y = "Sensitivity (TPR)",
-    color = "Cell Count",
-    fill = "Cell Count"
+    y = "TPR",
+    color = "Cell count",
+    fill = "Cell count"
   ) +
-  theme_minimal(base_size = 11) +
+  theme_minimal(base_size = 14) +
   theme(
     plot.title = element_text(face = "bold", size = 12, hjust = 0.5),
     plot.subtitle = element_text(size = 10, hjust = 0.5, color = "grey30"),
@@ -108,16 +109,17 @@ print(base_plot)
 # ggsave('_fig/base_plot.pdf',plot=base_plot,width=10,height=10)
 
 #-------------------------------------------------------------------------------
-# TPR (sensitivity) vs 1% Nominal FDR 
-# This plots a 1x3 grid 
-# Plots graph for only P=10,50,100
-# Plots for only 50% responders 
+# Sensitivity analysis of MIMOSA2
+# TPR at 1% FDR 
+# 'base_plot' 
+# P: 10,50,100
+# Res_prop: 10%,50%,90%
 #-------------------------------------------------------------------------------
 # Filter data:
 plot_data_clean = results_summary |>
   filter(Status == 'Success',
          P %in% c(10, 50, 100),       # Change P 
-         Res_prop == "Prop_0.50"      # Change Res_prop 
+         Res_prop %in% c("Prop_0.10","Prop_0.50","Prop_0.90")  # Change Res_prop 
   )
 
 # Relabel 'Sparse' to 'Low': 
@@ -127,9 +129,15 @@ plot_data_clean$Cell_range = factor(
   labels = c("High", "Medium", "Low")
 )
 
+# Relabel 'Res_prop':
+plot_data_clean$Res_prop_clean = factor(
+  plot_data_clean$Res_prop,
+  levels = c("Prop_0.10", "Prop_0.50", "Prop_0.90"),
+  labels = c("10% Responders", "50% Responders", "90% Responders")
+)
+
 # Format effect size: 
 unique_effects = sort(unique(plot_data_clean$Effect), decreasing = TRUE)
-
 plot_data_clean$Effect_clean = factor(
   plot_data_clean$Effect,
   levels = unique_effects,
@@ -170,30 +178,28 @@ base_plot_clean = ggplot(data = plot_data_clean,
                size = 2) +
   # Remove variable prefix on RHS strip labels using labeller: 
   facet_grid(
-    Res_prop_clean ~ P, 
-    labeller = labeller(Res_prop_clean = label_value, P = label_both)
+    rows = vars(Res_prop_clean),
+    cols = vars(P_label), 
+    labeller = labeller(Res_prop_clean = label_value, P = label_value)
   ) +
-  # Facet horizontally across sample sizes (1 x 3 grid): 
-  facet_wrap(~ P_label, 
-             nrow = 1) +
   scale_y_continuous(limits = c(0, 1), 
                      breaks = c(0, 0.5, 1.0), 
                      expand = c(0.02, 0.02)) +
   scale_color_manual(values = c("High" = "deeppink", 
-                                "Medium" = "blue", 
-                                "Low" = "purple")) +
+                                "Medium" = "steelblue3", 
+                                "Low" = "orange")) +
   scale_fill_manual(values = c("High" = "deeppink", 
-                               "Medium" = "blue", 
-                               "Low" = "purple")) +
+                               "Medium" = "steelblue3", 
+                               "Low" = "orange")) +
   labs(
-    title = "Sensitivity Analysis of MIMOSA2.",
-    subtitle = "True positive rate (TPR) at 1% nominal FDR for 50% repsonders.",
+    title = "Sensitivity analysis of MIMOSA2.",
+    subtitle = "True positive rate (TPR) at 1% nominal false discovery rate (FDR) threshold.",
     x = "Effect size",
-    y = "Sensitivity (TPR)",
-    color = "Cell Count",
-    fill = "Cell Count"
+    y = "TPR",
+    color = "Cell count",
+    fill = "Cell count"
   ) +
-  theme_minimal(base_size = 11) +
+  theme_minimal(base_size = 14) +
   theme(
     plot.title = element_text(face = "bold", size = 12, hjust = 0.5),
     plot.subtitle = element_text(size = 10, hjust = 0.5, color = "grey30"),
@@ -205,12 +211,12 @@ base_plot_clean = ggplot(data = plot_data_clean,
   )
  
 print(base_plot_clean)
-# These dimensions need to be changed !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# ggsave('_fig/base_plot_clean.pdf',plot=base_plot_clean,width=10,height=10)
+# ggsave('_fig/base_plot_clean.pdf',plot=base_plot_clean,width=8,height=6)
 
 #-------------------------------------------------------------------------------
-# ROC plots
-# This gives a 5x5 grid 
+# Simulation performance of MIMOSA2
+# ROC analysis 
+# 'ROC_plot' 
 #-------------------------------------------------------------------------------
 # Prepare data: 
 ROC_data_prepared = results_continuous |>
@@ -238,6 +244,7 @@ ROC_data_prepared = results_continuous |>
     )
   )
 
+# Plot: 
 ROC_plot = ggplot(
   data = ROC_data_prepared,
   mapping = aes(
@@ -248,7 +255,7 @@ ROC_plot = ggplot(
     group = interaction(Method, Cell_range)
   )
 ) +
-  geom_roc(n.cuts = 0, size = 0.8, alpha = 0.7) +
+  geom_roc(n.cuts = 0, size = 0.8, linealpha = 0.9) +
   geom_abline(
     slope = 1, 
     intercept = 0, 
@@ -264,8 +271,8 @@ ROC_plot = ggplot(
     )
   ) +
   scale_color_manual(values = c("High" = "deeppink", 
-                                "Medium" = "blue", 
-                                "Low" = "purple")) +
+                                "Medium" = "steelblue3", 
+                                "Low" = "orange")) +
   scale_linetype_manual(values = c("MIMOSA2" = "solid", 
                                    "DiD Baseline" = "dotted")) +
   guides(
@@ -280,9 +287,9 @@ ROC_plot = ggplot(
       override.aes = list(linewidth = 1.2, size = 2)
     )
   ) +
-  theme_bw(base_size = 11) +
+  theme_bw(base_size = 14) +
   labs(
-    title = "MIMOSA2 simulation performance.",
+    title = "Simulation performance of MIMOSA2.",
     subtitle = "ROC analysis.",
     x = "FPR",
     y = "TPR"
@@ -302,10 +309,11 @@ print(ROC_plot)
 # ggsave('_fig/ROC_plot.pdf',plot=ROC_plot,width=10,height=10)
 
 #-------------------------------------------------------------------------------
-# ROC plot
-# This gives 1x3 grid
-# Effect sizes: 6.2e-05,2.5e-04,1.0e-03 
-# Res_prop = 0.5
+# Simulation performance of MIMOSA2
+# ROC analysis
+# 'ROC_plot_clean' 
+# Effect: small,med,large
+# Res_prop: 10%,50%,90%
 #-------------------------------------------------------------------------------
 # Filter by effect size: 
 all_effects = sort(unique(results_continuous$Effect))
@@ -316,7 +324,7 @@ ROC_data_clean = results_continuous |>
   filter(
     !is.na(MIMOSA2_prob), 
     !is.na(DiD_GLM_prob),
-    Res_prop == "Prop_0.50",            # Fix to baseline 50% responders
+    Res_prop %in% c("Prop_0.10","Prop_0.50","Prop_0.90"), 
     Effect %in% selected_effects        # Keep 3 representative effect sizes
   ) |>
   pivot_longer(
@@ -326,6 +334,12 @@ ROC_data_clean = results_continuous |>
   ) |>
   mutate(
     Method = ifelse(Method == "MIMOSA2_prob", "MIMOSA2", "DiD Baseline"),
+    # Relabel 'Res_prop': 
+    Res_prop_clean = factor(
+      Res_prop,
+      levels = c("Prop_0.10", "Prop_0.50", "Prop_0.90"),
+      labels = c("10% Responders", "50% Responders", "90% Responders")
+    ),
     # Relabel 'Sparse' to 'Low':
     Cell_range = factor(
       Cell_range,
@@ -351,7 +365,7 @@ ROC_plot_clean = ggplot(
     group = interaction(Method, Cell_range)
   )
 ) +
-  geom_roc(n.cuts = 0, size = 0.8, alpha = 0.7) +
+  geom_roc(n.cuts = 0, size = 0.8, linealpha = 0.9) +
   geom_abline(
     slope = 1, 
     intercept = 0, 
@@ -360,10 +374,13 @@ ROC_plot_clean = ggplot(
     linewidth = 0.5
   ) +
   # Facet across selected effect sizes in a single horizontal row:
-  facet_wrap(~ Effect_clean, nrow = 1) +
+  facet_grid(
+    rows = vars(Res_prop_clean),
+    cols = vars(Effect_clean)
+  ) +
   scale_color_manual(values = c("High" = "deeppink", 
-                                "Medium" = "blue", 
-                                "Low" = "purple")) +
+                                "Medium" = "steelblue3", 
+                                "Low" = "orange")) +
   scale_linetype_manual(values = c("MIMOSA2" = "solid", 
                                    "DiD Baseline" = "dotted")) +
   guides(
@@ -380,8 +397,8 @@ ROC_plot_clean = ggplot(
   ) +
   theme_bw(base_size = 11) +
   labs(
-    title = "MIMOSA2 Simulation Performance",
-    subtitle = "ROC Analysis for 50% responders.",
+    title = "Simulation performance of MIMOSA2.",
+    subtitle = "ROC Analysis.",
     x = "FPR",
     y = "TPR"
   ) +
@@ -397,8 +414,7 @@ ROC_plot_clean = ggplot(
   )
 
 print(ROC_plot_clean)
-# These dimensions need to be changed !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# ggsave('_fig/ROC_plot_clean.pdf',plot=ROC_plot_clean,width=10,height=10)
+# ggsave('_fig/ROC_plot_clean.pdf',plot=ROC_plot_clean,width=8,height=6)
 
 #-------------------------------------------------------------------------------
 # AUROC Calculation
@@ -414,16 +430,24 @@ AUROC = ROC_data_prepared |>
   rename(AUROC = AUC)
 
 write.table(AUROC, "auc.txt", sep = "\t", row.names = FALSE, quote = FALSE)
-View(AUROC)
+# View(AUROC)
 
 # Summarise: 
 # AUROC matrix across Effect and Cell Range: 
 AUROC_matrix = AUROC |>
-  mutate(Cell_range = factor(Cell_range, 
-                             levels = c("High", "Medium", "Low")),
+  filter(Res_prop %in% c("Prop_0.10", "Prop_0.50", "Prop_0.90") | 
+           Res_prop %in% c("0.10", "0.50", "0.90") | 
+           Res_prop %in% c(0.10, 0.50, 0.90)) |>
+  mutate(
+    Res_prop_clean = factor(
+      Res_prop,
+      levels = c("Prop_0.10","Prop_0.50","Prop_0.90"),
+      labels = c("10% responders", "50% responders", "90% responders")
+    ), 
+    Cell_range = factor(Cell_range, levels = c("High", "Medium", "Low")),
     Effect_clean = paste0(formatC(Effect, format = "e", digits = 1))
   ) |>
-  group_by(Effect_clean, Cell_range, Method) |>
+  group_by(Res_prop_clean, Effect_clean, Cell_range, Method) |>
   summarise(Mean_AUROC = sprintf("%.3f", 
                                  mean(AUROC, na.rm = TRUE)), 
             .groups = "drop") |>
@@ -440,10 +464,10 @@ write.table(AUROC_matrix,
             row.names = FALSE, 
             quote = FALSE)
 
-# Table: 
+# Table: AUROC values
 kable(AUROC_matrix, 
       caption = 'AUROC values',
-      col.names = c("Effect Size", "Cell Count", "MIMOSA2", "DiD Baseline"))
+      col.names = c("Responders","Effect Size", "Cell Count", "MIMOSA2", "DiD Baseline"))
 
 # Table: AUROC values
 # 
@@ -465,21 +489,81 @@ kable(AUROC_matrix,
 # |6.2e-05     |Medium     |0.845   |0.869        |
 # |6.2e-05     |Low        |0.749   |0.775        |
 
-# Table: AUROC values 
+# Table: AUROC values
+# 
+# |Responders     |Effect Size |Cell Count |MIMOSA2 |DiD Baseline |
+# |:--------------|:-----------|:----------|:-------|:------------|
+# |10% responders |1.0e-03     |High       |0.920   |0.956        |
+# |50% responders |1.0e-03     |High       |0.910   |0.950        |
+# |90% responders |1.0e-03     |High       |0.916   |0.952        |
+# |10% responders |1.0e-03     |Medium     |0.918   |0.947        |
+# |50% responders |1.0e-03     |Medium     |0.899   |0.942        |
+# |90% responders |1.0e-03     |Medium     |0.898   |0.940        |
+# |10% responders |1.0e-03     |Low        |0.871   |0.895        |
+# |50% responders |1.0e-03     |Low        |0.842   |0.899        |
+# |90% responders |1.0e-03     |Low        |0.853   |0.906        |
+# |10% responders |1.2e-04     |High       |0.876   |0.916        |
+# |50% responders |1.2e-04     |High       |0.875   |0.906        |
+# |90% responders |1.2e-04     |High       |0.872   |0.900        |
+# |10% responders |1.2e-04     |Medium     |0.848   |0.880        |
+# |50% responders |1.2e-04     |Medium     |0.837   |0.877        |
+# |90% responders |1.2e-04     |Medium     |0.861   |0.889        |
+# |10% responders |1.2e-04     |Low        |0.765   |0.781        |
+# |50% responders |1.2e-04     |Low        |0.772   |0.794        |
+# |90% responders |1.2e-04     |Low        |0.759   |0.781        |
+# |10% responders |2.5e-04     |High       |0.895   |0.930        |
+# |50% responders |2.5e-04     |High       |0.885   |0.928        |
+# |90% responders |2.5e-04     |High       |0.893   |0.932        |
+# |10% responders |2.5e-04     |Medium     |0.868   |0.908        |
+# |50% responders |2.5e-04     |Medium     |0.871   |0.903        |
+# |90% responders |2.5e-04     |Medium     |0.874   |0.901        |
+# |10% responders |2.5e-04     |Low        |0.782   |0.803        |
+# |50% responders |2.5e-04     |Low        |0.778   |0.821        |
+# |90% responders |2.5e-04     |Low        |0.778   |0.824        |
+# |10% responders |5.0e-04     |High       |0.914   |0.952        |
+# |50% responders |5.0e-04     |High       |0.899   |0.945        |
+# |90% responders |5.0e-04     |High       |0.900   |0.941        |
+# |10% responders |5.0e-04     |Medium     |0.883   |0.930        |
+# |50% responders |5.0e-04     |Medium     |0.884   |0.927        |
+# |90% responders |5.0e-04     |Medium     |0.890   |0.928        |
+# |10% responders |5.0e-04     |Low        |0.815   |0.841        |
+# |50% responders |5.0e-04     |Low        |0.805   |0.860        |
+# |90% responders |5.0e-04     |Low        |0.823   |0.867        |
+# |10% responders |6.2e-05     |High       |0.874   |0.901        |
+# |50% responders |6.2e-05     |High       |0.870   |0.898        |
+# |90% responders |6.2e-05     |High       |0.876   |0.902        |
+# |10% responders |6.2e-05     |Medium     |0.840   |0.865        |
+# |50% responders |6.2e-05     |Medium     |0.847   |0.874        |
+# |90% responders |6.2e-05     |Medium     |0.847   |0.870        |
+# |10% responders |6.2e-05     |Low        |0.745   |0.761        |
+# |50% responders |6.2e-05     |Low        |0.749   |0.772        |
+# |90% responders |6.2e-05     |Low        |0.759   |0.784        |
+
+# Table: AUROC values (MIMOSA2, DiD Baseline)
 AUROC_matrix_2 <- AUROC |>
+  filter(Res_prop %in% c("Prop_0.10", "Prop_0.50", "Prop_0.90") | 
+           Res_prop %in% c("0.10", "0.50", "0.90") | 
+           Res_prop %in% c(0.10, 0.50, 0.90)) |>
   mutate(
+    Res_prop_clean = factor(
+      Res_prop,
+      levels = c("Prop_0.10", "Prop_0.50", "Prop_0.90", "0.10", "0.50", "0.90", 0.10, 0.50, 0.90),
+      labels = c("10% responders", "50% responders", "90% responders",
+                 "10% responders", "50% responders", "90% responders",
+                 "10% responders", "50% responders", "90% responders")
+    ),
     Cell_range = factor(Cell_range, levels = c("High", "Medium", "Low")),
     Effect_clean = formatC(Effect, format = "e", digits = 1),
     Method = factor(Method, levels = c("MIMOSA2", "DiD Baseline")) # Ensures MIMOSA2 is first
   ) |>
-  group_by(Effect_clean, Cell_range, Method) |>
+  group_by(Res_prop_clean, Effect_clean, Cell_range, Method) |>
   summarise(
     Mean_AUROC = sprintf("%.3f", mean(AUROC, na.rm = TRUE)), 
     .groups = "drop"
   ) |>
-  arrange(Effect_clean, Cell_range, Method) |>
+  arrange(Res_prop_clean, Effect_clean, Cell_range, Method) |>
   # Combine MIMOSA2 and DiD Baseline into "val1, val2"
-  group_by(Effect_clean, Cell_range) |>
+  group_by(Res_prop_clean, Effect_clean, Cell_range) |>
   summarise(
     Combined_AUROC = paste(Mean_AUROC, collapse = ", "),
     .groups = "drop"
@@ -489,7 +573,7 @@ AUROC_matrix_2 <- AUROC |>
     names_from = Cell_range,
     values_from = Combined_AUROC
   ) |>
-  arrange(Effect_clean)
+  arrange(Effect_clean,Res_prop_clean)
 
 # Save as file: 
 write.table(
@@ -504,7 +588,7 @@ write.table(
 kable(
   AUROC_matrix_2, 
   caption = 'AUROC values (MIMOSA2, DiD Baseline)',
-  col.names = c("Effect Size", "High", "Medium", "Low")
+  col.names = c("Responders", "Effect Size", "High", "Medium", "Low")
 )
 
 # Table: AUROC values (MIMOSA2, DiD Baseline)
@@ -517,21 +601,49 @@ kable(
 # |5.0e-04     |0.944, 0.903 |0.929, 0.887 |0.854, 0.811 |
 # |6.2e-05     |0.900, 0.872 |0.869, 0.845 |0.775, 0.749 |
 
+# Table: AUROC values (MIMOSA2, DiD Baseline)
+# 
+# |Responders     |Effect Size |High         |Medium       |Low          |
+# |:--------------|:-----------|:------------|:------------|:------------|
+# |10% responders |1.0e-03     |0.956, 0.920 |0.947, 0.918 |0.895, 0.871 |
+# |50% responders |1.0e-03     |0.950, 0.910 |0.942, 0.899 |0.899, 0.842 |
+# |90% responders |1.0e-03     |0.952, 0.916 |0.940, 0.898 |0.906, 0.853 |
+# |10% responders |1.2e-04     |0.916, 0.876 |0.880, 0.848 |0.781, 0.765 |
+# |50% responders |1.2e-04     |0.906, 0.875 |0.877, 0.837 |0.794, 0.772 |
+# |90% responders |1.2e-04     |0.900, 0.872 |0.889, 0.861 |0.781, 0.759 |
+# |10% responders |2.5e-04     |0.930, 0.895 |0.908, 0.868 |0.803, 0.782 |
+# |50% responders |2.5e-04     |0.928, 0.885 |0.903, 0.871 |0.821, 0.778 |
+# |90% responders |2.5e-04     |0.932, 0.893 |0.901, 0.874 |0.824, 0.778 |
+# |10% responders |5.0e-04     |0.952, 0.914 |0.930, 0.883 |0.841, 0.815 |
+# |50% responders |5.0e-04     |0.945, 0.899 |0.927, 0.884 |0.860, 0.805 |
+# |90% responders |5.0e-04     |0.941, 0.900 |0.928, 0.890 |0.867, 0.823 |
+# |10% responders |6.2e-05     |0.901, 0.874 |0.865, 0.840 |0.761, 0.745 |
+# |50% responders |6.2e-05     |0.898, 0.870 |0.874, 0.847 |0.772, 0.749 |
+# |90% responders |6.2e-05     |0.902, 0.876 |0.870, 0.847 |0.784, 0.759 |
+
 # Simulation count table:
 Sim_count_matrix <- ROC_data_prepared |>
+  filter(Res_prop %in% c("Prop_0.10", "Prop_0.50", "Prop_0.90", "0.10", "0.50", "0.90", 0.10, 0.50, 0.90)) |>
   mutate(
+    Res_prop_clean = factor(
+      Res_prop,
+      levels = c("Prop_0.10", "Prop_0.50", "Prop_0.90", "0.10", "0.50", "0.90", 0.10, 0.50, 0.90),
+      labels = c("10% responders", "50% responders", "90% responders",
+                 "10% responders", "50% responders", "90% responders",
+                 "10% responders", "50% responders", "90% responders")
+    ),
     Cell_range = factor(Cell_range, levels = c("High", "Medium", "Low")),
     Effect_clean = formatC(Effect, format = "e", digits = 1),
     Method = factor(Method, levels = c("MIMOSA2", "DiD Baseline")) # Ensures MIMOSA2 is first
   ) |>
-  group_by(Effect_clean, Cell_range, Method) |>
+  group_by(Res_prop_clean, Effect_clean, Cell_range, Method) |>
   summarise(
     N_sims = n(), 
     .groups = "drop"
   ) |>
-  arrange(Effect_clean, Cell_range, Method) |>
+  arrange(Res_prop_clean, Effect_clean, Cell_range, Method) |>
   # Combine MIMOSA2 and DiD Baseline simulation counts
-  group_by(Effect_clean, Cell_range) |>
+  group_by(Res_prop_clean, Effect_clean, Cell_range) |>
   summarise(
     Combined_Count = paste(N_sims, collapse = ", "),
     .groups = "drop"
@@ -541,7 +653,7 @@ Sim_count_matrix <- ROC_data_prepared |>
     names_from = Cell_range,
     values_from = Combined_Count
   ) |>
-  arrange(Effect_clean)
+  arrange(Res_prop_clean, Effect_clean)
 
 # Save as file:
 write.table(
@@ -556,7 +668,7 @@ write.table(
 kable(
   Sim_count_matrix, 
   caption = 'Simulation Counts (MIMOSA2, DiD Baseline)',
-  col.names = c("Effect Size", "High", "Medium", "Low")
+  col.names = c("Responders", "Effect Size", "High", "Medium", "Low")
 )
 
 # Table: Simulation Counts (MIMOSA2, DiD Baseline)
@@ -568,6 +680,27 @@ kable(
 # |2.5e-04     |42750, 42750 |42750, 42750 |42740, 42740 |
 # |5.0e-04     |42750, 42750 |42750, 42750 |42750, 42750 |
 # |6.2e-05     |42750, 42750 |42750, 42750 |42750, 42750 |
+
+
+# Table: Simulation Counts (MIMOSA2, DiD Baseline)
+# 
+# |Responders     |Effect Size |High       |Medium     |Low        |
+# |:--------------|:-----------|:----------|:----------|:----------|
+# |10% responders |1.0e-03     |8550, 8550 |8550, 8550 |8550, 8550 |
+# |10% responders |1.2e-04     |8550, 8550 |8550, 8550 |8550, 8550 |
+# |10% responders |2.5e-04     |8550, 8550 |8550, 8550 |8540, 8540 |
+# |10% responders |5.0e-04     |8550, 8550 |8550, 8550 |8550, 8550 |
+# |10% responders |6.2e-05     |8550, 8550 |8550, 8550 |8550, 8550 |
+# |50% responders |1.0e-03     |8550, 8550 |8550, 8550 |8550, 8550 |
+# |50% responders |1.2e-04     |8550, 8550 |8550, 8550 |8550, 8550 |
+# |50% responders |2.5e-04     |8550, 8550 |8550, 8550 |8550, 8550 |
+# |50% responders |5.0e-04     |8550, 8550 |8550, 8550 |8550, 8550 |
+# |50% responders |6.2e-05     |8550, 8550 |8550, 8550 |8550, 8550 |
+# |90% responders |1.0e-03     |8550, 8550 |8550, 8550 |8550, 8550 |
+# |90% responders |1.2e-04     |8550, 8550 |8550, 8550 |8550, 8550 |
+# |90% responders |2.5e-04     |8550, 8550 |8550, 8550 |8550, 8550 |
+# |90% responders |5.0e-04     |8550, 8550 |8550, 8550 |8550, 8550 |
+# |90% responders |6.2e-05     |8550, 8550 |8550, 8550 |8550, 8550 |
 
 # Individual confidence intervals: 
 get_auc_diff_matrix <- function(auc_matrix, sim_matrix, r = 0.5, prop_pos = 0.5, digits = 3) {
@@ -613,7 +746,8 @@ get_auc_diff_matrix <- function(auc_matrix, sim_matrix, r = 0.5, prop_pos = 0.5,
   
   # Initialize output structure
   diff_matrix <- auc_matrix
-  value_cols <- setdiff(colnames(auc_matrix), colnames(auc_matrix)[1])
+  # value_cols <- setdiff(colnames(auc_matrix), colnames(auc_matrix)[1])
+  value_cols <- c("High", "Medium", "Low")
   
   # Loop over numeric columns
   for (col in value_cols) {
@@ -638,7 +772,7 @@ AUC_Diff_matrix <- get_auc_diff_matrix(
 kable(
   AUC_Diff_matrix, 
   caption = 'Δ AUROC (MIMOSA2 - DiD Baseline) with 95% Confidence Intervals',
-  col.names = c("Effect Size", "High", "Medium", "Low")
+  col.names = c("Responders", "Effect Size", "High", "Medium", "Low")
 )
 
 # Table: Δ AUROC (MIMOSA2 - DiD Baseline) with 95% Confidence Intervals
@@ -650,13 +784,51 @@ kable(
 # |2.5e-04     |0.038 [0.035, 0.041] |0.034 [0.031, 0.037] |0.037 [0.033, 0.041] |
 # |5.0e-04     |0.041 [0.038, 0.044] |0.042 [0.039, 0.045] |0.043 [0.039, 0.047] |
 # |6.2e-05     |0.028 [0.025, 0.031] |0.024 [0.020, 0.028] |0.026 [0.021, 0.031] |
+
+
+# Table: Δ AUROC (MIMOSA2 - DiD Baseline) with 95% Confidence Intervals
+# 
+# |Responders     |Effect Size |High                 |Medium               |Low                  |
+# |:--------------|:-----------|:--------------------|:--------------------|:--------------------|
+# |10% responders |1.0e-03     |0.036 [0.031, 0.041] |0.029 [0.023, 0.035] |0.024 [0.017, 0.031] |
+# |50% responders |1.0e-03     |0.040 [0.034, 0.046] |0.043 [0.037, 0.049] |0.057 [0.049, 0.065] |
+# |90% responders |1.0e-03     |0.036 [0.030, 0.042] |0.042 [0.036, 0.048] |0.053 [0.046, 0.060] |
+# |10% responders |1.2e-04     |0.040 [0.033, 0.047] |0.032 [0.024, 0.040] |0.016 [0.006, 0.026] |
+# |50% responders |1.2e-04     |0.031 [0.024, 0.038] |0.040 [0.032, 0.048] |0.022 [0.012, 0.032] |
+# |90% responders |1.2e-04     |0.028 [0.021, 0.035] |0.028 [0.020, 0.036] |0.022 [0.012, 0.032] |
+# |10% responders |2.5e-04     |0.035 [0.029, 0.041] |0.040 [0.033, 0.047] |0.021 [0.011, 0.031] |
+# |50% responders |2.5e-04     |0.043 [0.036, 0.050] |0.032 [0.025, 0.039] |0.043 [0.034, 0.052] |
+# |90% responders |2.5e-04     |0.039 [0.033, 0.045] |0.027 [0.020, 0.034] |0.046 [0.037, 0.055] |
+# |10% responders |5.0e-04     |0.038 [0.032, 0.044] |0.047 [0.040, 0.054] |0.026 [0.017, 0.035] |
+# |50% responders |5.0e-04     |0.046 [0.040, 0.052] |0.043 [0.036, 0.050] |0.055 [0.046, 0.064] |
+# |90% responders |5.0e-04     |0.041 [0.035, 0.047] |0.038 [0.031, 0.045] |0.044 [0.036, 0.052] |
+# |10% responders |6.2e-05     |0.027 [0.020, 0.034] |0.025 [0.017, 0.033] |0.016 [0.006, 0.026] |
+# |50% responders |6.2e-05     |0.028 [0.021, 0.035] |0.027 [0.019, 0.035] |0.023 [0.013, 0.033] |
+# |90% responders |6.2e-05     |0.026 [0.019, 0.033] |0.023 [0.015, 0.031] |0.025 [0.015, 0.035] |
   
 # -----------------------------------------------------------------------------
-# Overlay AUC values to clean plot:
+# Simulation performance of MIMOSA2
+# ROC analysis
+# 'ROC_plot_overlay' 
+# Effect: small,med,large
+# Res_prop: 10%,50%,90%
 # -----------------------------------------------------------------------------
+# Filter data: 
+ROC_data_filtered <- ROC_data_clean |>
+  filter(Res_prop %in% c("Prop_0.10", "Prop_0.50", "Prop_0.90", "0.10", "0.50", "0.90", 0.10, 0.50, 0.90)) |>
+  mutate(
+    Res_prop_clean = factor(
+      Res_prop,
+      levels = c("Prop_0.10", "Prop_0.50", "Prop_0.90", "0.10", "0.50", "0.90", 0.10, 0.50, 0.90),
+      labels = c("10% responders", "50% responders", "90% responders",
+                 "10% responders", "50% responders", "90% responders",
+                 "10% responders", "50% responders", "90% responders")
+    )
+  )
+
 # Calculate AUC: 
-auroc_df = ROC_data_clean |>
-  group_by(Effect_clean, Cell_range, Method) |>
+auroc_df = ROC_data_filtered |>
+  group_by(Res_prop_clean, Effect_clean, Cell_range, Method) |>
   filter(length(unique(Truth)) == 2) |>
   do(plotROC::calc_auc(
     ggplot(., aes(d = Truth, m = Score)) + geom_roc()
@@ -672,17 +844,17 @@ auc_text_df = auroc_df |>
     # Format string to 3 decimal places
     auc_label = paste0(Method_short, ": ", sprintf("%.3f", AUROC))
   ) |>
-  group_by(Effect_clean) |>
+  group_by(Res_prop_clean, Effect_clean) |>
   arrange(desc(Method), desc(Cell_range), .by_group = TRUE) |>
   mutate(
-    x = 0.55,                                      
-    y = seq(0.42, 0.07, length.out = n())          
+    x = 0.60,                             # This shift text box left/right                           
+    y = seq(0.52, 0.08, length.out = n()) # This shifts text box up/down   
   ) |>
   ungroup()
 
 # Plot: 
 ROC_plot_overlay = ggplot(
-  data = ROC_data_clean,
+  data = ROC_data_filtered,
   mapping = aes(
     d = Truth, 
     m = Score, 
@@ -691,7 +863,7 @@ ROC_plot_overlay = ggplot(
     group = interaction(Method, Cell_range)
   )
 ) +
-  geom_roc(n.cuts = 0, size = 0.8, alpha = 0.7) +
+  geom_roc(n.cuts = 0, size = 0.8, linealpha = 0.9) +
   geom_abline(
     slope = 1, 
     intercept = 0, 
@@ -703,14 +875,14 @@ ROC_plot_overlay = ggplot(
     data = auc_text_df,
     aes(x = x, y = y, label = auc_label, color = Cell_range),
     inherit.aes = FALSE,
-    size = 3.2,
+    size = 2.8,
     hjust = 0,
     vjust = 1
   ) +
-  facet_wrap(~ Effect_clean, nrow = 1) +
+  facet_grid(Res_prop_clean ~ Effect_clean) +
   scale_color_manual(values = c("High" = "deeppink", 
-                                "Medium" = "blue", 
-                                "Low" = "purple")) +
+                                "Medium" = "steelblue3", 
+                                "Low" = "orange")) +
   scale_linetype_manual(values = c("MIMOSA2" = "solid", 
                                    "DiD Baseline" = "dotted")) +
   scale_x_continuous(breaks = seq(0, 1, 0.25), labels = sprintf("%.2f", seq(0, 1, 0.25))) +
@@ -727,10 +899,10 @@ ROC_plot_overlay = ggplot(
       override.aes = list(linewidth = 1.2, size = 2)
     )
   ) +
-  theme_bw(base_size = 11) +
+  theme_bw(base_size = 14) +
   labs(
-    title = "MIMOSA2 Simulation Performance",
-    subtitle = "AUROC Analysis for 50% responders.",
+    title = "Simulation performance of MIMOSA2.",
+    subtitle = "ROC analysis.",
     x = "FPR",
     y = "TPR"
   ) +
@@ -746,14 +918,14 @@ ROC_plot_overlay = ggplot(
   )
 
 print(ROC_plot_overlay)
-# These dimensions need to be changed !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# Not happy with how the AUC values look but that is a quick fix 
-ggsave('_fig/ROC_plot_overlay.pdf',plot=ROC_plot_overlay,width=10,height=10)
+# ggsave('_fig/ROC_plot_overlay.pdf',plot=ROC_plot_overlay,width=8,height=6)
 
 # -----------------------------------------------------------------------------
-# Nominal vs. observed FDR plot
-# This gives a 5x5 grid
+# False discovery rate
+# Points on or below the dashed line indicate properly controlled FDR
+# 'fdr_plot' 
 # -----------------------------------------------------------------------------
+# Define grid: 
 alpha_grid = seq(0.01, 0.20, by = 0.01)
 
 fdr_eval = map_dfr(alpha_grid, function(a) {
@@ -797,8 +969,8 @@ fdr_plot = ggplot(fdr_eval,
     labeller = labeller(Res_prop_clean = label_value, Effect = label_both)
   ) +
   scale_color_manual(values = c("High" = "deeppink", 
-                                "Medium" = "blue", 
-                                "Low" = "purple")) +
+                                "Medium" = "steelblue3", 
+                                "Low" = "orange")) +
   scale_x_continuous(breaks = seq(0, 0.20, 0.05), 
                      labels = sprintf("%.2f", seq(0, 0.20, 0.05))) +
   scale_y_continuous(limits = c(0, 0.25), 
@@ -810,7 +982,7 @@ fdr_plot = ggplot(fdr_eval,
       override.aes = list(linewidth = 1.2, size = 2)
     )
   ) +
-  theme_bw(base_size = 11) +
+  theme_bw(base_size = 14) +
   labs(
     title = "False discovery rate.",
     subtitle = "Points on or below the dashed line indicate properly controlled FDR.",
@@ -828,22 +1000,33 @@ fdr_plot = ggplot(fdr_eval,
   )
 
 print(fdr_plot)
-# ggsave('_fig/fdr_plot.pdf',plot=fdr_plot,width=10,height=10)
+ggsave('_fig/fdr_plot.pdf',plot=fdr_plot,width=10,height=10)
 
 #-------------------------------------------------------------------------------
-# Nominal vs Observed FDR plots
-# This gives a 1x3 plot
+# False discovery rate
+# Points on or below the dashed line indicate properly controlled FDR
+# 'fdr_plot_clean'
+# Effect: small,med,large
+# Res_prop: 10%,50%,90%
 #-------------------------------------------------------------------------------
+# Filter data: 
 all_effects = sort(unique(fdr_eval$Effect))
 selected_effects = all_effects[c(1, ceiling(length(all_effects)/2), 
                                  length(all_effects))]
 
 fdr_eval_clean = fdr_eval |>
   filter(
-    Res_prop == "Prop_0.50",
+    Res_prop %in% c("Prop_0.10", "Prop_0.50", "Prop_0.90"),
     Effect %in% selected_effects
   ) |>
   mutate(
+    Res_prop_clean = factor(
+      Res_prop,
+      levels = c("Prop_0.10", "Prop_0.50", "Prop_0.90", "0.10", "0.50", "0.90", 0.10, 0.50, 0.90),
+      labels = c("10% responders", "50% responders", "90% responders",
+                 "10% responders", "50% responders", "90% responders",
+                 "10% responders", "50% responders", "90% responders")
+    ),
     Effect_clean = factor(
       Effect,
       levels = selected_effects,
@@ -858,10 +1041,10 @@ fdr_plot_clean = ggplot(fdr_eval_clean,
                             color = Cell_range)) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "grey10", linewidth = 0.5) +
   stat_summary(fun = mean, geom = "line", linewidth = 0.8) +
-  facet_wrap(~ Effect_clean, nrow = 1) +
+  facet_grid(Res_prop_clean ~ Effect_clean) +
   scale_color_manual(values = c("High" = "deeppink", 
-                                "Medium" = "blue", 
-                                "Low" = "purple")) +
+                                "Medium" = "steelblue3", 
+                                "Low" = "orange")) +
   scale_x_continuous(breaks = seq(0, 0.20, 0.05), 
                      labels = sprintf("%.2f", seq(0, 0.20, 0.05))) +
   scale_y_continuous(limits = c(0, 0.25), 
@@ -873,10 +1056,10 @@ fdr_plot_clean = ggplot(fdr_eval_clean,
       override.aes = list(linewidth = 1.2, size = 2)
     )
   ) +
-  theme_bw(base_size = 11) +
+  theme_bw(base_size = 14) +
   labs(
     title = "False discovery rate.",
-    subtitle = "Nominal vs. observed FDR for 50% responders.",
+    subtitle = "Points on or below the dashed line indicate properly controlled FDR",
     x = "Nominal FDR",
     y = "Observed FDR"
   ) +
@@ -891,4 +1074,4 @@ fdr_plot_clean = ggplot(fdr_eval_clean,
   )
 
 print(fdr_plot_clean)
-# ggsave('_fig/fdr_plot_clean.pdf',plot=fdr_plot_clean,width=10,height=10)
+# ggsave('_fig/fdr_plot_clean.pdf',plot=fdr_plot_clean,width=8,height=8)
