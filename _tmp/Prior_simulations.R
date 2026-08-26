@@ -76,9 +76,13 @@ stresstest_mat = expand.grid(
 #-------------------------------------------------------------------------------
 log_dir  <- "/scratch/abrmoe030/projects/mimosa2/_tmp"
 log_file <- file.path(log_dir, "sim_progress.log")
+time_log_file <- file.path(log_dir, "simulation_times.csv")
+cat("Simulation_ID,Distribution,Cell_Range,Effect,Replication,Status,Elapsed_Seconds\n", 
+    file = time_log_file, append = FALSE)
 
 if (!dir.exists(log_dir)) dir.create(log_dir, recursive = TRUE)
 file.create(log_file)
+file.create(time_log_file)
 
 run_single_simulation <- function(i) {
   dist     = stresstest_mat$Distribution_Phi[[i]][1]
@@ -133,13 +137,18 @@ gc(verbose = FALSE)
 
 fit_error <- FALSE
 fit_error_msg <- NULL
-
 fit_start <- Sys.time()
 
-fit <- tryCatch({
+# tryCatch now returns a list containing the model and the error status
+res <- tryCatch({
   
-  callr::r_with_time_limit(
-    function(sim_data) {
+  # Run callr::r and store the successful result
+  model_fit <- callr::r(
+    func = function(sim_data, lib_loc) {
+      # 1. Mount custom library path inside the isolated process
+      .libPaths(c(lib_loc, .libPaths()))
+      
+      # 2. Run the model
       MIMOSA2::MIMOSA2(
         Ntot    = sim_data$Ntot,
         ns1     = sim_data$ns1,
@@ -150,19 +159,28 @@ fit <- tryCatch({
         verbose = FALSE
       )
     },
-    args = list(sim_data = sim),
+    args = list(sim_data = sim, lib_loc = my_libs),
     timeout = 120
   )
   
+  # If successful, return this list:
+  list(fit = model_fit, error = FALSE, msg = NULL)
+  
 }, error = function(e) {
   
-  fit_error <<- TRUE
-  fit_error_msg <<- conditionMessage(e)
-  return(NULL)
+  # If it fails or times out, return this list instead:
+  list(fit = NULL, error = TRUE, msg = conditionMessage(e))
+  
 })
+
+# Extract the results cleanly into local variables (no <<- needed)
+fit           <- res$fit
+fit_error     <- res$error
+fit_error_msg <- res$msg
 
 fit_elapsed <- as.numeric(difftime(Sys.time(), fit_start, units = "secs"))
 
+# The cat() logging block remains exactly the same below...
 cat(
   paste0(
     "Simulation ", i,
@@ -170,13 +188,10 @@ cat(
     round(fit_elapsed, 2),
     " sec | status = ",
     if (fit_error) "ERROR/TIMEOUT" else "SUCCESS",
-    if (!is.null(fit_error_msg))
-      paste0(" | error = ", fit_error_msg)
-    else
-      "",
+    if (!is.null(fit_error_msg)) paste0(" | error = ", fit_error_msg) else "",
     "\n"
   ),
-  file = log_file,
+  file = time_log_file,
   append = TRUE
 )
 
