@@ -11,43 +11,34 @@ library(callr)
 library(future)
 library(future.apply)
 library(parallelly)
-library(BiocParallel)
 
 cat("\n========== CPU DIAGNOSTIC ==========\n")
 
-cat("SLURM_CPUS_PER_TASK:",
-    Sys.getenv("SLURM_CPUS_PER_TASK"), "\n")
-
-cat("detectCores:",
-    parallel::detectCores(), "\n")
-
-cat("availableCores:",
-    parallelly::availableCores(), "\n")
-
-cat("\navailableCores(which='all'):\n")
-print(parallelly::availableCores(which = "all"))
-
-cat("\nBiocParallel default parameter:\n")
-print(BiocParallel::bpparam())
-
-cat("\nBiocParallel default workers:\n")
-print(BiocParallel::bpnworkers(BiocParallel::bpparam()))
-
 n_workers <- as.integer(
-  Sys.getenv("SLURM_CPUS_PER_TASK", "2")
+    Sys.getenv("SLURM_CPUS_PER_TASK", "2")
 )
 
-cat("\nAttempting", n_workers, "future workers\n")
+cat("SLURM_CPUS_PER_TASK:", n_workers, "\n")
+cat("detectCores:", parallel::detectCores(), "\n")
+
+cat("availableCores BEFORE override:\n")
+print(parallelly::availableCores(which = "all"))
+
+# We know Slurm has allocated these CPUs to this job.
+options(
+    parallelly.maxWorkers.localhost = n_workers
+)
+
+plan(
+    multisession,
+    workers = n_workers
+)
+
+cat("\nFuture workers:", future::nbrOfWorkers(), "\n")
+cat("availableCores AFTER override:\n")
+print(parallelly::availableCores())
 
 cat("\n========== END DIAGNOSTIC ==========\n")
-
-plan(multisession, workers = n_workers)
-
-cat("future::nbrOfWorkers() =", future::nbrOfWorkers(), "\n")
-
-cat("SLURM_CPUS_PER_TASK:", Sys.getenv("SLURM_CPUS_PER_TASK"), "\n")
-cat("future::nbrOfWorkers():", future::nbrOfWorkers(), "\n")
-cat("future::supportsMulticore():", future::supportsMulticore(), "\n")
 
 responders50  = c(rep(0.50 / 4, 4), rep(0.50 / 4, 4))
 
