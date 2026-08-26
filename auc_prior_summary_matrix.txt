@@ -1,0 +1,81 @@
+Distribution_clean	Effect_clean	Cell_range	DiD Baseline	MIMOSA2
+Beta	1.0e-03	High	0.956	0.986
+Beta	1.0e-03	Medium	0.912	0.963
+Beta	1.0e-03	Low	0.848	0.933
+Beta	1.0e-03	Very Low	0.762	0.881
+Beta	1.2e-04	High	0.903	0.914
+Beta	1.2e-04	Medium	0.824	0.857
+Beta	1.2e-04	Low	0.725	0.746
+Beta	1.2e-04	Very Low	0.660	0.692
+Beta	2.5e-04	High	0.896	0.927
+Beta	2.5e-04	Medium	0.855	0.908
+Beta	2.5e-04	Low	0.742	0.785
+Beta	2.5e-04	Very Low	0.676	0.732
+Beta	6.2e-05	High	0.882	0.895
+Beta	6.2e-05	Medium	0.842	0.882
+Beta	6.2e-05	Low	0.657	0.699
+Beta	6.2e-05	Very Low	0.614	0.647
+Simplex	1.0e-03	High	0.938	0.967
+Simplex	1.0e-03	Medium	0.923	0.968
+Simplex	1.0e-03	Low	0.860	0.941
+Simplex	1.0e-03	Very Low	0.805	0.912
+Simplex	1.2e-04	High	0.876	0.896
+Simplex	1.2e-04	Medium	0.805	0.843
+Simplex	1.2e-04	Low	0.661	0.678
+Simplex	1.2e-04	Very Low	0.630	0.675
+Simplex	2.5e-04	High	0.901	0.939
+Simplex	2.5e-04	Medium	0.865	0.898
+Simplex	2.5e-04	Low	0.735	0.781
+Simplex	2.5e-04	Very Low	0.623	0.707
+Simplex	6.2e-05	High	0.836	0.855
+Simplex	6.2e-05	Medium	0.818	0.828
+Simplex	6.2e-05	Low	0.627	0.653
+Simplex	6.2e-05	Very Low	0.586	0.626
+Bimodal Beta	1.0e-03	High	0.932	0.963
+Bimodal Beta	1.0e-03	Medium	0.925	0.972
+Bimodal Beta	1.0e-03	Low	0.843	0.925
+Bimodal Beta	1.0e-03	Very Low	0.780	0.900
+Bimodal Beta	1.2e-04	High	0.905	0.934
+Bimodal Beta	1.2e-04	Medium	0.822	0.865
+Bimodal Beta	1.2e-04	Low	0.691	0.726
+Bimodal Beta	1.2e-04	Very Low	0.646	0.693
+Bimodal Beta	2.5e-04	High	0.892	0.931
+Bimodal Beta	2.5e-04	Medium	0.856	0.903
+Bimodal Beta	2.5e-04	Low	0.702	0.779
+Bimodal Beta	2.5e-04	Very Low	0.659	0.728
+Bimodal Beta	6.2e-05	High	0.891	0.901
+Bimodal Beta	6.2e-05	Medium	0.813	0.848
+Bimodal Beta	6.2e-05	Low	0.689	0.732
+Bimodal Beta	6.2e-05	Very Low	0.615	0.645
+Exponential Gamma	1.0e-03	High	0.927	0.959
+Exponential Gamma	1.0e-03	Medium	0.905	0.938
+Exponential Gamma	1.0e-03	Low	0.826	0.915
+Exponential Gamma	1.0e-03	Very Low	0.832	0.903
+Exponential Gamma	1.2e-04	High	0.870	0.885
+Exponential Gamma	1.2e-04	Medium	0.864	0.882
+Exponential Gamma	1.2e-04	Low	0.678	0.716
+Exponential Gamma	1.2e-04	Very Low	0.620	0.675
+Exponential Gamma	2.5e-04	High	0.913	0.924
+Exponential Gamma	2.5e-04	Medium	0.885	0.910
+Exponential Gamma	2.5e-04	Low	0.757	0.815
+Exponential Gamma	2.5e-04	Very Low	0.624	0.674
+Exponential Gamma	6.2e-05	High	0.859	0.880
+Exponential Gamma	6.2e-05	Medium	0.822	0.828
+Exponential Gamma	6.2e-05	Low	0.699	0.747
+Exponential Gamma	6.2e-05	Very Low	0.607	0.665
+Logit Normal	1.0e-03	High	0.937	0.967
+Logit Normal	1.0e-03	Medium	0.921	0.955
+Logit Normal	1.0e-03	Low	0.816	0.881
+Logit Normal	1.0e-03	Very Low	0.818	0.908
+Logit Normal	1.2e-04	High	0.890	0.908
+Logit Normal	1.2e-04	Medium	0.826	0.844
+Logit Normal	1.2e-04	Low	0.686	0.755
+Logit Normal	1.2e-04	Very Low	0.659	0.760
+Logit Normal	2.5e-04	High	0.883	0.918
+Logit Normal	2.5e-04	Medium	0.876	0.899
+Logit Normal	2.5e-04	Low	0.734	0.779
+Logit Normal	2.5e-04	Very Low	0.646	0.756
+Logit Normal	6.2e-05	High	0.903	0.908
+Logit Normal	6.2e-05	Medium	0.812	0.840
+Logit Normal	6.2e-05	Low	0.685	0.727
+Logit Normal	6.2e-05	Very Low	0.627	0.705
