@@ -11,17 +11,27 @@ library(callr)
 library(future)
 library(future.apply)
 library(parallelly)
+library(BiocParallel)
 
-cat("CPUs according to SLURM:\n")
-cat("  SLURM_CPUS_PER_TASK =", Sys.getenv("SLURM_CPUS_PER_TASK"), "\n")
+cat("\n========== BEFORE NON_BETA ==========\n")
+cat("SLURM_CPUS_PER_TASK:",
+    Sys.getenv("SLURM_CPUS_PER_TASK"), "\n")
+cat("detectCores:",
+    parallel::detectCores(), "\n")
+cat("availableCores:",
+    parallelly::availableCores(), "\n")
 
-cat("CPUs according to R:\n")
-cat("  detectCores() =", parallel::detectCores(), "\n")
-cat("  availableCores() =", parallelly::availableCores(), "\n")
+cat("\navailableCores(which = 'all'):\n")
+print(parallelly::availableCores(which = "all"))
 
-n_workers <- as.integer(Sys.getenv("SLURM_CPUS_PER_TASK", "2"))
+cat("\nBiocParallel registered backends:\n")
+print(BiocParallel::registered())
 
-cat("Attempting", n_workers, "workers\n")
+cat("\nBiocParallel workers:\n")
+print(BiocParallel::bpnworkers())
+
+
+cat("\n========== END DIAGNOSTIC ==========\n")
 
 plan(multisession, workers = n_workers)
 
