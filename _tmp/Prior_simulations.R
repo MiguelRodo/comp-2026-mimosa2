@@ -8,7 +8,7 @@ my_libs <- "/scratch/abrmoe030/R_libs"
 
 library(future)
 library(future.apply)
-library(callr)
+library(R.utils)
 plan(multisession, workers = as.numeric(Sys.getenv("SLURM_NTASKS", 2)))
 
 cat("SLURM_NTASKS as seen by R:", Sys.getenv("SLURM_NTASKS", "NOT SET"), "\n")
