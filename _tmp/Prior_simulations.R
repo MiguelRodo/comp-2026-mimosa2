@@ -13,23 +13,31 @@ library(future.apply)
 library(parallelly)
 library(BiocParallel)
 
-cat("\n========== BEFORE NON_BETA ==========\n")
+cat("\n========== CPU DIAGNOSTIC ==========\n")
+
 cat("SLURM_CPUS_PER_TASK:",
     Sys.getenv("SLURM_CPUS_PER_TASK"), "\n")
+
 cat("detectCores:",
     parallel::detectCores(), "\n")
+
 cat("availableCores:",
     parallelly::availableCores(), "\n")
 
-cat("\navailableCores(which = 'all'):\n")
+cat("\navailableCores(which='all'):\n")
 print(parallelly::availableCores(which = "all"))
 
-cat("\nBiocParallel registered backends:\n")
-print(BiocParallel::registered())
+cat("\nBiocParallel default parameter:\n")
+print(BiocParallel::bpparam())
 
-cat("\nBiocParallel workers:\n")
-print(BiocParallel::bpnworkers())
+cat("\nBiocParallel default workers:\n")
+print(BiocParallel::bpnworkers(BiocParallel::bpparam()))
 
+n_workers <- as.integer(
+  Sys.getenv("SLURM_CPUS_PER_TASK", "2")
+)
+
+cat("\nAttempting", n_workers, "future workers\n")
 
 cat("\n========== END DIAGNOSTIC ==========\n")
 
