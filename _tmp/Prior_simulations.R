@@ -9,9 +9,21 @@ my_libs <- "/scratch/abrmoe030/R_libs"
 library(future)
 library(future.apply)
 library(R.utils)
-plan(multisession, workers = as.numeric(Sys.getenv("SLURM_NTASKS", 2)))
+# Determine available CPUs allocated by Slurm or system
+num_workers <- as.numeric(
+  Sys.getenv("SLURM_CPUS_PER_TASK", 
+             Sys.getenv("SLURM_NTASKS", parallelly::availableCores()))
+)
 
-cat("SLURM_NTASKS as seen by R:", Sys.getenv("SLURM_NTASKS", "NOT SET"), "\n")
+# Print diagnostic information
+cat("SLURM_CPUS_PER_TASK:", Sys.getenv("SLURM_CPUS_PER_TASK", "NOT SET"), "\n")
+cat("SLURM_NTASKS:", Sys.getenv("SLURM_NTASKS", "NOT SET"), "\n")
+cat("Detected workers to assign:", num_workers, "\n")
+
+# Set the parallelization plan
+plan(multisession, workers = num_workers)
+
+# Verify plan initialization
 cat("future::nbrOfWorkers() reports:", future::nbrOfWorkers(), "\n")
 cat("future::supportsMulticore() reports:", future::supportsMulticore(), "\n")
 
