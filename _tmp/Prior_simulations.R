@@ -131,29 +131,55 @@ run_single_simulation <- function(i) {
 
 gc(verbose = FALSE)
 
-  fit_error = FALSE
+fit_error <- FALSE
+fit_error_msg <- NULL
+
+fit_start <- Sys.time()
+
+fit <- tryCatch({
   
-  fit <- tryCatch({
-    callr::r_with_time_limit(
-      function(sim_data) {
-        # Explicit package reference
-        MIMOSA2::MIMOSA2(
-          Ntot    = sim_data$Ntot,
-          ns1     = sim_data$ns1,
-          nu1     = sim_data$nu1,
-          ns0     = sim_data$ns0,
-          nu0     = sim_data$nu0,
-          maxit   = 30,
-          verbose = FALSE
-        )
-      },
-      args = list(sim_data = sim),
-      timeout = 120 # Hard 2-minute kill
-    )
-  }, error = function(e) {
-    fit_error <<- TRUE
-    return(NULL)
-  })
+  callr::r_with_time_limit(
+    function(sim_data) {
+      MIMOSA2::MIMOSA2(
+        Ntot    = sim_data$Ntot,
+        ns1     = sim_data$ns1,
+        nu1     = sim_data$nu1,
+        ns0     = sim_data$ns0,
+        nu0     = sim_data$nu0,
+        maxit   = 30,
+        verbose = FALSE
+      )
+    },
+    args = list(sim_data = sim),
+    timeout = 120
+  )
+  
+}, error = function(e) {
+  
+  fit_error <<- TRUE
+  fit_error_msg <<- conditionMessage(e)
+  return(NULL)
+})
+
+fit_elapsed <- as.numeric(difftime(Sys.time(), fit_start, units = "secs"))
+
+cat(
+  paste0(
+    "Simulation ", i,
+    " | MIMOSA2 elapsed = ",
+    round(fit_elapsed, 2),
+    " sec | status = ",
+    if (fit_error) "ERROR/TIMEOUT" else "SUCCESS",
+    if (!is.null(fit_error_msg))
+      paste0(" | error = ", fit_error_msg)
+    else
+      "",
+    "\n"
+  ),
+  file = log_file,
+  append = TRUE
+)
+
   # Initialize point metrics:
   status     = "Success"
   iterations = NA_real_
