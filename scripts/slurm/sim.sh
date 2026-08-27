@@ -1,31 +1,22 @@
 #!/usr/bin/env bash
 #SBATCH --nodes=1
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=20
+#SBATCH --ntasks=20
 #SBATCH --job-name="sim"
 #SBATCH --partition=ada
+
+# Record the start time
 start_time=$(date +%s)
 
 echo "HOSTNAME: $HOSTNAME"
 
-echo "SLURM_CPUS_PER_TASK=$SLURM_CPUS_PER_TASK"
-echo "SLURM_NTASKS=$SLURM_NTASKS"
-echo "SLURM_JOB_CPUS_PER_NODE=$SLURM_JOB_CPUS_PER_NODE"
-echo "SLURM_CPUS_ON_NODE=$SLURM_CPUS_ON_NODE"
-
-echo "SLURM CPU affinity:"
-taskset -pc $$
-
-echo "Available processors:"
-nproc
-
 echo " "
 echo " "
 echo " "
+
 echo "-------------------"
+echo "Run simulation"
 date
-
-apptainer-rscript -f mimosa2 -- 'source("_tmp/Non_beta_simulations.R"); source("_tmp/Prior_simulations.R")'
+apptainer-rscript -f mimosa2 -- 'source("_tmp/Non_beta_simulations.R"); source("_tmp/Heterogeneous_effect_sim.R")'
 echo "Completed running simulation"
 date
 echo "-------------------"
@@ -46,3 +37,13 @@ seconds=$((duration % 60))
 echo "--- Script Duration ---"
 printf "Elapsed time: %02d:%02d:%02d\n" $hours $minutes $seconds
 echo "-----------------------"
+--------------------
+
+--- sbatch Command ---
+sbatch  -o /scratch/abrmoe030/projects/mimosa2/_tmp/log/sbatch/sim/run_2026-08-20_09-54-59_out.txt /scratch/abrmoe030/projects/mimosa2/scripts/slurm/sim.sh
+-----------------------
+
+--- Standard Output ---
+Submitted batch job 1248643
+-----------------------
+
