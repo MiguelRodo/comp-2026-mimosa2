@@ -141,7 +141,7 @@ run_simulation <- function(i) {
   )
   
   # --- Step G: Store Observation-Level Results (results_continuous format) ---
-  obs_results_list[[i]] <- data.frame(
+  obs_results_list <- data.frame(
     Run_ID                   = i,
     Distribution             = dist,
     Res_prop                 = comp_nm,
@@ -159,24 +159,8 @@ run_simulation <- function(i) {
     DiD_GLM_prob             = prob_did_glm,
     stringsAsFactors         = FALSE
   )
-  
-  # --- Step H: Store Metadata Summary per Run ---
-  summary_results_list[[i]] <- data.frame(
-    Run_ID          = i,
-    Distribution    = dist,
-    Res_prop        = comp_nm,
-    P_small         = p_small,
-    P_big           = p_big,
-    Small_effect    = eff_small,
-    Large_effect    = eff_large,
-    Cell_range      = rng_nm,
-    Phi             = phi,
-    Replication     = rep_id,
-    Status_Combined = if (!is.null(fit_all)) "Success" else "Crash/Timeout",
-    Status_Indep    = if (!is.null(fit_small)) "Success" else "Crash/Timeout",
-    stringsAsFactors = FALSE
-  )
-  return(list(summary=summary_results_list,continuous=obs_results_list))
+
+  return(list(continuous=obs_results_list))
 }
 
 # -----------------------------------------------------------------------------
@@ -188,7 +172,6 @@ message("Starting parallel simulations...")
 master_obs_list <- future_lapply(1:nrow(stresstest_mat), run_simulation, future.seed = TRUE,
 future.scheduling = Inf)
 
-results_summary    <- do.call(rbind, lapply(master_obs_list, function(x) x$summary))
 results_continuous <- do.call(rbind, lapply(master_obs_list, function(x) x$continuous))
 
 
