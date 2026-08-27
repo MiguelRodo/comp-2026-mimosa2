@@ -176,6 +176,7 @@ run_simulation <- function(i) {
     Status_Indep    = if (!is.null(fit_small)) "Success" else "Crash/Timeout",
     stringsAsFactors = FALSE
   )
+  return(list(summary=summary_results_list,continuous=obs_results_list))
 }
 
 # -----------------------------------------------------------------------------
