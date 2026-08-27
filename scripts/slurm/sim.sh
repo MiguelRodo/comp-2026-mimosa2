@@ -38,12 +38,3 @@ echo "--- Script Duration ---"
 printf "Elapsed time: %02d:%02d:%02d\n" $hours $minutes $seconds
 echo "-----------------------"
 --------------------
-
---- sbatch Command ---
-sbatch  -o /scratch/abrmoe030/projects/mimosa2/_tmp/log/sbatch/sim/run_2026-08-20_09-54-59_out.txt /scratch/abrmoe030/projects/mimosa2/scripts/slurm/sim.sh
------------------------
-
---- Standard Output ---
-Submitted batch job 1248643
------------------------
-
