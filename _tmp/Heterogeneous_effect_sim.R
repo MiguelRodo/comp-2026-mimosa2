@@ -177,8 +177,7 @@ results_continuous <- do.call(rbind, lapply(master_obs_list, function(x) x$conti
 
 if (!dir.exists("_simulations")) dir.create("_simulations", recursive = TRUE)
 
-save(results_summary, 
-     results_continuous, 
+save(results_continuous, 
      file = "_simulations/Simulation_Small_Vs_Combined_Continuous.Rdata")
 
 message("Simulations completed successfully. Continuous results saved.")
