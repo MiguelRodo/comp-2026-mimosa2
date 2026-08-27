@@ -1,6 +1,12 @@
 
+my_libs <- "/scratch/abrmoe030/R_libs"
+.libPaths(c(my_libs, .libPaths()))
+
 library(R.utils)
 library(dplyr)
+library(future)
+library(future.apply)
+plan(multicore, workers = as.numeric(Sys.getenv("SLURM_NTASKS", 2)))
 
 # -----------------------------------------------------------------------------
 # 1. PARAMETERS & SIMULATION MATRIX SETUP
@@ -35,9 +41,12 @@ summary_results_list <- vector("list", nrow(stresstest_mat))
 # -----------------------------------------------------------------------------
 # 2. MAIN FOR LOOP
 # -----------------------------------------------------------------------------
-message("Starting sequential simulation loop...")
 
-for (i in 1:nrow(stresstest_mat)) {
+
+log_dir  <- "/scratch/abrmoe030/projects/mimosa2/_tmp"
+log_file <- file.path(log_dir, "sim_progress.log")
+
+run_simulation <- function(i) {
   
   # Extract parameters for row i
   dist       <- stresstest_mat$Distribution[i]
@@ -54,7 +63,8 @@ for (i in 1:nrow(stresstest_mat)) {
   active_rng        <- rng_list[[rng_nm]]
   
   cat(sprintf("Run %d/%d: Rep=%d, CellRange=%s, SmallEff=%.2e, LargeEff=%.2e\n",
-              i, nrow(stresstest_mat), rep_id, rng_nm, eff_small, eff_large))
+              i, nrow(stresstest_mat), rep_id, rng_nm, eff_small, eff_large),
+              file = log_file, append = TRUE)
   
   # --- Step A: Generate Small and Big Simulations ---
   sim_small <- simulate_MIMOSA2_alt_prior(
@@ -171,8 +181,15 @@ for (i in 1:nrow(stresstest_mat)) {
 # -----------------------------------------------------------------------------
 # 3. MERGE AND SAVE RESULTS
 # -----------------------------------------------------------------------------
-results_continuous <- do.call(rbind, obs_results_list)
-results_summary    <- do.call(rbind, summary_results_list)
+
+message("Starting parallel simulations...")
+
+master_obs_list <- future_lapply(1:nrow(stresstest_mat), run_simulation, future.seed = TRUE,
+future.scheduling = Inf)
+
+results_summary    <- do.call(rbind, lapply(master_obs_list, function(x) x$summary))
+results_continuous <- do.call(rbind, lapply(master_obs_list, function(x) x$continuous))
+
 
 if (!dir.exists("_simulations")) dir.create("_simulations", recursive = TRUE)
 
