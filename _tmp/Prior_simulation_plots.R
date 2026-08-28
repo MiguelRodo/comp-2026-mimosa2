@@ -358,6 +358,7 @@ kable(
   col.names = c("Prior Distribution", "Effect Size", "Cell Count", "MIMOSA2", "DiD Baseline")
 )
 
+# INCORRECT
 # Table: AUROC values across Prior Distributions (50% Responders)
 # 
 # |Prior Distribution |Effect Size |Cell Count |MIMOSA2 |DiD Baseline |
