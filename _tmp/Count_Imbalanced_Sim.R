@@ -63,7 +63,7 @@ run_simulation <- function(i) {
   active_components <- component_list[[comp_nm]]
   active_rng        <- rng_list[[rng_nm]]
   
-  cat(sprintf("Run %d/%d: Rep=%d, CellRange=%s",
+  cat(sprintf("Run %d/%d: Rep=%d, CellRange=%s \n",
               i, nrow(stresstest_mat), rep_id, rng_nm),
       file = log_file, append = TRUE)
   
