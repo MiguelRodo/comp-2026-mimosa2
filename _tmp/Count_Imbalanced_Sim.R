@@ -35,7 +35,7 @@ stresstest_mat = expand.grid(
   Effect         = c(5e-4),
   Rng_Name       = names(rng_list),
   Phi            = 5000,
-  Replication    = 1:50, 
+  Replication    = 1:30, 
   stringsAsFactors = FALSE
 )
 
