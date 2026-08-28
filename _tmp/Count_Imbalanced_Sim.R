@@ -6,7 +6,7 @@ library(R.utils)
 library(dplyr)
 library(parallel)
 
-n_workers   <- as.numeric(Sys.getenv("SLURM_NTASKS", 20))
+n_workers   <- as.numeric(Sys.getenv("SLURM_NTASKS", 2))
 timeout_sec <- 180   # hard per-task kill threshold
 
 # -----------------------------------------------------------------------------
@@ -40,14 +40,16 @@ stresstest_mat = expand.grid(
   Effect         = c(5e-4),
   Rng_Name       = names(rng_list),
   Phi            = 5000,
-  Replication    = 1:30,
+  Replication    = 1:50,
   stringsAsFactors = FALSE
 )
 
-log_dir  <- "/scratch/abrmoe030/projects/mimosa2/_tmp"
-log_file <- file.path(log_dir, "sim_progress.log")
+log_dir    <- "/scratch/abrmoe030/projects/mimosa2/_tmp"
+start_log  <- file.path(log_dir, "task_start.log")
+end_log    <- file.path(log_dir, "task_end.log")
 if (!dir.exists(log_dir)) dir.create(log_dir, recursive = TRUE)
-file.create(log_file)
+file.create(start_log)
+file.create(end_log)
 
 # -----------------------------------------------------------------------------
 # 2. PER-TASK WORKER  (unchanged from your script)
@@ -104,7 +106,7 @@ while (length(pending) > 0 || length(running) > 0) {
     running[[key]] <- list(job = job, task_id = tid, start = Sys.time())
     cat(sprintf("[%s] Launched task %d/%d (pid=%s)\n",
                 format(Sys.time(), "%H:%M:%S"), tid, length(task_ids), key),
-        file = log_file, append = TRUE)
+        file = start_log, append = TRUE)
   }
 
   Sys.sleep(1)
@@ -117,7 +119,7 @@ while (length(pending) > 0 || length(running) > 0) {
       results[[entry$task_id]] <- res[[key]]
       cat(sprintf("[%s] Completed task %d (pid=%s)\n",
                   format(Sys.time(), "%H:%M:%S"), entry$task_id, key),
-          file = log_file, append = TRUE)
+          file = end_log, append = TRUE)
       running[[key]] <- NULL
       next
     }
@@ -128,7 +130,7 @@ while (length(pending) > 0 || length(running) > 0) {
       mccollect(entry$job, wait = FALSE)  # reap
       cat(sprintf("[%s] KILLED task %d (pid=%s) after %.0fs\n",
                   format(Sys.time(), "%H:%M:%S"), entry$task_id, key, elapsed),
-          file = log_file, append = TRUE)
+          file = end_log, append = TRUE)
       running[[key]] <- NULL
     }
   }
