@@ -82,10 +82,12 @@ base_plot = ggplot(data = plot_data,
                      expand = c(0.02, 0.02)) +
   scale_color_manual(values = c("High" = "deeppink", 
                                 "Medium" = "steelblue3", 
-                                "Low" = "orange")) +
+                                "Low" = "orange"),
+                     breaks = c("Low", "Medium", "High")) +
   scale_fill_manual(values = c("High" = "deeppink", 
                                "Medium" = "steelblue3", 
-                               "Low" = "orange")) +
+                               "Low" = "orange"),
+                    breaks = c("Low", "Medium", "High")) +
   labs(
     title = "Sensitivity analysis of MIMOSA2.",
     subtitle = "True positive rate (TPR) at 1% nominal false discovery rate (FDR) threshold.",
@@ -148,7 +150,7 @@ plot_data_clean$Effect_clean = factor(
 plot_data_clean$P_label = factor(
   plot_data_clean$P,
   levels = c(10, 50, 100),
-  labels = c("P: 10", "P: 50", "P: 100")
+  labels = c("N = 10", "N = 50", "N = 100")
 )
 
 # Plot: 
@@ -187,10 +189,12 @@ base_plot_clean = ggplot(data = plot_data_clean,
                      expand = c(0.02, 0.02)) +
   scale_color_manual(values = c("High" = "deeppink", 
                                 "Medium" = "steelblue3", 
-                                "Low" = "orange")) +
+                                "Low" = "orange"),
+                     breaks = c("Low", "Medium", "High")) +
   scale_fill_manual(values = c("High" = "deeppink", 
                                "Medium" = "steelblue3", 
-                               "Low" = "orange")) +
+                               "Low" = "orange"),
+                    breaks = c("Low", "Medium", "High")) +
   labs(
     title = "Sensitivity analysis of MIMOSA2.",
     subtitle = "True positive rate (TPR) at 1% nominal false discovery rate (FDR) threshold.",
@@ -380,7 +384,8 @@ ROC_plot_clean = ggplot(
   ) +
   scale_color_manual(values = c("High" = "deeppink", 
                                 "Medium" = "steelblue3", 
-                                "Low" = "orange")) +
+                                "Low" = "orange"),
+                     breaks = c("Low", "Medium", "High")) +
   scale_linetype_manual(values = c("MIMOSA2" = "solid", 
                                    "DiD Baseline" = "dotted")) +
   guides(
@@ -398,7 +403,7 @@ ROC_plot_clean = ggplot(
   theme_bw(base_size = 11) +
   labs(
     title = "Simulation performance of MIMOSA2.",
-    subtitle = "ROC Analysis.",
+    subtitle = "ROC analysis.",
     x = "FPR",
     y = "TPR"
   ) +
@@ -420,16 +425,16 @@ print(ROC_plot_clean)
 # AUROC Calculation
 #-------------------------------------------------------------------------------
 # Calculate AUROC:
-AUROC = ROC_data_prepared |>
-  group_by(Res_prop, P, Cell_range, Effect, Method) |>
-  filter(length(unique(Truth)) == 2) |>
-  do(plotROC::calc_auc(
-    ggplot(., aes(d = Truth, m = Score)) + geom_roc()
-  )) |>
-  ungroup() |>
-  rename(AUROC = AUC)
+# AUROC = ROC_data_prepared |>
+#   group_by(Res_prop, P, Cell_range, Effect, Method) |>
+#   filter(length(unique(Truth)) == 2) |>
+#   do(plotROC::calc_auc(
+#     ggplot(., aes(d = Truth, m = Score)) + geom_roc()
+#   )) |>
+#   ungroup() |>
+#   rename(AUROC = AUC)
 
-write.table(AUROC, "auc.txt", sep = "\t", row.names = FALSE, quote = FALSE)
+# write.table(AUROC, "auc.txt", sep = "\t", row.names = FALSE, quote = FALSE)
 # View(AUROC)
 
 # Summarise: 
@@ -458,11 +463,11 @@ AUROC_matrix = AUROC |>
   arrange(Effect_clean, Cell_range)
 
 # Save as file: 
-write.table(AUROC_matrix, 
-            "auc_summary_matrix.txt", 
-            sep = "\t", 
-            row.names = FALSE, 
-            quote = FALSE)
+# write.table(AUROC_matrix, 
+#             "auc_summary_matrix.txt", 
+#             sep = "\t", 
+#             row.names = FALSE, 
+#             quote = FALSE)
 
 # Table: AUROC values
 kable(AUROC_matrix, 
@@ -576,13 +581,13 @@ AUROC_matrix_2 <- AUROC |>
   arrange(Effect_clean,Res_prop_clean)
 
 # Save as file: 
-write.table(
-  AUROC_matrix_2, 
-  "auc_summary_matrix_2.txt", 
-  sep = "\t", 
-  row.names = FALSE, 
-  quote = FALSE
-)
+# write.table(
+#   AUROC_matrix_2, 
+#   "auc_summary_matrix_2.txt", 
+#   sep = "\t", 
+#   row.names = FALSE, 
+#   quote = FALSE
+# )
 
 # Render Table: 
 kable(
@@ -656,13 +661,13 @@ Sim_count_matrix <- ROC_data_prepared |>
   arrange(Res_prop_clean, Effect_clean)
 
 # Save as file:
-write.table(
-  Sim_count_matrix, 
-  "simulation_counts_matrix.txt", 
-  sep = "\t", 
-  row.names = FALSE, 
-  quote = FALSE
-)
+# write.table(
+#   Sim_count_matrix, 
+#   "simulation_counts_matrix.txt", 
+#   sep = "\t", 
+#   row.names = FALSE, 
+#   quote = FALSE
+# )
 
 # Render Table:
 kable(
@@ -1000,7 +1005,7 @@ fdr_plot = ggplot(fdr_eval,
   )
 
 print(fdr_plot)
-ggsave('_fig/fdr_plot.pdf',plot=fdr_plot,width=10,height=10)
+# ggsave('_fig/fdr_plot.pdf',plot=fdr_plot,width=10,height=10)
 
 #-------------------------------------------------------------------------------
 # False discovery rate
