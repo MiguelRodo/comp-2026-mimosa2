@@ -4,6 +4,37 @@ library(purrr)
 
 set.seed(42)
 
+responders50  = c(rep(0.50 / 4, 4), rep(0.50 / 4, 4))
+
+# Combine into a named list for tracking:
+component_list = list(
+  "Prop_0.50" = responders50
+)
+
+# Cell count scenarios: 
+# Combine your rng cell counts into a named list for tracking:
+rng_list = list(
+  "High"  = c(250000, 250000),
+  "Medium" = c(100000, 100000),
+  "Low"     = c(15000, 15000),
+  "Very Low"= c(7000,7000)
+)
+
+# Build simulation grid:
+stresstest_mat = expand.grid(
+  Distribution_Phi   = list(c("Beta",10000),
+                            c("EG",113),
+                            c("LN",2.05),
+                            c("SX",10000),
+                            c("BB",10000)),
+  Comp_Name      = names(component_list),
+  P              = c(50),
+  Effect         = c(1e-3, 2.5e-4, 1.25e-4, 6.25e-5),
+  Rng_Name       = names(rng_list),
+  Replication    = 1:30, 
+  stringsAsFactors = FALSE
+)
+
 dist_phi_pairs <- unique(stresstest_mat$Distribution_Phi)
 MU_TARGET <- 5e-4 
 N_DRAWS   <- 50000
@@ -105,7 +136,7 @@ color_palette <- setNames(
 # 5. Plot
 prior_density = ggplot(plot_data, aes(x = Value, fill = Panel_Title, color = Panel_Title)) +
   geom_density(alpha = 0.7, linewidth = 0.5) +
-  facet_wrap(~ Panel_Title, scales = "free", ncol = 3) +
+  facet_wrap(~ Panel_Title, scales = "fixed", ncol = 3) +
   scale_x_continuous(
     labels = scales::label_scientific(digits = 1),
     breaks = function(limits) {
@@ -119,6 +150,7 @@ prior_density = ggplot(plot_data, aes(x = Value, fill = Panel_Title, color = Pan
       return(b)
     }
   ) +
+  coord_cartesian(xlim = c(0, 0.002)) +
   scale_fill_manual(values = fill_palette) +
   scale_color_manual(values = color_palette) +
   labs(
@@ -136,4 +168,29 @@ prior_density = ggplot(plot_data, aes(x = Value, fill = Panel_Title, color = Pan
     legend.position  = "none",
     panel.grid.minor = element_blank()
   )
+prior_density
 ggsave('_fig/prior_density.pdf', plot = prior_density, width = 8, height = 6)
+#-------------------------------------------------------------------------------
+# # Plot: Overlaid Density Curves
+# prior_density_overlaid = ggplot(plot_data, aes(x = Value, fill = Panel_Title, color = Panel_Title)) +
+#   geom_density(alpha = 0.3, linewidth = 0.8) +
+#   scale_x_continuous(labels = scales::label_scientific(digits = 1)) +
+#   scale_fill_manual(values = fill_palette) +
+#   scale_color_manual(values = color_palette) +
+#   labs(
+#     title = "Prior Distributions Comparison",
+#     subtitle = paste0("Target mean (\u03bc) = ", MU_TARGET, "."),
+#     x = "Probability",
+#     y = "Density",
+#     color = "Distribution",
+#     fill = "Distribution"
+#   ) +
+#   theme_minimal(base_size = 14) +
+#   theme(
+#     plot.title        = element_text(face = "bold", hjust = 0.5),
+#     plot.subtitle     = element_text(hjust = 0.5, color = "grey30"),
+#     legend.position   = "bottom",
+#     panel.grid.minor  = element_blank()
+#   )
+# 
+# prior_density_overlaid
