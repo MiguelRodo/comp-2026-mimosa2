@@ -138,23 +138,14 @@ prior_density = ggplot(plot_data, aes(x = Value, fill = Panel_Title, color = Pan
   geom_density(alpha = 0.7, linewidth = 0.5) +
   facet_wrap(~ Panel_Title, scales = "fixed", ncol = 3) +
   scale_x_continuous(
-    labels = scales::label_scientific(digits = 1),
-    breaks = function(limits) {
-      # Use extended breaks for all panels
-      b <- scales::breaks_extended(n = 3)(limits)
-      
-      # If the panel range spans past 0.01 (Logit Normal panel), drop the highest tick mark
-      if (max(limits) > 0.01 && length(b) > 2) {
-        b <- b[-length(b)]
-      }
-      return(b)
-    }
+    labels = function(x) ifelse(x == 0, "0", sprintf("%.0e", x)),
+    breaks = function(limits) scales::breaks_extended(n = 3)(limits)
   ) +
   coord_cartesian(xlim = c(0, 0.002)) +
   scale_fill_manual(values = fill_palette) +
   scale_color_manual(values = color_palette) +
   labs(
-    title = "Prior Distributions.",
+    title = "Prior distributions.",
     subtitle = paste0("Target mean (\u03bc) = ", MU_TARGET,"."),
     x = "Probability",
     y = "Density"
@@ -169,7 +160,7 @@ prior_density = ggplot(plot_data, aes(x = Value, fill = Panel_Title, color = Pan
     panel.grid.minor = element_blank()
   )
 prior_density
-ggsave('_fig/prior_density.pdf', plot = prior_density, width = 8, height = 6)
+# ggsave('_fig/prior_density.pdf', plot = prior_density, width = 8, height = 6)
 #-------------------------------------------------------------------------------
 # # Plot: Overlaid Density Curves
 # prior_density_overlaid = ggplot(plot_data, aes(x = Value, fill = Panel_Title, color = Panel_Title)) +
