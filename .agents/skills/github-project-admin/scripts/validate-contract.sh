@@ -61,9 +61,21 @@ priority_value() {
 }
 
 validate_priority_mapping() {
-  local file="$1" common provider providers="" count
+  local file="$1" common provider providers="" count duplicate pending_count
   grep -Eq '^## Priority mapping[[:space:]]*$' "$file" ||
     die "$file is missing the Priority mapping section"
+
+  if grep -Fxq 'Priority mapping status: pending' "$file"; then
+    pending_count="$(grep -Fxc 'Priority mapping status: pending' "$file")"
+    [[ "$pending_count" == "1" ]] ||
+      die "$file must declare the pending Priority status exactly once"
+    for common in P0 P1 P2 P3; do
+      provider="$(priority_value "$file" "$common")"
+      [[ -z "$provider" ]] ||
+        die "$file mixes a pending Priority status with a $common mapping"
+    done
+    return 0
+  fi
 
   for common in P0 P1 P2 P3; do
     provider="$(priority_value "$file" "$common")"

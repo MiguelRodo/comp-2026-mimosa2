@@ -27,11 +27,23 @@ if bash "$validator" "$test_dir/fixtures/invalid-colour" >/dev/null 2>&1; then
   echo "ERROR: unsupported option colour unexpectedly validated" >&2
   exit 1
 fi
+if bash "$validator" "$test_dir/fixtures/invalid-pending" >/dev/null 2>&1; then
+  echo "ERROR: mixed pending and partial Priority mapping unexpectedly validated" >&2
+  exit 1
+fi
 
 grep -Fqx 'name: github-project-admin' "$skill_dir/SKILL.md"
 test -f "$skill_dir/README.md"
 grep -Fq 'Set example#313 to P2.' "$test_dir/short-requests.md"
 grep -Fq 'P3 | Low' "$skill_dir/SKILL.md"
+grep -Fq 'Priority mapping status: pending' "$skill_dir/SKILL.md"
+grep -Fq 'gh auth login --web --scopes "project,read:org"' "$skill_dir/README.md"
+grep -Fq 'https://chatgpt.com/codex/settings/environments' "$skill_dir/README.md"
+if grep -Eq '\$\{[^}]+(,,|\^\^)\}|(^|[^[:alnum:]_])(mapfile|readarray)([^[:alnum:]_]|$)|declare[[:space:]]+-A' \
+  "$initializer"; then
+  echo "ERROR: initializer uses a Bash feature newer than Bash 3.2" >&2
+  exit 1
+fi
 
 test_tmp_dir="$(mktemp -d)"
 cleanup() {
@@ -52,6 +64,8 @@ case "${1:-}" in
   project)
     if [[ "${2:-}" == "--help" ]]; then
       exit 0
+    elif [[ "${2:-}" == "list" ]]; then
+      echo '{"projects":[]}'
     elif [[ "${2:-}" == "field-list" ]]; then
       printf 'Status\nPriority\nWorkstream\n'
     else
@@ -225,8 +239,6 @@ printf '# Existing repository guidance\n\nKeep this text.\n' >"$test_tmp_dir/ini
 12
 
 
-1
-2
 
 EOF
 )
@@ -236,45 +248,63 @@ grep -Fq '<!-- github-project-admin:start -->' "$test_tmp_dir/init-single/AGENTS
 grep -Fq '| Issue repository | octo-org/example |' "$test_tmp_dir/init-single/.projects/project.md"
 grep -Fq '| Project title | Example planning |' "$test_tmp_dir/init-single/.projects/project.md"
 grep -Fq '| Class | organization issue type | Issue Type |' "$test_tmp_dir/init-single/.projects/project.md"
+grep -Fq '| Priority | pending live inspection | Priority |' "$test_tmp_dir/init-single/.projects/project.md"
+grep -Fq '| Routing | Project membership; no routing label |' "$test_tmp_dir/init-single/.projects/project.md"
+grep -Fxq 'Priority mapping status: pending' "$test_tmp_dir/init-single/.projects/project.md"
 grep -Fq 'This is a personal Project.' "$test_tmp_dir/init-single/.projects/project.md"
-grep -Fq 'suggest sensible Class' "$test_tmp_dir/init-output.log"
+grep -Fq 'I will ask a few questions to configure' "$test_tmp_dir/init-output.log"
+grep -Fq 'after /projects/ in its web address' "$test_tmp_dir/init-output.log"
+grep -Fq 'GitHub user or organisation that owns the Project' "$initializer"
+grep -Fq '1. Check GitHub' "$test_tmp_dir/init-output.log"
+grep -Fq 'Use the repository with ChatGPT' "$test_tmp_dir/init-output.log"
+grep -Fq 'Use the repository with Codex cloud' "$test_tmp_dir/init-output.log"
+grep -Fq 'https://chatgpt.com/codex/settings/environments' "$test_tmp_dir/init-output.log"
+grep -Fq 'Issue Type and' "$test_tmp_dir/init-output.log"
+grep -Fq 'Give me an overview of what you plan to do' "$test_tmp_dir/init-output.log"
+grep -Fq 'The files were left uncommitted.' "$test_tmp_dir/init-output.log"
+if grep -Eq 'Current Project fields|following repository contract|Choose the provider.s Priority values|Does Project membership alone' \
+  "$test_tmp_dir/init-output.log"; then
+  echo "ERROR: initializer printed a removed diagnostic or question" >&2
+  exit 1
+fi
+PATH="$test_tmp_dir/bin:$PATH" GH_TOKEN="$secret_value" \
+  bash "$setup" --skip-install --contract-root "$test_tmp_dir/init-single" \
+  >"$test_tmp_dir/init-contract-setup.log" 2>&1
+grep -Fq 'Verified Project: octo-org/12.' "$test_tmp_dir/init-contract-setup.log"
 
 init_contract_sha="$(sha256sum "$test_tmp_dir/init-single/.projects/project.md" | awk '{print $1}')"
 init_agents_sha="$(sha256sum "$test_tmp_dir/init-single/AGENTS.md" | awk '{print $1}')"
 (
   cd "$test_tmp_dir/init-single"
-  PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
+  printf '\n' | PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
     >"$test_tmp_dir/init-rerun.log" 2>&1
 )
-grep -Fq 'It was not changed.' "$test_tmp_dir/init-rerun.log"
+grep -Fq 'existing repository setup was not replaced' "$test_tmp_dir/init-rerun.log"
 [[ "$(sha256sum "$test_tmp_dir/init-single/.projects/project.md" | awk '{print $1}')" == "$init_contract_sha" ]]
 [[ "$(sha256sum "$test_tmp_dir/init-single/AGENTS.md" | awk '{print $1}')" == "$init_agents_sha" ]]
 
 mkdir -p "$test_tmp_dir/init-multiple"
 git -C "$test_tmp_dir/init-multiple" init -q
-if (
+(
   cd "$test_tmp_dir/init-multiple"
-  printf '\nn\n' | PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
+  printf '\nn\n\n' | PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
     >"$test_tmp_dir/init-multiple.log" 2>&1
-); then
-  echo "ERROR: multi-Project onboarding unexpectedly generated a contract" >&2
-  exit 1
-fi
+)
 test ! -e "$test_tmp_dir/init-multiple/.projects/project.md"
-grep -Fq 'personal, multi-Project repository' "$test_tmp_dir/init-multiple.log"
+grep -Fq '<!-- github-project-admin:start -->' "$test_tmp_dir/init-multiple/AGENTS.md"
+grep -Fq 'as a personal' "$test_tmp_dir/init-multiple.log"
+grep -Fq 'Finish the multi-Project routing' "$test_tmp_dir/init-multiple.log"
+grep -Fq 'Add Project <number>' "$test_tmp_dir/init-multiple.log"
 
 mkdir -p "$test_tmp_dir/init-collaborative-multiple"
 git -C "$test_tmp_dir/init-collaborative-multiple" init -q
-if (
+(
   cd "$test_tmp_dir/init-collaborative-multiple"
-  printf 'y\nn\n' | PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
+  printf 'y\nn\n\n' | PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
     >"$test_tmp_dir/init-collaborative-multiple.log" 2>&1
-); then
-  echo "ERROR: collaborative multi-Project onboarding unexpectedly generated a contract" >&2
-  exit 1
-fi
+)
 test ! -e "$test_tmp_dir/init-collaborative-multiple/.projects/project.md"
-grep -Fq 'collaborative, multi-Project repository' "$test_tmp_dir/init-collaborative-multiple.log"
+grep -Fq 'as a collaborative' "$test_tmp_dir/init-collaborative-multiple.log"
 
 mkdir -p "$test_tmp_dir/init-collaborative-single"
 git -C "$test_tmp_dir/init-collaborative-single" init -q
@@ -287,14 +317,68 @@ y
 
 12
 
-
-1
-1
-
+n
 EOF
 )
 bash "$validator" "$test_tmp_dir/init-collaborative-single"
 grep -Fq 'This is a collaborative Project.' \
   "$test_tmp_dir/init-collaborative-single/.projects/project.md"
+
+mkdir -p "$test_tmp_dir/init-commit" "$test_tmp_dir/init-remote.git"
+git -C "$test_tmp_dir/init-remote.git" init -q --bare
+git -C "$test_tmp_dir/init-commit" init -q -b main
+git -C "$test_tmp_dir/init-commit" config user.name "Setup Test"
+git -C "$test_tmp_dir/init-commit" config user.email "setup@example.invalid"
+printf 'base\n' >"$test_tmp_dir/init-commit/base.txt"
+git -C "$test_tmp_dir/init-commit" add base.txt
+git -C "$test_tmp_dir/init-commit" commit -qm "Base"
+git -C "$test_tmp_dir/init-commit" remote add origin "$test_tmp_dir/init-remote.git"
+git -C "$test_tmp_dir/init-commit" push -qu origin main
+printf 'keep staged\n' >"$test_tmp_dir/init-commit/unrelated.txt"
+git -C "$test_tmp_dir/init-commit" add unrelated.txt
+(
+  cd "$test_tmp_dir/init-commit"
+  PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
+    >"$test_tmp_dir/init-commit.log" 2>&1 <<'EOF'
+
+
+
+12
+y
+n
+EOF
+)
+[[ "$(git -C "$test_tmp_dir/init-commit" log -1 --format=%s)" == \
+   "Configure GitHub Project administration" ]]
+grep -Fqx 'unrelated.txt' <(git -C "$test_tmp_dir/init-commit" diff --cached --name-only)
+if git -C "$test_tmp_dir/init-commit" show --format= --name-only HEAD | grep -Fqx 'unrelated.txt'; then
+  echo "ERROR: onboarding commit included an unrelated staged file" >&2
+  exit 1
+fi
+[[ "$(git -C "$test_tmp_dir/init-commit" rev-parse HEAD)" == \
+   "$(git -C "$test_tmp_dir/init-remote.git" rev-parse refs/heads/main)" ]]
+grep -Fq 'Pushed the onboarding commit.' "$test_tmp_dir/init-commit.log"
+
+mkdir -p "$test_tmp_dir/init-push-failure"
+git -C "$test_tmp_dir/init-push-failure" init -q -b main
+git -C "$test_tmp_dir/init-push-failure" config user.name "Setup Test"
+git -C "$test_tmp_dir/init-push-failure" config user.email "setup@example.invalid"
+(
+  cd "$test_tmp_dir/init-push-failure"
+  PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
+    >"$test_tmp_dir/init-push-failure.log" 2>&1 <<'EOF'
+
+
+
+12
+y
+n
+EOF
+)
+grep -Fq 'The commit is safe locally, but Git could not push it.' \
+  "$test_tmp_dir/init-push-failure.log"
+grep -Fq 'git push -u origin main' "$test_tmp_dir/init-push-failure.log"
+[[ "$(git -C "$test_tmp_dir/init-push-failure" log -1 --format=%s)" == \
+   "Configure GitHub Project administration" ]]
 
 echo "github-project-admin tests passed"
