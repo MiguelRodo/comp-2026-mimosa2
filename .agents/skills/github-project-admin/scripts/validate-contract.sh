@@ -213,10 +213,11 @@ validate_dispatcher() {
     in_routes && /^\|/ { print }
   ' "$file")
 
-  ((route_count > 0)) || die "$file has no routes"
+  dispatcher_route_count="$route_count"
 }
 
 repository_root="${1:-.}"
+dispatcher_route_count=""
 [[ -d "$repository_root" ]] || die "repository root is not a directory"
 main_contract="$repository_root/.projects/project.md"
 [[ -f "$main_contract" ]] || die "missing $main_contract"
@@ -234,4 +235,8 @@ case "$main_mode" in
     ;;
 esac
 
-echo "Valid GitHub Project contract: $main_contract"
+if [[ "$main_mode" == "dispatcher" && "$dispatcher_route_count" == "0" ]]; then
+  echo "Valid empty GitHub Project dispatcher: $main_contract (no routes configured)"
+else
+  echo "Valid GitHub Project contract: $main_contract"
+fi

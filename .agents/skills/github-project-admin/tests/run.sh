@@ -15,6 +15,7 @@ bash -n "$initializer"
 bash "$validator" "$test_dir/fixtures/single"
 bash "$validator" "$test_dir/fixtures/single-user"
 bash "$validator" "$test_dir/fixtures/dispatcher"
+bash "$validator" "$test_dir/fixtures/empty-dispatcher"
 if bash "$validator" "$test_dir/fixtures/invalid" >/dev/null 2>&1; then
   echo "ERROR: lossy Priority mapping unexpectedly validated" >&2
   exit 1
@@ -92,7 +93,13 @@ case "${1:-}" in
         echo "combined owner query is forbidden" >&2
         exit 90
       elif [[ "$*" == *"@tsv"* ]]; then
-        printf '12\tExample planning\ttrue\n'
+        if [[ "$*" == *"number=13"* ]]; then
+          printf '13\tSecond planning\tfalse\n'
+        elif [[ "$*" == *"number=14"* ]]; then
+          printf '14\tThird planning\tfalse\n'
+        else
+          printf '12\tExample planning\ttrue\n'
+        fi
       elif [[ "$*" == *".number"* ]]; then
         if [[ "$*" == *"organization(login:"* ]]; then echo "12"; else echo "4"; fi
       elif [[ "$*" == *"organization(login:"* ]]; then
@@ -231,16 +238,8 @@ git -C "$test_tmp_dir/init-single" init -q
 printf '# Existing repository guidance\n\nKeep this text.\n' >"$test_tmp_dir/init-single/AGENTS.md"
 (
   cd "$test_tmp_dir/init-single"
-  PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
-    >"$test_tmp_dir/init-output.log" 2>&1 <<'EOF'
-
-
-
-12
-
-
-
-EOF
+  printf '\n\n\n12\n\n\n' | PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
+    >"$test_tmp_dir/init-output.log" 2>&1
 )
 bash "$validator" "$test_tmp_dir/init-single"
 grep -Fq 'Keep this text.' "$test_tmp_dir/init-single/AGENTS.md"
@@ -253,16 +252,26 @@ grep -Fq '| Routing | Project membership; no routing label |' "$test_tmp_dir/ini
 grep -Fxq 'Priority mapping status: pending' "$test_tmp_dir/init-single/.projects/project.md"
 grep -Fq 'This is a personal Project.' "$test_tmp_dir/init-single/.projects/project.md"
 grep -Fq 'I will ask a few questions to configure' "$test_tmp_dir/init-output.log"
+awk '
+  previous == "No live issue or Project value will be changed during this setup." &&
+    $0 == "" { found = 1 }
+  { previous = $0 }
+  END { exit(found ? 0 : 1) }
+' "$test_tmp_dir/init-output.log"
 grep -Fq 'after /projects/ in its web address' "$test_tmp_dir/init-output.log"
 grep -Fq 'GitHub user or organisation that owns the Project' "$initializer"
 grep -Fq '1. Check GitHub' "$test_tmp_dir/init-output.log"
-grep -Fq 'Use the repository with ChatGPT' "$test_tmp_dir/init-output.log"
-grep -Fq 'Use the repository with Codex cloud' "$test_tmp_dir/init-output.log"
+grep -Fq 'Choose how you will use the repository' "$test_tmp_dir/init-output.log"
+grep -Fq 'I will now show two ways to use the repository' "$test_tmp_dir/init-output.log"
+grep -Fq 'Use the repository with a chat interface' "$test_tmp_dir/init-output.log"
+grep -Fq 'Use the repository with an execution-capable agent' "$test_tmp_dir/init-output.log"
 grep -Fq 'https://chatgpt.com/codex/settings/environments' "$test_tmp_dir/init-output.log"
 grep -Fq 'Issue Type and' "$test_tmp_dir/init-output.log"
-grep -Fq 'Give me an overview of what you plan to do' "$test_tmp_dir/init-output.log"
+grep -Fq 'do not change' "$test_tmp_dir/init-output.log"
+grep -Fq 'until I approve them' "$test_tmp_dir/init-output.log"
+grep -Fq 'committed and pushed' "$test_tmp_dir/init-output.log"
 grep -Fq 'The files were left uncommitted.' "$test_tmp_dir/init-output.log"
-if grep -Eq 'Current Project fields|following repository contract|Choose the provider.s Priority values|Does Project membership alone' \
+if grep -Eq 'Current Project fields|following repository contract|Choose the provider.s Priority values|Does Project membership alone|How should the agent proceed|Do this now' \
   "$test_tmp_dir/init-output.log"; then
   echo "ERROR: initializer printed a removed diagnostic or question" >&2
   exit 1
@@ -287,38 +296,136 @@ mkdir -p "$test_tmp_dir/init-multiple"
 git -C "$test_tmp_dir/init-multiple" init -q
 (
   cd "$test_tmp_dir/init-multiple"
-  printf '\nn\n\n' | PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
+  printf '%s\n' '' n y '' 12 '' '' n n y | \
+    PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
     >"$test_tmp_dir/init-multiple.log" 2>&1
 )
-test ! -e "$test_tmp_dir/init-multiple/.projects/project.md"
+bash "$validator" "$test_tmp_dir/init-multiple"
 grep -Fq '<!-- github-project-admin:start -->' "$test_tmp_dir/init-multiple/AGENTS.md"
-grep -Fq 'as a personal' "$test_tmp_dir/init-multiple.log"
-grep -Fq 'Finish the multi-Project routing' "$test_tmp_dir/init-multiple.log"
-grep -Fq 'Add Project <number>' "$test_tmp_dir/init-multiple.log"
+grep -Fq '| Mode | dispatcher |' \
+  "$test_tmp_dir/init-multiple/.projects/project.md"
+grep -Fq '| Governance | personal |' \
+  "$test_tmp_dir/init-multiple/.projects/project.md"
+grep -Fq '| example-planning | project:example-planning | 12 | .projects/projects/example-planning.md |' \
+  "$test_tmp_dir/init-multiple/.projects/project.md"
+grep -Fq '| Mode | project |' \
+  "$test_tmp_dir/init-multiple/.projects/projects/example-planning.md"
+grep -Fq '| Project key | example-planning |' \
+  "$test_tmp_dir/init-multiple/.projects/projects/example-planning.md"
+grep -Fq '| Owner type | organization |' \
+  "$test_tmp_dir/init-multiple/.projects/projects/example-planning.md"
+grep -Fq '| Routing | label:project:example-planning |' \
+  "$test_tmp_dir/init-multiple/.projects/projects/example-planning.md"
+test -e "$test_tmp_dir/init-multiple/.projects/projects/.gitkeep"
+grep -Fq 'Add Projects' "$test_tmp_dir/init-multiple.log"
+grep -Fq 'Added Project octo-org/12 as route example-planning.' \
+  "$test_tmp_dir/init-multiple.log"
+grep -Fq '  .projects/projects/.gitkeep' "$test_tmp_dir/init-multiple.log"
+grep -Fq '  .projects/projects/example-planning.md' \
+  "$test_tmp_dir/init-multiple.log"
+grep -Fq 'Use the same first request in a chat interface or an execution-capable agent' \
+  "$test_tmp_dir/init-multiple.log"
+grep -Fq 'Suggest optional sub-project labels only where they are' \
+  "$test_tmp_dir/init-multiple.log"
+if grep -Fq 'Finish the multi-Project routing' "$test_tmp_dir/init-multiple.log"; then
+  echo "ERROR: multi-Project onboarding printed the removed handoff" >&2
+  exit 1
+fi
+
+first_route_sha="$(sha256sum \
+  "$test_tmp_dir/init-multiple/.projects/projects/example-planning.md" | awk '{print $1}')"
+pre_collision_dispatcher_sha="$(sha256sum \
+  "$test_tmp_dir/init-multiple/.projects/project.md" | awk '{print $1}')"
+if (
+  cd "$test_tmp_dir/init-multiple"
+  printf '%s\n' y '' 14 example-planning | \
+    PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
+    >"$test_tmp_dir/init-multiple-collision.log" 2>&1
+); then
+  echo "ERROR: duplicate Project key unexpectedly replaced an existing route" >&2
+  exit 1
+fi
+[[ "$(sha256sum \
+  "$test_tmp_dir/init-multiple/.projects/project.md" | awk '{print $1}')" == \
+  "$pre_collision_dispatcher_sha" ]]
+[[ "$(sha256sum \
+  "$test_tmp_dir/init-multiple/.projects/projects/example-planning.md" | awk '{print $1}')" == \
+  "$first_route_sha" ]]
+test ! -e "$test_tmp_dir/init-multiple/.projects/projects/third-planning.md"
+grep -Fq 'Project key example-planning is already configured' \
+  "$test_tmp_dir/init-multiple-collision.log"
+
+(
+  cd "$test_tmp_dir/init-multiple"
+  printf '%s\n' y '' 13 '' '' n n n | \
+    PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
+    >"$test_tmp_dir/init-multiple-add.log" 2>&1
+)
+bash "$validator" "$test_tmp_dir/init-multiple"
+grep -Fq '| example-planning | project:example-planning | 12 | .projects/projects/example-planning.md |' \
+  "$test_tmp_dir/init-multiple/.projects/project.md"
+grep -Fq '| second-planning | project:second-planning | 13 | .projects/projects/second-planning.md |' \
+  "$test_tmp_dir/init-multiple/.projects/project.md"
+grep -Fq '| Project title | Second planning |' \
+  "$test_tmp_dir/init-multiple/.projects/projects/second-planning.md"
+[[ "$(sha256sum \
+  "$test_tmp_dir/init-multiple/.projects/projects/example-planning.md" | awk '{print $1}')" == \
+  "$first_route_sha" ]]
+grep -Fq 'The existing dispatcher and routes will be preserved.' \
+  "$test_tmp_dir/init-multiple-add.log"
+grep -Fq 'Added Project octo-org/13 as route second-planning.' \
+  "$test_tmp_dir/init-multiple-add.log"
+grep -Fq '  .projects/projects/second-planning.md' \
+  "$test_tmp_dir/init-multiple-add.log"
+
+dispatcher_sha="$(sha256sum \
+  "$test_tmp_dir/init-multiple/.projects/project.md" | awk '{print $1}')"
+second_route_sha="$(sha256sum \
+  "$test_tmp_dir/init-multiple/.projects/projects/second-planning.md" | awk '{print $1}')"
+(
+  cd "$test_tmp_dir/init-multiple"
+  printf '%s\n' y '' 12 n n n | \
+    PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
+    >"$test_tmp_dir/init-multiple-noop.log" 2>&1
+)
+[[ "$(sha256sum \
+  "$test_tmp_dir/init-multiple/.projects/project.md" | awk '{print $1}')" == \
+  "$dispatcher_sha" ]]
+[[ "$(sha256sum \
+  "$test_tmp_dir/init-multiple/.projects/projects/example-planning.md" | awk '{print $1}')" == \
+  "$first_route_sha" ]]
+[[ "$(sha256sum \
+  "$test_tmp_dir/init-multiple/.projects/projects/second-planning.md" | awk '{print $1}')" == \
+  "$second_route_sha" ]]
+grep -Fq 'Project octo-org/12 is already configured; no route was changed.' \
+  "$test_tmp_dir/init-multiple-noop.log"
 
 mkdir -p "$test_tmp_dir/init-collaborative-multiple"
 git -C "$test_tmp_dir/init-collaborative-multiple" init -q
 (
   cd "$test_tmp_dir/init-collaborative-multiple"
-  printf 'y\nn\n\n' | PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
+  printf '%s\n' y n n n | PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
     >"$test_tmp_dir/init-collaborative-multiple.log" 2>&1
 )
-test ! -e "$test_tmp_dir/init-collaborative-multiple/.projects/project.md"
-grep -Fq 'as a collaborative' "$test_tmp_dir/init-collaborative-multiple.log"
+bash "$validator" "$test_tmp_dir/init-collaborative-multiple"
+grep -Fq '| Mode | dispatcher |' \
+  "$test_tmp_dir/init-collaborative-multiple/.projects/project.md"
+grep -Fq '| Governance | collaborative |' \
+  "$test_tmp_dir/init-collaborative-multiple/.projects/project.md"
+test -e "$test_tmp_dir/init-collaborative-multiple/.projects/projects/.gitkeep"
+test "$(find "$test_tmp_dir/init-collaborative-multiple/.projects/projects" \
+  -type f -name '*.md' | wc -l | tr -d ' ')" = "0"
+grep -Fq 'Valid empty GitHub Project dispatcher' \
+  "$test_tmp_dir/init-collaborative-multiple.log"
+grep -Fq 'it cannot resolve ordinary Project requests yet' \
+  "$test_tmp_dir/init-collaborative-multiple.log"
 
 mkdir -p "$test_tmp_dir/init-collaborative-single"
 git -C "$test_tmp_dir/init-collaborative-single" init -q
 (
   cd "$test_tmp_dir/init-collaborative-single"
-  PATH="$test_tmp_dir/bin:$PATH" bash "$initializer" \
-    >"$test_tmp_dir/init-collaborative-single.log" 2>&1 <<'EOF'
-y
-
-
-12
-
-n
-EOF
+  printf '%s\n' y '' '' 12 n n | PATH="$test_tmp_dir/bin:$PATH" \
+    bash "$initializer" >"$test_tmp_dir/init-collaborative-single.log" 2>&1
 )
 bash "$validator" "$test_tmp_dir/init-collaborative-single"
 grep -Fq 'This is a collaborative Project.' \

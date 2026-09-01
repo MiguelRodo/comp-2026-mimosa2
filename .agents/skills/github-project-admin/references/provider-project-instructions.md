@@ -25,4 +25,10 @@ Routine prompts should remain short:
 - `Set example#313 to P2.`
 - `What are the highest-priority open items in example?`
 
+For the first broad organisation request, use the same proposal-only wording in
+a chat interface or an execution-capable agent. Ask it to inspect and propose
+the exact organisation, and do not authorise live changes until the operator
+approves. After approval, a capable agent may execute and verify; a chat that
+cannot write returns the smallest executable command block with readback.
+
 If a routine prompt must repeat stale checks, narrow mutation, preservation or verification, move that missing behaviour into the skill instead of lengthening the standing instructions or prompt.

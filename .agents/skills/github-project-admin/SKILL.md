@@ -4,7 +4,7 @@ metadata:
     github-path: skills/github-project-admin
     github-ref: refs/heads/main
     github-repo: https://github.com/MiguelRodo/projects
-    github-tree-sha: 9379e856be8bd5b02bfa6af776c265d2aa2ed305
+    github-tree-sha: 534de2ebd3c8a1b54dead529713e40946ab3b905
 name: github-project-admin
 ---
 # GitHub Project administration
@@ -24,7 +24,7 @@ Read [the repository contract reference](references/repository-contract.md) when
 ## Resolve exactly one context
 
 - A `single` contract resolves directly.
-- A `dispatcher` contract must resolve exactly one row by an explicit Project number, routing label, Project key, or other exact identifier supplied by the request or live issue state. Then read the referenced `.projects/projects/*.md` contract.
+- A `dispatcher` contract must resolve exactly one row by an explicit Project number, routing label, Project key, or other exact identifier supplied by the request or live issue state. Then read the referenced `.projects/projects/*.md` contract. A zero-route dispatcher is a valid onboarding state, not an operational Project context; for ordinary administration, stop and tell the operator to rerun the initializer and add a Project.
 - All identifiers supplied by the user, contract, issue and Project must agree. Stop on zero matches, multiple matches, or disagreement.
 - Treat live GitHub as authority for current issue, membership, field, option and hierarchy state. Treat `.projects/` as authority for topology, mappings, governance and source requirements.
 - Retrieve an external source only when the local contract requires it for this operation. An exact requested change is not a scope-design task.
@@ -34,6 +34,28 @@ Read [the repository contract reference](references/repository-contract.md) when
 A request such as `Set example#313 to P2.` supplies an exact target and desired value. It authorises only that delta. A request such as `What are the highest-priority open items in example?` is read-only.
 
 Ask a question only when a missing fact would change the target or outcome. Do not ask the user to restate fresh inspection, narrow mutation, preservation, stale checks or readback requirements.
+
+## Write issues at the configured level
+
+The latest explicit user instruction about how much to write always overrides the repository setting for that request.
+
+For issue creation or a substantial issue-body rewrite, read the optional `Issue write-up style` value from the resolved Project contract. If it is absent, use `tidy`. Supported values are:
+
+- `unrestricted`: add useful grounded structure, context, implementation detail, acceptance criteria or decomposition when that materially improves the issue. Do not invent unsupported people, deadlines, scope, rationale or technical decisions.
+- `tidy`: the default. Clean up wording and structure and make only small clarifications or expansions that follow directly from the request or required project sources. Do not introduce new scope, rationale, technical choices, people, deadlines, extra subtasks or acceptance criteria unless they were supplied or are necessary to preserve meaning.
+- `minimal`: keep the issue minimal and direct. Correct obvious wording errors and use only enough structure to make the requested work readable. Do not add contextual paragraphs, inferred rationale, implementation ideas, acceptance criteria, extra subtasks, people, deadlines or technical decisions that the user did not state.
+
+If a contract supplies any other value, stop and identify the unsupported setting instead of silently choosing a style.
+
+## Use Class and Workstream for different questions
+
+When creating, refining or applying Class or Issue Type and Workstream values, follow [the Class and Workstream design reference](references/class-and-workstreams.md).
+
+- Class answers what kind of work item this is. `Task` is the normal default when no more specific type adds value.
+- `Epic` is a broad coordination outcome, not a synonym for top-level issue or parent issue. Parenthood and Class are independent, so a Task, Deliverable, Analysis or other type may have sub-issues without becoming an Epic.
+- Workstream answers which stable functional lane the issue belongs to. Do not use it to duplicate Class, Priority, Status, one-off milestones, routing labels or sub-project labels.
+- Prefer a concise, stable vocabulary and preserve useful existing local distinctions. Starter profiles and preferred colours are guidance, not a requirement to rewrite every Project.
+- Colour is presentational. Reuse provider-supported colours when categories outnumber distinct colours; colour uniqueness must not block ordinary administration unless the local contract explicitly makes a palette exact.
 
 Use this default common Priority vocabulary unless the resolved contract declares a complete override:
 
@@ -62,9 +84,11 @@ The future CLI is optional and does not exist merely because this skill mentions
 
 If the current surface cannot perform an authorised mutation, inspect as far as safely possible and return the smallest executable command block that completes the operation. Use placeholders only for facts that cannot be discovered. Do not claim that returned commands ran.
 
+Copy-and-paste command handoffs must be safe to paste into an interactive shell. Do not include command-wide shell-option changes such as `set -e`, `set -u`, `set -o pipefail`, `set -euo pipefail`, or combined variants. Prefer ordinary commands that leave the caller's shell behaviour unchanged. If a shell-state change is genuinely required, scope it to a subprocess so it does not persist after the command finishes.
+
 Run `scripts/setup.sh` when preparing an environment or when `gh` prerequisites are missing. The host must provide credentials and network access. Never print, persist, transform or request a token in a prompt.
 
-When adopting the skill in a repository that does not yet have `.projects/project.md`, run `scripts/init-project.sh` from that repository. It discovers live GitHub facts, asks only for local choices, writes the first single-Project contract and adds a bounded `AGENTS.md` routing section. It never mutates live issues or Projects. For a multi-Project answer, it prepares the repository and gives an agent handoff instead of inventing routing.
+When adopting the skill in a repository that does not yet have `.projects/project.md`, run `scripts/init-project.sh` from that repository. It discovers live GitHub facts, asks only for local choices, writes the first single-Project contract or an empty multi-Project dispatcher, and adds a bounded `AGENTS.md` routing section. For a dispatcher, it offers to add Projects one at a time, discovering each live Project and asking only for its routing identity. Rerunning it can add another Project without replacing current routes. It never mutates live issues, labels or Projects.
 
 ## Inspect and plan
 
