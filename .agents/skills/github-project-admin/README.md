@@ -99,45 +99,40 @@ See the [official Codex environment guide](https://developers.openai.com/codex/e
 The initializer offers one shared, proposal-only first request after the chat and execution-capable agent instructions. For a resolved Project, the request can:
 
 - confirm the local Priority location and mapping from the existing live field without changing it;
-- set up or refine Issue Type or Class and Workstream, with sensible colours;
+- set up or refine Issue Type or Class, with sensible colours;
 - organise existing issues and useful native parent/sub-issue relationships;
 - suggest optional sub-project labels only where they add value.
 
 It does not authorise changes until you approve the proposal. After approval, an execution-capable agent can apply and verify it; a chat that cannot write returns minimal commands with readback. To add another Project later, rerun the initializer.
 
-## Class and Workstream
+## Issue Type / Class
 
-Class or Issue Type and Workstream deliberately answer different questions.
+Class or Issue Type says what kind of work item this is. A useful starter set is:
 
-**Class / Issue Type** says what kind of item it is. A useful starter set is:
-
-| Class | Preferred colour |
+| Class / Issue Type | Preferred colour |
 | --- | --- |
-| Epic | BLUE |
 | Task | YELLOW |
-| Deliverable | ORANGE |
-| Analysis | PURPLE |
-| Research | PINK |
-| Enhancement | GREEN |
 | Bug | RED |
+| Enhancement | GREEN |
+| Data | PINK |
+| Analysis | PURPLE |
+| Deliverable | ORANGE |
 | Documentation | GRAY |
+| Epic | BLUE |
 
-`Task` is the ordinary default. `Epic` is not the default for every top-level issue or every parent. A Task, Deliverable, Analysis or other type can have sub-issues and remain that type. Use Epic only when the broader coordination outcome is useful in its own right.
+`Task` is the ordinary fallback when no more informative type adds useful meaning. `Data` covers source-data acquisition and stewardship as well as transformation, validation and production of derived analysis-ready data. `Deliverable` supersedes `Report`: use it for one bounded formal output or event that is handed over, submitted, presented, released, assessed or otherwise consumed as an output, including reports, manuscripts, presentations, posters, grant applications, protocols, handovers and software releases.
 
-**Workstream** says which stable functional lane the item belongs to. It should not simply repeat Class, Priority, Status, a one-off milestone, a routing label or a sub-project. Prefer a small stable set and choose the issue's primary lane.
+`Epic` is not the default for every top-level issue or every parent. A Task, Deliverable, Analysis or other type can have sub-issues and remain that type. Use Epic only when the broader coordination outcome is useful in its own right.
 
-Starter profiles include:
+`Research` is not a default type. Ordinary exploratory work can usually be Task, analytical investigation can be Analysis, and development of an existing method or system can be Enhancement. Repositories may keep another local type when it carries a genuinely useful stable distinction.
 
-- **Research/scientific:** Study design, Data, Methods, Implementation, Analysis, Validation, Reporting, Administration; optionally Simulation or Collaboration.
-- **Teaching:** Delivery, Assessment, Materials, Student support, Administration; optionally Supervision.
-- **Personal/household:** Finance, Administration, Communication, Digital, Maintenance.
-- **Software/product:** Design, Implementation, Integrations, Testing, Documentation, Release / operations, Governance, User experience.
+The active model does not use Workstream as a standard dimension. Routing and optional sub-project labels say where the issue belongs; Class or Issue Type says what kind of work it is; native parent/sub-issue relationships carry hierarchy; Priority, Status and Due date carry planning state. Existing Workstream fields are legacy/unmanaged unless deliberately retained as non-standard metadata.
 
-These are reusable defaults, not a requirement to rename useful local values. Avoid proliferating workstreams for one-off milestones or scenarios. For example, several proposal/presentation/write-up/poster milestones can normally share a `Reporting` workstream while the issues themselves are `Deliverable` items.
+GitHub Milestones are optional temporal/checkpoint groupings for cases where several issues converge on the same release or submission. They are not a replacement Workstream field.
 
-Preferred colours help repeated names look familiar across Projects, but colour is presentational. If there are more categories than distinct colours, reuse provider-supported colours. Lack of a unique colour does not break the model.
+Preferred colours help repeated names look familiar across Projects, but colour is presentational. If there are more categories than distinct colours, reuse provider-supported colours.
 
-See [Class and Workstream design](references/class-and-workstreams.md) for the full profiles, colour suggestions and migration rules.
+See [Issue Type and Class design](references/issue-types.md) for the type meanings, hierarchy rules and migration guidance.
 
 ## Repository-specific setup
 
@@ -147,7 +142,7 @@ Each resolved Project contract can tune issue drafting with an optional metadata
 | Issue write-up style | tidy |
 ```
 
-Use `unrestricted` when the agent may add useful grounded detail, `tidy` for light expansion and cleanup, or `minimal` for minimal and direct wording. `tidy` is the default when the row is absent, and an explicit instruction in the current request overrides the setting. In a multi-Project repository, put the row in the relevant `.projects/projects/*.md` child contract.
+Use `unrestricted` when the agent may add useful grounded detail, `tidy` when it may reword and organise supplied material without adding substantive information, or `direct` when it should do only the structural work needed to create the issue plus spelling and grammar corrections. `tidy` is the default when the row is absent, and an explicit instruction in the current request overrides the setting. In a multi-Project repository, put the row in the relevant `.projects/projects/*.md` child contract.
 
 If the repository needs extra tools, add `.projects/setup.sh`. It runs automatically after the shared setup and is not replaced when the skill is updated.
 

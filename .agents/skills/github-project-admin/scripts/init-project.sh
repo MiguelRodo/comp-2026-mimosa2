@@ -274,7 +274,6 @@ EOF
 | Class | $class_location | $class_field |
 | Priority | pending live inspection | Priority |
 | Status | project field | Status |
-| Workstream | project field | Workstream |
 | Due date | project field | Target date |
 | Parent | native issue relationship | Parent issue |
 
@@ -287,11 +286,11 @@ Before using Priority, an agent must confirm its provider location, inspect the
 live options and replace the pending status with a complete one-to-one P0, P1,
 P2 and P3 mapping.
 
-## Class and Workstream
+## Class / Issue Type
 
-Class and Workstream option sets are intentionally not fixed by onboarding.
-An agent may inspect the existing issues and suggest a concise, useful vocabulary
-before the live Project is changed.
+The Class or Issue Type option set is intentionally not fixed by onboarding.
+An agent may inspect the existing issues and suggest a useful vocabulary before
+the live Project is changed. Workstream is not a standard semantic dimension.
 
 ## Governance
 
@@ -304,7 +303,7 @@ EOF
   fi
   cat >>"$target" <<EOF
 - $routing_rule
-- Labels must not duplicate Class, Priority, Status or Workstream.
+- Labels must not duplicate Class, Priority or Status.
 - Assignment is explicit only unless a later repository decision says otherwise.
 - Exact requested administration requires no separate scope-design source.
 EOF
@@ -717,12 +716,11 @@ Use the same first request in a chat interface or an execution-capable agent:
   current issues and GitHub Project. Propose how you would confirm the pending
   Priority location and complete one-to-one mapping from the existing field
   without adding, removing or renaming options; set up or refine
-  $first_request_class_name and Workstream from the issue evidence; preserve
-  useful existing definitions while choosing sensible colours; and organise
-  the issues using Project fields and useful native parent/sub-issue
-  relationships. Suggest optional sub-project labels only where they are
-  genuinely useful. Show me the exact proposed changes and do not change
-  GitHub until I approve them.
+  $first_request_class_name from the issue evidence; preserve useful existing
+  definitions while choosing sensible colours; and organise the issues using
+  Project fields and useful native parent/sub-issue relationships. Suggest
+  optional sub-project labels only where they are genuinely useful. Show me
+  the exact proposed changes and do not change GitHub until I approve them.
 
 After you approve the proposal, an execution-capable agent can apply and verify
 it. A chat interface that cannot write should instead return the smallest safe
