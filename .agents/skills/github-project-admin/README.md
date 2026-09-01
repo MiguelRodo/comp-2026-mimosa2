@@ -42,7 +42,7 @@ https://github.com/users/example/projects/40       Project number 40
 https://github.com/orgs/example-org/projects/12    Project number 12
 ```
 
-Have the number for each relevant Project ready.
+Have the first relevant Project number ready. The initializer asks whether you want to add another after each Project.
 
 ## 2. Install and configure the repository
 
@@ -53,19 +53,19 @@ gh skill install MiguelRodo/projects github-project-admin --agent universal --sc
 bash .agents/skills/github-project-admin/scripts/init-project.sh
 ```
 
-The initializer first explains that it will configure the repository so chats and agents can understand the Project. It discovers GitHub facts and asks only about collaboration, whether the repository uses one or several Projects, and the owner and number of a single Project.
+The initializer first explains that it will configure the repository so chats and agents can understand the Project. It discovers GitHub facts and asks only about collaboration, whether the repository uses one or several Projects, and the owner, number and routing identity of each Project you add.
 
 This covers personal or collaborative repositories with one Project or several. Repository and Project privacy are discovered separately from GitHub.
 
 For one Project, it creates `.projects/project.md` and adds a small section to `AGENTS.md`. It does not ask you to edit them or print the full contract.
 
-For several Projects, it prepares the repository and gives you an agent request to finish the routing. The correct route for each issue cannot be guessed safely.
+For several Projects, it creates a validated empty dispatcher and offers to add one Project at a time. It discovers the live Project, writes the matching child contract, validates the combined configuration and then asks whether to add another. Rerunning the initializer continues the same flow without replacing current routes.
 
 The initializer does not change live issues or Project fields. It leaves the existing Priority field and options alone, even if they do not include P3. Priority is marked as pending until an agent confirms its location, inspects the options and records a complete mapping.
 
-It then asks whether it may stage, commit and push only the onboarding files. A failed commit or push leaves the work in a recoverable local state and prints the next command.
+It then asks whether it may stage, commit and push only the onboarding files. A failed commit or push leaves the work in a recoverable local state and prints the next command. Commit and push those files before using a remote chat or agent.
 
-## 3. Use it from ChatGPT
+## 3. Use it from a chat interface
 
 Create or open a [ChatGPT Project](https://chatgpt.com/projects), make the repository available to it, and paste this into the Project instructions:
 
@@ -73,11 +73,11 @@ Create or open a [ChatGPT Project](https://chatgpt.com/projects), make the repos
 >
 > Treat my prompt as the desired outcome. If this chat cannot make a required GitHub change, return the smallest safe command block for me to paste into a terminal, including a check of the result.
 
-Ask for the outcome you want. If ChatGPT cannot make a change itself, it should return a short terminal-ready command block.
+Ask for the outcome you want. The chat should propose broad organisation first. After you approve, it can make supported changes or return a short terminal-ready command block. Paste-ready command handoffs should use ordinary commands and should not change interactive shell options such as `set -e`, `set -u` or `pipefail`.
 
-## 4. Use it from Codex cloud
+## 4. Use it from an execution-capable agent
 
-Open [Codex environments](https://chatgpt.com/codex/settings/environments), create an environment and choose the repository. Use:
+Codex cloud is one execution-capable option. Open [Codex environments](https://chatgpt.com/codex/settings/environments), create an environment and choose the repository. Use:
 
 ```text
 bash .agents/skills/github-project-admin/scripts/setup.sh
@@ -96,19 +96,58 @@ See the [official Codex environment guide](https://developers.openai.com/codex/e
 
 ## 5. Start with the current issues
 
-The initializer offers a tailored first request after the ChatGPT and Codex instructions. For a single Project, the request can:
+The initializer offers one shared, proposal-only first request after the chat and execution-capable agent instructions. For a resolved Project, the request can:
 
 - confirm the local Priority location and mapping from the existing live field without changing it;
 - set up or refine Issue Type or Class and Workstream, with sensible colours;
-- organise existing issues and useful native parent/sub-issue relationships.
+- organise existing issues and useful native parent/sub-issue relationships;
+- suggest optional sub-project labels only where they add value.
 
-Choose whether the agent should show you a plan first or carry out and verify the work immediately.
+It does not authorise changes until you approve the proposal. After approval, an execution-capable agent can apply and verify it; a chat that cannot write returns minimal commands with readback. To add another Project later, rerun the initializer.
 
-For several Projects, first use the generated request to define the dispatcher and routing. To add another Project later, ask:
+## Class and Workstream
 
-> Start from `AGENTS.md`. Add Project 12 owned by `example-org` to this repository's existing multi-Project configuration. Preserve current routes, ask me only for the new routing decision, and validate the result.
+Class or Issue Type and Workstream deliberately answer different questions.
+
+**Class / Issue Type** says what kind of item it is. A useful starter set is:
+
+| Class | Preferred colour |
+| --- | --- |
+| Epic | BLUE |
+| Task | YELLOW |
+| Deliverable | ORANGE |
+| Analysis | PURPLE |
+| Research | PINK |
+| Enhancement | GREEN |
+| Bug | RED |
+| Documentation | GRAY |
+
+`Task` is the ordinary default. `Epic` is not the default for every top-level issue or every parent. A Task, Deliverable, Analysis or other type can have sub-issues and remain that type. Use Epic only when the broader coordination outcome is useful in its own right.
+
+**Workstream** says which stable functional lane the item belongs to. It should not simply repeat Class, Priority, Status, a one-off milestone, a routing label or a sub-project. Prefer a small stable set and choose the issue's primary lane.
+
+Starter profiles include:
+
+- **Research/scientific:** Study design, Data, Methods, Implementation, Analysis, Validation, Reporting, Administration; optionally Simulation or Collaboration.
+- **Teaching:** Delivery, Assessment, Materials, Student support, Administration; optionally Supervision.
+- **Personal/household:** Finance, Administration, Communication, Digital, Maintenance.
+- **Software/product:** Design, Implementation, Integrations, Testing, Documentation, Release / operations, Governance, User experience.
+
+These are reusable defaults, not a requirement to rename useful local values. Avoid proliferating workstreams for one-off milestones or scenarios. For example, several proposal/presentation/write-up/poster milestones can normally share a `Reporting` workstream while the issues themselves are `Deliverable` items.
+
+Preferred colours help repeated names look familiar across Projects, but colour is presentational. If there are more categories than distinct colours, reuse provider-supported colours. Lack of a unique colour does not break the model.
+
+See [Class and Workstream design](references/class-and-workstreams.md) for the full profiles, colour suggestions and migration rules.
 
 ## Repository-specific setup
+
+Each resolved Project contract can tune issue drafting with an optional metadata row:
+
+```text
+| Issue write-up style | tidy |
+```
+
+Use `unrestricted` when the agent may add useful grounded detail, `tidy` for light expansion and cleanup, or `minimal` for minimal and direct wording. `tidy` is the default when the row is absent, and an explicit instruction in the current request overrides the setting. In a multi-Project repository, put the row in the relevant `.projects/projects/*.md` child contract.
 
 If the repository needs extra tools, add `.projects/setup.sh`. It runs automatically after the shared setup and is not replaced when the skill is updated.
 

@@ -9,6 +9,10 @@ set -Eeuo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 skill_dir="$(cd "$script_dir/.." && pwd)"
 generated_contract=""
+transaction_dir=""
+changed_contract_paths=()
+first_request_project_context=""
+first_request_class_name="Issue Type or Class"
 section_number=0
 colour_reset=""
 colour_bold=""
@@ -56,6 +60,9 @@ cleanup() {
   if [[ -n "$generated_contract" && -f "$generated_contract" ]]; then
     rm -f -- "$generated_contract"
   fi
+  if [[ -n "$transaction_dir" && -d "$transaction_dir" ]]; then
+    rm -rf -- "$transaction_dir"
+  fi
 }
 trap cleanup EXIT
 
@@ -83,19 +90,6 @@ ask_yes_no() {
       n|no) return 1 ;;
       *) echo "Please answer yes or no." >&2 ;;
     esac
-  done
-}
-
-ask_choice_default() {
-  local prompt="$1" minimum="$2" maximum="$3" default="$4" answer
-  while true; do
-    answer="$(ask_default "$prompt" "$default")"
-    if [[ "$answer" =~ ^[0-9]+$ ]] &&
-       ((answer >= minimum && answer <= maximum)); then
-      printf '%s' "$answer"
-      return 0
-    fi
-    echo "Choose a number from $minimum to $maximum." >&2
   done
 }
 
@@ -160,8 +154,386 @@ relative_skill_path() {
   esac
 }
 
+contract_table_value() {
+  local file="$1" wanted="$2"
+  awk -F'|' -v wanted="$wanted" '
+    function trim(value) {
+      sub(/^[[:space:]]+/, "", value)
+      sub(/[[:space:]]+$/, "", value)
+      return value
+    }
+    /^\|/ {
+      key = trim($2)
+      if (key == wanted) {
+        print trim($3)
+        exit
+      }
+    }
+  ' "$file"
+}
+
+mark_contract_path() {
+  local path="$1" existing
+  for existing in "${changed_contract_paths[@]}"; do
+    [[ "$existing" != "$path" ]] || return 0
+  done
+  changed_contract_paths+=("$path")
+}
+
+slugify() {
+  local value="$1"
+  value="$(printf '%s' "$value" |
+    tr '[:upper:]' '[:lower:]' |
+    sed -e 's/[^a-z0-9][^a-z0-9]*/-/g' -e 's/^-//' -e 's/-$//')"
+  printf '%s' "$value"
+}
+
+discover_project() {
+  local observed_owner_type project_selector project_query project_record
+  local observed_number
+
+  observed_owner_type="$(gh api "users/$project_owner" --jq .type 2>/dev/null)" ||
+    die "could not discover whether the Project owner is a person or organisation"
+  case "$observed_owner_type" in
+    User)
+      project_owner_type="user"
+      project_selector='.data.user.projectV2'
+      project_query='query($login: String!, $number: Int!) { user(login: $login) { projectV2(number: $number) { number title public } } }'
+      class_location="project field"
+      class_field="Class"
+      ;;
+    Organization)
+      project_owner_type="organization"
+      project_selector='.data.organization.projectV2'
+      project_query='query($login: String!, $number: Int!) { organization(login: $login) { projectV2(number: $number) { number title public } } }'
+      class_location="organization issue type"
+      class_field="Issue Type"
+      ;;
+    *) die "unsupported GitHub owner type: $observed_owner_type" ;;
+  esac
+
+  project_record="$(gh api graphql -f query="$project_query" \
+    -F login="$project_owner" -F number="$project_number" \
+    --jq "$project_selector | [.number,.title,(.public|tostring)] | @tsv")" ||
+    die "could not read Project $project_owner/$project_number"
+  IFS=$'\t' read -r observed_number project_title project_public <<<"$project_record"
+  [[ "$observed_number" == "$project_number" && -n "$project_title" ]] ||
+    die "GitHub did not return the expected Project"
+  [[ "$project_title" != *"|"* && "$project_title" != *$'\n'* ]] ||
+    die "this Project title needs agent-assisted contract generation"
+
+  if [[ "$visibility_lower" == "private" ]]; then
+    privacy="private repository"
+  elif [[ "$project_public" == "false" ]]; then
+    privacy="$visibility_lower repository with a private Project"
+  else
+    privacy="$visibility_lower repository"
+  fi
+
+  if [[ "$project_owner_type" == "organization" ]]; then
+    first_request_class_name="Issue Type"
+  else
+    first_request_class_name="Class"
+  fi
+  first_request_project_context="GitHub Project $project_owner/$project_number"
+  success "Found $project_title, owned by the GitHub $project_owner_type $project_owner."
+}
+
+write_project_contract() {
+  local target="$1" mode="$2" project_key="$3" routing="$4"
+  local routing_rule
+
+  cat >"$target" <<EOF
+# GitHub Project configuration
+
+| Key | Value |
+| --- | --- |
+| Contract version | 1 |
+| Mode | $mode |
+EOF
+  if [[ "$mode" == "project" ]]; then
+    printf '| Project key | %s |\n' "$project_key" >>"$target"
+  fi
+  cat >>"$target" <<EOF
+| Issue repository | $repository |
+| Project owner | $project_owner |
+EOF
+  if [[ "$mode" == "project" ]]; then
+    printf '| Owner type | %s |\n' "$project_owner_type" >>"$target"
+  fi
+  cat >>"$target" <<EOF
+| Project number | $project_number |
+| Project title | $project_title |
+| Routing | $routing |
+| Privacy | $privacy |
+
+## Field locations
+
+| Common dimension | Provider location | Provider field |
+| --- | --- | --- |
+| Class | $class_location | $class_field |
+| Priority | pending live inspection | Priority |
+| Status | project field | Status |
+| Workstream | project field | Workstream |
+| Due date | project field | Target date |
+| Parent | native issue relationship | Parent issue |
+
+## Priority mapping
+
+Priority mapping status: pending
+
+The initializer left the Project's existing Priority field and options unchanged.
+Before using Priority, an agent must confirm its provider location, inspect the
+live options and replace the pending status with a complete one-to-one P0, P1,
+P2 and P3 mapping.
+
+## Class and Workstream
+
+Class and Workstream option sets are intentionally not fixed by onboarding.
+An agent may inspect the existing issues and suggest a concise, useful vocabulary
+before the live Project is changed.
+
+## Governance
+
+- This is a $governance Project.
+EOF
+  if [[ "$mode" == "project" ]]; then
+    routing_rule="The dispatcher routing label selects this Project; it is not a sub-project label."
+  else
+    routing_rule="Project membership determines Project scope; no routing label is required."
+  fi
+  cat >>"$target" <<EOF
+- $routing_rule
+- Labels must not duplicate Class, Priority, Status or Workstream.
+- Assignment is explicit only unless a later repository decision says otherwise.
+- Exact requested administration requires no separate scope-design source.
+EOF
+}
+
+create_dispatcher_contract() {
+  mkdir -p "$repository_root/.projects/projects"
+  if [[ ! -e "$repository_root/.projects/projects/.gitkeep" ]]; then
+    : >"$repository_root/.projects/projects/.gitkeep"
+    mark_contract_path ".projects/projects/.gitkeep"
+  fi
+
+  generated_contract="$(mktemp)"
+  cat >"$generated_contract" <<EOF
+# GitHub Project dispatcher
+
+| Key | Value |
+| --- | --- |
+| Contract version | 1 |
+| Mode | dispatcher |
+| Issue repository | $repository |
+| Privacy | $repository_privacy |
+| Governance | $governance |
+
+## Routes
+
+| Project key | Routing label | Project number | Contract |
+| --- | --- | --- | --- |
+EOF
+  mv "$generated_contract" "$contract_file"
+  generated_contract=""
+  mark_contract_path ".projects/project.md"
+}
+
+dispatcher_route_count() {
+  awk -F'|' '
+    function trim(value) {
+      sub(/^[[:space:]]+/, "", value)
+      sub(/[[:space:]]+$/, "", value)
+      return value
+    }
+    /^## Routes[[:space:]]*$/ { in_routes = 1; next }
+    in_routes && /^## / { exit }
+    in_routes && /^\|/ {
+      key = trim($2)
+      if (key != "" && key != "Project key" && key != "---") count += 1
+    }
+    END { print count + 0 }
+  ' "$contract_file"
+}
+
+dispatcher_contract_for_number() {
+  local wanted="$1"
+  awk -F'|' -v wanted="$wanted" '
+    function trim(value) {
+      sub(/^[[:space:]]+/, "", value)
+      sub(/[[:space:]]+$/, "", value)
+      return value
+    }
+    /^## Routes[[:space:]]*$/ { in_routes = 1; next }
+    in_routes && /^## / { exit }
+    in_routes && /^\|/ && trim($4) == wanted {
+      print trim($5)
+      exit
+    }
+  ' "$contract_file"
+}
+
+dispatcher_has_value() {
+  local column="$1" wanted="$2"
+  awk -F'|' -v column="$column" -v wanted="$wanted" '
+    function trim(value) {
+      sub(/^[[:space:]]+/, "", value)
+      sub(/[[:space:]]+$/, "", value)
+      return value
+    }
+    /^## Routes[[:space:]]*$/ { in_routes = 1; next }
+    in_routes && /^## / { exit }
+    in_routes && /^\|/ && trim($column) == wanted { found = 1; exit }
+    END { exit(found ? 0 : 1) }
+  ' "$contract_file"
+}
+
+append_dispatcher_route() {
+  local file="$1" row="$2" updated
+  updated="$file.updated"
+  awk -v row="$row" '
+    /^## Routes[[:space:]]*$/ { in_routes = 1 }
+    in_routes && /^## / && $0 !~ /^## Routes[[:space:]]*$/ && !inserted {
+      print row
+      inserted = 1
+      in_routes = 0
+    }
+    { print }
+    END {
+      if (in_routes && !inserted) print row
+    }
+  ' "$file" >"$updated"
+  mv "$updated" "$file"
+}
+
+add_project_to_dispatcher() {
+  local default_key existing_contract leaf leaf_owner leaf_owner_type leaf_title
+  local project_key routing_label child_contract route_row
+
+  project_owner="$(ask_default \
+    "GitHub user or organisation that owns the Project" "$repository_owner")"
+  [[ "$project_owner" =~ ^[A-Za-z0-9_.-]+$ ]] ||
+    die "invalid Project owner login"
+
+  echo
+  echo "Find the Project number after /projects/ in its web address:"
+  echo "  https://github.com/users/example/projects/40       means 40"
+  echo "  https://github.com/orgs/example-org/projects/12    means 12"
+  project_number="$(require_text "Project number")"
+  [[ "$project_number" =~ ^[1-9][0-9]*$ ]] ||
+    die "Project number must be a positive integer"
+
+  discover_project
+  existing_contract="$(dispatcher_contract_for_number "$project_number")"
+  if [[ -n "$existing_contract" ]]; then
+    leaf="$repository_root/$existing_contract"
+    leaf_owner="$(contract_table_value "$leaf" "Project owner")"
+    leaf_owner_type="$(contract_table_value "$leaf" "Owner type")"
+    leaf_title="$(contract_table_value "$leaf" "Project title")"
+    [[ "$leaf_owner" == "$project_owner" ]] ||
+      die "Project number $project_number is already routed to a different owner"
+    [[ -z "$leaf_owner_type" || "$leaf_owner_type" == "$project_owner_type" ]] ||
+      die "the configured Project owner type no longer matches GitHub"
+    [[ "$leaf_title" == "$project_title" ]] ||
+      die "the configured Project title no longer matches GitHub"
+    first_request_project_context="Project $project_owner/$project_number"
+    note "Project $project_owner/$project_number is already configured; no route was changed."
+    return 0
+  fi
+
+  default_key="$(slugify "$project_title")"
+  [[ -n "$default_key" ]] || default_key="project-$project_number"
+  project_key="$(ask_default "Project key" "$default_key")"
+  [[ "$project_key" =~ ^[a-z0-9][a-z0-9-]*$ ]] ||
+    die "Project key must use lowercase letters, numbers and hyphens"
+  dispatcher_has_value 2 "$project_key" &&
+    die "Project key $project_key is already configured"
+
+  routing_label="$(ask_default "Routing label" "project:$project_key")"
+  [[ -n "$routing_label" && "$routing_label" != *"|"* &&
+     "$routing_label" != *$'\n'* ]] ||
+    die "routing label must be non-empty and contain no table separator"
+  dispatcher_has_value 3 "$routing_label" &&
+    die "routing label $routing_label is already configured"
+
+  child_contract=".projects/projects/$project_key.md"
+  [[ ! -e "$repository_root/$child_contract" ]] ||
+    die "$child_contract already exists without a matching route"
+
+  transaction_dir="$(mktemp -d)"
+  mkdir -p "$transaction_dir/.projects/projects"
+  cp "$contract_file" "$transaction_dir/.projects/project.md"
+  if [[ -d "$repository_root/.projects/projects" ]]; then
+    cp -R "$repository_root/.projects/projects/." \
+      "$transaction_dir/.projects/projects/"
+  fi
+  write_project_contract "$transaction_dir/$child_contract" project \
+    "$project_key" "label:$routing_label"
+  route_row="| $project_key | $routing_label | $project_number | $child_contract |"
+  append_dispatcher_route "$transaction_dir/.projects/project.md" "$route_row"
+  bash "$script_dir/validate-contract.sh" "$transaction_dir"
+
+  mkdir -p "$repository_root/.projects/projects"
+  mv "$transaction_dir/$child_contract" "$repository_root/$child_contract"
+  mv "$transaction_dir/.projects/project.md" "$contract_file"
+  rm -rf -- "$transaction_dir"
+  transaction_dir=""
+  mark_contract_path ".projects/project.md"
+  mark_contract_path "$child_contract"
+  first_request_project_context="Project key $project_key ($project_owner/$project_number)"
+  success "Added Project $project_owner/$project_number as route $project_key."
+}
+
+configure_dispatcher_projects() {
+  section "Add Projects"
+  if ! ask_yes_no "Would you like to add a Project now?" yes; then
+    note "The empty dispatcher is saved, but ordinary Project work needs at least one route."
+    return 0
+  fi
+
+  while true; do
+    add_project_to_dispatcher
+    if ! ask_yes_no "Would you like to add another Project?" no; then
+      break
+    fi
+  done
+}
+
+load_first_request_from_dispatcher() {
+  local route project_key project_number child_contract leaf owner owner_type
+  route="$(awk -F'|' '
+    function trim(value) {
+      sub(/^[[:space:]]+/, "", value)
+      sub(/[[:space:]]+$/, "", value)
+      return value
+    }
+    /^## Routes[[:space:]]*$/ { in_routes = 1; next }
+    in_routes && /^## / { exit }
+    in_routes && /^\|/ {
+      key = trim($2)
+      if (key != "" && key != "Project key" && key != "---") {
+        print key "\t" trim($4) "\t" trim($5)
+        exit
+      }
+    }
+  ' "$contract_file")"
+  [[ -n "$route" ]] || return 1
+  IFS=$'\t' read -r project_key project_number child_contract <<<"$route"
+  leaf="$repository_root/$child_contract"
+  owner="$(contract_table_value "$leaf" "Project owner")"
+  owner_type="$(contract_table_value "$leaf" "Owner type")"
+  first_request_project_context="Project key $project_key ($owner/$project_number)"
+  if [[ "$owner_type" == "organization" ]]; then
+    first_request_class_name="Issue Type"
+  elif [[ "$owner_type" == "user" ]]; then
+    first_request_class_name="Class"
+  else
+    first_request_class_name="Issue Type or Class"
+  fi
+}
+
 save_onboarding_files() {
-  local skill_path="" branch=""
+  local skill_path="" branch="" contract_path existing_path duplicate
   local -a save_paths
   save_paths=()
 
@@ -172,6 +544,17 @@ save_onboarding_files() {
   if [[ -e "$repository_root/.projects/project.md" ]]; then
     save_paths+=(".projects/project.md")
   fi
+  for contract_path in "${changed_contract_paths[@]}"; do
+    [[ -e "$repository_root/$contract_path" ]] || continue
+    duplicate="no"
+    for existing_path in "${save_paths[@]}"; do
+      if [[ "$existing_path" == "$contract_path" ]]; then
+        duplicate="yes"
+        break
+      fi
+    done
+    [[ "$duplicate" == "yes" ]] || save_paths+=("$contract_path")
+  done
   if [[ -e "$repository_root/AGENTS.md" ]]; then
     save_paths+=("AGENTS.md")
   fi
@@ -251,8 +634,22 @@ save_onboarding_files() {
   fi
 }
 
+print_provider_intro() {
+  section "Choose how you will use the repository"
+  cat <<'EOF'
+I will now show two ways to use the repository: a chat interface that may
+return commands for you to run, and an execution-capable agent that can run
+and verify commands after you approve its proposal.
+
+Before using either remote surface, make sure the installed skill and
+repository configuration are committed and pushed. If the previous section
+left local work or a failed push, complete the recovery commands it printed
+first.
+EOF
+}
+
 print_chatgpt_setup() {
-  section "Use the repository with ChatGPT"
+  section "Use the repository with a chat interface"
   cat <<EOF
 1. Open https://chatgpt.com/projects and create or open a ChatGPT Project.
 2. Make $repository available to that Project through its GitHub connection.
@@ -267,15 +664,18 @@ print_chatgpt_setup() {
   GitHub change, return the smallest safe command block for me to paste into a
   terminal, including a check of the result.
 
-After that, ask for the outcome you want in ordinary language. ChatGPT will do
-what its connection allows and return terminal commands for anything it cannot
-do directly.
+After that, ask for the outcome you want in ordinary language. The chat can
+inspect and propose the work. After you approve the proposal, it will make the
+changes it can and return the smallest safe terminal commands for anything it
+cannot do directly.
 EOF
 }
 
 print_codex_setup() {
-  section "Use the repository with Codex cloud"
+  section "Use the repository with an execution-capable agent"
   cat <<EOF
+The example below uses Codex cloud.
+
 1. Open https://chatgpt.com/codex/settings/environments and create an environment.
 2. Choose the $repository repository.
 3. Use this setup command:
@@ -295,69 +695,53 @@ print_codex_setup() {
   github.com
   api.github.com
 
-Codex can then read AGENTS.md, run the GitHub commands and verify the result.
+Codex can then read AGENTS.md, propose the work, and run and verify the GitHub
+commands after you approve its proposal.
 EOF
 }
 
-print_single_project_first_request() {
-  local class_name="Class" ending choice
-  if [[ "$project_owner_type" == "organization" ]]; then
-    class_name="Issue Type"
-  fi
-
+print_first_request() {
   section "Choose a useful first request"
   if ! ask_yes_no \
-    "Would you like an agent to organise existing issues with $class_name and Workstream next?" \
+    "Would you like a proposal for organising the existing issues next?" \
     yes; then
     note "Setup is complete. You can now make ordinary requests when you need them."
     return 0
   fi
 
-  echo "How should the agent proceed?"
-  echo "  1. Show you its plan before changing GitHub"
-  echo "  2. Carry out the work and verify it"
-  choice="$(ask_choice_default "Choose 1 or 2" 1 2 1)"
-  if [[ "$choice" == "1" ]]; then
-    ending="Give me an overview of what you plan to do based on this request. Do not make changes until I approve the plan."
-  else
-    ending="Do this now, then independently verify and summarise the changes."
-  fi
-
   cat <<EOF
 
-Use this as your first request in ChatGPT or Codex:
+Use the same first request in a chat interface or an execution-capable agent:
 
-  Start from AGENTS.md. Inspect the current issues and GitHub Project. Confirm
-  the pending Priority location and mapping from the Project's existing field
-  without adding, removing or renaming options. Set up or refine $class_name and
-  Workstream with sensible values and colours based on the existing issues,
-  then organise those issues using the Project fields and useful native
-  parent/sub-issue relationships. $ending
+  Start from AGENTS.md. Resolve $first_request_project_context and inspect its
+  current issues and GitHub Project. Propose how you would confirm the pending
+  Priority location and complete one-to-one mapping from the existing field
+  without adding, removing or renaming options; set up or refine
+  $first_request_class_name and Workstream from the issue evidence; preserve
+  useful existing definitions while choosing sensible colours; and organise
+  the issues using Project fields and useful native parent/sub-issue
+  relationships. Suggest optional sub-project labels only where they are
+  genuinely useful. Show me the exact proposed changes and do not change
+  GitHub until I approve them.
+
+After you approve the proposal, an execution-capable agent can apply and verify
+it. A chat interface that cannot write should instead return the smallest safe
+command block for you to run, including independent readback.
 EOF
 }
 
-print_multi_project_first_request() {
-  section "Finish the multi-Project routing"
+print_empty_dispatcher_next_step() {
+  section "Add a Project before ordinary administration"
   cat <<EOF
-This repository uses several Projects, so an agent must help define the routing.
-Use this as the first request in ChatGPT or Codex:
+The repository now has a validated dispatcher with no routes. That is a safe
+onboarding state, but it cannot resolve ordinary Project requests yet.
 
-  Start from AGENTS.md. Finish setting up $repository as a $governance
-  multi-Project repository. Inspect what GitHub and the repository already
-  provide. Ask me only for Project owners, Project numbers and routing choices
-  that cannot be discovered safely. Create and validate the dispatcher and
-  Project contracts. Give me an overview of what you plan to do before changing
-  live issues or Projects.
+Run the initializer again and choose to add a Project:
 
-After that configuration is committed, you can ask the agent to organise the
-existing issues and set up Issue Type or Class, Workstream and useful native
-parent/sub-issue relationships across the resolved Projects.
+  bash .agents/skills/github-project-admin/scripts/init-project.sh
 
-To add another Project later, ask:
-
-  Start from AGENTS.md. Add Project <number> owned by <user or organisation> to
-  this repository's existing multi-Project configuration. Preserve current
-  routes, ask me only for the new routing decision, and validate the result.
+It will preserve the dispatcher, add one Project at a time and ask whether you
+want to add another.
 EOF
 }
 
@@ -393,6 +777,8 @@ IFS=$'\t' read -r repository visibility <<<"$repository_record"
 [[ "$repository" =~ ^[^/[:space:]]+/[^/[:space:]]+$ ]] ||
   die "GitHub returned an invalid repository identity"
 repository_owner="${repository%%/*}"
+visibility_lower="$(printf '%s' "$visibility" | tr '[:upper:]' '[:lower:]')"
+repository_privacy="$visibility_lower repository"
 
 contract_file="$repository_root/.projects/project.md"
 if [[ -e "$contract_file" ]]; then
@@ -400,10 +786,35 @@ if [[ -e "$contract_file" ]]; then
   note "A repository contract already exists at .projects/project.md."
   bash "$script_dir/validate-contract.sh" "$repository_root"
   append_agents_pointer
-  success "The existing repository setup was not replaced."
+  existing_mode="$(contract_table_value "$contract_file" "Mode")"
+  if [[ "$existing_mode" != "dispatcher" ]]; then
+    success "The existing repository setup was not replaced."
+    save_onboarding_files
+    echo
+    note "For usage and update instructions, read .agents/skills/github-project-admin/README.md."
+    exit 0
+  fi
+
+  governance="$(contract_table_value "$contract_file" "Governance")"
+  [[ -n "$governance" ]] || governance="shared"
+  success "The existing dispatcher and routes will be preserved."
+  configure_dispatcher_projects
+  bash "$script_dir/validate-contract.sh" "$repository_root"
   save_onboarding_files
+  print_provider_intro
+  print_chatgpt_setup
+  print_codex_setup
+  if [[ "$(dispatcher_route_count)" == "0" ]]; then
+    print_empty_dispatcher_next_step
+  else
+    if [[ -z "$first_request_project_context" ]]; then
+      load_first_request_from_dispatcher
+    fi
+    print_first_request
+  fi
   echo
-  note "For usage and update instructions, read .agents/skills/github-project-admin/README.md."
+  success "Repository onboarding is complete."
+  echo "The initializer did not change any live GitHub issue or Project value."
   exit 0
 fi
 
@@ -415,6 +826,7 @@ supply facts it already knows; the questions are only about local choices.
 
 No live issue or Project value will be changed during this setup.
 EOF
+echo
 
 if ask_yes_no \
   "Will anyone else work with you on Projects managed from this repository?" \
@@ -425,14 +837,26 @@ else
 fi
 
 if ! ask_yes_no "Does this repository use one GitHub Project?" yes; then
+  create_dispatcher_contract
   append_agents_pointer
-  note "Several Projects need an explicit routing rule, so no contract was guessed."
+  bash "$script_dir/validate-contract.sh" "$repository_root"
+  success "Added the empty dispatcher and the AGENTS.md starting point."
+  configure_dispatcher_projects
+  bash "$script_dir/validate-contract.sh" "$repository_root"
   save_onboarding_files
+  print_provider_intro
   print_chatgpt_setup
   print_codex_setup
-  print_multi_project_first_request
+  if [[ "$(dispatcher_route_count)" == "0" ]]; then
+    print_empty_dispatcher_next_step
+  else
+    if [[ -z "$first_request_project_context" ]]; then
+      load_first_request_from_dispatcher
+    fi
+    print_first_request
+  fi
   echo
-  success "The repository is ready for the multi-Project configuration handoff."
+  success "Repository onboarding is complete."
   echo "The initializer did not change any live GitHub issue or Project value."
   exit 0
 fi
@@ -450,108 +874,25 @@ project_number="$(require_text "Project number")"
 [[ "$project_number" =~ ^[1-9][0-9]*$ ]] ||
   die "Project number must be a positive integer"
 
-observed_owner_type="$(gh api "users/$project_owner" --jq .type 2>/dev/null)" ||
-  die "could not discover whether the Project owner is a person or organisation"
-case "$observed_owner_type" in
-  User)
-    project_owner_type="user"
-    project_selector='.data.user.projectV2'
-    project_query='query($login: String!, $number: Int!) { user(login: $login) { projectV2(number: $number) { number title public } } }'
-    class_location="project field"
-    class_field="Class"
-    ;;
-  Organization)
-    project_owner_type="organization"
-    project_selector='.data.organization.projectV2'
-    project_query='query($login: String!, $number: Int!) { organization(login: $login) { projectV2(number: $number) { number title public } } }'
-    class_location="organization issue type"
-    class_field="Issue Type"
-    ;;
-  *) die "unsupported GitHub owner type: $observed_owner_type" ;;
-esac
-
-project_record="$(gh api graphql -f query="$project_query" \
-  -F login="$project_owner" -F number="$project_number" \
-  --jq "$project_selector | [.number,.title,(.public|tostring)] | @tsv")" ||
-  die "could not read Project $project_owner/$project_number"
-IFS=$'\t' read -r observed_number project_title project_public <<<"$project_record"
-[[ "$observed_number" == "$project_number" && -n "$project_title" ]] ||
-  die "GitHub did not return the expected Project"
-[[ "$project_title" != *"|"* && "$project_title" != *$'\n'* ]] ||
-  die "this Project title needs agent-assisted contract generation"
-
-visibility_lower="$(printf '%s' "$visibility" | tr '[:upper:]' '[:lower:]')"
-if [[ "$visibility_lower" == "private" ]]; then
-  privacy="private repository"
-elif [[ "$project_public" == "false" ]]; then
-  privacy="$visibility_lower repository with a private Project"
-else
-  privacy="$visibility_lower repository"
-fi
-
-success "Found $project_title, owned by the GitHub $project_owner_type $project_owner."
+discover_project
 
 generated_contract="$(mktemp)"
-cat >"$generated_contract" <<EOF
-# GitHub Project configuration
-
-| Key | Value |
-| --- | --- |
-| Contract version | 1 |
-| Mode | single |
-| Issue repository | $repository |
-| Project owner | $project_owner |
-| Project number | $project_number |
-| Project title | $project_title |
-| Routing | Project membership; no routing label |
-| Privacy | $privacy |
-
-## Field locations
-
-| Common dimension | Provider location | Provider field |
-| --- | --- | --- |
-| Class | $class_location | $class_field |
-| Priority | pending live inspection | Priority |
-| Status | project field | Status |
-| Workstream | project field | Workstream |
-| Due date | project field | Target date |
-| Parent | native issue relationship | Parent issue |
-
-## Priority mapping
-
-Priority mapping status: pending
-
-The initializer left the Project's existing Priority field and options unchanged.
-Before using Priority, an agent must confirm its provider location, inspect the
-live options and replace the pending status with a complete one-to-one P0, P1,
-P2 and P3 mapping.
-
-## Class and Workstream
-
-Class and Workstream option sets are intentionally not fixed by onboarding.
-An agent may inspect the existing issues and suggest a concise, useful vocabulary
-before the live Project is changed.
-
-## Governance
-
-- This is a $governance Project.
-- Project membership determines Project scope; no routing label is required.
-- Labels must not duplicate Class, Priority, Status or Workstream.
-- Assignment is explicit only unless a later repository decision says otherwise.
-- Exact requested administration requires no separate scope-design source.
-EOF
+write_project_contract "$generated_contract" single "" \
+  "Project membership; no routing label"
 
 mkdir -p "$repository_root/.projects"
 mv "$generated_contract" "$contract_file"
 generated_contract=""
+mark_contract_path ".projects/project.md"
 bash "$script_dir/validate-contract.sh" "$repository_root"
 append_agents_pointer
 success "Added .projects/project.md and the AGENTS.md starting point."
 
 save_onboarding_files
+print_provider_intro
 print_chatgpt_setup
 print_codex_setup
-print_single_project_first_request
+print_first_request
 
 echo
 success "Repository onboarding is complete."
