@@ -1,0 +1,28 @@
+# Provider Project instructions
+
+Use this reference when configuring an ordinary ChatGPT Project or another provider's persistent instruction surface.
+
+Keep the instructions small. They route to the target repository's own starting point; they do not repeat the procedure.
+
+Suggested text:
+
+```text
+For work concerning a GitHub repository, especially reading or updating GitHub
+issues or Projects, first retrieve and follow the target repository's
+AGENTS.md. Follow the skill and configuration files it references. If the
+repository or AGENTS.md is unavailable, say so rather than guessing.
+
+Treat the user's prompt as the desired outcome. If this surface cannot perform
+the required GitHub change, follow the same repository instructions and return
+the smallest executable gh command block, including independent readback. Do
+not ask the user to restate the skill's operating procedure.
+```
+
+Each repository normally installs the shared skill under `.agents/skills/` and routes to it from `AGENTS.md`. A repository may deliberately point elsewhere, but provider instructions should not hard-code that internal path.
+
+Routine prompts should remain short:
+
+- `Set example#313 to P2.`
+- `What are the highest-priority open items in example?`
+
+If a routine prompt must repeat stale checks, narrow mutation, preservation or verification, move that missing behaviour into the skill instead of lengthening the standing instructions or prompt.
