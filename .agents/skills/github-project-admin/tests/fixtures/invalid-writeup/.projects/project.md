@@ -1,4 +1,4 @@
-# GitHub Project configuration
+# Invalid issue write-up style GitHub Project configuration
 
 | Key | Value |
 | --- | --- |
@@ -8,20 +8,16 @@
 | Project owner | octo-org |
 | Owner type | organization |
 | Project number | 12 |
-| Project title | Example planning |
+| Project title | Invalid issue write-up style |
 | Routing | linked repository |
 | Privacy | repository |
-| Issue write-up style | direct |
+| Issue write-up style | minimal |
 
 ## Field locations
 
 | Common dimension | Provider location | Provider field |
 | --- | --- | --- |
-| Class | organization issue type | Issue Type |
 | Priority | organization issue field | Priority |
-| Status | project field | Status |
-| Workstream | project field | Workstream |
-| Due date | project field | Target date |
 
 ## Priority mapping
 
@@ -31,7 +27,3 @@
 | P1 | High |
 | P2 | Medium |
 | P3 | Low |
-
-## Governance
-
-- Use only synthetic test data.

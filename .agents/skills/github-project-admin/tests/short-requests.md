@@ -37,3 +37,16 @@ Prompt:
 > Set example#313 to P2.
 
 If the surface cannot write, it must return one narrow organisation issue-field mutation using `Medium` plus an independent GET readback. It must state that the commands have not run.
+
+## Issue creation styles
+
+Prompt:
+
+> Add an issue to chek whether the import preserves dates, because the dry run changed one.
+
+Expected interpretation:
+
+- `direct` derives a concise title and a description from the supplied statement, corrects `chek`, and does not otherwise rewrite, reorganise or expand it;
+- `tidy` may reword and organise the supplied facts, but must not add acceptance criteria, implementation steps or other substantive information;
+- `unrestricted` may add useful detail only when it is grounded in the request or a required project source;
+- a more recent explicit instruction in the prompt overrides the configured style.

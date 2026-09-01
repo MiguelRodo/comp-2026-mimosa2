@@ -40,8 +40,8 @@ Use this form when one repository resolves to one Project:
 | Class | organization issue type | Issue Type |
 | Priority | organization issue field | Priority |
 | Status | project field | Status |
-| Workstream | project field | Workstream |
 | Due date | project field | Target date |
+| Parent | native issue relationship | Parent issue |
 
 ## Priority mapping
 
@@ -94,28 +94,43 @@ A resolved Project contract may contain an `Issue write-up style` metadata row. 
 Supported values are:
 
 - `unrestricted`: the agent may add useful grounded structure, context, implementation detail, acceptance criteria or decomposition when helpful;
-- `tidy`: light expansion and tidying only, and the default when the row is absent;
-- `minimal`: minimal and direct wording, with no inferred context, rationale, implementation detail, acceptance criteria or extra subtasks.
+- `tidy`: the default when the row is absent; the agent may reword and organise supplied material and use required project context to express it faithfully, but may not add substantive information;
+- `direct`: the agent performs only the structural work needed to derive a title and, when supported by the supplied material, a description, plus spelling and grammar corrections. It does not otherwise reword, reorganise, expand or add substantive information.
 
-For a multi-Project repository, put the setting in the resolved `.projects/projects/*.md` child contract so different Projects can use different defaults. Users may edit this row directly when they want a different style.
+For `tidy`, ask only when genuine ambiguity would change the issue's meaning. For a multi-Project repository, put the setting in the resolved `.projects/projects/*.md` child contract so different Projects can use different defaults. Users may edit this row directly when they want a different style. Replace the retired `minimal` value with `direct` in an existing contract.
 
-## Class and Workstream vocabularies
+## Class / Issue Type vocabulary
 
-Class or Issue Type describes the kind of work item. Workstream describes the stable functional lane. Follow [the Class and Workstream design reference](class-and-workstreams.md) when proposing or refining these values.
+Class or Issue Type describes the kind of work item. Follow [the Issue Type and Class design reference](issue-types.md) when proposing or refining these values.
 
-The shared profiles are defaults and examples, not implicit contract values. A repository may keep a smaller or more domain-specific vocabulary. Existing useful local values should not be renamed merely to match the examples.
+The shared vocabulary is a default, not an implicit contract. A repository may keep a smaller or deliberately local set when that improves planning. The reusable default is:
 
-Important defaults are:
+- `Task`: ordinary fallback for a specific piece of work;
+- `Bug`: fault, regression or incorrect behaviour;
+- `Enhancement`: bounded improvement to existing work, material, method, process or software;
+- `Data`: acquisition, intake, stewardship, transformation or validation of source or derived data, including production of analysis-ready data;
+- `Analysis`: quantitative or analytical result, inference, evaluation or reproducible computation;
+- `Deliverable`: one bounded formal output or event that is handed over, submitted, presented, released, assessed or otherwise consumed, including grant applications and software releases;
+- `Documentation`: durable guidance, records or reference material;
+- `Epic`: a broad coordination outcome that remains useful as a planning object across several independently meaningful pieces of work.
 
-- `Task` is the ordinary fallback Class.
-- `Epic` is reserved for a broad coordination outcome. Top-level placement or having children does not by itself make an item an Epic.
-- A Task, Deliverable, Analysis or other type may have sub-issues and remain that type.
-- Workstreams should be stable lanes and should not duplicate Class, Priority, Status, one-off milestones, routing labels or sub-project labels.
-- A contract may list exact Class or Workstream values when the Project genuinely requires them; otherwise the agent should inspect the issue set and propose a concise vocabulary before live changes.
+`Task` is the fallback. `Deliverable` supersedes `Report`. `Research` is not a default type: exploratory work can usually be Task, analytical investigation can be Analysis, and development of an existing method or system can be Enhancement.
+
+Parenthood is independent of type. A Task, Deliverable, Analysis or other non-Epic item may have sub-issues. Top-level placement or having children does not by itself make an item an Epic.
+
+A contract may list exact Class values and colours when the Project genuinely requires them. Otherwise the agent should inspect the issue set and propose a useful vocabulary before live changes.
+
+## Workstream is not a standard dimension
+
+Current contracts should not bind or require a Workstream field. The active model uses routing/sub-project labels, Class or Issue Type, native hierarchy, Priority, Status and Due date instead.
+
+An older live Project may still contain a custom field named `Workstream`. Treat it as legacy/unmanaged provider state unless a repository deliberately documents it as non-standard metadata. Do not infer a standard semantic binding from the field name. Removing the live field is a separate migration because deletion also removes its Project-local values; inspect those values first and require explicit authority.
+
+GitHub Milestones remain optional native issue metadata for genuine shared temporal checkpoints, releases or submissions. They are not a replacement Workstream dimension, and a single formal output may need only a Deliverable issue plus a due date.
 
 ## Field locations and mappings
 
-For each dimension, record the semantic name, provider location and exact provider field name. Typical locations are:
+For each standard dimension used by the repository, record the semantic name, provider location and exact provider field name. Typical locations are:
 
 - repository issue metadata;
 - organisation Issue Type;
@@ -147,15 +162,15 @@ A repository may make a single-select palette exact by using an `Option` and `Co
 
 | Option | Colour |
 | --- | --- |
-| Epic | BLUE |
 | Task | YELLOW |
 | Bug | RED |
-| Documentation | GREEN |
+| Deliverable | ORANGE |
+| Epic | BLUE |
 ```
 
 Supported GitHub colours are `BLUE`, `GRAY`, `GREEN`, `ORANGE`, `PINK`, `PURPLE`, `RED` and `YELLOW`. Reusing a colour is allowed.
 
-If a contract lists values without colours, colour is not a contract constraint. When creating or organising a Project, an agent may choose stable colours without asking if the choice is purely presentational. The preferred colours in [the Class and Workstream design reference](class-and-workstreams.md) are reusable defaults, not semantic state.
+If a contract lists values without colours, colour is not a contract constraint. When creating or organising a Project, an agent may choose stable colours without asking if the choice is purely presentational. The preferred colours in [the Issue Type and Class design reference](issue-types.md) are reusable defaults, not semantic state.
 
 If there are more categories than distinct provider colours, reuse colours. If another provider exposes additional colours, those may be used. A lack of unique colours must not block ordinary administration or classification. Only an explicitly declared exact palette is a local contract constraint. Preserve useful existing colours unless the requested outcome includes changing them.
 
@@ -178,7 +193,7 @@ Use `.projects/setup.sh` only for prerequisites unique to this repository. The s
 
 By default the local script extends the shared setup and runs after the common GitHub checks. It must not call or copy the shared setup.
 
-To replace the common setup entirely, put this exact marker within the first 20 lines:
+To replace common setup completely, put this exact marker within the first 20 lines:
 
 ```bash
 # github-project-admin: override
