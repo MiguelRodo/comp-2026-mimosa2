@@ -96,7 +96,17 @@ For each dimension, record the semantic name, provider location and exact provid
 
 Do not store transient GraphQL node IDs, REST option IDs or credentials. Discover IDs and live options at operation time.
 
-The Priority table must contain P0, P1, P2 and P3 exactly once, with four distinct, non-empty provider values. Omit no value. When the provider uses `Urgent`, `High`, `Medium` and `Low`, use the default table. A repository may use an exact one-to-one override such as P0, P1, P2 and P3.
+The completed Priority table must contain P0, P1, P2 and P3 exactly once, with four distinct, non-empty provider values. Omit no value. When the provider uses `Urgent`, `High`, `Medium` and `Low`, use the default table. A repository may use an exact one-to-one override such as P0, P1, P2 and P3.
+
+The guided initializer does not change live Priority options or ask a non-technical operator to interpret them. Until an agent has inspected the live field, the initial contract may use this exact section instead:
+
+```markdown
+## Priority mapping
+
+Priority mapping status: pending
+```
+
+This is a safe incomplete state, not a default mapping. Its Field locations row may use `pending live inspection` until the provider location is confirmed. The repository may use other configured dimensions, but an agent must not rank, read semantically or change Priority until it records that location and replaces the marker with a complete one-to-one table. Adding, removing or renaming a provider option remains a separate live mutation that requires explicit authority.
 
 ## Option colours
 
