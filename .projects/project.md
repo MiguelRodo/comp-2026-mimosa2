@@ -32,7 +32,7 @@
 
 ## Class vocabulary
 
-Use the current common vocabulary when the corresponding live Project option exists:
+Use the current common vocabulary:
 
 - Task
 - Bug
@@ -43,11 +43,7 @@ Use the current common vocabulary when the corresponding live Project option exi
 - Documentation
 - Epic
 
-`Deliverable` replaces the retired `Report` value. `Data` replaces the retired `Raw data` and `Processed data` split. Changing the live option set is a separate mutation and requires live inspection and readback.
-
-## Legacy provider state
-
-A live Project field named `Workstream` may still contain historical values. It is legacy and unmanaged by the current model: do not require, interpret or populate it. Removing the live field is a separate migration because deletion also removes its Project-local values.
+`Deliverable` replaces the retired `Report` value. `Data` replaces the retired `Raw data` and `Processed data` split.
 
 ## Governance
 
