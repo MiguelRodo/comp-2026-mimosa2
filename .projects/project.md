@@ -18,7 +18,6 @@
 | Class | project field | Class |
 | Priority | project field | Priority |
 | Status | project field | Status |
-| Workstream | project field | Workstream |
 | Due date | project field | Target date |
 | Parent | native issue relationship | Parent issue |
 
@@ -31,16 +30,29 @@
 | P2 | P2 |
 | P3 | P3 |
 
-## Class and Workstream
+## Class vocabulary
 
-Class and Workstream option sets are intentionally not fixed by onboarding.
-An agent may inspect the existing issues and suggest a concise, useful vocabulary
-before the live Project is changed.
+Use the current common vocabulary when the corresponding live Project option exists:
+
+- Task
+- Bug
+- Enhancement
+- Data
+- Analysis
+- Deliverable
+- Documentation
+- Epic
+
+`Deliverable` replaces the retired `Report` value. `Data` replaces the retired `Raw data` and `Processed data` split. Changing the live option set is a separate mutation and requires live inspection and readback.
+
+## Legacy provider state
+
+A live Project field named `Workstream` may still contain historical values. It is legacy and unmanaged by the current model: do not require, interpret or populate it. Removing the live field is a separate migration because deletion also removes its Project-local values.
 
 ## Governance
 
 - This is a collaborative Project.
 - Project membership or the exact routing rule above determines Project scope.
-- Labels must not duplicate Class, Priority, Status or Workstream.
+- Labels must not duplicate Class, Priority or Status.
 - Assignment is explicit only unless a later repository decision says otherwise.
 - Exact requested administration requires no separate scope-design source.
