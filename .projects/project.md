@@ -11,6 +11,7 @@
 | Routing | Project membership; no routing label |
 | Privacy | public repository with a private Project |
 | Issue write-up style | tidy |
+| Issue prose style | natural-direct |
 
 ## Field locations
 
