@@ -10,6 +10,7 @@
 | Project title | 2026-mimosa2 |
 | Routing | Project membership; no routing label |
 | Privacy | public repository with a private Project |
+| Issue write-up style | tidy |
 
 ## Field locations
 
