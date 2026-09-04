@@ -12,11 +12,12 @@
 | Privacy | public repository with a private Project |
 | Issue write-up style | tidy |
 | Issue prose style | natural-direct |
+| Chat implementation label | pj:implement-chat |
 
 ## Field locations
 
 | Common dimension | Provider location | Provider field |
-| --- | --- | --- |
+| --- | --- |
 | Class | project field | Class |
 | Priority | project field | Priority |
 | Status | project field | Status |
