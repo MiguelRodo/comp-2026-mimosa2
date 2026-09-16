@@ -48,6 +48,29 @@ Use the current common vocabulary:
 
 `Deliverable` replaces the retired `Report` value. `Data` replaces the retired `Raw data` and `Processed data` split.
 
+## Class values
+
+Machine-readable declaration of the active Class / Issue Type vocabulary.
+
+| Option | Provider value |
+| --- | --- |
+| Task | Task |
+| Bug | Bug |
+| Enhancement | Enhancement |
+| Data | Data |
+| Analysis | Analysis |
+| Deliverable | Deliverable |
+| Documentation | Documentation |
+| Epic | Epic |
+
+## Status mapping
+
+| Common value | Provider value |
+| --- | --- |
+| Todo | Todo |
+| In progress | In progress |
+| Done | Done |
+
 ## Governance
 
 - This is a collaborative Project.
