@@ -17,7 +17,7 @@
 ## Field locations
 
 | Common dimension | Provider location | Provider field |
-| --- | --- |
+| --- | --- | --- |
 | Class | project field | Class |
 | Priority | project field | Priority |
 | Status | project field | Status |
@@ -32,6 +32,15 @@
 | P1 | P1 |
 | P2 | P2 |
 | P3 | P3 |
+
+## Priority values
+
+| Option | Colour |
+| --- | --- |
+| P0 | RED |
+| P1 | ORANGE |
+| P2 | YELLOW |
+| P3 | PURPLE |
 
 ## Class vocabulary
 
@@ -50,18 +59,18 @@ Use the current common vocabulary:
 
 ## Class values
 
-Machine-readable declaration of the active Class / Issue Type vocabulary.
+Machine-readable declaration of the active Class / Issue Type vocabulary and exact Project palette.
 
-| Option | Provider value |
+| Option | Colour |
 | --- | --- |
-| Task | Task |
-| Bug | Bug |
-| Enhancement | Enhancement |
-| Data | Data |
-| Analysis | Analysis |
-| Deliverable | Deliverable |
-| Documentation | Documentation |
-| Epic | Epic |
+| Task | GRAY |
+| Bug | RED |
+| Enhancement | GREEN |
+| Data | PINK |
+| Analysis | PURPLE |
+| Deliverable | ORANGE |
+| Documentation | YELLOW |
+| Epic | BLUE |
 
 ## Status mapping
 
