@@ -12,7 +12,6 @@
 | Privacy | public repository with a private Project |
 | Issue write-up style | tidy |
 | Issue prose style | natural-direct |
-| Chat implementation label | pj:implement-chat |
 
 ## Field locations
 
@@ -23,53 +22,6 @@
 | Status | project field | Status |
 | Due date | project field | Target date |
 | Parent | native issue relationship | Parent issue |
-
-## Priority mapping
-
-| Common value | Provider value | Colour |
-| --- | --- | --- |
-| P0 | P0 | RED |
-| P1 | P1 | ORANGE |
-| P2 | P2 | YELLOW |
-| P3 | P3 | PURPLE |
-
-## Class vocabulary
-
-Use the current common vocabulary:
-
-- Task
-- Bug
-- Enhancement
-- Data
-- Analysis
-- Deliverable
-- Documentation
-- Epic
-
-`Deliverable` replaces the retired `Report` value. `Data` replaces the retired `Raw data` and `Processed data` split.
-
-## Class values
-
-Machine-readable declaration of the active Class / Issue Type vocabulary and exact Project palette.
-
-| Option | Colour |
-| --- | --- |
-| Task | GRAY |
-| Bug | RED |
-| Enhancement | GREEN |
-| Data | PINK |
-| Analysis | PURPLE |
-| Deliverable | ORANGE |
-| Documentation | YELLOW |
-| Epic | BLUE |
-
-## Status mapping
-
-| Common value | Provider value |
-| --- | --- |
-| Todo | Todo |
-| In progress | In progress |
-| Done | Done |
 
 ## Governance
 
