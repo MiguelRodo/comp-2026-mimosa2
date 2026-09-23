@@ -92,9 +92,9 @@ base_plot = ggplot(data = plot_data,
     title = "Sensitivity analysis of MIMOSA2.",
     subtitle = "True positive rate (TPR) at 1% nominal false discovery rate (FDR) threshold.",
     x = "Effect size",
-    y = "TPR",
-    color = "Cell count",
-    fill = "Cell count"
+    y = "True positive rate",
+    color = "Parent cell count",
+    fill = "Parent cell count"
   ) +
   theme_minimal(base_size = 14) +
   theme(
@@ -199,9 +199,9 @@ base_plot_clean = ggplot(data = plot_data_clean,
     title = "Sensitivity analysis of MIMOSA2.",
     subtitle = "True positive rate (TPR) at 1% nominal false discovery rate (FDR) threshold.",
     x = "Effect size",
-    y = "TPR",
-    color = "Cell count",
-    fill = "Cell count"
+    y = "True positive rate",
+    color = "Parent cell count",
+    fill = "Parent cell count"
   ) +
   theme_minimal(base_size = 14) +
   theme(
@@ -274,15 +274,15 @@ ROC_plot = ggplot(
       Effect = label_both
     )
   ) +
-  scale_color_manual(values = c("High" = "deeppink", 
-                                "Medium" = "steelblue3", 
-                                "Low" = "orange")) +
+  scale_color_manual(values = c("Low" = "orange",
+                                "Medium" = "steelblue3",
+                                "High" = "deeppink")) +
   scale_linetype_manual(values = c("MIMOSA2" = "solid", 
                                    "DiD Baseline" = "dotted")) +
   guides(
     color = guide_legend(
       order = 2, 
-      title = "Cell Count",
+      title = "Parent cell count",
       override.aes = list(linewidth = 1.2, size = 1.5)
     ),
     linetype = guide_legend(
@@ -295,8 +295,8 @@ ROC_plot = ggplot(
   labs(
     title = "Simulation performance of MIMOSA2.",
     subtitle = "ROC analysis.",
-    x = "FPR",
-    y = "TPR"
+    x = "1-Sensitivity",
+    y = "Sensitivity"
   ) +
   theme(
     plot.title = element_text(face = "bold", size = 12, hjust = 0.5),
@@ -391,7 +391,7 @@ ROC_plot_clean = ggplot(
   guides(
     color = guide_legend(
       order = 2, 
-      title = "Cell Count",
+      title = "Parent cell count",
       override.aes = list(linewidth = 1.2, size = 1.5, alpha = 1)
     ),
     linetype = guide_legend(
@@ -404,8 +404,8 @@ ROC_plot_clean = ggplot(
   labs(
     title = "Simulation performance of MIMOSA2.",
     subtitle = "ROC analysis.",
-    x = "FPR",
-    y = "TPR"
+    x = "1-Specificity",
+    y = "Sensitivity"
   ) +
   theme(
     plot.title = element_text(face = "bold", size = 12, hjust = 0.5),
