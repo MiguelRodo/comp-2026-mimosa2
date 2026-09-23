@@ -244,11 +244,12 @@ prior_ROC_comp_plot = ggplot(
     d = Truth, 
     m = Score, 
     color = Distribution_clean, 
+    linealpha = Distribution_clean,
     linetype = Method
   )
 ) +
-  geom_roc(n.cuts = 0, size = 1.2, linealpha = 0.7) +
-  scale_alpha_identity() + 
+  geom_roc(n.cuts = 0, size = 2,linealpha = 0.6) +
+  # scale_alpha_identity() + 
   geom_abline(
     slope = 1, 
     intercept = 0, 
@@ -262,11 +263,18 @@ prior_ROC_comp_plot = ggplot(
     labeller = labeller(Comparison = label_value)
   ) +
   scale_color_manual(values = c(
-    "Beta"              = "grey10", 
+    "Beta"              = "black", 
     "Simplex"           = "deeppink", 
     "Bimodal Beta"      = "steelblue3", 
     "Exponential Gamma" = "orange", 
     "Logit Normal"      = "purple"
+  )) +
+  scale_alpha_manual(values = c(
+    "Beta"              = 1.0, 
+    "Simplex"           = 0.3, 
+    "Bimodal Beta"      = 0.3, 
+    "Exponential Gamma" = 0.3, 
+    "Logit Normal"      = 0.3
   )) +
   scale_linetype_manual(values = c(
     "MIMOSA2"      = "solid", 
@@ -278,6 +286,7 @@ prior_ROC_comp_plot = ggplot(
       title = "Distribution",
       override.aes = list(linewidth = 1.2, alpha = 1)
     ),
+    alpha = 'none',
     linetype = guide_legend(
       order = 2, 
       title = "Model",
@@ -288,8 +297,8 @@ prior_ROC_comp_plot = ggplot(
   labs(
     title = "Simulation performance of MIMOSA2.",
     subtitle = "ROC analysis.",
-    x = "FPR",
-    y = "TPR"
+    x = "1-Specificity",
+    y = "Sensitivity"
   ) +
   theme(
     plot.title = element_text(face = "bold", size = 12, hjust = 0.5),
@@ -812,7 +821,7 @@ df_clean <- results_continuous |>
   pivot_longer(c(MIMOSA2_prob, DiD_GLM_prob), names_to = "Method", values_to = "Score") |>
   mutate(Method = ifelse(Method == "MIMOSA2_prob", "MIMOSA2", "DiD Baseline"))
 
-# Relabel 'DIstribution':
+# Relabel 'Distribution':
 comparison_labels <- c(
   "SX" = "Beta vs. Simplex",
   "BB" = "Beta vs. Bimodal Beta",
@@ -867,7 +876,7 @@ prior_ROC_comp_auc_plot = ggplot(
     linetype = Method
   )
 ) +
-  geom_roc(n.cuts = 0, size = 1.2, linealpha = 0.7) +
+  geom_roc(n.cuts = 0, size = 2, linealpha = 0.6) +
   geom_abline(
     slope = 1, 
     intercept = 0, 
@@ -889,7 +898,7 @@ prior_ROC_comp_auc_plot = ggplot(
     labeller = labeller(Comparison = label_value)
   ) +
   scale_color_manual(values = c(
-    "Beta"              = "grey10", 
+    "Beta"              = "black", 
     "Simplex"           = "deeppink", 
     "Bimodal Beta"      = "steelblue3", 
     "Exponential Gamma" = "orange", 
@@ -915,8 +924,8 @@ prior_ROC_comp_auc_plot = ggplot(
   labs(
     title = "Simulation performance of MIMOSA2.",
     subtitle = "ROC analysis across prior distributions.",
-    x = "FPR",
-    y = "TPR"
+    x = "1-Specificity",
+    y = "Sensitivity"
   ) +
   theme(
     plot.title = element_text(face = "bold", size = 12, hjust = 0.5),
