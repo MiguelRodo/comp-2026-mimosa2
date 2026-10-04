@@ -1,20 +1,18 @@
-# MIMOSA2 Simulation Study
-# Isabella Lethbridge and Tayyeb Abrahams 
-# October 2026
-# ==============================================================================
-# 22_sim_heterogeneity.R: Study 3 - Effect-size heterogeneity
-# Replaces Heterogeneous_effect_sim.R 
-# ==============================================================================
-# Summary of what changed relative to Heterogeneous_effect_sim.R:
-# - BUG: the effect sizes of the two subgroups were swapped, so the evaluated
-#   "small" group actually had the LARGER effect (scenarios.R, Study 3).
-# - Version 2 called MIMOSA2() with no error handling or time limit, so one
-#   failing fit lost the whole task. Both fits now have FIT_TIMEOUT and their
-#   status is recorded.
-# - All subjects (focal and other group) are stored with a Group column, so
-#   the effect of pooling on the strong responders can also be looked at.
-# - DiD calls with Benjamini-Hochberg are adjusted within the focal group.
-# - nsim = 100 in both profiles (each task has two MIMOSA2 fits).
+# =============================================================================
+# 22_sim_heterogeneity.R : Study 3, effect-size heterogeneity
+# Replaces Heterogeneous_effect_sim.R (version 2).
+# See STUDY_DESCRIPTIONS.md (Study 3).
+# =============================================================================
+# [CHANGE] Summary of what changed relative to Heterogeneous_effect_sim.R
+#  * BUG: the effect sizes of the two subgroups were swapped, so the evaluated
+#    "small" group actually had the LARGER effect (scenarios.R, Study 3).
+#  * Version 2 called MIMOSA2() with no error handling or time limit, so one
+#    failing fit lost the whole task. Both fits now have FIT_TIMEOUT and their
+#    status is recorded.
+#  * All subjects (focal and other group) are stored with a Group column, so
+#    the effect of pooling on the strong responders can also be looked at.
+#  * DiD calls with Benjamini-Hochberg are adjusted within the focal group.
+#  * nsim = 100 in both profiles (each task has two MIMOSA2 fits).
 # =============================================================================
 source("sims/_header.R")
 STUDY <- "heterogeneity"

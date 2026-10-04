@@ -1,22 +1,25 @@
-# =============================================================================
-# 34_plots_imbalance.R : figures and tables for Study 4 (cell-count imbalance)
-# Replaces Count_Imbalanced_Plot.R (version 2).
-# =============================================================================
-# [CHANGE] What changed relative to Count_Imbalanced_Plot.R:
-#  * BUG: scenario names end in "_Imb_s1", "_Bal_1", ... but the script tested
-#    grepl("_Imb$") and grepl("_Bal$"). In the ROC figure every scenario was
-#    therefore labelled "Balanced"; in the AUC odds-ratio figure every
-#    non-reference scenario got Balance = NA and was dropped. The scenario
-#    type, depleted assays and matched control are now explicit columns.
-#  * AUC is computed per dataset and averaged; its MCSE replaces the DeLong SE
-#    of a pooled AUC (DeLong treats all pooled subjects as independent, but
-#    subjects in one dataset share one fitted model, so that SE is too small).
-#  * Each imbalanced scenario is compared with its MATCHED balanced control
-#    (same total cells: k depleted assays <-> Balanced k), which isolates the
-#    effect of imbalance at a fixed budget, as Chapter 3 describes.
-#  * The AUC odds ratio vs the reference is kept, with a delta-method CI
-#    built from the two MCSEs.
-# =============================================================================
+# MIMOSA2 Simulation Study
+# Isabella Lethbridge and Tayyeb Abrahams 
+# October 2026
+# ==============================================================================
+# 34_plots_imbalance.R: Figures and Tables for Study 4
+# Replaces Count_Imbalanced_Plot.R 
+# ==============================================================================
+# What changed relative to Count_Imbalanced_Plot.R:
+# - BUG: scenario names end in "_Imb_s1", "_Bal_1", ... but the script tested
+#   grepl("_Imb$") and grepl("_Bal$"). In the ROC figure every scenario was
+#   therefore labelled "Balanced"; in the AUC odds-ratio figure every
+#   non-reference scenario got Balance = NA and was dropped. The scenario
+#   type, depleted assays and matched control are now explicit columns.
+# - AUC is computed per dataset and averaged; its MCSE replaces the DeLong SE
+#   of a pooled AUC (DeLong treats all pooled subjects as independent, but
+#   subjects in one dataset share one fitted model, so that SE is too small).
+# - Each imbalanced scenario is compared with its MATCHED balanced control
+#   (same total cells: k depleted assays <-> Balanced k), which isolates the
+#   effect of imbalance at a fixed budget, as Chapter 3 describes.
+# - The AUC odds ratio vs the reference is kept, with a delta-method CI
+#   built from the two MCSEs.
+# ==============================================================================
 source("analysis/analysis_functions.R")
 res <- load_results("imbalance")
 perf <- performance_table(res) %>%
@@ -41,7 +44,7 @@ imb <- perf %>% filter(Type == "Imbalanced") %>%
 save_tab(imb, "imbalance_vs_balanced_and_reference")
 fr <- sort(unique(imb$Fraction))   # depleted fractions only (1 = reference added separately)
 
-# ---- 1. AUC vs fraction: imbalanced, matched balanced, reference ----------------
+# -------- 1. AUC vs fraction: imbalanced, matched balanced, reference ---------
 curves <- bind_rows(
   imb %>% transmute(Pattern, Model, Fraction, Series = "Imbalanced", AUC, AUC_mcse),
   imb %>% distinct(Pattern, Model, Fraction, AUC_bal, AUC_bal_mcse) %>%
@@ -63,7 +66,7 @@ p <- ggplot(curves, aes(Fraction, AUC, colour = Series, linetype = Model, group 
   theme_mimosa()
 save_fig(p, "cell_imbalance_plot", 11, 3 + 2.6 * ceiling(length(unique(imb$Pattern)) / 3))
 
-# ---- 2. Effect of imbalance at a fixed total (imbalanced - balanced) ---------------
+# ------ 2. Effect of imbalance at a fixed total (imbalanced - balanced) -------
 p <- ggplot(imb, aes(Fraction, dAUC_vs_bal, colour = Model)) +
   geom_hline(yintercept = 0, linetype = "dashed") +
   geom_pointrange(aes(ymin = dAUC_vs_bal - 1.96 * dAUC_vs_bal_mcse, ymax = dAUC_vs_bal + 1.96 * dAUC_vs_bal_mcse),
@@ -78,7 +81,7 @@ p <- ggplot(imb, aes(Fraction, dAUC_vs_bal, colour = Model)) +
   theme_mimosa()
 save_fig(p, "imbalance_vs_balanced", 11, 3 + 2.6 * ceiling(length(unique(imb$Pattern)) / 3))
 
-# ---- 3. AUC odds ratio vs reference (version-2 figure, corrected) ------------------
+# ------- 3. AUC odds ratio vs reference (version-2 figure, corrected) ---------
 p <- ggplot(imb, aes(Fraction, OR, colour = Pattern, linetype = Model, group = interaction(Pattern, Model))) +
   geom_hline(yintercept = 1, linetype = "dashed") +
   geom_line(linewidth = 0.6) +

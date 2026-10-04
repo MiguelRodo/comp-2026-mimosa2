@@ -1,7 +1,10 @@
-# =============================================================================
-# 30_performance_tables.R : performance measures + MCSE for every study
-# =============================================================================
-#   SIM_PROFILE=standard Rscript analysis/30_performance_tables.R
+# MIMOSA2 Simulation Study
+# Isabella Lethbridge and Tayyeb Abrahams 
+# October 2026
+# ==============================================================================
+# 30_performance_tables.R: Performance measures + MSE for every study
+# ==============================================================================
+# SIM_PROFILE=standard Rscript analysis/30_performance_tables.R
 # Writes to _tables/:
 #   <study>_performance.csv   one row per scenario x method x rule x alpha
 #                             (TPR, TNR, FPR, FDR, P(any FP), AUC; each with MCSE;
@@ -35,9 +38,7 @@ for (st in studies) {
     group_by(Scenario_ID) %>%
     summarise(rho_realised = mean(rho_realised), n_resp_eval = mean(n_resp_eval),
               mean_true_delta_resp = mean(mean_true_delta_resp, na.rm = TRUE),
-              share_zero_ns1 = mean(n_zero_ns1 / P_total),
-              share_datasets_with_stuck_redraw = mean(n_stuck_redraws > 0, na.rm = TRUE),   # dgm.R CHANGE 9
-              .groups = "drop") %>%
+              share_zero_ns1 = mean(n_zero_ns1 / P_total), .groups = "drop") %>%
     left_join(distinct(res$design[, scenario_cols(res$design), drop = FALSE]), by = "Scenario_ID")
   save_tab(real, paste0(st, "_realised_dgm"))
   # paired AUC differences

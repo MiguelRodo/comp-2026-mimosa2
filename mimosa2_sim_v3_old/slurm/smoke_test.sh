@@ -11,5 +11,4 @@
 export N_WORKERS=${SLURM_NTASKS:-8}
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 # module load software/R-4.x.x
-export R_LIBS=/scratch/abrmoe030/R_libs${R_LIBS:+:$R_LIBS}   # your package library (all R processes)
 Rscript sims/10_dgm_checks.R && Rscript sims/11_smoke_test.R

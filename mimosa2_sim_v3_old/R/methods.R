@@ -1,18 +1,18 @@
-# =============================================================================
-# methods.R : the methods being compared (MIMOSA2 and the DiD comparator),
-#             a hard time limit for MIMOSA2, and per-dataset performance
-# =============================================================================
-
-# -----------------------------------------------------------------------------
-# 1. Difference-in-differences (DiD) comparator
-# -----------------------------------------------------------------------------
-# [CHANGE] DiD_wald() replaces DiD_GLM(). The statistic is THE SAME: the
-# per-subject binomial GLM with identity link and the Time x Stimulation
-# interaction is saturated (4 parameters, 4 observations), so its MLE is the
-# observed difference-in-differences and its Wald variance is
-#   sum over the 4 assays of p_hat (1 - p_hat) / N.
+# MIMOSA2 Simulation Study
+# Isabella Lethbridge and Tayyeb Abrahams 
+# October 2026
+# ==============================================================================
+# methods.R: MIMOSA2 vs DiD 
+# ==============================================================================
+# 1. Difference-in-Differences (DiD)
+# DiD_wald() replaces DiD_GLM(): 
+# The statistic is the same
+#    The per-subject binomial GLM with identity link and the Time x Stimulation
+#    interaction is saturated (4 parameters, 4 observations), so its MLE is the
+#    observed difference-in-differences and its Wald variance is sum over the 4
+#    assays of p_hat (1 - p_hat) / N.
 # Computing this directly gives the identical estimate and z statistic when
-# the GLM converges (checked in sims/11_smoke_test.R), and fixes two problems
+# the GLM converges (checked in sims/11_smoke_test.R) and fixes two problems
 # in DiD_GLM():
 #   (a) every subject with a NEGATIVE estimate, and every subject whose GLM did
 #       not converge, was given the same score 0.05. These ties distort the
@@ -21,9 +21,11 @@
 #       non-responder".
 #   (b) it ran one glm() per subject (slow).
 # Scores: score = Phi(z) = 1 - one-sided p-value (as before for est >= 0, and
-# now also defined for est < 0). Ranking for ROC/AUC uses z itself, which has
-# no ties even when Phi(z) rounds to 1.
+# now also defined for est < 0). 
+# Ranking for ROC/AUC uses z itself, which has no ties even when Phi(z) rounds to 1
 # If all four observed proportions are 0 (SE = 0 and estimate 0), z = 0.
+# ==============================================================================
+# Function to compute wald intervals for DiD:
 DiD_wald <- function(Ntot, ns1, nu1, ns0, nu0) {
   N_s1 <- Ntot[, "ns1"]; N_u1 <- Ntot[, "nu1"]; N_s0 <- Ntot[, "ns0"]; N_u0 <- Ntot[, "nu0"]
   p_s1 <- ns1 / N_s1; p_u1 <- nu1 / N_u1; p_s0 <- ns0 / N_s0; p_u0 <- nu0 / N_u0
@@ -34,7 +36,7 @@ DiD_wald <- function(Ntot, ns1, nu1, ns0, nu0) {
   z[se == 0 & est == 0] <- 0
   data.frame(DiD_est = est, DiD_se = se, DiD_z = z,
              DiD_p = pnorm(z, lower.tail = FALSE),   # one-sided H1: Delta > 0
-             DiD_score = pnorm(z))                   # = old 'DiD_GLM_prob' when est >= 0
+             DiD_score = pnorm(z))                   
 }
 
 # The version-2 function, kept ONLY so the smoke test can show that DiD_wald()
@@ -61,17 +63,18 @@ DiD_GLM_legacy <- function(Ntot, ns1, nu1, ns0, nu0) {
   1 - out
 }
 
-# -----------------------------------------------------------------------------
+# ==============================================================================
 # 2. Hard time limit for one function call (Linux / macOS: fork-based)
-# -----------------------------------------------------------------------------
-# [CHANGE] R.utils::withTimeout() cannot interrupt MIMOSA2's compiled
-# optimiser, which is why version 2 moved to mcparallel(). Version 2 killed the
-# WHOLE task on timeout, so the DiD results for that dataset were also lost
-# and the dataset could not be identified. Now each MIMOSA2 fit runs in its
-# own child process; if it runs past the limit the child is killed and the
-# fit is recorded as "timeout", and the rest of the task (DiD, bookkeeping)
-# still completes. On Windows (no fork) the call simply runs without a limit,
-# which is fine for testing the code locally.
+# ==============================================================================
+# R.utils::withTimeout() cannot interrupt MIMOSA2's compiled optimiser, which is 
+# why version 2 moved to mcparallel(). 
+# Version 2 killed the WHOLE task on timeout, so the DiD results for that dataset 
+# were also lost and the dataset could not be identified. 
+# Now each MIMOSA2 fit runs in its own child process; if it runs past the limit 
+# the child is killed and the fit is recorded as "timeout", and the rest of the 
+# task (DiD, bookkeeping) still completes. 
+# On Windows (no fork) the call simply runs without a limit
+# ==============================================================================
 run_with_timeout <- function(fun, timeout, poll = 0.1) {
   t0 <- Sys.time()
   if (.Platform$OS.type == "windows") {
@@ -101,12 +104,13 @@ run_with_timeout <- function(fun, timeout, poll = 0.1) {
   }
 }
 
-# -----------------------------------------------------------------------------
+# ==============================================================================
 # 3. MIMOSA2 fit + everything we need from it
-# -----------------------------------------------------------------------------
+# ==============================================================================
 # Bayesian FDR q-values (direct posterior probability approach, Newton et al.
-# 2004): order subjects by decreasing P(responder); the q-value of the subject
-# in position m is the mean of (1 - P(responder)) over the top m subjects.
+# 2004): order subjects by decreasing P(responder)
+# The q-value of the subject in position m is the mean of (1 - P(responder)) 
+# over the top m subjects.
 # A subject is called a responder at level alpha if q < alpha (getResponse).
 bayes_fdr_q <- function(prob) {
   o <- order(prob, decreasing = TRUE)
@@ -115,7 +119,8 @@ bayes_fdr_q <- function(prob) {
   q
 }
 
-# [CHANGE] Version 2 stored Iterations = length(fit$inds), which is P x 11
+# NOTE: 
+# Version 2 stored Iterations = length(fit$inds), which is P x 11
 # (the size of an indicator matrix), not the number of EM iterations.
 # MIMOSA2 (0.99.x) does not return its iteration count or a convergence flag
 # (the fit contains z, inds, pi_est, thetahat, ps1_hat, ps0_hat, pu1_hat,
@@ -164,11 +169,11 @@ fit_mimosa2 <- function(sim, idx = seq_along(sim$ns1), maxit = MAXIT, timeout = 
   out$iter <- fit_iterations(fit)
   out$hit_maxit <- if (is.na(out$iter)) NA else out$iter >= maxit
   out$rho_hat <- mean(prob)
-  # Calls: the package's getResponse() (what an analyst would use). If it is
-  # not available or fails, fall back to our q-values (same rule).
+  # Calls: the package's getResponse()
+  # If it is not available or fails, fall back to q-values (same rule).
   agree <- logical(0)
   for (a in ALPHAS) {
-    own <- out$q < a                     # MIMOSA2::getResponse is getFDR(fit) < threshold
+    own <- out$q < a  # MIMOSA2::getResponse is getFDR(fit) < threshold
     pk <- tryCatch(as.logical(MIMOSA2::getResponse(fit, threshold = a)), error = function(e) NULL)
     if (!is.null(pk) && length(pk) == P && !anyNA(pk)) {
       out$calls[[paste0("a", a)]] <- pk; out$calls_source <- "getResponse"
@@ -181,11 +186,11 @@ fit_mimosa2 <- function(sim, idx = seq_along(sim$ns1), maxit = MAXIT, timeout = 
   out
 }
 
-# -----------------------------------------------------------------------------
-# 4. Per-dataset performance (the "estimates" data of Morris Table 5)
-# -----------------------------------------------------------------------------
-# AUC for ONE dataset (Mann-Whitney form; ties count 1/2). NA if the dataset
-# has no responders or no non-responders.
+# ==============================================================================
+# 4. Per-dataset performance 
+#===============================================================================
+# AUC for ONE dataset (Mann-Whitney form; ties count 1/2). 
+# NA if the dataset has no responders or no non-responders.
 auc_mw <- function(score, truth) {
   ok <- !is.na(score); score <- score[ok]; truth <- truth[ok]
   n1 <- sum(truth == 1); n0 <- sum(truth == 0)
@@ -198,9 +203,9 @@ confusion <- function(call, truth) {
     TN = sum(!call & truth == 0), FN = sum(!call & truth == 1))
 }
 
-# Build the per-dataset estimate rows for one method.
-#   calls_by_alpha: named list (a0.01, a0.05) of logical vectors, or NULL if failed
-#   score: ranking score (NA if failed)
+# Build the per-dataset estimate rows for one method:
+#    calls_by_alpha: named list (a0.01, a0.05) of logical vectors, NULL if failed
+#    score: ranking score (NA if failed)
 estimate_rows <- function(task_id, method, rule, truth, score, calls_by_alpha, status) {
   rows <- lapply(ALPHAS, function(a) {
     cl <- if (is.null(calls_by_alpha)) NULL else calls_by_alpha[[paste0("a", a)]]
@@ -215,9 +220,9 @@ estimate_rows <- function(task_id, method, rule, truth, score, calls_by_alpha, s
   do.call(rbind, rows)
 }
 
-# -----------------------------------------------------------------------------
+# ==============================================================================
 # 5. Analyse one simulated dataset with all methods
-# -----------------------------------------------------------------------------
+# ==============================================================================
 #   sim            : output of simulate_MIMOSA2_alt_prior() (or bind_sims())
 #   task_id        : global task ID
 #   eval_idx       : subjects on which performance is measured
@@ -232,7 +237,7 @@ analyse_dataset <- function(sim, task_id, eval_idx = seq_along(sim$ns1),
   truth_all <- is_responder(sim$truth)
   truth <- truth_all[eval_idx]
 
-  # ---- DiD (always succeeds) ----
+  # DiD (always succeeds): 
   did <- DiD_wald(sim$Ntot, sim$ns1, sim$nu1, sim$ns0, sim$nu0)
   p_eval <- did$DiD_p[eval_idx]
   did_calls_raw <- setNames(lapply(ALPHAS, function(a) p_eval <= a), paste0("a", ALPHAS))
@@ -249,7 +254,7 @@ analyse_dataset <- function(sim, task_id, eval_idx = seq_along(sim$ns1),
                      Profile = sim$truth, Truth = truth_all,
                      True_delta = sim$true_delta,
                      did, stringsAsFactors = FALSE)
-  # legacy columns kept so old plotting code still runs
+  # Legacy columns kept so old plotting code still runs
   subj$DiD_GLM_prob <- subj$DiD_score
   prop_s <- sim$ns1 / sim$Ntot[, "ns1"]; prop_u <- sim$nu1 / sim$Ntot[, "nu1"]
   subj$Log2_FC <- log2((prop_s + 1e-5) / (prop_u + 1e-5))
@@ -282,7 +287,6 @@ analyse_dataset <- function(sim, task_id, eval_idx = seq_along(sim$ns1),
                          mean_true_delta_resp = if (any(resp)) mean(sim$true_delta[resp]) else NA_real_,
                          median_true_delta_resp = if (any(resp)) median(sim$true_delta[resp]) else NA_real_,
                          n_zero_ns1 = sum(sim$ns1 == 0),
-                         n_stuck_redraws = if (is.null(sim$n_stuck_redraws)) NA_real_ else sim$n_stuck_redraws,
                          stringsAsFactors = FALSE)
   for (lab in PROFILE_LABELS) datasets[[paste0("n_", lab)]] <- sum(sim$truth == lab)
   list(datasets = datasets, fits = do.call(rbind, fits),

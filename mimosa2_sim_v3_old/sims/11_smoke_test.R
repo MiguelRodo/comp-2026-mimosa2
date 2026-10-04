@@ -1,24 +1,26 @@
-# =============================================================================
-# 11_smoke_test.R : RUN THIS FIRST ON THE CLUSTER (about 10-20 minutes)
-# =============================================================================
+# MIMOSA2 Simulation Study
+# Isabella Lethbridge and Tayyeb Abrahams 
+# October 2026
+# ==============================================================================
+# 11_smoke_test.R: Run first on cluster 
+# ==============================================================================
 #   cd mimosa2_sim_v3
 #   Rscript sims/11_smoke_test.R          (on a compute node, e.g. in an
 #                                          interactive job with 4+ cores)
-#
 # It checks, in order:
-#   1. required packages are installed;
-#   2. what the MIMOSA2 fit object contains (names(fit)), that the posterior
-#      probabilities are valid, and that getResponse() agrees with our own
-#      Bayesian-FDR q-values;
-#   3. the new DiD_wald() reproduces the version-2 GLM (DiD_GLM) exactly
-#      wherever the GLM converged with a non-negative estimate;
-#   4. the time limit works (a sleeping job is killed; errors are caught);
-#   5. how long MIMOSA2 takes at P = 10 ... 100 on THIS machine, and from that
+#   1. Required packages are installed
+#   2. What the MIMOSA2 fit object contains (names(fit)),
+#      that the posterior probabilities are valid, 
+#      That getResponse() agrees with our own Bayesian-FDR q-values
+#   3. The new DiD_wald() reproduces the version-2 GLM (DiD_GLM) exactly
+#      wherever the GLM converged with a non-negative estimate
+#   4. The time limit works (a sleeping job is killed; errors are caught)
+#   5. How long MIMOSA2 takes at P = 10 ... 100 on THIS machine, and from that
 #      the projected wall-clock time of every study for the standard and
-#      extended profiles on N_WORKERS cores;
-#   6. the whole pipeline end to end (all five studies + all analysis scripts)
-#      in the tiny "smoke" profile, writing to _smoke/ so nothing real is
-#      touched.
+#      extended profiles on N_WORKERS cores
+#   6. The whole pipeline end to end 
+#      (all five studies + all analysis scripts) in the tiny "smoke" profile, 
+#      writing to _smoke/ so nothing real is touched.
 # A summary of PASS / FAIL lines is printed at the end.
 # =============================================================================
 Sys.setenv(OMP_NUM_THREADS = "1", OPENBLAS_NUM_THREADS = "1")
@@ -29,7 +31,7 @@ record <- function(ok, what) {
   results <<- c(results, sprintf("%s  %s", tag, what)); message(tag, "  ", what)
 }
 
-# ---- 1. packages ----------------------------------------------------------------------
+# ------------------------------ 1. packages -----------------------------------
 message("\n== 1. Packages ==")
 need <- c("MIMOSA2", "dplyr", "tidyr", "purrr", "ggplot2", "knitr")
 nice <- c("plotROC", "scales")
@@ -39,7 +41,7 @@ if (!requireNamespace("MIMOSA2", quietly = TRUE)) stop("MIMOSA2 is not installed
 suppressPackageStartupMessages(library(MIMOSA2))
 message("MIMOSA2 version: ", as.character(packageVersion("MIMOSA2")), " | R ", R.version.string)
 
-# ---- 2. MIMOSA2 fit object ---------------------------------------------------------
+# -------------------------- 2. MIMOSA2 fit object -----------------------------
 message("\n== 2. MIMOSA2 fit object ==")
 RNGkind("L'Ecuyer-CMRG"); set.seed(11)
 row <- data.frame(Effect = 1e-3, Phi = 2000, P = 50, Distribution = "Beta", Res_prop = "Prop_0.50", Cell_range = "Medium")
@@ -73,7 +75,7 @@ if (exists("getFDR", envir = asNamespace("MIMOSA2"))) {
 f2 <- fit_mimosa2(sim)
 record(f2$status == "ok" && isTRUE(f2$getresponse_agree), "fit_mimosa2() wrapper: status ok and calls agree")
 
-# ---- 3. DiD -------------------------------------------------------------------------
+# ------------------------------- 3. DiD ---------------------------------------
 message("\n== 3. DiD_wald() vs version-2 DiD_GLM() ==")
 for (cell in c("Medium", "Low")) {
   row$Cell_range <- cell
@@ -90,7 +92,7 @@ for (cell in c("Medium", "Low")) {
                  cell, max(abs(new$DiD_score[same] - old[same]))))
 }
 
-# ---- 4. time limit ------------------------------------------------------------------
+# ------------------------------ 4. time limit ---------------------------------
 message("\n== 4. Time limit ==")
 r1 <- run_with_timeout(function() { Sys.sleep(5); 1 }, timeout = 1)
 record(r1$status == "timeout" && r1$elapsed < 4, "a 5-second job is killed after 1 second")
@@ -99,7 +101,7 @@ record(r2$status == "error" && grepl("boom", r2$msg), "an error inside the job i
 r3 <- run_with_timeout(function() 42, timeout = 5)
 record(r3$status == "ok" && r3$value == 42, "a normal job returns its value")
 
-# ---- 5. timing benchmark -----------------------------------------------------------
+# --------------------------- 5. timing benchmark ------------------------------
 message("\n== 5. Timing benchmark (this takes a few minutes) ==")
 bench <- list()
 for (P in c(10, 20, 50, 100)) for (cell in c("Medium", "Low")) for (rep in 1:2) {
@@ -143,7 +145,7 @@ message("Projected run time (assumes this node is as fast as the cluster nodes):
 print(proj, row.names = FALSE)
 write.csv(proj, file.path(TAB_DIR, "smoke_projected_runtime.csv"), row.names = FALSE)
 
-# ---- 6. end-to-end smoke run ---------------------------------------------------------
+# ------------------------ 6. end-to-end smoke run -----------------------------
 message("\n== 6. End-to-end run of every script in the 'smoke' profile (writes to _smoke/) ==")
 env <- c("SIM_PROFILE=smoke", "MIMOSA2_OUT_DIR=_smoke/_simulations", "MIMOSA2_FIG_DIR=_smoke/_fig",
          "MIMOSA2_TAB_DIR=_smoke/_tables", sprintf("N_WORKERS=%d", max(2, min(N_WORKERS, 8))))

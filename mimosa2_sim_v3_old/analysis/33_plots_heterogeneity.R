@@ -1,15 +1,18 @@
-# =============================================================================
-# 33_plots_heterogeneity.R : figures and tables for Study 3 (effect heterogeneity)
-# Replaces Effect_heterogeneity_plot.R (version 2).
-# =============================================================================
-# [CHANGE] Performance is measured on the FOCAL (weak-effect) subgroup, which
-# now really has the smaller effect (bug fix, scenarios.R). Measures are
-# per-dataset with MCSE; the key comparison is the PAIRED difference
-# pooled fit - separate fit on the same datasets. AUC is computed within
-# each dataset with the direction fixed (higher score = responder);
-# version 2 used pROC::roc() with its default direction = "auto", which
-# flips any curve below the diagonal and so can only make AUC look better.
-# =============================================================================
+# MIMOSA2 Simulation Study
+# Isabella Lethbridge and Tayyeb Abrahams 
+# October 2026
+# ==============================================================================
+# 33_plots_heterogeneity.R: Figures and Tables for Study 3
+# Replaces Effect_heterogeneity_plot.R 
+# ==============================================================================
+# Performance is measured on the FOCAL (weak-effect) subgroup, which
+# now really has the smaller effect (bug fix, scenarios.R). 
+# Measures are per-dataset with MCSE; the key comparison is the PAIRED difference
+# pooled fit - separate fit on the same datasets. 
+# AUC is computed within each dataset with the direction fixed (higher score = 
+# responder), version 2 used pROC::roc() with its default direction = "auto", 
+# which flips any curve below the diagonal and so can only make AUC look better.
+# ==============================================================================
 source("analysis/analysis_functions.R")
 res <- load_results("heterogeneity")
 MCOL <- c("MIMOSA2 (pooled fit)" = "deeppink", "MIMOSA2 (separate fit)" = "steelblue3", "DiD" = "grey30")
@@ -54,7 +57,7 @@ for (rp in sort(unique(perf$Res_prop))) for (ef in sort(unique(perf$Effect_focal
              labs(subtitle = sub), paste0("het_fdr_", tag), 10, 8)
 }
 
-# ---- Paired difference: pooled - separate ------------------------------------------
+# ------------------- Paired difference: pooled - separate ---------------------
 dd <- paired_auc_diff(res, "MIMOSA2_pooled", "MIMOSA2_separate") %>%
   mutate(Split = factor(sprintf("%d focal : %d other", P_focal, P_other),
                         levels = sprintf("%d focal : %d other", c(20, 50, 80), c(80, 50, 20))),

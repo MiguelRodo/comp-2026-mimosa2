@@ -20,8 +20,7 @@ STUDY=${1:?"give the study name: baseline | prior | heterogeneity | imbalance | 
 export SIM_PROFILE=${SIM_PROFILE:-standard}
 export N_WORKERS=${SLURM_NTASKS:-20}
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
-# module load software/R-4.x.x
-export R_LIBS=/scratch/abrmoe030/R_libs${R_LIBS:+:$R_LIBS}   # your package library (all R processes)        # <- same module line as before
+# module load software/R-4.x.x        # <- same module line as before
 
 case $STUDY in
   baseline)      SCRIPT=sims/20_sim_baseline.R ;;

@@ -1,18 +1,23 @@
-# =============================================================================
-# 35_maxit_check.R : Study 5, is maxit = 30 enough? + reproducibility check
-# =============================================================================
-# (1) REPRODUCIBILITY (Morris 4.1). The maxit-check study regenerated the
-#     baseline datasets from their stored streams. Its maxit = 30 fit must give
-#     the same AUC as the baseline study for the same Task_ID. Any difference
-#     means the datasets were not reproduced exactly.
-# (2) MAXIT. Paired differences (maxit 100 - maxit 30) in per-dataset AUC and
+# MIMOSA2 Simulation Study
+# Isabella Lethbridge and Tayyeb Abrahams 
+# October 2026
+# ==============================================================================
+# 35_maxit_check.R: Study 5 - justification of maxit=30 + reproducibility 
+# ==============================================================================
+# (1) REPRODUCIBILITY  
+#     The maxit-check study regenerated the baseline datasets from their stored 
+#     streams. Its maxit = 30 fit must give the same AUC as the baseline study for 
+#     the same Task_ID. Any difference means the datasets were not reproduced 
+#     exactly.
+# (2) MAXIT. 
+#     Paired differences (maxit 100 - maxit 30) in per-dataset AUC and
 #     TPR, agreement of the responder calls, and fit time. If the differences
 #     are within Monte Carlo error, maxit = 30 is justified (Chapter 3 TODO).
-# =============================================================================
+# ==============================================================================
 source("analysis/analysis_functions.R")
 res <- load_results("maxit_check")
 
-# ---- (1) reproducibility ---------------------------------------------------------
+# --------------------------- (1) reproducibility ------------------------------
 base <- tryCatch(load_results("baseline"), error = function(e) NULL)
 if (!is.null(base)) {
   a <- res$estimates %>% filter(Method == "MIMOSA2_maxit30", Alpha == ALPHAS[1], Status == "ok") %>% select(Task_ID, AUC30 = AUC, TP30 = TP)
@@ -23,7 +28,7 @@ if (!is.null(base)) {
   if (!ok && nrow(ab) > 0) warning("maxit=30 refits differ from the baseline results: datasets were NOT reproduced exactly.")
 } else message("Baseline results not found: reproducibility check skipped.")
 
-# ---- (2) maxit 100 vs 30 ----------------------------------------------------------
+# --------------------------- (2) maxit 100 vs 30 ------------------------------
 dm <- res$estimates %>% add_dataset_measures() %>% filter(Rule == "BFDR") %>%
   select(Task_ID, Method, Alpha, AUC, TPR, FDP, Status) %>%
   pivot_wider(names_from = Method, values_from = c(AUC, TPR, FDP, Status)) %>%
