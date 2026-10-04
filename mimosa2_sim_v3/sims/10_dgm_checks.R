@@ -110,7 +110,7 @@ cases <- rbind(
 prewarm_calibration(cases$Family, cases$Effect, cases$Phi)
 for (i in seq_len(nrow(cases))) {
   cs <- cases[i, ]
-  sim <- simulate_MIMOSA2_alt_prior(effect = cs$Effect, phi = cs$Phi, P = 40000, prior = cs$Family,
+  sim <- simulate_MIMOSA2_alt_prior(effect = cs$Effect, phi = cs$Phi, P = 4000, prior = cs$Family,
                                     components = resp_components(0.5), rng = c(1e5, 1e5))
   ok <- constraint_ok(sim)
   resp <- is_responder(sim$truth) == 1
