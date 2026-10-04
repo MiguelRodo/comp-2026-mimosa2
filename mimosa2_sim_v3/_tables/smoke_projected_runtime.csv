@@ -1,0 +1,13 @@
+"Profile","Study","Core_hours","Hours_on_20_cores","Hours_on_64_cores","Hours_on_this_N_WORKERS"
+"standard","baseline",158.8,7.9,2.5,19.9
+"standard","prior",34.4,1.7,0.5,4.3
+"standard","heterogeneity",23.3,1.2,0.4,2.9
+"standard","imbalance",24.6,1.2,0.4,3.1
+"standard","maxit_check",4.3,0.2,0.1,0.5
+"standard","TOTAL",245.3,12.3,3.8,30.7
+"extended","baseline",317.6,15.9,5,39.7
+"extended","prior",213.3,10.7,3.3,26.7
+"extended","heterogeneity",314.1,15.7,4.9,39.3
+"extended","imbalance",103.6,5.2,1.6,12.9
+"extended","maxit_check",8.5,0.4,0.1,1.1
+"extended","TOTAL",957,47.9,15,119.6

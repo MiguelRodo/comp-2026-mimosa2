@@ -1,0 +1,14 @@
+"Study","Method","Rule","nsim_max","max_TPR_mcse","max_FDR_mcse","max_AUC_mcse","nsim_for_TPR_target","nsim_for_FDR_target","nsim_for_AUC_target"
+"baseline","DiD","BH",2,0.1,0,0.05,50,0,50
+"baseline","DiD","unadjusted",2,0.15,0.0833333333333333,0.05,113,139,50
+"baseline","MIMOSA2","BFDR",2,0.1,0,0.085,51,0,145
+"prior","DiD","BH",2,0.08,0.0238095238095238,0.02,33,12,9
+"prior","DiD","unadjusted",2,0.06,0.0454545454545455,0.02,19,42,9
+"prior","MIMOSA2","BFDR",2,0.06,0.0192307692307692,0.0424,19,8,36
+"heterogeneity","DiD","BH",2,0.05,0,0.025,13,0,13
+"heterogeneity","DiD","unadjusted",2,0.1,0,0.025,50,0,13
+"heterogeneity","MIMOSA2_pooled","BFDR",2,0,0,0.03,0,0,19
+"heterogeneity","MIMOSA2_separate","BFDR",2,0,0.0555555555555555,0.05,0,62,51
+"imbalance","DiD","BH",2,0.06,0,0.0172,19,0,6
+"imbalance","DiD","unadjusted",2,0.04,0.0333333333333333,0.0172,9,23,6
+"imbalance","MIMOSA2","BFDR",2,0.12,0,0.0142666666666666,73,0,5

@@ -1,0 +1,14 @@
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=smoke workers=8 chunk=1/1 maxit=30 timeout=600s
+Reproducibility: 2 datasets in both studies; identical AUC and TP: TRUE
+saved _smoke/_tables/maxit_check_summary.csv
+
+
+Table: maxit = 100 minus maxit = 30 on the same datasets (mean, MCSE)
+
+|  P| Effect|Cell_range | Alpha|  n| dAUC_mcse| dAUC| dTPR_mcse| dTPR| dFDP_mcse| dFDP| call_agreement| max_dprob| hit_maxit_30| time_30| time_100|
+|--:|------:|:----------|-----:|--:|---------:|----:|---------:|----:|---------:|----:|--------------:|---------:|------------:|-------:|--------:|
+| 20|  3e-04|Medium     |  0.01|  2|         0|    0|         0|    0|         0|    0|              1|     1e-04|          NaN| 12.3183|  39.9653|
+| 20|  3e-04|Medium     |  0.05|  2|         0|    0|         0|    0|         0|    0|              1|     1e-04|          NaN| 12.3183|  39.9653|
+Interpretation: if |dAUC| and |dTPR| are within ~2 MCSE of 0 and call agreement is ~1,
+then stopping at 30 EM iterations does not change the conclusions.

@@ -1,0 +1,8 @@
+[2026-10-04 13:08:27] study=prior profile=smoke chunk=1/1 tasks=6 already_done=0 workers=8
+[2026-10-04 13:08:33] done task 368 in 6.3s
+[2026-10-04 13:08:33] done task 70 in 6.5s
+[2026-10-04 13:08:33] done task 366 in 6.5s
+[2026-10-04 13:08:34] done task 68 in 7.0s
+[2026-10-04 13:08:34] done task 66 in 7.3s
+[2026-10-04 13:08:38] done task 370 in 11.5s
+[2026-10-04 13:08:38] finished: 6 ok, 0 failed

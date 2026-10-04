@@ -1,0 +1,7 @@
+"P","Cell_range","Method","Alpha","P(any false call)","Per-subject FPR","Mean calls","Fail_rate"
+20,"Medium","DiD (BH)",0.01,"0.000 (0.000)","0.000 (0.000)",0,0
+20,"Medium","DiD (unadjusted)",0.01,"0.000 (0.000)","0.000 (0.000)",0,0
+20,"Medium","MIMOSA2",0.01,"0.000 (0.000)","0.000 (0.000)",0,0
+20,"Medium","DiD (BH)",0.05,"0.000 (0.000)","0.000 (0.000)",0,0
+20,"Medium","DiD (unadjusted)",0.05,"1.000 (0.000)","0.050 (0.000)",1,0
+20,"Medium","MIMOSA2",0.05,"0.000 (0.000)","0.000 (0.000)",0,0

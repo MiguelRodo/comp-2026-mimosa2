@@ -1,0 +1,4 @@
+"Scenario_ID","n_pairs","dAUC_mean","dAUC_sd","dAUC_mcse","corr_AUC","Comparison","lower","upper","Type","Fraction","Depleted","N_depleted","Cell_range","Distribution","Phi","P","Effect","Res_prop"
+"CI001",2,0.0393333333333333,0.0148963828569965,0.0105333333333333,NA,"MIMOSA2 - DiD",0.0186880000000001,0.0599786666666666,"Reference",1,"none",0,"1.00_Count_Ref","Beta",5000,100,5e-04,"Prop_0.25"
+"CI014",2,0.0217333333333334,0.0126336411571997,0.00893333333333335,NA,"MIMOSA2 - DiD",0.00422400000000002,0.0392426666666667,"Balanced",0.1,"none",1,".10_Count_Bal_1","Beta",5000,100,5e-04,"Prop_0.25"
+"CI079",2,-0.0104,0.0079195959492894,0.00560000000000005,NA,"MIMOSA2 - DiD",-0.0213760000000001,0.000576000000000132,"Imbalanced",0.1,"s1",1,".10_Count_Imb_s1","Beta",5000,100,5e-04,"Prop_0.25"

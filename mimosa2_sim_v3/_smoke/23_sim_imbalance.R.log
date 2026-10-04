@@ -1,0 +1,6 @@
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=smoke workers=8 chunk=1/1 maxit=30 timeout=600s
+Imbalance: 120 scenarios; this profile runs 6 datasets
+[imbalance] 6 tasks in this chunk, 0 already done, 6 to run on 8 workers
+[imbalance] finished: 6 ok, 0 failed (see _smoke/_simulations/imbalance/progress_chunk00.log)
+[imbalance] combining 6 of 6 planned tasks

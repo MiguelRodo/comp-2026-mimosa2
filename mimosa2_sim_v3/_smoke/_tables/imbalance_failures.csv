@@ -1,0 +1,4 @@
+"Scenario_ID","Method","n_fits","n_ok","n_error","n_timeout","n_task_failed","hit_maxit","median_fit_sec","max_fit_sec","getresponse_agree","n_planned","Fail_rate","Type","Fraction","Depleted","N_depleted","Cell_range","Distribution","Phi","P","Effect","Res_prop"
+"CI001","MIMOSA2",2,2,0,0,0,NA,15.0306224822998,15.7984535694122,1,2,0,"Reference",1,"none",0,"1.00_Count_Ref","Beta",5000,100,5e-04,"Prop_0.25"
+"CI014","MIMOSA2",2,2,0,0,0,NA,14.5315210819244,15.3570733070374,1,2,0,"Balanced",0.1,"none",1,".10_Count_Bal_1","Beta",5000,100,5e-04,"Prop_0.25"
+"CI079","MIMOSA2",2,2,0,0,0,NA,14.7705671787262,16.3613200187683,1,2,0,"Imbalanced",0.1,"s1",1,".10_Count_Imb_s1","Beta",5000,100,5e-04,"Prop_0.25"

@@ -1,0 +1,8 @@
+[2026-10-04 13:09:01] study=imbalance profile=smoke chunk=1/1 tasks=6 already_done=0 workers=8
+[2026-10-04 13:09:15] done task 79 in 13.3s
+[2026-10-04 13:09:15] done task 14 in 13.8s
+[2026-10-04 13:09:16] done task 1 in 14.3s
+[2026-10-04 13:09:17] done task 134 in 15.5s
+[2026-10-04 13:09:17] done task 121 in 16.1s
+[2026-10-04 13:09:18] done task 199 in 16.6s
+[2026-10-04 13:09:18] finished: 6 ok, 0 failed

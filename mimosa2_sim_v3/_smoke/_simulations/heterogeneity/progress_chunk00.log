@@ -1,0 +1,6 @@
+[2026-10-04 13:08:40] study=heterogeneity profile=smoke chunk=1/1 tasks=4 already_done=0 workers=8
+[2026-10-04 13:08:54] done task 624 in 14.0s
+[2026-10-04 13:08:59] done task 626 in 18.8s
+[2026-10-04 13:09:00] done task 221 in 19.8s
+[2026-10-04 13:09:00] done task 219 in 20.1s
+[2026-10-04 13:09:00] finished: 4 ok, 0 failed

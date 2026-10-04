@@ -1,0 +1,6 @@
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=smoke workers=8 chunk=1/1 maxit=30 timeout=600s
+Heterogeneity: 405 scenarios; this profile runs 4 datasets
+[heterogeneity] 4 tasks in this chunk, 0 already done, 4 to run on 8 workers
+[heterogeneity] finished: 4 ok, 0 failed (see _smoke/_simulations/heterogeneity/progress_chunk00.log)
+[heterogeneity] combining 4 of 4 planned tasks

@@ -1,0 +1,3 @@
+"Scenario_ID","n_pairs","dAUC_mean","dAUC_sd","dAUC_mcse","corr_AUC","Comparison","lower","upper","Effect_focal","Effect_other","P_focal","P_other","Res_prop","Cell_range","Distribution","Phi"
+"EH219",2,-0.01,0.0282842712474619,0.02,NA,"MIMOSA2_pooled - MIMOSA2_separate",-0.0492,0.0292,5e-04,0.001,20,80,"Prop_0.50","Medium","Beta",5000
+"EH221",2,-0.005,0.00707106781186548,0.005,NA,"MIMOSA2_pooled - MIMOSA2_separate",-0.0148,0.0048,5e-04,0.05,20,80,"Prop_0.50","Medium","Beta",5000

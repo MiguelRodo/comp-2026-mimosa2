@@ -1,0 +1,4 @@
+"Distribution","Effect","Cell_range","DiD","MIMOSA2"
+"Beta","1.0e-03","Medium","0.914 (0.010)","0.961 (0.000)"
+"Bimodal Beta","1.0e-03","Medium","0.922 (0.020)","0.958 (0.042)"
+"Logit-normal","1.0e-03","Medium","0.934 (0.014)","0.969 (0.010)"

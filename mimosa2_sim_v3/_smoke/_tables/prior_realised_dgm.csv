@@ -1,0 +1,4 @@
+"Scenario_ID","rho_realised","n_resp_eval","mean_true_delta_resp","share_zero_ns1","share_datasets_with_stuck_redraw","Distribution","P","Effect","Cell_range","Res_prop","Phi"
+"PF066",0.5,25,0.000664888137702217,0.01,0,"Beta",50,0.001,"Medium","Prop_0.50",10000
+"PF068",0.5,25,0.000660829445695358,0.01,0,"LN",50,0.001,"Medium","Prop_0.50",10000
+"PF070",0.5,25,0.000582200875302284,0.03,0,"BB",50,0.001,"Medium","Prop_0.50",10000

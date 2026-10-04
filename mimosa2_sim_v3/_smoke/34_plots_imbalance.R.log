@@ -1,0 +1,19 @@
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=smoke workers=8 chunk=1/1 maxit=30 timeout=600s
+saved _smoke/_tables/imbalance_vs_balanced_and_reference.csv
+`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?
+saved _smoke/_fig/cell_imbalance_plot.pdf
+saved _smoke/_fig/imbalance_vs_balanced.pdf
+`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?
+saved _smoke/_fig/auc_or_plot.pdf
+saved _smoke/_tables/imbalance_summary.csv
+
+
+Table: Cell-count imbalance: estimate (MCSE)
+
+|Pattern | Fraction|Model   |AUC           |AUC_balanced  |dAUC_vs_balanced |OR_vs_ref         |Fail |
+|:-------|--------:|:-------|:-------------|:-------------|:----------------|:-----------------|:----|
+|s1      |      0.1|DiD     |0.920 (0.004) |0.908 (0.017) |0.012 (0.018)    |1.07 [0.93, 1.22] |0.0% |
+|s1      |      0.1|MIMOSA2 |0.910 (0.009) |0.929 (0.008) |-0.020 (0.012)   |0.48 [0.24, 0.95] |0.0% |
