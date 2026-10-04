@@ -48,6 +48,10 @@ Always run scripts **from inside `mimosa2_sim_v3/`**, e.g. `Rscript sims/20_sim_
 
 ### Step 0. Copy and edit (5 min)
 
+> **Your cluster runs R inside the `mimosa2` Apptainer container**, as in your own `sim.sh`. The `slurm/*.sh` scripts already do this, through the `run_r` helper. Wherever this README shows `Rscript some/script.R`, run instead:
+> `apptainer-rscript -f mimosa2 -- 'source("some/script.R")'`
+> Put any environment variable in front, e.g. `SIM_PROFILE=standard apptainer-rscript -f mimosa2 -- 'source("analysis/30_performance_tables.R")'`.
+
 1. Copy `mimosa2_sim_v3/` to the cluster.
 2. In `slurm/*.sh`, edit the `#SBATCH --account/--partition` lines and the `module load` line. Copy them from the job script you used for version 2.
 3. If your R library is not `/scratch/abrmoe030/R_libs`, run `export MIMOSA2_R_LIBS=/path/to/R_libs` (or edit `R/config.R`).

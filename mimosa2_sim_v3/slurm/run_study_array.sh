@@ -7,7 +7,7 @@
 #   ... repeat for prior, heterogeneity, imbalance, maxit_check ...
 # When ALL array jobs of a study have finished, combine them:
 #   SIM_PROFILE=extended sbatch --dependency=afterany:<ARRAY_JOB_ID> slurm/combine.sh baseline
-# (or run  SIM_PROFILE=extended Rscript sims/29_combine.R baseline  on a login/interactive node).
+# (or: STUDIES=baseline SIM_PROFILE=extended apptainer-rscript -f mimosa2 -- 'source("sims/29_combine.R")').
 # Array IDs must start at 0, or SLURM_ARRAY_TASK_MIN is subtracted automatically.
 # Re-submitting the same array after a time-out continues where it stopped.
 # =============================================================================
@@ -18,7 +18,7 @@
 #SBATCH --mem=48G
 #SBATCH --output=slurm_%x_%A_%a.out
 ##SBATCH --account=YOUR_ACCOUNT
-##SBATCH --partition=YOUR_PARTITION
+#SBATCH --partition=ada
 
 STUDY=${1:?"give the study name"}
 export SIM_PROFILE=${SIM_PROFILE:-extended}
@@ -27,7 +27,9 @@ export N_WORKERS=${SLURM_NTASKS:-20}
 # SLURM_ARRAY_TASK_COUNT: then submit with  N_CHUNKS=4 sbatch --array=0-3 ...)
 export N_CHUNKS=${N_CHUNKS:-${SLURM_ARRAY_TASK_COUNT:?"submit with --array, or set N_CHUNKS"}}
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
-# module load software/R-4.x.x
+# [CHANGE 5 Oct] Your cluster runs R inside the "mimosa2" Apptainer container
+# (as in your sim.sh), not the system R. run_r runs one R script in it.
+run_r() { apptainer-rscript -f mimosa2 -- "source(\"$1\")"; }
 export R_LIBS=/scratch/abrmoe030/R_libs${R_LIBS:+:$R_LIBS}   # your package library (all R processes)
 
 case $STUDY in
@@ -39,5 +41,5 @@ case $STUDY in
   *) echo "unknown study $STUDY"; exit 1 ;;
 esac
 echo "$(date) start $STUDY chunk $SLURM_ARRAY_TASK_ID of $N_CHUNKS"
-Rscript "$SCRIPT"
+run_r "$SCRIPT"
 echo "$(date) end"

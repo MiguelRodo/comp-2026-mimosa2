@@ -6,6 +6,7 @@
 # =============================================================================
 for (f in c("R/config.R", "R/runner.R")) source(f)
 studies <- commandArgs(trailingOnly = TRUE)
+if (length(studies) == 0 && nzchar(Sys.getenv("STUDIES"))) studies <- strsplit(Sys.getenv("STUDIES"), "[ ,]+")[[1]]   # set by slurm/combine.sh
 if (length(studies) == 0) studies <- c("baseline", "prior", "heterogeneity", "imbalance", "maxit_check")
 for (s in studies) {
   if (!file.exists(file.path(OUT_DIR, s, "design_full.rds"))) { message("skip ", s, " (not run)"); next }
