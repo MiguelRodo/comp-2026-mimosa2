@@ -1,0 +1,8 @@
+[2026-10-04 13:08:12] study=baseline profile=smoke chunk=1/1 tasks=6 already_done=0 workers=8
+[2026-10-04 13:08:20] done task 626 in 8.0s
+[2026-10-04 13:08:22] done task 926 in 10.3s
+[2026-10-04 13:08:24] done task 158 in 12.3s
+[2026-10-04 13:08:25] done task 686 in 13.1s
+[2026-10-04 13:08:25] done task 218 in 13.6s
+[2026-10-04 13:08:25] done task 458 in 13.6s
+[2026-10-04 13:08:25] finished: 6 ok, 0 failed

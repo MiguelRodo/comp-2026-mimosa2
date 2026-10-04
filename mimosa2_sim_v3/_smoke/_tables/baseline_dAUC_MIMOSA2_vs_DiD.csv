@@ -1,0 +1,3 @@
+"Scenario_ID","n_pairs","dAUC_mean","dAUC_sd","dAUC_mcse","corr_AUC","Comparison","lower","upper","Res_prop","P","Effect","Cell_range","Distribution","Phi"
+"BL158",2,0.035,0.0494974746830583,0.035,NA,"MIMOSA2 - DiD",-0.0336,0.1036,"Prop_0.50",20,0.001,"Medium","Beta",2000
+"BL218",2,0.02,0.0565685424949239,0.04,NA,"MIMOSA2 - DiD",-0.0584,0.0984000000000001,"Prop_0.50",20,0.00025,"Medium","Beta",2000

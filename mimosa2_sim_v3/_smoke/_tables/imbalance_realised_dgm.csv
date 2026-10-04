@@ -1,0 +1,4 @@
+"Scenario_ID","rho_realised","n_resp_eval","mean_true_delta_resp","share_zero_ns1","share_datasets_with_stuck_redraw","Type","Fraction","Depleted","N_depleted","Cell_range","Distribution","Phi","P","Effect","Res_prop"
+"CI001",0.25,25,0.000436294174133312,0.095,0,"Reference",1,"none",0,"1.00_Count_Ref","Beta",5000,100,5e-04,"Prop_0.25"
+"CI014",0.25,25,0.000305581768076136,0.115,0,"Balanced",0.1,"none",1,".10_Count_Bal_1","Beta",5000,100,5e-04,"Prop_0.25"
+"CI079",0.25,25,0.000471538332010001,0.31,0,"Imbalanced",0.1,"s1",1,".10_Count_Imb_s1","Beta",5000,100,5e-04,"Prop_0.25"

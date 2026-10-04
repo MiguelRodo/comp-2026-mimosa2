@@ -1,0 +1,64 @@
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=smoke workers=8 chunk=1/1 maxit=30 timeout=600s
+
+==== baseline ====
+saved _smoke/_tables/baseline_performance.csv
+saved _smoke/_tables/baseline_failures.csv
+MIMOSA2 fits: 6 planned datasets, failure rate 0.00% (errors 0, timeouts 0); whole tasks failed: 0
+saved _smoke/_tables/baseline_realised_dgm.csv
+saved _smoke/_tables/baseline_dAUC_MIMOSA2_vs_DiD.csv
+
+==== prior ====
+saved _smoke/_tables/prior_performance.csv
+saved _smoke/_tables/prior_failures.csv
+MIMOSA2 fits: 6 planned datasets, failure rate 0.00% (errors 0, timeouts 0); whole tasks failed: 0
+saved _smoke/_tables/prior_realised_dgm.csv
+saved _smoke/_tables/prior_dAUC_MIMOSA2_vs_DiD.csv
+
+==== heterogeneity ====
+saved _smoke/_tables/heterogeneity_performance.csv
+saved _smoke/_tables/heterogeneity_failures.csv
+MIMOSA2 fits: 4 planned datasets, failure rate 0.00% (errors 0, timeouts 0); whole tasks failed: 0
+saved _smoke/_tables/heterogeneity_realised_dgm.csv
+saved _smoke/_tables/heterogeneity_dAUC_MIMOSA2_pooled_vs_DiD.csv
+saved _smoke/_tables/heterogeneity_dAUC_MIMOSA2_separate_vs_DiD.csv
+saved _smoke/_tables/heterogeneity_dAUC_pooled_vs_separate.csv
+
+==== imbalance ====
+saved _smoke/_tables/imbalance_performance.csv
+saved _smoke/_tables/imbalance_failures.csv
+MIMOSA2 fits: 6 planned datasets, failure rate 0.00% (errors 0, timeouts 0); whole tasks failed: 0
+saved _smoke/_tables/imbalance_realised_dgm.csv
+saved _smoke/_tables/imbalance_dAUC_MIMOSA2_vs_DiD.csv
+saved _smoke/_tables/precision_report.csv
+
+Monte Carlo precision achieved (max over scenarios) and nsim needed for
+target MCSE of 0.02 (TPR), 0.01 (FDR), 0.01 (AUC):
+           Study           Method       Rule nsim_max max_TPR_mcse max_FDR_mcse
+1       baseline              DiD         BH        2         0.10       0.0000
+2       baseline              DiD unadjusted        2         0.15       0.0833
+3       baseline          MIMOSA2       BFDR        2         0.10       0.0000
+4          prior              DiD         BH        2         0.08       0.0238
+5          prior              DiD unadjusted        2         0.06       0.0455
+6          prior          MIMOSA2       BFDR        2         0.06       0.0192
+7  heterogeneity              DiD         BH        2         0.05       0.0000
+8  heterogeneity              DiD unadjusted        2         0.10       0.0000
+9  heterogeneity   MIMOSA2_pooled       BFDR        2         0.00       0.0000
+10 heterogeneity MIMOSA2_separate       BFDR        2         0.00       0.0556
+11     imbalance              DiD         BH        2         0.06       0.0000
+12     imbalance              DiD unadjusted        2         0.04       0.0333
+13     imbalance          MIMOSA2       BFDR        2         0.12       0.0000
+   max_AUC_mcse nsim_for_TPR_target nsim_for_FDR_target nsim_for_AUC_target
+1        0.0500                  50                   0                  50
+2        0.0500                 113                 139                  50
+3        0.0850                  51                   0                 145
+4        0.0200                  33                  12                   9
+5        0.0200                  19                  42                   9
+6        0.0424                  19                   8                  36
+7        0.0250                  13                   0                  13
+8        0.0250                  50                   0                  13
+9        0.0300                   0                   0                  19
+10       0.0500                   0                  62                  51
+11       0.0172                  19                   0                   6
+12       0.0172                   9                  23                   6
+13       0.0143                  73                   0                   5

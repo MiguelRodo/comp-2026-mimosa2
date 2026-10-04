@@ -1,0 +1,38 @@
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=smoke workers=8 chunk=1/1 maxit=30 timeout=600s
+saved _smoke/_fig/base_plot.pdf
+saved _smoke/_fig/base_specificity_010.pdf
+saved _smoke/_fig/base_fdr_010.pdf
+saved _smoke/_fig/base_specificity_050.pdf
+saved _smoke/_fig/base_fdr_050.pdf
+Scale for linetype is already present.
+Adding another scale for linetype, which will replace the existing scale.
+saved _smoke/_fig/base_auc.pdf
+saved _smoke/_tables/baseline_dAUC_table.csv
+saved _smoke/_fig/base_dAUC.pdf
+saved _smoke/_fig/ROC_plot_clean.pdf
+saved _smoke/_tables/baseline_fdr_calibration.csv
+saved _smoke/_fig/fdr_plot_clean.pdf
+saved _smoke/_tables/baseline_null_scenarios.csv
+
+Null scenarios (no responders). FDR-controlling rules (MIMOSA2 BFDR, DiD BH) should give
+P(any false call) <= alpha; the unadjusted DiD test should give a per-subject FPR <= alpha.
+
+
+|  P|Cell_range |Method           | Alpha|P(any false call) |Per-subject FPR | Mean calls| Fail_rate|
+|--:|:----------|:----------------|-----:|:-----------------|:---------------|----------:|---------:|
+| 20|Medium     |DiD (BH)         |  0.01|0.000 (0.000)     |0.000 (0.000)   |          0|         0|
+| 20|Medium     |DiD (unadjusted) |  0.01|0.000 (0.000)     |0.000 (0.000)   |          0|         0|
+| 20|Medium     |MIMOSA2          |  0.01|0.000 (0.000)     |0.000 (0.000)   |          0|         0|
+| 20|Medium     |DiD (BH)         |  0.05|0.000 (0.000)     |0.000 (0.000)   |          0|         0|
+| 20|Medium     |DiD (unadjusted) |  0.05|1.000 (0.000)     |0.050 (0.000)   |          1|         0|
+| 20|Medium     |MIMOSA2          |  0.05|0.000 (0.000)     |0.000 (0.000)   |          0|         0|
+saved _smoke/_tables/baseline_summary_P20.csv
+
+
+Table: Baseline, P = 20, alpha = 1%: estimate (Monte Carlo SE)
+
+|Res_prop  |Effect  |Cell_range |TPR_DiD (BH)  |TPR_MIMOSA2   |FDR_DiD (BH)  |FDR_MIMOSA2   |AUC_DiD (BH)  |AUC_MIMOSA2   |Fail_DiD (BH) |Fail_MIMOSA2 |
+|:---------|:-------|:----------|:-------------|:-------------|:-------------|:-------------|:-------------|:-------------|:-------------|:------------|
+|Prop_0.50 |1.0e-03 |Medium     |0.550 (0.050) |0.600 (0.000) |0.000 (0.000) |0.000 (0.000) |0.840 (0.050) |0.875 (0.085) |0.0%          |0.0%         |
+|Prop_0.50 |2.5e-04 |Medium     |0.500 (0.100) |0.400 (0.100) |0.000 (0.000) |0.000 (0.000) |0.860 (0.030) |0.880 (0.010) |0.0%          |0.0%         |

@@ -1,0 +1,4 @@
+[2026-10-04 13:09:19] study=maxit_check profile=smoke chunk=1/1 tasks=2 already_done=0 workers=8
+[2026-10-04 13:10:10] done task 686 in 50.1s
+[2026-10-04 13:10:14] done task 218 in 54.9s
+[2026-10-04 13:10:14] finished: 2 ok, 0 failed

@@ -1,0 +1,50 @@
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=smoke workers=8 chunk=1/1 maxit=30 timeout=600s
+saved _smoke/_fig/prior_density.pdf
+saved _smoke/_tables/prior_v2_vs_v3_moments_at_MS1.csv
+
+
+Table: Moments at mu = 1.1e-3 (stimulated responder mean, delta = 1e-3)
+
+|Version                             |Family            |  mean|    sd| mean_ratio| sd_ratio|
+|:-----------------------------------|:-----------------|-----:|-----:|----------:|--------:|
+|Reference                           |Beta              | 0.001| 0.000|      1.000|    1.001|
+|Version 2 (calibrated at 1e-4 only) |Exponential-gamma | 0.001| 0.001|      0.999|    2.280|
+|Version 2 (calibrated at 1e-4 only) |Logit-normal      | 0.001| 0.001|      1.271|    3.326|
+|Version 3 (calibrated at each mean) |Exponential-gamma | 0.001| 0.000|      0.999|    0.998|
+|Version 3 (calibrated at each mean) |Logit-normal      | 0.001| 0.000|      1.000|    0.999|
+saved _smoke/_fig/prior_v2_vs_v3.pdf
+`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?
+`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?
+`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?
+saved _smoke/_fig/prior_plot_P50.pdf
+`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?
+`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?
+`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?
+saved _smoke/_fig/fdr_prior_plot_P50.pdf
+`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?
+`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?
+`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?
+saved _smoke/_fig/prior_auc_P50.pdf
+saved _smoke/_tables/prior_difference_from_beta.csv
+saved _smoke/_fig/prior_dAUC_vs_beta_P50.pdf
+saved _smoke/_fig/prior_ROC_comp_plot.pdf
+saved _smoke/_tables/prior_auc_table_P50.csv
+
+
+Table: Mean per-dataset AUC (MCSE), P = 50
+
+|Distribution |Effect  |Cell_range |DiD           |MIMOSA2       |
+|:------------|:-------|:----------|:-------------|:-------------|
+|Beta         |1.0e-03 |Medium     |0.914 (0.010) |0.961 (0.000) |
+|Bimodal Beta |1.0e-03 |Medium     |0.922 (0.020) |0.958 (0.042) |
+|Logit-normal |1.0e-03 |Medium     |0.934 (0.014) |0.969 (0.010) |

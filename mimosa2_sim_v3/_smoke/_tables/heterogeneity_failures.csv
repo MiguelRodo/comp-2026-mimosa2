@@ -1,0 +1,5 @@
+"Scenario_ID","Method","n_fits","n_ok","n_error","n_timeout","n_task_failed","hit_maxit","median_fit_sec","max_fit_sec","getresponse_agree","n_planned","Fail_rate","Effect_focal","Effect_other","P_focal","P_other","Res_prop","Cell_range","Distribution","Phi"
+"EH219","MIMOSA2_pooled",2,2,0,0,0,NA,10.6111348867416,13.922956943512,1,2,0,5e-04,0.001,20,80,"Prop_0.50","Medium","Beta",5000
+"EH219","MIMOSA2_separate",2,2,0,0,0,NA,6.22489392757416,6.60659456253052,1,2,0,5e-04,0.001,20,80,"Prop_0.50","Medium","Beta",5000
+"EH221","MIMOSA2_pooled",2,2,0,0,0,NA,10.5511672496796,12.5774829387665,1,2,0,5e-04,0.05,20,80,"Prop_0.50","Medium","Beta",5000
+"EH221","MIMOSA2_separate",2,2,0,0,0,NA,8.52510464191437,10.0947768688202,1,2,0,5e-04,0.05,20,80,"Prop_0.50","Medium","Beta",5000

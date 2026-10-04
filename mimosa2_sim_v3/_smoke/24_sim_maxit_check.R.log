@@ -1,0 +1,6 @@
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=smoke workers=8 chunk=1/1 maxit=30 timeout=600s
+maxit check: 12 scenarios; this profile runs 2 datasets
+[maxit_check] 2 tasks in this chunk, 0 already done, 2 to run on 8 workers
+[maxit_check] finished: 2 ok, 0 failed (see _smoke/_simulations/maxit_check/progress_chunk00.log)
+[maxit_check] combining 2 of 2 planned tasks
