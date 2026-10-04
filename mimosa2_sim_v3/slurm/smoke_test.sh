@@ -7,9 +7,11 @@
 #SBATCH --mem=16G
 #SBATCH --output=slurm_%x_%j.out
 ##SBATCH --account=YOUR_ACCOUNT
-##SBATCH --partition=YOUR_PARTITION
+#SBATCH --partition=ada
 export N_WORKERS=${SLURM_NTASKS:-8}
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
-# module load software/R-4.x.x
+# [CHANGE 5 Oct] Your cluster runs R inside the "mimosa2" Apptainer container
+# (as in your sim.sh), not the system R. run_r runs one R script in it.
+run_r() { apptainer-rscript -f mimosa2 -- "source(\"$1\")"; }
 export R_LIBS=/scratch/abrmoe030/R_libs${R_LIBS:+:$R_LIBS}   # your package library (all R processes)
-Rscript sims/10_dgm_checks.R && Rscript sims/11_smoke_test.R
+run_r sims/10_dgm_checks.R && run_r sims/11_smoke_test.R

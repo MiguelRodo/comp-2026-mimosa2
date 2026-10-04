@@ -33,7 +33,20 @@ record <- function(ok, what) {
 message("\n== 1. Packages ==")
 need <- c("MIMOSA2", "dplyr", "tidyr", "purrr", "ggplot2", "knitr")
 nice <- c("plotROC", "scales")
-for (p in need) record(requireNamespace(p, quietly = TRUE), paste("package installed:", p))
+message("R version used for this run: ", R.version.string, "  (", R.home(), ")")
+message("Library paths: ", paste(.libPaths(), collapse = " | "))
+for (p in need) {
+  # [CHANGE 4 Oct] show WHY a package cannot be loaded, not just that it failed
+  err <- tryCatch({ loadNamespace(p); NULL }, error = function(e) conditionMessage(e))
+  record(is.null(err), paste("package loads:", p))
+  if (!is.null(err)) {
+    message("   reason: ", err)
+    d <- file.path(.libPaths(), p, "DESCRIPTION"); d <- d[file.exists(d)]
+    if (length(d)) message("   found in ", dirname(d[1]), "; built under: ",
+                           read.dcf(d[1], fields = "Built")[1, 1])
+    else message("   not present in any library path")
+  }
+}
 for (p in nice) if (!requireNamespace(p, quietly = TRUE)) message("note: optional package ", p, " not installed")
 if (!requireNamespace("MIMOSA2", quietly = TRUE)) stop("MIMOSA2 is not installed; nothing else can be tested.")
 suppressPackageStartupMessages(library(MIMOSA2))

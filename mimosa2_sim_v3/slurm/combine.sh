@@ -7,7 +7,10 @@
 #SBATCH --output=slurm_%x_%j.out
 # Usage: SIM_PROFILE=extended sbatch slurm/combine.sh baseline prior heterogeneity imbalance maxit_check
 export SIM_PROFILE=${SIM_PROFILE:-extended}
-# module load software/R-4.x.x
+# [CHANGE 5 Oct] Your cluster runs R inside the "mimosa2" Apptainer container
+# (as in your sim.sh), not the system R. run_r runs one R script in it.
+run_r() { apptainer-rscript -f mimosa2 -- "source(\"$1\")"; }
 export R_LIBS=/scratch/abrmoe030/R_libs${R_LIBS:+:$R_LIBS}   # your package library (all R processes)
-Rscript sims/29_combine.R "$@"
-Rscript analysis/30_performance_tables.R
+export STUDIES="$*"
+run_r sims/29_combine.R
+run_r analysis/30_performance_tables.R
