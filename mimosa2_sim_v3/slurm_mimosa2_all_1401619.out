@@ -1,0 +1,201 @@
+[config] profile=standard workers=30 chunk=1/1 maxit=30 timeout=600s
+
+== A. Marginal moments of each family (1e6 draws) ==
+                           Family Draw       mu target_sd mean_ratio sd_ratio
+                             Beta  any 0.000100  0.000100      1.001    1.001
+                             Beta  any 0.000162  0.000127      0.999    0.999
+                             Beta  any 0.000225  0.000150      0.999    1.000
+                             Beta  any 0.000350  0.000187      1.000    1.000
+                             Beta  any 0.001100  0.000331      1.000    1.000
+                               EG  any 0.000100  0.000100      0.998    0.997
+                               EG  any 0.000162  0.000127      1.001    1.002
+                               EG  any 0.000225  0.000150      1.000    1.001
+                               EG  any 0.000350  0.000187      1.000    0.999
+                               EG  any 0.001100  0.000331      1.000    1.000
+                               LN  any 0.000100  0.000100      1.000    0.999
+                               LN  any 0.000162  0.000127      1.000    0.998
+                               LN  any 0.000225  0.000150      1.000    0.999
+                               LN  any 0.000350  0.000187      1.001    1.001
+                               LN  any 0.001100  0.000331      1.000    1.000
+                               SX  any 0.000100  0.000100      0.999    1.000
+                               SX  any 0.000162  0.000127      0.999    0.998
+                               SX  any 0.000225  0.000150      1.000    1.003
+                               SX  any 0.000350  0.000187      1.001    1.002
+                               SX  any 0.001100  0.000331      1.000    1.002
+                               BB    u 0.000100  0.000100      1.000    1.001
+                               BB    s 0.000100  0.000100      1.000    1.000
+                               BB    u 0.000162  0.000127      1.001    0.999
+                               BB    s 0.000162  0.000127      1.000    1.000
+                               BB    u 0.000225  0.000150      1.000    1.001
+                               BB    s 0.000225  0.000150      0.998    0.999
+                               BB    u 0.000350  0.000187      0.999    1.000
+                               BB    s 0.000350  0.000187      0.999    0.999
+                               BB    u 0.001100  0.000331      1.000    0.999
+                               BB    s 0.001100  0.000331      1.000    1.000
+                 EG (v2: k = 113)  any 0.000100  0.000100      1.000    1.001
+ LN (v2: phi = 2.05, median = mu)  any 0.000100  0.000100      1.275    1.010
+                 EG (v2: k = 113)  any 0.000162  0.000127      0.999    1.187
+ LN (v2: phi = 2.05, median = mu)  any 0.000162  0.000127      1.276    1.289
+                 EG (v2: k = 113)  any 0.000225  0.000150      1.000    1.332
+ LN (v2: phi = 2.05, median = mu)  any 0.000225  0.000150      1.275    1.508
+                 EG (v2: k = 113)  any 0.000350  0.000187      1.000    1.554
+ LN (v2: phi = 2.05, median = mu)  any 0.000350  0.000187      1.276    1.894
+                 EG (v2: k = 113)  any 0.001100  0.000331      1.001    2.285
+ LN (v2: phi = 2.05, median = mu)  any 0.001100  0.000331      1.274    3.337
+ skewness p_below_mu_over_10
+    2.007           0.094967
+    1.569           0.032531
+    1.337           0.011726
+    1.061           0.001737
+    0.598           0.000000
+    3.207           0.021162
+    2.413           0.004311
+    1.984           0.000898
+    1.539           0.000039
+    0.822           0.000000
+    3.954           0.009451
+    2.826           0.001355
+    2.256           0.000268
+    1.765           0.000003
+    0.934           0.000000
+    3.017           0.004103
+    2.354           0.000268
+    2.014           0.000019
+    1.609           0.000000
+    0.905           0.000000
+    2.002           0.095482
+    1.000           0.071395
+    1.554           0.032339
+    0.979           0.002952
+    1.330           0.011570
+    0.977           0.000070
+    1.073           0.001620
+    0.968           0.000000
+    0.603           0.000000
+    0.958           0.000000
+    3.242           0.021223
+    2.880           0.000485
+    2.969           0.014807
+    2.822           0.000485
+    2.785           0.011294
+    2.771           0.000508
+    2.540           0.007269
+    2.844           0.000502
+    1.999           0.001652
+    2.770           0.000485
+ok:   A: every family has mean = mu (within 1%)
+ok:   A: every family has SD = Beta SD (within 3%)
+Calibrated parameters (for the write-up):
+         mu  EG_k  LN_sd LN_loc logit_mu
+1 0.0001000 113.2 0.8327 -9.557   -9.210
+2 0.0001625 150.1 0.6927 -8.964   -8.725
+3 0.0002250 183.5 0.6066 -8.583   -8.399
+4 0.0003500 244.1 0.5015 -8.083   -7.957
+5 0.0011000 527.2 0.2952 -6.855   -6.811
+
+== B. Realised number of responders (version 2 vs version 3) ==
+Realised rho, version 2 (rows P, columns nominal rho):
+     rho
+P           0.1       0.2      0.25       0.5      0.75       0.8       0.9
+  10  0.2000000 0.2000000 0.6000000 0.6000000 0.6000000 0.8000000 0.8000000
+  20  0.2000000 0.2000000 0.4000000 0.6000000 0.6000000 0.8000000 0.8000000
+  30  0.2000000 0.2000000 0.3333333 0.5333333 0.6666667 0.8000000 0.8000000
+  50  0.1200000 0.2000000 0.2800000 0.5200000 0.7200000 0.8000000 0.8800000
+  75  0.1466667 0.2000000 0.2533333 0.5200000 0.7466667 0.8000000 0.8533333
+  80  0.1000000 0.2000000 0.2500000 0.5000000 0.7500000 0.8000000 0.9000000
+  100 0.1200000 0.2000000 0.2800000 0.5200000 0.7200000 0.8000000 0.8800000
+Realised rho, version 3:
+     rho
+P           0.1       0.2      0.25       0.5      0.75       0.8       0.9
+  10  0.1000000 0.2000000 0.3000000 0.5000000 0.8000000 0.8000000 0.9000000
+  20  0.1000000 0.2000000 0.2500000 0.5000000 0.7500000 0.8000000 0.9000000
+  30  0.1000000 0.2000000 0.2666667 0.5000000 0.7666667 0.8000000 0.9000000
+  50  0.1000000 0.2000000 0.2600000 0.5000000 0.7600000 0.8000000 0.9000000
+  75  0.1066667 0.2000000 0.2533333 0.5066667 0.7466667 0.8000000 0.9066667
+  80  0.1000000 0.2000000 0.2500000 0.5000000 0.7500000 0.8000000 0.9000000
+  100 0.1000000 0.2000000 0.2500000 0.5000000 0.7500000 0.8000000 0.9000000
+ok:   B: realised rho within rounding of nominal rho
+
+== C. Large datasets: constraints and realised effect size ==
+ok:   C: all profile constraints hold (baseline, Beta, delta = 0.001)
+ok:   C: responder <=> true Delta > 0 (baseline, Beta, delta = 0.001)
+ok:   C: all profile constraints hold (baseline, Beta, delta = 6.25e-05)
+ok:   C: responder <=> true Delta > 0 (baseline, Beta, delta = 6.25e-05)
+ok:   C: all profile constraints hold (prior, Beta, delta = 0.001)
+ok:   C: responder <=> true Delta > 0 (prior, Beta, delta = 0.001)
+ok:   C: all profile constraints hold (prior, Beta, delta = 6.25e-05)
+ok:   C: responder <=> true Delta > 0 (prior, Beta, delta = 6.25e-05)
+ok:   C: all profile constraints hold (prior, EG, delta = 0.001)
+ok:   C: responder <=> true Delta > 0 (prior, EG, delta = 0.001)
+ok:   C: all profile constraints hold (prior, EG, delta = 6.25e-05)
+ok:   C: responder <=> true Delta > 0 (prior, EG, delta = 6.25e-05)
+ok:   C: all profile constraints hold (prior, LN, delta = 0.001)
+ok:   C: responder <=> true Delta > 0 (prior, LN, delta = 0.001)
+ok:   C: all profile constraints hold (prior, LN, delta = 6.25e-05)
+ok:   C: responder <=> true Delta > 0 (prior, LN, delta = 6.25e-05)
+ok:   C: all profile constraints hold (prior, SX, delta = 0.001)
+ok:   C: responder <=> true Delta > 0 (prior, SX, delta = 0.001)
+ok:   C: all profile constraints hold (prior, SX, delta = 6.25e-05)
+ok:   C: responder <=> true Delta > 0 (prior, SX, delta = 6.25e-05)
+ok:   C: all profile constraints hold (prior, BB, delta = 0.001)
+ok:   C: responder <=> true Delta > 0 (prior, BB, delta = 0.001)
+ok:   C: all profile constraints hold (prior, BB, delta = 6.25e-05)
+ok:   C: responder <=> true Delta > 0 (prior, BB, delta = 6.25e-05)
+ Family   Phi   Effect   Source                       n_profile rho_realised
+   Beta  2000 1.00e-03 baseline 500/500/500/500/500/500/500/500          0.5
+   Beta  2000 6.25e-05 baseline 500/500/500/500/500/500/500/500          0.5
+   Beta 10000 1.00e-03    prior 500/500/500/500/500/500/500/500          0.5
+   Beta 10000 6.25e-05    prior 500/500/500/500/500/500/500/500          0.5
+     EG 10000 1.00e-03    prior 500/500/500/500/500/500/500/500          0.5
+     EG 10000 6.25e-05    prior 500/500/500/500/500/500/500/500          0.5
+     LN 10000 1.00e-03    prior 500/500/500/500/500/500/500/500          0.5
+     LN 10000 6.25e-05    prior 500/500/500/500/500/500/500/500          0.5
+     SX 10000 1.00e-03    prior 500/500/500/500/500/500/500/500          0.5
+     SX 10000 6.25e-05    prior 500/500/500/500/500/500/500/500          0.5
+     BB 10000 1.00e-03    prior 500/500/500/500/500/500/500/500          0.5
+     BB 10000 6.25e-05    prior 500/500/500/500/500/500/500/500          0.5
+ mean_true_delta_resp ratio_to_nominal median_true_delta_resp mean_ps1_resp
+             0.000777            0.777               6.00e-04      0.001162
+             0.000262            4.200               1.27e-04      0.000338
+             0.000665            0.665               6.85e-04      0.001106
+             0.000128            2.043               8.90e-05      0.000261
+             0.000658            0.658               6.69e-04      0.001096
+             0.000130            2.080               8.66e-05      0.000275
+             0.000663            0.663               6.93e-04      0.001104
+             0.000128            2.042               8.16e-05      0.000274
+             0.000663            0.663               6.76e-04      0.001108
+             0.000126            2.013               8.64e-05      0.000276
+             0.000665            0.665               6.68e-04      0.001099
+             0.000119            1.909               9.72e-05      0.000267
+ ratio_R1 ratio_R2 ratio_R3 ratio_R4 expected_extra_cells_at_15k
+    0.904    1.010   0.1577    1.038                       11.66
+    5.242    3.193   2.2660    6.099                        3.94
+    0.783    1.003   0.0993    0.774                        9.97
+    2.119    2.290   1.7378    2.025                        1.92
+    0.795    0.980   0.0982    0.760                        9.88
+    2.338    2.145   1.5292    2.307                        1.95
+    0.764    0.989   0.0958    0.802                        9.94
+    2.469    2.114   1.3994    2.187                        1.91
+    0.776    0.997   0.0937    0.786                        9.95
+    2.231    2.041   1.4145    2.364                        1.89
+    0.785    1.009   0.1076    0.757                        9.97
+    1.791    2.161   1.6069    2.079                        1.79
+NOTE for the write-up: ratio_to_nominal != 1 shows that rejection sampling and the profile definitions make the
+realised mean Delta among responders differ from the nominal delta (Morris 3.2, pitfall 4):
+larger than delta for small delta (truncation), smaller for large delta (profile R3 does not depend on delta).
+
+== D. Reproducibility of streams ==
+ok:   D: same stream -> identical dataset
+ok:   D: different streams -> different datasets
+ok:   D: design (and all streams) rebuilt identically
+
+(E skipped: MIMOSA2 not installed here)
+
+==============================================================
+ALL DGM CHECKS PASSED. Tables written to _tables
+Sun Oct  4 02:38:17 PM SAST 2026 start sims/21_sim_prior.R
+[config] profile=standard workers=30 chunk=1/1 maxit=30 timeout=600s
+Error: package or namespace load failed for ‘MIMOSA2’ in dyn.load(file, DLLpath = DLLpath, ...):
+ unable to load shared object '/scratch/abrmoe030/R_libs/data.table/libs/data_table.so':
+  /lib64/libc.so.6: version `GLIBC_2.38' not found (required by /scratch/abrmoe030/R_libs/data.table/libs/data_table.so)
+Execution halted
