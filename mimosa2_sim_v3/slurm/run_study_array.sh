@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # =============================================================================
 # OPTION 2 (more cores): split one study over several nodes with a job array.
 # Each array element is a separate 20-core (or larger) job that runs every
