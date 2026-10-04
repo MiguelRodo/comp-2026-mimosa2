@@ -17860,3 +17860,1878 @@
 [16:09:40] Launched task 17860/60000 (pid=1185420) Dist=BB Rep=60 CellRange=Low
 [16:09:40] Launched task 17861/60000 (pid=1185421) Dist=Beta Rep=60 CellRange=Low
 [16:09:41] Launched task 17862/60000 (pid=1185422) Dist=EG Rep=60 CellRange=Low
+[16:12:28] Launched task 17952/60000 (pid=1186320) Dist=EG Rep=60 CellRange=Extremely Low
+[16:12:30] Launched task 17953/60000 (pid=1186321) Dist=LN Rep=60 CellRange=Extremely Low
+[16:12:33] Launched task 17954/60000 (pid=1186322) Dist=SX Rep=60 CellRange=Extremely Low
+[16:12:34] Launched task 17955/60000 (pid=1186335) Dist=BB Rep=60 CellRange=Extremely Low
+[16:12:37] Launched task 17956/60000 (pid=1186368) Dist=Beta Rep=60 CellRange=Extremely Low
+[16:12:37] Launched task 17957/60000 (pid=1186369) Dist=EG Rep=60 CellRange=Extremely Low
+[16:12:39] Launched task 17958/60000 (pid=1186370) Dist=LN Rep=60 CellRange=Extremely Low
+[16:12:40] Launched task 17959/60000 (pid=1186371) Dist=SX Rep=60 CellRange=Extremely Low
+[16:12:40] Launched task 17960/60000 (pid=1186372) Dist=BB Rep=60 CellRange=Extremely Low
+[16:12:42] Launched task 17961/60000 (pid=1186373) Dist=Beta Rep=60 CellRange=Extremely Low
+[16:12:42] Launched task 17962/60000 (pid=1186374) Dist=EG Rep=60 CellRange=Extremely Low
+[16:12:42] Launched task 17963/60000 (pid=1186375) Dist=LN Rep=60 CellRange=Extremely Low
+[16:12:46] Launched task 17964/60000 (pid=1186377) Dist=SX Rep=60 CellRange=Extremely Low
+[16:12:48] Launched task 17965/60000 (pid=1186378) Dist=BB Rep=60 CellRange=Extremely Low
+[16:12:53] Launched task 17966/60000 (pid=1186420) Dist=Beta Rep=60 CellRange=Extremely Low
+[16:12:55] Launched task 17967/60000 (pid=1186421) Dist=EG Rep=60 CellRange=Extremely Low
+[16:12:56] Launched task 17968/60000 (pid=1186423) Dist=LN Rep=60 CellRange=Extremely Low
+[16:12:59] Launched task 17969/60000 (pid=1186424) Dist=SX Rep=60 CellRange=Extremely Low
+[16:13:01] Launched task 17970/60000 (pid=1186541) Dist=BB Rep=60 CellRange=Extremely Low
+[16:13:11] Launched task 17971/60000 (pid=1186577) Dist=Beta Rep=60 CellRange=Extremely Low
+[16:13:12] Launched task 17972/60000 (pid=1186578) Dist=EG Rep=60 CellRange=Extremely Low
+[16:13:12] Launched task 17973/60000 (pid=1186579) Dist=LN Rep=60 CellRange=Extremely Low
+[16:13:12] Launched task 17974/60000 (pid=1186580) Dist=SX Rep=60 CellRange=Extremely Low
+[16:13:12] Launched task 17975/60000 (pid=1186581) Dist=BB Rep=60 CellRange=Extremely Low
+[16:13:12] Launched task 17976/60000 (pid=1186582) Dist=Beta Rep=60 CellRange=Extremely Low
+[16:13:12] Launched task 17977/60000 (pid=1186583) Dist=EG Rep=60 CellRange=Extremely Low
+[16:13:14] Launched task 17978/60000 (pid=1186584) Dist=LN Rep=60 CellRange=Extremely Low
+[16:13:14] Launched task 17979/60000 (pid=1186585) Dist=SX Rep=60 CellRange=Extremely Low
+[16:13:16] Launched task 17980/60000 (pid=1186586) Dist=BB Rep=60 CellRange=Extremely Low
+[16:13:17] Launched task 17981/60000 (pid=1186588) Dist=Beta Rep=60 CellRange=Extremely Low
+[16:13:18] Launched task 17982/60000 (pid=1186601) Dist=EG Rep=60 CellRange=Extremely Low
+[16:13:18] Launched task 17983/60000 (pid=1186602) Dist=LN Rep=60 CellRange=Extremely Low
+[16:13:22] Launched task 17984/60000 (pid=1186635) Dist=SX Rep=60 CellRange=Extremely Low
+[16:13:22] Launched task 17985/60000 (pid=1186636) Dist=BB Rep=60 CellRange=Extremely Low
+[16:13:31] Launched task 17986/60000 (pid=1186638) Dist=Beta Rep=60 CellRange=Extremely Low
+[16:13:34] Launched task 17987/60000 (pid=1186650) Dist=EG Rep=60 CellRange=Extremely Low
+[16:13:35] Launched task 17988/60000 (pid=1186664) Dist=LN Rep=60 CellRange=Extremely Low
+[16:13:38] Launched task 17989/60000 (pid=1186686) Dist=SX Rep=60 CellRange=Extremely Low
+[16:13:40] Launched task 17990/60000 (pid=1186688) Dist=BB Rep=60 CellRange=Extremely Low
+[16:13:43] Launched task 17991/60000 (pid=1186689) Dist=Beta Rep=60 CellRange=Extremely Low
+[16:13:43] Launched task 17992/60000 (pid=1186690) Dist=EG Rep=60 CellRange=Extremely Low
+[16:13:44] Launched task 17993/60000 (pid=1186691) Dist=LN Rep=60 CellRange=Extremely Low
+[16:13:45] Launched task 17994/60000 (pid=1186692) Dist=SX Rep=60 CellRange=Extremely Low
+[16:13:48] Launched task 17995/60000 (pid=1186693) Dist=BB Rep=60 CellRange=Extremely Low
+[16:13:48] Launched task 17996/60000 (pid=1186694) Dist=Beta Rep=60 CellRange=Extremely Low
+[16:13:49] Launched task 17997/60000 (pid=1186695) Dist=EG Rep=60 CellRange=Extremely Low
+[16:13:50] Launched task 17998/60000 (pid=1186697) Dist=LN Rep=60 CellRange=Extremely Low
+[16:13:50] Launched task 17999/60000 (pid=1186698) Dist=SX Rep=60 CellRange=Extremely Low
+[16:13:51] Launched task 18000/60000 (pid=1186709) Dist=BB Rep=60 CellRange=Extremely Low
+[16:13:54] Launched task 18001/60000 (pid=1186741) Dist=Beta Rep=61 CellRange=High
+[16:13:55] Launched task 18002/60000 (pid=1186742) Dist=EG Rep=61 CellRange=High
+[16:13:56] Launched task 18003/60000 (pid=1186743) Dist=LN Rep=61 CellRange=High
+[16:13:58] Launched task 18004/60000 (pid=1186744) Dist=SX Rep=61 CellRange=High
+[16:13:59] Launched task 18005/60000 (pid=1186745) Dist=BB Rep=61 CellRange=High
+[16:14:00] Launched task 18006/60000 (pid=1186746) Dist=Beta Rep=61 CellRange=High
+[16:14:06] Launched task 18007/60000 (pid=1186897) Dist=EG Rep=61 CellRange=High
+[16:14:08] Launched task 18008/60000 (pid=1186898) Dist=LN Rep=61 CellRange=High
+[16:14:10] Launched task 18009/60000 (pid=1186899) Dist=SX Rep=61 CellRange=High
+[16:14:11] Launched task 18010/60000 (pid=1186901) Dist=BB Rep=61 CellRange=High
+[16:14:13] Launched task 18011/60000 (pid=1186902) Dist=Beta Rep=61 CellRange=High
+[16:14:16] Launched task 18012/60000 (pid=1186903) Dist=EG Rep=61 CellRange=High
+[16:14:16] Launched task 18013/60000 (pid=1186904) Dist=LN Rep=61 CellRange=High
+[16:14:18] Launched task 18014/60000 (pid=1186916) Dist=SX Rep=61 CellRange=High
+[16:14:20] Launched task 18015/60000 (pid=1186949) Dist=BB Rep=61 CellRange=High
+[16:14:22] Launched task 18016/60000 (pid=1186951) Dist=Beta Rep=61 CellRange=High
+[16:14:24] Launched task 18017/60000 (pid=1186952) Dist=EG Rep=61 CellRange=High
+[16:14:24] Launched task 18018/60000 (pid=1186953) Dist=LN Rep=61 CellRange=High
+[16:14:26] Launched task 18019/60000 (pid=1186954) Dist=SX Rep=61 CellRange=High
+[16:14:27] Launched task 18020/60000 (pid=1186955) Dist=BB Rep=61 CellRange=High
+[16:14:28] Launched task 18021/60000 (pid=1186956) Dist=Beta Rep=61 CellRange=High
+[16:14:28] Launched task 18022/60000 (pid=1186957) Dist=EG Rep=61 CellRange=High
+[16:14:28] Launched task 18023/60000 (pid=1186958) Dist=LN Rep=61 CellRange=High
+[16:14:28] Launched task 18024/60000 (pid=1186959) Dist=SX Rep=61 CellRange=High
+[16:14:28] Launched task 18025/60000 (pid=1186960) Dist=BB Rep=61 CellRange=High
+[16:14:29] Launched task 18026/60000 (pid=1186961) Dist=Beta Rep=61 CellRange=High
+[16:14:30] Launched task 18027/60000 (pid=1186962) Dist=EG Rep=61 CellRange=High
+[16:14:31] Launched task 18028/60000 (pid=1186963) Dist=LN Rep=61 CellRange=High
+[16:14:31] Launched task 18029/60000 (pid=1186964) Dist=SX Rep=61 CellRange=High
+[16:14:32] Launched task 18030/60000 (pid=1186965) Dist=BB Rep=61 CellRange=High
+[16:14:34] Launched task 18031/60000 (pid=1186967) Dist=Beta Rep=61 CellRange=High
+[16:14:34] Launched task 18032/60000 (pid=1186974) Dist=EG Rep=61 CellRange=High
+[16:14:36] Launched task 18033/60000 (pid=1187012) Dist=LN Rep=61 CellRange=High
+[16:14:40] Launched task 18034/60000 (pid=1187013) Dist=SX Rep=61 CellRange=High
+[16:14:42] Launched task 18035/60000 (pid=1187014) Dist=BB Rep=61 CellRange=High
+[16:14:45] Launched task 18036/60000 (pid=1187016) Dist=Beta Rep=61 CellRange=High
+[16:14:46] Launched task 18037/60000 (pid=1187017) Dist=EG Rep=61 CellRange=High
+[16:14:47] Launched task 18038/60000 (pid=1187018) Dist=LN Rep=61 CellRange=High
+[16:14:48] Launched task 18039/60000 (pid=1187019) Dist=SX Rep=61 CellRange=High
+[16:14:48] Launched task 18040/60000 (pid=1187020) Dist=BB Rep=61 CellRange=High
+[16:14:48] Launched task 18041/60000 (pid=1187021) Dist=Beta Rep=61 CellRange=High
+[16:14:49] Launched task 18042/60000 (pid=1187022) Dist=EG Rep=61 CellRange=High
+[16:14:51] Launched task 18043/60000 (pid=1187033) Dist=LN Rep=61 CellRange=High
+[16:14:51] Launched task 18044/60000 (pid=1187034) Dist=SX Rep=61 CellRange=High
+[16:14:54] Launched task 18045/60000 (pid=1187067) Dist=BB Rep=61 CellRange=High
+[16:14:55] Launched task 18046/60000 (pid=1187068) Dist=Beta Rep=61 CellRange=High
+[16:14:57] Launched task 18047/60000 (pid=1187069) Dist=EG Rep=61 CellRange=High
+[16:14:59] Launched task 18048/60000 (pid=1187070) Dist=LN Rep=61 CellRange=High
+[16:15:00] Launched task 18049/60000 (pid=1187073) Dist=SX Rep=61 CellRange=High
+[16:15:00] Launched task 18050/60000 (pid=1187074) Dist=BB Rep=61 CellRange=High
+[16:15:04] Launched task 18051/60000 (pid=1187224) Dist=Beta Rep=61 CellRange=High
+[16:15:05] Launched task 18052/60000 (pid=1187226) Dist=EG Rep=61 CellRange=High
+[16:15:07] Launched task 18053/60000 (pid=1187227) Dist=LN Rep=61 CellRange=High
+[16:15:08] Launched task 18054/60000 (pid=1187228) Dist=SX Rep=61 CellRange=High
+[16:15:12] Launched task 18055/60000 (pid=1187229) Dist=BB Rep=61 CellRange=High
+[16:15:13] Launched task 18056/60000 (pid=1187230) Dist=Beta Rep=61 CellRange=High
+[16:15:16] Launched task 18057/60000 (pid=1187232) Dist=EG Rep=61 CellRange=High
+[16:15:16] Launched task 18058/60000 (pid=1187233) Dist=LN Rep=61 CellRange=High
+[16:15:17] Launched task 18059/60000 (pid=1187234) Dist=SX Rep=61 CellRange=High
+[16:15:19] Launched task 18060/60000 (pid=1187257) Dist=BB Rep=61 CellRange=High
+[16:15:22] Launched task 18061/60000 (pid=1187279) Dist=Beta Rep=61 CellRange=Medium
+[16:15:24] Launched task 18062/60000 (pid=1187281) Dist=EG Rep=61 CellRange=Medium
+[16:15:26] Launched task 18063/60000 (pid=1187282) Dist=LN Rep=61 CellRange=Medium
+[16:15:27] Launched task 18064/60000 (pid=1187284) Dist=SX Rep=61 CellRange=Medium
+[16:15:28] Launched task 18065/60000 (pid=1187285) Dist=BB Rep=61 CellRange=Medium
+[16:15:30] Launched task 18066/60000 (pid=1187286) Dist=Beta Rep=61 CellRange=Medium
+[16:15:30] Launched task 18067/60000 (pid=1187287) Dist=EG Rep=61 CellRange=Medium
+[16:15:32] Launched task 18068/60000 (pid=1187288) Dist=LN Rep=61 CellRange=Medium
+[16:15:33] Launched task 18069/60000 (pid=1187289) Dist=SX Rep=61 CellRange=Medium
+[16:15:33] Launched task 18070/60000 (pid=1187290) Dist=BB Rep=61 CellRange=Medium
+[16:15:36] Launched task 18071/60000 (pid=1187336) Dist=Beta Rep=61 CellRange=Medium
+[16:15:42] Launched task 18072/60000 (pid=1187338) Dist=EG Rep=61 CellRange=Medium
+[16:15:44] Launched task 18073/60000 (pid=1187340) Dist=LN Rep=61 CellRange=Medium
+[16:15:44] Launched task 18074/60000 (pid=1187341) Dist=SX Rep=61 CellRange=Medium
+[16:15:44] Launched task 18075/60000 (pid=1187342) Dist=BB Rep=61 CellRange=Medium
+[16:15:45] Launched task 18076/60000 (pid=1187343) Dist=Beta Rep=61 CellRange=Medium
+[16:15:45] Launched task 18077/60000 (pid=1187344) Dist=EG Rep=61 CellRange=Medium
+[16:15:45] Launched task 18078/60000 (pid=1187345) Dist=LN Rep=61 CellRange=Medium
+[16:15:50] Launched task 18079/60000 (pid=1187347) Dist=SX Rep=61 CellRange=Medium
+[16:15:50] Launched task 18080/60000 (pid=1187348) Dist=BB Rep=61 CellRange=Medium
+[16:15:51] Launched task 18081/60000 (pid=1187359) Dist=Beta Rep=61 CellRange=Medium
+[16:15:51] Launched task 18082/60000 (pid=1187360) Dist=EG Rep=61 CellRange=Medium
+[16:15:51] Launched task 18083/60000 (pid=1187361) Dist=LN Rep=61 CellRange=Medium
+[16:15:51] Launched task 18084/60000 (pid=1187362) Dist=SX Rep=61 CellRange=Medium
+[16:15:52] Launched task 18085/60000 (pid=1187374) Dist=BB Rep=61 CellRange=Medium
+[16:15:56] Launched task 18086/60000 (pid=1187395) Dist=Beta Rep=61 CellRange=Medium
+[16:15:58] Launched task 18087/60000 (pid=1187396) Dist=EG Rep=61 CellRange=Medium
+[16:15:59] Launched task 18088/60000 (pid=1187398) Dist=LN Rep=61 CellRange=Medium
+[16:16:01] Launched task 18089/60000 (pid=1187465) Dist=SX Rep=61 CellRange=Medium
+[16:16:04] Launched task 18090/60000 (pid=1187549) Dist=BB Rep=61 CellRange=Medium
+[16:16:05] Launched task 18091/60000 (pid=1187550) Dist=Beta Rep=61 CellRange=Medium
+[16:16:07] Launched task 18092/60000 (pid=1187551) Dist=EG Rep=61 CellRange=Medium
+[16:16:07] Launched task 18093/60000 (pid=1187552) Dist=LN Rep=61 CellRange=Medium
+[16:16:10] Launched task 18094/60000 (pid=1187554) Dist=SX Rep=61 CellRange=Medium
+[16:16:12] Launched task 18095/60000 (pid=1187555) Dist=BB Rep=61 CellRange=Medium
+[16:16:15] Launched task 18096/60000 (pid=1187556) Dist=Beta Rep=61 CellRange=Medium
+[16:16:15] Launched task 18097/60000 (pid=1187557) Dist=EG Rep=61 CellRange=Medium
+[16:16:15] Launched task 18098/60000 (pid=1187558) Dist=LN Rep=61 CellRange=Medium
+[16:16:20] Launched task 18099/60000 (pid=1187603) Dist=SX Rep=61 CellRange=Medium
+[16:16:20] Launched task 18100/60000 (pid=1187604) Dist=BB Rep=61 CellRange=Medium
+[16:16:21] Launched task 18101/60000 (pid=1187605) Dist=Beta Rep=61 CellRange=Medium
+[16:16:22] Launched task 18102/60000 (pid=1187606) Dist=EG Rep=61 CellRange=Medium
+[16:16:22] Launched task 18103/60000 (pid=1187607) Dist=LN Rep=61 CellRange=Medium
+[16:16:22] Launched task 18104/60000 (pid=1187608) Dist=SX Rep=61 CellRange=Medium
+[16:16:25] Launched task 18105/60000 (pid=1187609) Dist=BB Rep=61 CellRange=Medium
+[16:16:26] Launched task 18106/60000 (pid=1187610) Dist=Beta Rep=61 CellRange=Medium
+[16:16:27] Launched task 18107/60000 (pid=1187611) Dist=EG Rep=61 CellRange=Medium
+[16:16:28] Launched task 18108/60000 (pid=1187612) Dist=LN Rep=61 CellRange=Medium
+[16:16:28] Launched task 18109/60000 (pid=1187613) Dist=SX Rep=61 CellRange=Medium
+[16:16:33] Launched task 18110/60000 (pid=1187615) Dist=BB Rep=61 CellRange=Medium
+[16:16:37] Launched task 18111/60000 (pid=1187659) Dist=Beta Rep=61 CellRange=Medium
+[16:16:40] Launched task 18112/60000 (pid=1187660) Dist=EG Rep=61 CellRange=Medium
+[16:16:40] Launched task 18113/60000 (pid=1187661) Dist=LN Rep=61 CellRange=Medium
+[16:16:41] Launched task 18114/60000 (pid=1187662) Dist=SX Rep=61 CellRange=Medium
+[16:16:43] Launched task 18115/60000 (pid=1187664) Dist=BB Rep=61 CellRange=Medium
+[16:16:43] Launched task 18116/60000 (pid=1187665) Dist=Beta Rep=61 CellRange=Medium
+[16:16:44] Launched task 18117/60000 (pid=1187666) Dist=EG Rep=61 CellRange=Medium
+[16:16:48] Launched task 18118/60000 (pid=1187667) Dist=LN Rep=61 CellRange=Medium
+[16:16:48] Launched task 18119/60000 (pid=1187668) Dist=SX Rep=61 CellRange=Medium
+[16:16:48] Launched task 18120/60000 (pid=1187669) Dist=BB Rep=61 CellRange=Medium
+[16:16:54] Launched task 18121/60000 (pid=1187712) Dist=Beta Rep=61 CellRange=Low
+[16:16:55] Launched task 18122/60000 (pid=1187713) Dist=EG Rep=61 CellRange=Low
+[16:16:58] Launched task 18123/60000 (pid=1187714) Dist=LN Rep=61 CellRange=Low
+[16:16:58] Launched task 18124/60000 (pid=1187715) Dist=SX Rep=61 CellRange=Low
+[16:16:59] Launched task 18125/60000 (pid=1187716) Dist=BB Rep=61 CellRange=Low
+[16:16:59] Launched task 18126/60000 (pid=1187717) Dist=Beta Rep=61 CellRange=Low
+[16:17:00] Launched task 18127/60000 (pid=1187720) Dist=EG Rep=61 CellRange=Low
+[16:17:00] Launched task 18128/60000 (pid=1187721) Dist=LN Rep=61 CellRange=Low
+[16:17:00] Launched task 18129/60000 (pid=1187722) Dist=SX Rep=61 CellRange=Low
+[16:17:04] Launched task 18130/60000 (pid=1187873) Dist=BB Rep=61 CellRange=Low
+[16:17:11] Launched task 18131/60000 (pid=1187874) Dist=Beta Rep=61 CellRange=Low
+[16:17:12] Launched task 18132/60000 (pid=1187875) Dist=EG Rep=61 CellRange=Low
+[16:17:14] Launched task 18133/60000 (pid=1187877) Dist=LN Rep=61 CellRange=Low
+[16:17:14] Launched task 18134/60000 (pid=1187878) Dist=SX Rep=61 CellRange=Low
+[16:17:16] Launched task 18135/60000 (pid=1187879) Dist=BB Rep=61 CellRange=Low
+[16:17:18] Launched task 18136/60000 (pid=1187891) Dist=Beta Rep=61 CellRange=Low
+[16:17:19] Launched task 18137/60000 (pid=1187903) Dist=EG Rep=61 CellRange=Low
+[16:17:20] Launched task 18138/60000 (pid=1187925) Dist=LN Rep=61 CellRange=Low
+[16:17:21] Launched task 18139/60000 (pid=1187926) Dist=SX Rep=61 CellRange=Low
+[16:17:21] Launched task 18140/60000 (pid=1187927) Dist=BB Rep=61 CellRange=Low
+[16:17:22] Launched task 18141/60000 (pid=1187928) Dist=Beta Rep=61 CellRange=Low
+[16:17:23] Launched task 18142/60000 (pid=1187929) Dist=EG Rep=61 CellRange=Low
+[16:17:24] Launched task 18143/60000 (pid=1187931) Dist=LN Rep=61 CellRange=Low
+[16:17:28] Launched task 18144/60000 (pid=1187932) Dist=SX Rep=61 CellRange=Low
+[16:17:29] Launched task 18145/60000 (pid=1187933) Dist=BB Rep=61 CellRange=Low
+[16:17:30] Launched task 18146/60000 (pid=1187934) Dist=Beta Rep=61 CellRange=Low
+[16:17:32] Launched task 18147/60000 (pid=1187935) Dist=EG Rep=61 CellRange=Low
+[16:17:34] Launched task 18148/60000 (pid=1187938) Dist=LN Rep=61 CellRange=Low
+[16:17:35] Launched task 18149/60000 (pid=1187950) Dist=SX Rep=61 CellRange=Low
+[16:17:36] Launched task 18150/60000 (pid=1187984) Dist=BB Rep=61 CellRange=Low
+[16:17:41] Launched task 18151/60000 (pid=1187985) Dist=Beta Rep=61 CellRange=Low
+[16:17:45] Launched task 18152/60000 (pid=1187986) Dist=EG Rep=61 CellRange=Low
+[16:17:45] Launched task 18153/60000 (pid=1187987) Dist=LN Rep=61 CellRange=Low
+[16:17:47] Launched task 18154/60000 (pid=1187989) Dist=SX Rep=61 CellRange=Low
+[16:17:48] Launched task 18155/60000 (pid=1187990) Dist=BB Rep=61 CellRange=Low
+[16:17:49] Launched task 18156/60000 (pid=1187991) Dist=Beta Rep=61 CellRange=Low
+[16:17:49] Launched task 18157/60000 (pid=1187992) Dist=EG Rep=61 CellRange=Low
+[16:17:51] Launched task 18158/60000 (pid=1187993) Dist=LN Rep=61 CellRange=Low
+[16:17:53] Launched task 18159/60000 (pid=1188035) Dist=SX Rep=61 CellRange=Low
+[16:17:53] Launched task 18160/60000 (pid=1188036) Dist=BB Rep=61 CellRange=Low
+[16:17:57] Launched task 18161/60000 (pid=1188038) Dist=Beta Rep=61 CellRange=Low
+[16:17:58] Launched task 18162/60000 (pid=1188039) Dist=EG Rep=61 CellRange=Low
+[16:18:01] Launched task 18163/60000 (pid=1188040) Dist=LN Rep=61 CellRange=Low
+[16:18:01] Launched task 18164/60000 (pid=1188041) Dist=SX Rep=61 CellRange=Low
+[16:18:02] Launched task 18165/60000 (pid=1188158) Dist=BB Rep=61 CellRange=Low
+[16:18:06] Launched task 18166/60000 (pid=1188193) Dist=Beta Rep=61 CellRange=Low
+[16:18:07] Launched task 18167/60000 (pid=1188194) Dist=EG Rep=61 CellRange=Low
+[16:18:09] Launched task 18168/60000 (pid=1188196) Dist=LN Rep=61 CellRange=Low
+[16:18:10] Launched task 18169/60000 (pid=1188197) Dist=SX Rep=61 CellRange=Low
+[16:18:13] Launched task 18170/60000 (pid=1188200) Dist=BB Rep=61 CellRange=Low
+[16:18:16] Launched task 18171/60000 (pid=1188202) Dist=Beta Rep=61 CellRange=Low
+[16:18:17] Launched task 18172/60000 (pid=1188203) Dist=EG Rep=61 CellRange=Low
+[16:18:23] Launched task 18173/60000 (pid=1188252) Dist=LN Rep=61 CellRange=Low
+[16:18:24] Launched task 18174/60000 (pid=1188253) Dist=SX Rep=61 CellRange=Low
+[16:18:24] Launched task 18175/60000 (pid=1188254) Dist=BB Rep=61 CellRange=Low
+[16:18:24] Launched task 18176/60000 (pid=1188255) Dist=Beta Rep=61 CellRange=Low
+[16:18:24] Launched task 18177/60000 (pid=1188256) Dist=EG Rep=61 CellRange=Low
+[16:18:25] Launched task 18178/60000 (pid=1188257) Dist=LN Rep=61 CellRange=Low
+[16:18:25] Launched task 18179/60000 (pid=1188258) Dist=SX Rep=61 CellRange=Low
+[16:18:27] Launched task 18180/60000 (pid=1188259) Dist=BB Rep=61 CellRange=Low
+[16:18:34] Launched task 18181/60000 (pid=1188261) Dist=Beta Rep=61 CellRange=Very Low
+[16:18:36] Launched task 18182/60000 (pid=1188284) Dist=EG Rep=61 CellRange=Very Low
+[16:18:37] Launched task 18183/60000 (pid=1188306) Dist=LN Rep=61 CellRange=Very Low
+[16:18:40] Launched task 18184/60000 (pid=1188308) Dist=SX Rep=61 CellRange=Very Low
+[16:18:40] Launched task 18185/60000 (pid=1188309) Dist=BB Rep=61 CellRange=Very Low
+[16:18:41] Launched task 18186/60000 (pid=1188310) Dist=Beta Rep=61 CellRange=Very Low
+[16:18:41] Launched task 18187/60000 (pid=1188311) Dist=EG Rep=61 CellRange=Very Low
+[16:18:42] Launched task 18188/60000 (pid=1188312) Dist=LN Rep=61 CellRange=Very Low
+[16:18:45] Launched task 18189/60000 (pid=1188314) Dist=SX Rep=61 CellRange=Very Low
+[16:18:47] Launched task 18190/60000 (pid=1188315) Dist=BB Rep=61 CellRange=Very Low
+[16:18:51] Launched task 18191/60000 (pid=1188322) Dist=Beta Rep=61 CellRange=Very Low
+[16:18:51] Launched task 18192/60000 (pid=1188323) Dist=EG Rep=61 CellRange=Very Low
+[16:18:56] Launched task 18193/60000 (pid=1188365) Dist=LN Rep=61 CellRange=Very Low
+[16:18:57] Launched task 18194/60000 (pid=1188366) Dist=SX Rep=61 CellRange=Very Low
+[16:18:57] Launched task 18195/60000 (pid=1188367) Dist=BB Rep=61 CellRange=Very Low
+[16:19:00] Launched task 18196/60000 (pid=1188370) Dist=Beta Rep=61 CellRange=Very Low
+[16:19:01] Launched task 18197/60000 (pid=1188373) Dist=EG Rep=61 CellRange=Very Low
+[16:19:01] Launched task 18198/60000 (pid=1188374) Dist=LN Rep=61 CellRange=Very Low
+[16:19:02] Launched task 18199/60000 (pid=1188491) Dist=SX Rep=61 CellRange=Very Low
+[16:19:02] Launched task 18200/60000 (pid=1188492) Dist=BB Rep=61 CellRange=Very Low
+[16:19:03] Launched task 18201/60000 (pid=1188525) Dist=Beta Rep=61 CellRange=Very Low
+[16:19:06] Launched task 18202/60000 (pid=1188526) Dist=EG Rep=61 CellRange=Very Low
+[16:19:08] Launched task 18203/60000 (pid=1188527) Dist=LN Rep=61 CellRange=Very Low
+[16:19:10] Launched task 18204/60000 (pid=1188528) Dist=SX Rep=61 CellRange=Very Low
+[16:19:11] Launched task 18205/60000 (pid=1188529) Dist=BB Rep=61 CellRange=Very Low
+[16:19:13] Launched task 18206/60000 (pid=1188531) Dist=Beta Rep=61 CellRange=Very Low
+[16:19:13] Launched task 18207/60000 (pid=1188532) Dist=EG Rep=61 CellRange=Very Low
+[16:19:17] Launched task 18208/60000 (pid=1188533) Dist=LN Rep=61 CellRange=Very Low
+[16:19:18] Launched task 18209/60000 (pid=1188545) Dist=SX Rep=61 CellRange=Very Low
+[16:19:20] Launched task 18210/60000 (pid=1188578) Dist=BB Rep=61 CellRange=Very Low
+[16:19:22] Launched task 18211/60000 (pid=1188579) Dist=Beta Rep=61 CellRange=Very Low
+[16:19:24] Launched task 18212/60000 (pid=1188581) Dist=EG Rep=61 CellRange=Very Low
+[16:19:26] Launched task 18213/60000 (pid=1188582) Dist=LN Rep=61 CellRange=Very Low
+[16:19:27] Launched task 18214/60000 (pid=1188583) Dist=SX Rep=61 CellRange=Very Low
+[16:19:31] Launched task 18215/60000 (pid=1188584) Dist=BB Rep=61 CellRange=Very Low
+[16:19:32] Launched task 18216/60000 (pid=1188585) Dist=Beta Rep=61 CellRange=Very Low
+[16:19:32] Launched task 18217/60000 (pid=1188586) Dist=EG Rep=61 CellRange=Very Low
+[16:19:33] Launched task 18218/60000 (pid=1188587) Dist=LN Rep=61 CellRange=Very Low
+[16:19:36] Launched task 18219/60000 (pid=1188634) Dist=SX Rep=61 CellRange=Very Low
+[16:19:37] Launched task 18220/60000 (pid=1188635) Dist=BB Rep=61 CellRange=Very Low
+[16:19:37] Launched task 18221/60000 (pid=1188636) Dist=Beta Rep=61 CellRange=Very Low
+[16:19:46] Launched task 18222/60000 (pid=1188639) Dist=EG Rep=61 CellRange=Very Low
+[16:19:46] Launched task 18223/60000 (pid=1188640) Dist=LN Rep=61 CellRange=Very Low
+[16:19:47] Launched task 18224/60000 (pid=1188641) Dist=SX Rep=61 CellRange=Very Low
+[16:19:47] Launched task 18225/60000 (pid=1188642) Dist=BB Rep=61 CellRange=Very Low
+[16:19:53] Launched task 18226/60000 (pid=1188684) Dist=Beta Rep=61 CellRange=Very Low
+[16:19:55] Launched task 18227/60000 (pid=1188685) Dist=EG Rep=61 CellRange=Very Low
+[16:19:55] Launched task 18228/60000 (pid=1188686) Dist=LN Rep=61 CellRange=Very Low
+[16:19:56] Launched task 18229/60000 (pid=1188688) Dist=SX Rep=61 CellRange=Very Low
+[16:19:56] Launched task 18230/60000 (pid=1188689) Dist=BB Rep=61 CellRange=Very Low
+[16:19:57] Launched task 18231/60000 (pid=1188690) Dist=Beta Rep=61 CellRange=Very Low
+[16:19:58] Launched task 18232/60000 (pid=1188691) Dist=EG Rep=61 CellRange=Very Low
+[16:19:58] Launched task 18233/60000 (pid=1188692) Dist=LN Rep=61 CellRange=Very Low
+[16:19:59] Launched task 18234/60000 (pid=1188693) Dist=SX Rep=61 CellRange=Very Low
+[16:20:04] Launched task 18235/60000 (pid=1188843) Dist=BB Rep=61 CellRange=Very Low
+[16:20:05] Launched task 18236/60000 (pid=1188844) Dist=Beta Rep=61 CellRange=Very Low
+[16:20:05] Launched task 18237/60000 (pid=1188845) Dist=EG Rep=61 CellRange=Very Low
+[16:20:08] Launched task 18238/60000 (pid=1188851) Dist=LN Rep=61 CellRange=Very Low
+[16:20:12] Launched task 18239/60000 (pid=1188852) Dist=SX Rep=61 CellRange=Very Low
+[16:20:13] Launched task 18240/60000 (pid=1188853) Dist=BB Rep=61 CellRange=Very Low
+[16:20:15] Launched task 18241/60000 (pid=1188854) Dist=Beta Rep=61 CellRange=Extremely Low
+[16:20:22] Launched task 18242/60000 (pid=1188899) Dist=EG Rep=61 CellRange=Extremely Low
+[16:20:25] Launched task 18243/60000 (pid=1188900) Dist=LN Rep=61 CellRange=Extremely Low
+[16:20:25] Launched task 18244/60000 (pid=1188901) Dist=SX Rep=61 CellRange=Extremely Low
+[16:20:25] Launched task 18245/60000 (pid=1188902) Dist=BB Rep=61 CellRange=Extremely Low
+[16:20:26] Launched task 18246/60000 (pid=1188903) Dist=Beta Rep=61 CellRange=Extremely Low
+[16:20:26] Launched task 18247/60000 (pid=1188904) Dist=EG Rep=61 CellRange=Extremely Low
+[16:20:27] Launched task 18248/60000 (pid=1188906) Dist=LN Rep=61 CellRange=Extremely Low
+[16:20:29] Launched task 18249/60000 (pid=1188907) Dist=SX Rep=61 CellRange=Extremely Low
+[16:20:30] Launched task 18250/60000 (pid=1188908) Dist=BB Rep=61 CellRange=Extremely Low
+[16:20:32] Launched task 18251/60000 (pid=1188909) Dist=Beta Rep=61 CellRange=Extremely Low
+[16:20:34] Launched task 18252/60000 (pid=1188921) Dist=EG Rep=61 CellRange=Extremely Low
+[16:20:34] Launched task 18253/60000 (pid=1188922) Dist=LN Rep=61 CellRange=Extremely Low
+[16:20:37] Launched task 18254/60000 (pid=1188955) Dist=SX Rep=61 CellRange=Extremely Low
+[16:20:37] Launched task 18255/60000 (pid=1188956) Dist=BB Rep=61 CellRange=Extremely Low
+[16:20:43] Launched task 18256/60000 (pid=1188958) Dist=Beta Rep=61 CellRange=Extremely Low
+[16:20:46] Launched task 18257/60000 (pid=1188959) Dist=EG Rep=61 CellRange=Extremely Low
+[16:20:48] Launched task 18258/60000 (pid=1188960) Dist=LN Rep=61 CellRange=Extremely Low
+[16:20:50] Launched task 18259/60000 (pid=1188962) Dist=SX Rep=61 CellRange=Extremely Low
+[16:20:51] Launched task 18260/60000 (pid=1188973) Dist=BB Rep=61 CellRange=Extremely Low
+[16:20:51] Launched task 18261/60000 (pid=1188974) Dist=Beta Rep=61 CellRange=Extremely Low
+[16:20:53] Launched task 18262/60000 (pid=1189006) Dist=EG Rep=61 CellRange=Extremely Low
+[16:20:58] Launched task 18263/60000 (pid=1189007) Dist=LN Rep=61 CellRange=Extremely Low
+[16:20:59] Launched task 18264/60000 (pid=1189008) Dist=SX Rep=61 CellRange=Extremely Low
+[16:20:59] Launched task 18265/60000 (pid=1189009) Dist=BB Rep=61 CellRange=Extremely Low
+[16:21:03] Launched task 18266/60000 (pid=1189161) Dist=Beta Rep=61 CellRange=Extremely Low
+[16:21:04] Launched task 18267/60000 (pid=1189162) Dist=EG Rep=61 CellRange=Extremely Low
+[16:21:04] Launched task 18268/60000 (pid=1189163) Dist=LN Rep=61 CellRange=Extremely Low
+[16:21:07] Launched task 18269/60000 (pid=1189369) Dist=SX Rep=61 CellRange=Extremely Low
+[16:21:07] Launched task 18270/60000 (pid=1189458) Dist=BB Rep=61 CellRange=Extremely Low
+[16:21:07] Launched task 18271/60000 (pid=1189500) Dist=Beta Rep=61 CellRange=Extremely Low
+[16:21:11] Launched task 18272/60000 (pid=1190060) Dist=EG Rep=61 CellRange=Extremely Low
+[16:21:15] Launched task 18273/60000 (pid=1190765) Dist=LN Rep=61 CellRange=Extremely Low
+[16:21:15] Launched task 18274/60000 (pid=1190766) Dist=SX Rep=61 CellRange=Extremely Low
+[16:21:16] Launched task 18275/60000 (pid=1190943) Dist=BB Rep=61 CellRange=Extremely Low
+[16:21:17] Launched task 18276/60000 (pid=1191131) Dist=Beta Rep=61 CellRange=Extremely Low
+[16:21:21] Launched task 18277/60000 (pid=1191188) Dist=EG Rep=61 CellRange=Extremely Low
+[16:21:22] Launched task 18278/60000 (pid=1191190) Dist=LN Rep=61 CellRange=Extremely Low
+[16:21:23] Launched task 18279/60000 (pid=1191367) Dist=SX Rep=61 CellRange=Extremely Low
+[16:21:28] Launched task 18280/60000 (pid=1191544) Dist=BB Rep=61 CellRange=Extremely Low
+[16:21:32] Launched task 18281/60000 (pid=1191722) Dist=Beta Rep=61 CellRange=Extremely Low
+[16:21:32] Launched task 18282/60000 (pid=1191723) Dist=EG Rep=61 CellRange=Extremely Low
+[16:21:34] Launched task 18283/60000 (pid=1191737) Dist=LN Rep=61 CellRange=Extremely Low
+[16:21:35] Launched task 18284/60000 (pid=1191753) Dist=SX Rep=61 CellRange=Extremely Low
+[16:21:40] Launched task 18285/60000 (pid=1192722) Dist=BB Rep=61 CellRange=Extremely Low
+[16:21:41] Launched task 18286/60000 (pid=1192899) Dist=Beta Rep=61 CellRange=Extremely Low
+[16:21:43] Launched task 18287/60000 (pid=1193429) Dist=EG Rep=61 CellRange=Extremely Low
+[16:21:43] Launched task 18288/60000 (pid=1193430) Dist=LN Rep=61 CellRange=Extremely Low
+[16:21:43] Launched task 18289/60000 (pid=1193431) Dist=SX Rep=61 CellRange=Extremely Low
+[16:21:44] Launched task 18290/60000 (pid=1193608) Dist=BB Rep=61 CellRange=Extremely Low
+[16:21:44] Launched task 18291/60000 (pid=1193609) Dist=Beta Rep=61 CellRange=Extremely Low
+[16:21:46] Launched task 18292/60000 (pid=1193962) Dist=EG Rep=61 CellRange=Extremely Low
+[16:21:51] Launched task 18293/60000 (pid=1194336) Dist=LN Rep=61 CellRange=Extremely Low
+[16:21:53] Launched task 18294/60000 (pid=1194730) Dist=SX Rep=61 CellRange=Extremely Low
+[16:21:54] Launched task 18295/60000 (pid=1194731) Dist=BB Rep=61 CellRange=Extremely Low
+[16:21:56] Launched task 18296/60000 (pid=1194732) Dist=Beta Rep=61 CellRange=Extremely Low
+[16:21:57] Launched task 18297/60000 (pid=1194735) Dist=EG Rep=61 CellRange=Extremely Low
+[16:21:58] Launched task 18298/60000 (pid=1195088) Dist=LN Rep=61 CellRange=Extremely Low
+[16:22:04] Launched task 18299/60000 (pid=1195702) Dist=SX Rep=61 CellRange=Extremely Low
+[16:22:08] Launched task 18300/60000 (pid=1196058) Dist=BB Rep=61 CellRange=Extremely Low
+[16:22:11] Launched task 18301/60000 (pid=1196059) Dist=Beta Rep=62 CellRange=High
+[16:22:15] Launched task 18302/60000 (pid=1196413) Dist=EG Rep=62 CellRange=High
+[16:22:15] Launched task 18303/60000 (pid=1196414) Dist=LN Rep=62 CellRange=High
+[16:22:15] Launched task 18304/60000 (pid=1196415) Dist=SX Rep=62 CellRange=High
+[16:22:17] Launched task 18305/60000 (pid=1196427) Dist=BB Rep=62 CellRange=High
+[16:22:18] Launched task 18306/60000 (pid=1196604) Dist=Beta Rep=62 CellRange=High
+[16:22:18] Launched task 18307/60000 (pid=1196605) Dist=EG Rep=62 CellRange=High
+[16:22:19] Launched task 18308/60000 (pid=1196689) Dist=LN Rep=62 CellRange=High
+[16:22:20] Launched task 18309/60000 (pid=1196831) Dist=SX Rep=62 CellRange=High
+[16:22:23] Launched task 18310/60000 (pid=1197012) Dist=BB Rep=62 CellRange=High
+[16:22:23] Launched task 18311/60000 (pid=1197013) Dist=Beta Rep=62 CellRange=High
+[16:22:27] Launched task 18312/60000 (pid=1197195) Dist=EG Rep=62 CellRange=High
+[16:22:28] Launched task 18313/60000 (pid=1197372) Dist=LN Rep=62 CellRange=High
+[16:22:29] Launched task 18314/60000 (pid=1197373) Dist=SX Rep=62 CellRange=High
+[16:22:29] Launched task 18315/60000 (pid=1197374) Dist=BB Rep=62 CellRange=High
+[16:22:30] Launched task 18316/60000 (pid=1197551) Dist=Beta Rep=62 CellRange=High
+[16:22:31] Launched task 18317/60000 (pid=1197552) Dist=EG Rep=62 CellRange=High
+[16:22:36] Launched task 18318/60000 (pid=1197810) Dist=LN Rep=62 CellRange=High
+[16:22:36] Launched task 18319/60000 (pid=1197814) Dist=SX Rep=62 CellRange=High
+[16:22:38] Launched task 18320/60000 (pid=1197960) Dist=BB Rep=62 CellRange=High
+[16:22:39] Launched task 18321/60000 (pid=1198137) Dist=Beta Rep=62 CellRange=High
+[16:22:46] Launched task 18322/60000 (pid=1198501) Dist=EG Rep=62 CellRange=High
+[16:22:46] Launched task 18323/60000 (pid=1198502) Dist=LN Rep=62 CellRange=High
+[16:22:47] Launched task 18324/60000 (pid=1198504) Dist=SX Rep=62 CellRange=High
+[16:22:47] Launched task 18325/60000 (pid=1198505) Dist=BB Rep=62 CellRange=High
+[16:22:47] Launched task 18326/60000 (pid=1198506) Dist=Beta Rep=62 CellRange=High
+[16:22:47] Launched task 18327/60000 (pid=1198507) Dist=EG Rep=62 CellRange=High
+[16:22:48] Launched task 18328/60000 (pid=1198640) Dist=LN Rep=62 CellRange=High
+[16:22:48] Launched task 18329/60000 (pid=1198667) Dist=SX Rep=62 CellRange=High
+[16:22:49] Launched task 18330/60000 (pid=1198858) Dist=BB Rep=62 CellRange=High
+[16:22:53] Launched task 18331/60000 (pid=1198913) Dist=Beta Rep=62 CellRange=High
+[16:22:54] Launched task 18332/60000 (pid=1199090) Dist=EG Rep=62 CellRange=High
+[16:22:55] Launched task 18333/60000 (pid=1199117) Dist=LN Rep=62 CellRange=High
+[16:22:59] Launched task 18334/60000 (pid=1199425) Dist=SX Rep=62 CellRange=High
+[16:23:00] Launched task 18335/60000 (pid=1199448) Dist=BB Rep=62 CellRange=High
+[16:23:01] Launched task 18336/60000 (pid=1199696) Dist=Beta Rep=62 CellRange=High
+[16:23:03] Launched task 18337/60000 (pid=1199909) Dist=EG Rep=62 CellRange=High
+[16:23:04] Launched task 18338/60000 (pid=1199941) Dist=LN Rep=62 CellRange=High
+[16:23:04] Launched task 18339/60000 (pid=1199944) Dist=SX Rep=62 CellRange=High
+[16:23:04] Launched task 18340/60000 (pid=1199947) Dist=BB Rep=62 CellRange=High
+[16:23:07] Launched task 18341/60000 (pid=1200099) Dist=Beta Rep=62 CellRange=High
+[16:23:10] Launched task 18342/60000 (pid=1200267) Dist=EG Rep=62 CellRange=High
+[16:23:11] Launched task 18343/60000 (pid=1200268) Dist=LN Rep=62 CellRange=High
+[16:23:12] Launched task 18344/60000 (pid=1200445) Dist=SX Rep=62 CellRange=High
+[16:23:14] Launched task 18345/60000 (pid=1200468) Dist=BB Rep=62 CellRange=High
+[16:23:20] Launched task 18346/60000 (pid=1200852) Dist=Beta Rep=62 CellRange=High
+[16:23:23] Launched task 18347/60000 (pid=1201114) Dist=EG Rep=62 CellRange=High
+[16:23:23] Launched task 18348/60000 (pid=1201120) Dist=LN Rep=62 CellRange=High
+[16:23:25] Launched task 18349/60000 (pid=1201211) Dist=SX Rep=62 CellRange=High
+[16:23:27] Launched task 18350/60000 (pid=1201253) Dist=BB Rep=62 CellRange=High
+[16:23:27] Launched task 18351/60000 (pid=1201255) Dist=Beta Rep=62 CellRange=High
+[16:23:29] Launched task 18352/60000 (pid=1201390) Dist=EG Rep=62 CellRange=High
+[16:23:29] Launched task 18353/60000 (pid=1201391) Dist=LN Rep=62 CellRange=High
+[16:23:29] Launched task 18354/60000 (pid=1201392) Dist=SX Rep=62 CellRange=High
+[16:23:31] Launched task 18355/60000 (pid=1201563) Dist=BB Rep=62 CellRange=High
+[16:23:32] Launched task 18356/60000 (pid=1201572) Dist=Beta Rep=62 CellRange=High
+[16:23:34] Launched task 18357/60000 (pid=1201744) Dist=EG Rep=62 CellRange=High
+[16:23:37] Launched task 18358/60000 (pid=1201980) Dist=LN Rep=62 CellRange=High
+[16:23:37] Launched task 18359/60000 (pid=1201981) Dist=SX Rep=62 CellRange=High
+[16:23:38] Launched task 18360/60000 (pid=1201982) Dist=BB Rep=62 CellRange=High
+[16:23:39] Launched task 18361/60000 (pid=1202009) Dist=Beta Rep=62 CellRange=Medium
+[16:23:39] Launched task 18362/60000 (pid=1202011) Dist=EG Rep=62 CellRange=Medium
+[16:23:42] Launched task 18363/60000 (pid=1202162) Dist=LN Rep=62 CellRange=Medium
+[16:23:48] Launched task 18364/60000 (pid=1202516) Dist=SX Rep=62 CellRange=Medium
+[16:23:48] Launched task 18365/60000 (pid=1202517) Dist=BB Rep=62 CellRange=Medium
+[16:23:52] Launched task 18366/60000 (pid=1202734) Dist=Beta Rep=62 CellRange=Medium
+[16:23:53] Launched task 18367/60000 (pid=1202882) Dist=EG Rep=62 CellRange=Medium
+[16:23:55] Launched task 18368/60000 (pid=1203099) Dist=LN Rep=62 CellRange=Medium
+[16:23:56] Launched task 18369/60000 (pid=1203100) Dist=SX Rep=62 CellRange=Medium
+[16:23:57] Launched task 18370/60000 (pid=1203105) Dist=BB Rep=62 CellRange=Medium
+[16:23:57] Launched task 18371/60000 (pid=1203106) Dist=Beta Rep=62 CellRange=Medium
+[16:24:00] Launched task 18372/60000 (pid=1203200) Dist=EG Rep=62 CellRange=Medium
+[16:24:01] Launched task 18373/60000 (pid=1203353) Dist=LN Rep=62 CellRange=Medium
+[16:24:09] Launched task 18374/60000 (pid=1204100) Dist=SX Rep=62 CellRange=Medium
+[16:24:10] Launched task 18375/60000 (pid=1204101) Dist=BB Rep=62 CellRange=Medium
+[16:24:10] Launched task 18376/60000 (pid=1204102) Dist=Beta Rep=62 CellRange=Medium
+[16:24:10] Launched task 18377/60000 (pid=1204103) Dist=EG Rep=62 CellRange=Medium
+[16:24:10] Launched task 18378/60000 (pid=1204104) Dist=LN Rep=62 CellRange=Medium
+[16:24:13] Launched task 18379/60000 (pid=1204281) Dist=SX Rep=62 CellRange=Medium
+[16:24:14] Launched task 18380/60000 (pid=1204339) Dist=BB Rep=62 CellRange=Medium
+[16:24:17] Launched task 18381/60000 (pid=1204460) Dist=Beta Rep=62 CellRange=Medium
+[16:24:17] Launched task 18382/60000 (pid=1204461) Dist=EG Rep=62 CellRange=Medium
+[16:24:19] Launched task 18383/60000 (pid=1204631) Dist=LN Rep=62 CellRange=Medium
+[16:24:19] Launched task 18384/60000 (pid=1204635) Dist=SX Rep=62 CellRange=Medium
+[16:24:21] Launched task 18385/60000 (pid=1204868) Dist=BB Rep=62 CellRange=Medium
+[16:24:21] Launched task 18386/60000 (pid=1204869) Dist=Beta Rep=62 CellRange=Medium
+[16:24:21] Launched task 18387/60000 (pid=1204870) Dist=EG Rep=62 CellRange=Medium
+[16:24:26] Launched task 18388/60000 (pid=1205187) Dist=LN Rep=62 CellRange=Medium
+[16:24:28] Launched task 18389/60000 (pid=1205229) Dist=SX Rep=62 CellRange=Medium
+[16:24:29] Launched task 18390/60000 (pid=1205230) Dist=BB Rep=62 CellRange=Medium
+[16:24:31] Launched task 18391/60000 (pid=1205231) Dist=Beta Rep=62 CellRange=Medium
+[16:24:32] Launched task 18392/60000 (pid=1205285) Dist=EG Rep=62 CellRange=Medium
+[16:24:42] Launched task 18393/60000 (pid=1205990) Dist=LN Rep=62 CellRange=Medium
+[16:24:43] Launched task 18394/60000 (pid=1205991) Dist=SX Rep=62 CellRange=Medium
+[16:24:45] Launched task 18395/60000 (pid=1206344) Dist=BB Rep=62 CellRange=Medium
+[16:24:45] Launched task 18396/60000 (pid=1206345) Dist=Beta Rep=62 CellRange=Medium
+[16:24:45] Launched task 18397/60000 (pid=1206347) Dist=EG Rep=62 CellRange=Medium
+[16:24:46] Launched task 18398/60000 (pid=1206348) Dist=LN Rep=62 CellRange=Medium
+[16:24:46] Launched task 18399/60000 (pid=1206349) Dist=SX Rep=62 CellRange=Medium
+[16:24:47] Launched task 18400/60000 (pid=1206350) Dist=BB Rep=62 CellRange=Medium
+[16:24:49] Launched task 18401/60000 (pid=1206351) Dist=Beta Rep=62 CellRange=Medium
+[16:24:50] Launched task 18402/60000 (pid=1206358) Dist=EG Rep=62 CellRange=Medium
+[16:24:51] Launched task 18403/60000 (pid=1206562) Dist=LN Rep=62 CellRange=Medium
+[16:24:53] Launched task 18404/60000 (pid=1206756) Dist=SX Rep=62 CellRange=Medium
+[16:24:54] Launched task 18405/60000 (pid=1206757) Dist=BB Rep=62 CellRange=Medium
+[16:24:56] Launched task 18406/60000 (pid=1206758) Dist=Beta Rep=62 CellRange=Medium
+[16:25:01] Launched task 18407/60000 (pid=1207288) Dist=EG Rep=62 CellRange=Medium
+[16:25:06] Launched task 18408/60000 (pid=1207757) Dist=LN Rep=62 CellRange=Medium
+[16:25:08] Launched task 18409/60000 (pid=1207885) Dist=SX Rep=62 CellRange=Medium
+[16:25:10] Launched task 18410/60000 (pid=1207936) Dist=BB Rep=62 CellRange=Medium
+[16:25:11] Launched task 18411/60000 (pid=1208063) Dist=Beta Rep=62 CellRange=Medium
+[16:25:11] Launched task 18412/60000 (pid=1208064) Dist=EG Rep=62 CellRange=Medium
+[16:25:16] Launched task 18413/60000 (pid=1208338) Dist=LN Rep=62 CellRange=Medium
+[16:25:19] Launched task 18414/60000 (pid=1208421) Dist=SX Rep=62 CellRange=Medium
+[16:25:20] Launched task 18415/60000 (pid=1208422) Dist=BB Rep=62 CellRange=Medium
+[16:25:21] Launched task 18416/60000 (pid=1208500) Dist=Beta Rep=62 CellRange=Medium
+[16:25:23] Launched task 18417/60000 (pid=1208730) Dist=EG Rep=62 CellRange=Medium
+[16:25:25] Launched task 18418/60000 (pid=1208731) Dist=LN Rep=62 CellRange=Medium
+[16:25:25] Launched task 18419/60000 (pid=1208732) Dist=SX Rep=62 CellRange=Medium
+[16:25:28] Launched task 18420/60000 (pid=1208882) Dist=BB Rep=62 CellRange=Medium
+[16:25:28] Launched task 18421/60000 (pid=1208886) Dist=Beta Rep=62 CellRange=Low
+[16:25:31] Launched task 18422/60000 (pid=1209038) Dist=EG Rep=62 CellRange=Low
+[16:25:32] Launched task 18423/60000 (pid=1209165) Dist=LN Rep=62 CellRange=Low
+[16:25:39] Launched task 18424/60000 (pid=1209523) Dist=SX Rep=62 CellRange=Low
+[16:25:40] Launched task 18425/60000 (pid=1209524) Dist=BB Rep=62 CellRange=Low
+[16:25:40] Launched task 18426/60000 (pid=1209525) Dist=Beta Rep=62 CellRange=Low
+[16:25:40] Launched task 18427/60000 (pid=1209526) Dist=EG Rep=62 CellRange=Low
+[16:25:46] Launched task 18428/60000 (pid=1209779) Dist=LN Rep=62 CellRange=Low
+[16:25:46] Launched task 18429/60000 (pid=1209780) Dist=SX Rep=62 CellRange=Low
+[16:25:47] Launched task 18430/60000 (pid=1210004) Dist=BB Rep=62 CellRange=Low
+[16:25:48] Launched task 18431/60000 (pid=1210034) Dist=Beta Rep=62 CellRange=Low
+[16:25:52] Launched task 18432/60000 (pid=1210321) Dist=EG Rep=62 CellRange=Low
+[16:25:52] Launched task 18433/60000 (pid=1210326) Dist=LN Rep=62 CellRange=Low
+[16:25:54] Launched task 18434/60000 (pid=1210341) Dist=SX Rep=62 CellRange=Low
+[16:25:56] Launched task 18435/60000 (pid=1210346) Dist=BB Rep=62 CellRange=Low
+[16:25:56] Launched task 18436/60000 (pid=1210347) Dist=Beta Rep=62 CellRange=Low
+[16:26:00] Launched task 18437/60000 (pid=1210600) Dist=EG Rep=62 CellRange=Low
+[16:26:01] Launched task 18438/60000 (pid=1210601) Dist=LN Rep=62 CellRange=Low
+[16:26:02] Launched task 18439/60000 (pid=1210767) Dist=SX Rep=62 CellRange=Low
+[16:26:05] Launched task 18440/60000 (pid=1211116) Dist=BB Rep=62 CellRange=Low
+[16:26:07] Launched task 18441/60000 (pid=1211117) Dist=Beta Rep=62 CellRange=Low
+[16:26:08] Launched task 18442/60000 (pid=1211370) Dist=EG Rep=62 CellRange=Low
+[16:26:11] Launched task 18443/60000 (pid=1211371) Dist=LN Rep=62 CellRange=Low
+[16:26:15] Launched task 18444/60000 (pid=1211625) Dist=SX Rep=62 CellRange=Low
+[16:26:15] Launched task 18445/60000 (pid=1211626) Dist=BB Rep=62 CellRange=Low
+[16:26:16] Launched task 18446/60000 (pid=1211627) Dist=Beta Rep=62 CellRange=Low
+[16:26:16] Launched task 18447/60000 (pid=1211628) Dist=EG Rep=62 CellRange=Low
+[16:26:21] Launched task 18448/60000 (pid=1211933) Dist=LN Rep=62 CellRange=Low
+[16:26:21] Launched task 18449/60000 (pid=1211934) Dist=SX Rep=62 CellRange=Low
+[16:26:24] Launched task 18450/60000 (pid=1212309) Dist=BB Rep=62 CellRange=Low
+[16:26:27] Launched task 18451/60000 (pid=1212314) Dist=Beta Rep=62 CellRange=Low
+[16:26:27] Launched task 18452/60000 (pid=1212315) Dist=EG Rep=62 CellRange=Low
+[16:26:31] Launched task 18453/60000 (pid=1212668) Dist=LN Rep=62 CellRange=Low
+[16:26:31] Launched task 18454/60000 (pid=1212669) Dist=SX Rep=62 CellRange=Low
+[16:26:33] Launched task 18455/60000 (pid=1212797) Dist=BB Rep=62 CellRange=Low
+[16:26:33] Launched task 18456/60000 (pid=1212798) Dist=Beta Rep=62 CellRange=Low
+[16:26:33] Launched task 18457/60000 (pid=1212799) Dist=EG Rep=62 CellRange=Low
+[16:26:34] Launched task 18458/60000 (pid=1212800) Dist=LN Rep=62 CellRange=Low
+[16:26:34] Launched task 18459/60000 (pid=1212801) Dist=SX Rep=62 CellRange=Low
+[16:26:42] Launched task 18460/60000 (pid=1213206) Dist=BB Rep=62 CellRange=Low
+[16:26:45] Launched task 18461/60000 (pid=1213560) Dist=Beta Rep=62 CellRange=Low
+[16:26:46] Launched task 18462/60000 (pid=1213561) Dist=EG Rep=62 CellRange=Low
+[16:26:48] Launched task 18463/60000 (pid=1213688) Dist=LN Rep=62 CellRange=Low
+[16:26:50] Launched task 18464/60000 (pid=1213805) Dist=SX Rep=62 CellRange=Low
+[16:26:53] Launched task 18465/60000 (pid=1214092) Dist=BB Rep=62 CellRange=Low
+[16:26:53] Launched task 18466/60000 (pid=1214093) Dist=Beta Rep=62 CellRange=Low
+[16:26:55] Launched task 18467/60000 (pid=1214107) Dist=EG Rep=62 CellRange=Low
+[16:26:57] Launched task 18468/60000 (pid=1214188) Dist=LN Rep=62 CellRange=Low
+[16:27:01] Launched task 18469/60000 (pid=1214608) Dist=SX Rep=62 CellRange=Low
+[16:27:01] Launched task 18470/60000 (pid=1214610) Dist=BB Rep=62 CellRange=Low
+[16:27:05] Launched task 18471/60000 (pid=1215093) Dist=Beta Rep=62 CellRange=Low
+[16:27:05] Launched task 18472/60000 (pid=1215094) Dist=EG Rep=62 CellRange=Low
+[16:27:06] Launched task 18473/60000 (pid=1215322) Dist=LN Rep=62 CellRange=Low
+[16:27:07] Launched task 18474/60000 (pid=1215323) Dist=SX Rep=62 CellRange=Low
+[16:27:16] Launched task 18475/60000 (pid=1215800) Dist=BB Rep=62 CellRange=Low
+[16:27:18] Launched task 18476/60000 (pid=1216005) Dist=Beta Rep=62 CellRange=Low
+[16:27:18] Launched task 18477/60000 (pid=1216010) Dist=EG Rep=62 CellRange=Low
+[16:27:18] Launched task 18478/60000 (pid=1216015) Dist=LN Rep=62 CellRange=Low
+[16:27:18] Launched task 18479/60000 (pid=1216017) Dist=SX Rep=62 CellRange=Low
+[16:27:18] Launched task 18480/60000 (pid=1216025) Dist=BB Rep=62 CellRange=Low
+[16:27:18] Launched task 18481/60000 (pid=1216031) Dist=Beta Rep=62 CellRange=Very Low
+[16:27:27] Launched task 18482/60000 (pid=1216745) Dist=EG Rep=62 CellRange=Very Low
+[16:27:27] Launched task 18483/60000 (pid=1216746) Dist=LN Rep=62 CellRange=Very Low
+[16:27:30] Launched task 18484/60000 (pid=1216974) Dist=SX Rep=62 CellRange=Very Low
+[16:27:32] Launched task 18485/60000 (pid=1217201) Dist=BB Rep=62 CellRange=Very Low
+[16:27:33] Launched task 18486/60000 (pid=1217202) Dist=Beta Rep=62 CellRange=Very Low
+[16:27:34] Launched task 18487/60000 (pid=1217216) Dist=EG Rep=62 CellRange=Very Low
+[16:27:34] Launched task 18488/60000 (pid=1217217) Dist=LN Rep=62 CellRange=Very Low
+[16:27:40] Launched task 18489/60000 (pid=1217712) Dist=SX Rep=62 CellRange=Very Low
+[16:27:42] Launched task 18490/60000 (pid=1217747) Dist=BB Rep=62 CellRange=Very Low
+[16:27:44] Launched task 18491/60000 (pid=1218132) Dist=Beta Rep=62 CellRange=Very Low
+[16:27:44] Launched task 18492/60000 (pid=1218138) Dist=EG Rep=62 CellRange=Very Low
+[16:27:45] Launched task 18493/60000 (pid=1218174) Dist=LN Rep=62 CellRange=Very Low
+[16:27:47] Launched task 18494/60000 (pid=1218175) Dist=SX Rep=62 CellRange=Very Low
+[16:27:50] Launched task 18495/60000 (pid=1218629) Dist=BB Rep=62 CellRange=Very Low
+[16:27:56] Launched task 18496/60000 (pid=1219136) Dist=Beta Rep=62 CellRange=Very Low
+[16:27:59] Launched task 18497/60000 (pid=1219138) Dist=EG Rep=62 CellRange=Very Low
+[16:27:59] Launched task 18498/60000 (pid=1219139) Dist=LN Rep=62 CellRange=Very Low
+[16:28:01] Launched task 18499/60000 (pid=1219140) Dist=SX Rep=62 CellRange=Very Low
+[16:28:03] Launched task 18500/60000 (pid=1219825) Dist=BB Rep=62 CellRange=Very Low
+[16:28:03] Launched task 18501/60000 (pid=1219833) Dist=Beta Rep=62 CellRange=Very Low
+[16:28:04] Launched task 18502/60000 (pid=1219885) Dist=EG Rep=62 CellRange=Very Low
+[16:28:04] Launched task 18503/60000 (pid=1219886) Dist=LN Rep=62 CellRange=Very Low
+[16:28:05] Launched task 18504/60000 (pid=1219889) Dist=SX Rep=62 CellRange=Very Low
+[16:28:06] Launched task 18505/60000 (pid=1219890) Dist=BB Rep=62 CellRange=Very Low
+[16:28:07] Launched task 18506/60000 (pid=1219892) Dist=Beta Rep=62 CellRange=Very Low
+[16:28:09] Launched task 18507/60000 (pid=1220250) Dist=EG Rep=62 CellRange=Very Low
+[16:28:10] Launched task 18508/60000 (pid=1220347) Dist=LN Rep=62 CellRange=Very Low
+[16:28:18] Launched task 18509/60000 (pid=1220802) Dist=SX Rep=62 CellRange=Very Low
+[16:28:19] Launched task 18510/60000 (pid=1220814) Dist=BB Rep=62 CellRange=Very Low
+[16:28:21] Launched task 18511/60000 (pid=1220913) Dist=Beta Rep=62 CellRange=Very Low
+[16:28:22] Launched task 18512/60000 (pid=1221153) Dist=EG Rep=62 CellRange=Very Low
+[16:28:27] Launched task 18513/60000 (pid=1221406) Dist=LN Rep=62 CellRange=Very Low
+[16:28:30] Launched task 18514/60000 (pid=1221768) Dist=SX Rep=62 CellRange=Very Low
+[16:28:33] Launched task 18515/60000 (pid=1221770) Dist=BB Rep=62 CellRange=Very Low
+[16:28:35] Launched task 18516/60000 (pid=1222013) Dist=Beta Rep=62 CellRange=Very Low
+[16:28:35] Launched task 18517/60000 (pid=1222053) Dist=EG Rep=62 CellRange=Very Low
+[16:28:37] Launched task 18518/60000 (pid=1222277) Dist=LN Rep=62 CellRange=Very Low
+[16:28:39] Launched task 18519/60000 (pid=1222279) Dist=SX Rep=62 CellRange=Very Low
+[16:28:40] Launched task 18520/60000 (pid=1222280) Dist=BB Rep=62 CellRange=Very Low
+[16:28:42] Launched task 18521/60000 (pid=1222444) Dist=Beta Rep=62 CellRange=Very Low
+[16:28:42] Launched task 18522/60000 (pid=1222449) Dist=EG Rep=62 CellRange=Very Low
+[16:28:43] Launched task 18523/60000 (pid=1222712) Dist=LN Rep=62 CellRange=Very Low
+[16:28:44] Launched task 18524/60000 (pid=1222737) Dist=SX Rep=62 CellRange=Very Low
+[16:28:51] Launched task 18525/60000 (pid=1223200) Dist=BB Rep=62 CellRange=Very Low
+[16:28:52] Launched task 18526/60000 (pid=1223212) Dist=Beta Rep=62 CellRange=Very Low
+[16:28:52] Launched task 18527/60000 (pid=1223213) Dist=EG Rep=62 CellRange=Very Low
+[16:28:52] Launched task 18528/60000 (pid=1223214) Dist=LN Rep=62 CellRange=Very Low
+[16:28:53] Launched task 18529/60000 (pid=1223246) Dist=SX Rep=62 CellRange=Very Low
+[16:28:54] Launched task 18530/60000 (pid=1223247) Dist=BB Rep=62 CellRange=Very Low
+[16:28:55] Launched task 18531/60000 (pid=1223304) Dist=Beta Rep=62 CellRange=Very Low
+[16:29:03] Launched task 18532/60000 (pid=1224184) Dist=EG Rep=62 CellRange=Very Low
+[16:29:05] Launched task 18533/60000 (pid=1224447) Dist=LN Rep=62 CellRange=Very Low
+[16:29:05] Launched task 18534/60000 (pid=1224448) Dist=SX Rep=62 CellRange=Very Low
+[16:29:10] Launched task 18535/60000 (pid=1224781) Dist=BB Rep=62 CellRange=Very Low
+[16:29:12] Launched task 18536/60000 (pid=1224908) Dist=Beta Rep=62 CellRange=Very Low
+[16:29:14] Launched task 18537/60000 (pid=1224910) Dist=EG Rep=62 CellRange=Very Low
+[16:29:20] Launched task 18538/60000 (pid=1225415) Dist=LN Rep=62 CellRange=Very Low
+[16:29:20] Launched task 18539/60000 (pid=1225416) Dist=SX Rep=62 CellRange=Very Low
+[16:29:21] Launched task 18540/60000 (pid=1225417) Dist=BB Rep=62 CellRange=Very Low
+[16:29:23] Launched task 18541/60000 (pid=1225648) Dist=Beta Rep=62 CellRange=Extremely Low
+[16:29:24] Launched task 18542/60000 (pid=1225710) Dist=EG Rep=62 CellRange=Extremely Low
+[16:29:26] Launched task 18543/60000 (pid=1225907) Dist=LN Rep=62 CellRange=Extremely Low
+[16:29:28] Launched task 18544/60000 (pid=1226104) Dist=SX Rep=62 CellRange=Extremely Low
+[16:29:28] Launched task 18545/60000 (pid=1226105) Dist=BB Rep=62 CellRange=Extremely Low
+[16:29:29] Launched task 18546/60000 (pid=1226106) Dist=Beta Rep=62 CellRange=Extremely Low
+[16:29:30] Launched task 18547/60000 (pid=1226129) Dist=EG Rep=62 CellRange=Extremely Low
+[16:29:32] Launched task 18548/60000 (pid=1226507) Dist=LN Rep=62 CellRange=Extremely Low
+[16:29:32] Launched task 18549/60000 (pid=1226512) Dist=SX Rep=62 CellRange=Extremely Low
+[16:29:36] Launched task 18550/60000 (pid=1226617) Dist=BB Rep=62 CellRange=Extremely Low
+[16:29:38] Launched task 18551/60000 (pid=1226844) Dist=Beta Rep=62 CellRange=Extremely Low
+[16:29:42] Launched task 18552/60000 (pid=1227071) Dist=EG Rep=62 CellRange=Extremely Low
+[16:29:43] Launched task 18553/60000 (pid=1227163) Dist=LN Rep=62 CellRange=Extremely Low
+[16:29:43] Launched task 18554/60000 (pid=1227166) Dist=SX Rep=62 CellRange=Extremely Low
+[16:29:50] Launched task 18555/60000 (pid=1227804) Dist=BB Rep=62 CellRange=Extremely Low
+[16:29:52] Launched task 18556/60000 (pid=1227990) Dist=Beta Rep=62 CellRange=Extremely Low
+[16:29:53] Launched task 18557/60000 (pid=1228031) Dist=EG Rep=62 CellRange=Extremely Low
+[16:29:57] Launched task 18558/60000 (pid=1228322) Dist=LN Rep=62 CellRange=Extremely Low
+[16:30:00] Launched task 18559/60000 (pid=1228490) Dist=SX Rep=62 CellRange=Extremely Low
+[16:30:00] Launched task 18560/60000 (pid=1228491) Dist=BB Rep=62 CellRange=Extremely Low
+[16:30:01] Launched task 18561/60000 (pid=1228492) Dist=Beta Rep=62 CellRange=Extremely Low
+[16:30:01] Launched task 18562/60000 (pid=1228493) Dist=EG Rep=62 CellRange=Extremely Low
+[16:30:02] Launched task 18563/60000 (pid=1229115) Dist=LN Rep=62 CellRange=Extremely Low
+[16:30:05] Launched task 18564/60000 (pid=1229485) Dist=SX Rep=62 CellRange=Extremely Low
+[16:30:05] Launched task 18565/60000 (pid=1229491) Dist=BB Rep=62 CellRange=Extremely Low
+[16:30:05] Launched task 18566/60000 (pid=1229493) Dist=Beta Rep=62 CellRange=Extremely Low
+[16:30:09] Launched task 18567/60000 (pid=1229667) Dist=EG Rep=62 CellRange=Extremely Low
+[16:30:10] Launched task 18568/60000 (pid=1229767) Dist=LN Rep=62 CellRange=Extremely Low
+[16:30:11] Launched task 18569/60000 (pid=1229809) Dist=SX Rep=62 CellRange=Extremely Low
+[16:30:18] Launched task 18570/60000 (pid=1230263) Dist=BB Rep=62 CellRange=Extremely Low
+[16:30:18] Launched task 18571/60000 (pid=1230268) Dist=Beta Rep=62 CellRange=Extremely Low
+[16:30:23] Launched task 18572/60000 (pid=1230753) Dist=EG Rep=62 CellRange=Extremely Low
+[16:30:25] Launched task 18573/60000 (pid=1230980) Dist=LN Rep=62 CellRange=Extremely Low
+[16:30:29] Launched task 18574/60000 (pid=1231186) Dist=SX Rep=62 CellRange=Extremely Low
+[16:30:37] Launched task 18575/60000 (pid=1231717) Dist=BB Rep=62 CellRange=Extremely Low
+[16:30:38] Launched task 18576/60000 (pid=1231803) Dist=Beta Rep=62 CellRange=Extremely Low
+[16:30:38] Launched task 18577/60000 (pid=1231805) Dist=EG Rep=62 CellRange=Extremely Low
+[16:30:38] Launched task 18578/60000 (pid=1231811) Dist=LN Rep=62 CellRange=Extremely Low
+[16:30:38] Launched task 18579/60000 (pid=1231812) Dist=SX Rep=62 CellRange=Extremely Low
+[16:30:38] Launched task 18580/60000 (pid=1231815) Dist=BB Rep=62 CellRange=Extremely Low
+[16:30:40] Launched task 18581/60000 (pid=1232053) Dist=Beta Rep=62 CellRange=Extremely Low
+[16:30:40] Launched task 18582/60000 (pid=1232061) Dist=EG Rep=62 CellRange=Extremely Low
+[16:30:41] Launched task 18583/60000 (pid=1232178) Dist=LN Rep=62 CellRange=Extremely Low
+[16:30:46] Launched task 18584/60000 (pid=1232405) Dist=SX Rep=62 CellRange=Extremely Low
+[16:30:46] Launched task 18585/60000 (pid=1232406) Dist=BB Rep=62 CellRange=Extremely Low
+[16:30:47] Launched task 18586/60000 (pid=1232633) Dist=Beta Rep=62 CellRange=Extremely Low
+[16:30:47] Launched task 18587/60000 (pid=1232634) Dist=EG Rep=62 CellRange=Extremely Low
+[16:30:53] Launched task 18588/60000 (pid=1233072) Dist=LN Rep=62 CellRange=Extremely Low
+[16:30:55] Launched task 18589/60000 (pid=1233139) Dist=SX Rep=62 CellRange=Extremely Low
+[16:30:58] Launched task 18590/60000 (pid=1233321) Dist=BB Rep=62 CellRange=Extremely Low
+[16:30:59] Launched task 18591/60000 (pid=1233593) Dist=Beta Rep=62 CellRange=Extremely Low
+[16:31:02] Launched task 18592/60000 (pid=1233826) Dist=EG Rep=62 CellRange=Extremely Low
+[16:31:02] Launched task 18593/60000 (pid=1233843) Dist=LN Rep=62 CellRange=Extremely Low
+[16:31:07] Launched task 18594/60000 (pid=1234340) Dist=SX Rep=62 CellRange=Extremely Low
+[16:31:14] Launched task 18595/60000 (pid=1234794) Dist=BB Rep=62 CellRange=Extremely Low
+[16:31:14] Launched task 18596/60000 (pid=1234795) Dist=Beta Rep=62 CellRange=Extremely Low
+[16:31:15] Launched task 18597/60000 (pid=1234902) Dist=EG Rep=62 CellRange=Extremely Low
+[16:31:17] Launched task 18598/60000 (pid=1235083) Dist=LN Rep=62 CellRange=Extremely Low
+[16:31:17] Launched task 18599/60000 (pid=1235084) Dist=SX Rep=62 CellRange=Extremely Low
+[16:31:18] Launched task 18600/60000 (pid=1235262) Dist=BB Rep=62 CellRange=Extremely Low
+[16:31:24] Launched task 18601/60000 (pid=1235761) Dist=Beta Rep=63 CellRange=High
+[16:31:24] Launched task 18602/60000 (pid=1235762) Dist=EG Rep=63 CellRange=High
+[16:31:25] Launched task 18603/60000 (pid=1235763) Dist=LN Rep=63 CellRange=High
+[16:31:27] Launched task 18604/60000 (pid=1235764) Dist=SX Rep=63 CellRange=High
+[16:31:28] Launched task 18605/60000 (pid=1235951) Dist=BB Rep=63 CellRange=High
+[16:31:29] Launched task 18606/60000 (pid=1236174) Dist=Beta Rep=63 CellRange=High
+[16:31:33] Launched task 18607/60000 (pid=1236235) Dist=EG Rep=63 CellRange=High
+[16:31:34] Launched task 18608/60000 (pid=1236327) Dist=LN Rep=63 CellRange=High
+[16:31:35] Launched task 18609/60000 (pid=1236510) Dist=SX Rep=63 CellRange=High
+[16:31:36] Launched task 18610/60000 (pid=1236675) Dist=BB Rep=63 CellRange=High
+[16:31:41] Launched task 18611/60000 (pid=1236915) Dist=Beta Rep=63 CellRange=High
+[16:31:41] Launched task 18612/60000 (pid=1236922) Dist=EG Rep=63 CellRange=High
+[16:31:45] Launched task 18613/60000 (pid=1237185) Dist=LN Rep=63 CellRange=High
+[16:31:49] Launched task 18614/60000 (pid=1237358) Dist=SX Rep=63 CellRange=High
+[16:31:50] Launched task 18615/60000 (pid=1237639) Dist=BB Rep=63 CellRange=High
+[16:31:52] Launched task 18616/60000 (pid=1237650) Dist=Beta Rep=63 CellRange=High
+[16:31:54] Launched task 18617/60000 (pid=1237691) Dist=EG Rep=63 CellRange=High
+[16:31:58] Launched task 18618/60000 (pid=1238149) Dist=LN Rep=63 CellRange=High
+[16:31:58] Launched task 18619/60000 (pid=1238150) Dist=SX Rep=63 CellRange=High
+[16:31:59] Launched task 18620/60000 (pid=1238151) Dist=BB Rep=63 CellRange=High
+[16:32:01] Launched task 18621/60000 (pid=1238569) Dist=Beta Rep=63 CellRange=High
+[16:32:02] Launched task 18622/60000 (pid=1238766) Dist=EG Rep=63 CellRange=High
+[16:32:03] Launched task 18623/60000 (pid=1238896) Dist=LN Rep=63 CellRange=High
+[16:32:03] Launched task 18624/60000 (pid=1238897) Dist=SX Rep=63 CellRange=High
+[16:32:04] Launched task 18625/60000 (pid=1238900) Dist=BB Rep=63 CellRange=High
+[16:32:04] Launched task 18626/60000 (pid=1238901) Dist=Beta Rep=63 CellRange=High
+[16:32:06] Launched task 18627/60000 (pid=1239128) Dist=EG Rep=63 CellRange=High
+[16:32:06] Launched task 18628/60000 (pid=1239129) Dist=LN Rep=63 CellRange=High
+[16:32:10] Launched task 18629/60000 (pid=1239357) Dist=SX Rep=63 CellRange=High
+[16:32:10] Launched task 18630/60000 (pid=1239358) Dist=BB Rep=63 CellRange=High
+[16:32:10] Launched task 18631/60000 (pid=1239359) Dist=Beta Rep=63 CellRange=High
+[16:32:11] Launched task 18632/60000 (pid=1239426) Dist=EG Rep=63 CellRange=High
+[16:32:12] Launched task 18633/60000 (pid=1239521) Dist=LN Rep=63 CellRange=High
+[16:32:12] Launched task 18634/60000 (pid=1239527) Dist=SX Rep=63 CellRange=High
+[16:32:19] Launched task 18635/60000 (pid=1239979) Dist=BB Rep=63 CellRange=High
+[16:32:20] Launched task 18636/60000 (pid=1240095) Dist=Beta Rep=63 CellRange=High
+[16:32:21] Launched task 18637/60000 (pid=1240096) Dist=EG Rep=63 CellRange=High
+[16:32:22] Launched task 18638/60000 (pid=1240097) Dist=LN Rep=63 CellRange=High
+[16:32:27] Launched task 18639/60000 (pid=1240554) Dist=SX Rep=63 CellRange=High
+[16:32:28] Launched task 18640/60000 (pid=1240562) Dist=BB Rep=63 CellRange=High
+[16:32:28] Launched task 18641/60000 (pid=1240564) Dist=Beta Rep=63 CellRange=High
+[16:32:29] Launched task 18642/60000 (pid=1240677) Dist=EG Rep=63 CellRange=High
+[16:32:31] Launched task 18643/60000 (pid=1241011) Dist=LN Rep=63 CellRange=High
+[16:32:31] Launched task 18644/60000 (pid=1241012) Dist=SX Rep=63 CellRange=High
+[16:32:32] Launched task 18645/60000 (pid=1241013) Dist=BB Rep=63 CellRange=High
+[16:32:33] Launched task 18646/60000 (pid=1241014) Dist=Beta Rep=63 CellRange=High
+[16:32:37] Launched task 18647/60000 (pid=1241379) Dist=EG Rep=63 CellRange=High
+[16:32:38] Launched task 18648/60000 (pid=1241520) Dist=LN Rep=63 CellRange=High
+[16:32:38] Launched task 18649/60000 (pid=1241521) Dist=SX Rep=63 CellRange=High
+[16:32:40] Launched task 18650/60000 (pid=1241523) Dist=BB Rep=63 CellRange=High
+[16:32:44] Launched task 18651/60000 (pid=1241750) Dist=Beta Rep=63 CellRange=High
+[16:32:46] Launched task 18652/60000 (pid=1241751) Dist=EG Rep=63 CellRange=High
+[16:32:47] Launched task 18653/60000 (pid=1241752) Dist=LN Rep=63 CellRange=High
+[16:32:50] Launched task 18654/60000 (pid=1241930) Dist=SX Rep=63 CellRange=High
+[16:32:51] Launched task 18655/60000 (pid=1241931) Dist=BB Rep=63 CellRange=High
+[16:32:51] Launched task 18656/60000 (pid=1241932) Dist=Beta Rep=63 CellRange=High
+[16:32:53] Launched task 18657/60000 (pid=1241983) Dist=EG Rep=63 CellRange=High
+[16:32:55] Launched task 18658/60000 (pid=1241984) Dist=LN Rep=63 CellRange=High
+[16:32:58] Launched task 18659/60000 (pid=1242062) Dist=SX Rep=63 CellRange=High
+[16:32:58] Launched task 18660/60000 (pid=1242063) Dist=BB Rep=63 CellRange=High
+[16:32:59] Launched task 18661/60000 (pid=1242066) Dist=Beta Rep=63 CellRange=Medium
+[16:33:00] Launched task 18662/60000 (pid=1242067) Dist=EG Rep=63 CellRange=Medium
+[16:33:02] Launched task 18663/60000 (pid=1242303) Dist=LN Rep=63 CellRange=Medium
+[16:33:02] Launched task 18664/60000 (pid=1242304) Dist=SX Rep=63 CellRange=Medium
+[16:33:04] Launched task 18665/60000 (pid=1242337) Dist=BB Rep=63 CellRange=Medium
+[16:33:04] Launched task 18666/60000 (pid=1242338) Dist=Beta Rep=63 CellRange=Medium
+[16:33:09] Launched task 18667/60000 (pid=1242339) Dist=EG Rep=63 CellRange=Medium
+[16:33:10] Launched task 18668/60000 (pid=1242340) Dist=LN Rep=63 CellRange=Medium
+[16:33:11] Launched task 18669/60000 (pid=1242342) Dist=SX Rep=63 CellRange=Medium
+[16:33:13] Launched task 18670/60000 (pid=1242343) Dist=BB Rep=63 CellRange=Medium
+[16:33:14] Launched task 18671/60000 (pid=1242344) Dist=Beta Rep=63 CellRange=Medium
+[16:33:16] Launched task 18672/60000 (pid=1242345) Dist=EG Rep=63 CellRange=Medium
+[16:33:19] Launched task 18673/60000 (pid=1242388) Dist=LN Rep=63 CellRange=Medium
+[16:33:27] Launched task 18674/60000 (pid=1242391) Dist=SX Rep=63 CellRange=Medium
+[16:33:27] Launched task 18675/60000 (pid=1242392) Dist=BB Rep=63 CellRange=Medium
+[16:33:28] Launched task 18676/60000 (pid=1242393) Dist=Beta Rep=63 CellRange=Medium
+[16:33:28] Launched task 18677/60000 (pid=1242394) Dist=EG Rep=63 CellRange=Medium
+[16:33:28] Launched task 18678/60000 (pid=1242395) Dist=LN Rep=63 CellRange=Medium
+[16:33:28] Launched task 18679/60000 (pid=1242396) Dist=SX Rep=63 CellRange=Medium
+[16:33:29] Launched task 18680/60000 (pid=1242397) Dist=BB Rep=63 CellRange=Medium
+[16:33:29] Launched task 18681/60000 (pid=1242398) Dist=Beta Rep=63 CellRange=Medium
+[16:33:29] Launched task 18682/60000 (pid=1242399) Dist=EG Rep=63 CellRange=Medium
+[16:33:31] Launched task 18683/60000 (pid=1242400) Dist=LN Rep=63 CellRange=Medium
+[16:33:32] Launched task 18684/60000 (pid=1242402) Dist=SX Rep=63 CellRange=Medium
+[16:33:33] Launched task 18685/60000 (pid=1242403) Dist=BB Rep=63 CellRange=Medium
+[16:33:33] Launched task 18686/60000 (pid=1242404) Dist=Beta Rep=63 CellRange=Medium
+[16:33:34] Launched task 18687/60000 (pid=1242415) Dist=EG Rep=63 CellRange=Medium
+[16:33:35] Launched task 18688/60000 (pid=1242426) Dist=LN Rep=63 CellRange=Medium
+[16:33:35] Launched task 18689/60000 (pid=1242427) Dist=SX Rep=63 CellRange=Medium
+[16:33:38] Launched task 18690/60000 (pid=1242453) Dist=BB Rep=63 CellRange=Medium
+[16:33:41] Launched task 18691/60000 (pid=1242454) Dist=Beta Rep=63 CellRange=Medium
+[16:33:42] Launched task 18692/60000 (pid=1242455) Dist=EG Rep=63 CellRange=Medium
+[16:33:42] Launched task 18693/60000 (pid=1242456) Dist=LN Rep=63 CellRange=Medium
+[16:33:45] Launched task 18694/60000 (pid=1242458) Dist=SX Rep=63 CellRange=Medium
+[16:33:47] Launched task 18695/60000 (pid=1242459) Dist=BB Rep=63 CellRange=Medium
+[16:33:48] Launched task 18696/60000 (pid=1242460) Dist=Beta Rep=63 CellRange=Medium
+[16:33:49] Launched task 18697/60000 (pid=1242461) Dist=EG Rep=63 CellRange=Medium
+[16:33:58] Launched task 18698/60000 (pid=1242504) Dist=LN Rep=63 CellRange=Medium
+[16:33:59] Launched task 18699/60000 (pid=1242505) Dist=SX Rep=63 CellRange=Medium
+[16:33:59] Launched task 18700/60000 (pid=1242506) Dist=BB Rep=63 CellRange=Medium
+[16:33:59] Launched task 18701/60000 (pid=1242507) Dist=Beta Rep=63 CellRange=Medium
+[16:34:01] Launched task 18702/60000 (pid=1242508) Dist=EG Rep=63 CellRange=Medium
+[16:34:02] Launched task 18703/60000 (pid=1242627) Dist=LN Rep=63 CellRange=Medium
+[16:34:02] Launched task 18704/60000 (pid=1242628) Dist=SX Rep=63 CellRange=Medium
+[16:34:02] Launched task 18705/60000 (pid=1242629) Dist=BB Rep=63 CellRange=Medium
+[16:34:02] Launched task 18706/60000 (pid=1242630) Dist=Beta Rep=63 CellRange=Medium
+[16:34:05] Launched task 18707/60000 (pid=1242666) Dist=EG Rep=63 CellRange=Medium
+[16:34:07] Launched task 18708/60000 (pid=1242667) Dist=LN Rep=63 CellRange=Medium
+[16:34:10] Launched task 18709/60000 (pid=1242668) Dist=SX Rep=63 CellRange=Medium
+[16:34:11] Launched task 18710/60000 (pid=1242669) Dist=BB Rep=63 CellRange=Medium
+[16:34:12] Launched task 18711/60000 (pid=1242670) Dist=Beta Rep=63 CellRange=Medium
+[16:34:12] Launched task 18712/60000 (pid=1242671) Dist=EG Rep=63 CellRange=Medium
+[16:34:13] Launched task 18713/60000 (pid=1242672) Dist=LN Rep=63 CellRange=Medium
+[16:34:18] Launched task 18714/60000 (pid=1242680) Dist=SX Rep=63 CellRange=Medium
+[16:34:18] Launched task 18715/60000 (pid=1242685) Dist=BB Rep=63 CellRange=Medium
+[16:34:21] Launched task 18716/60000 (pid=1242719) Dist=Beta Rep=63 CellRange=Medium
+[16:34:25] Launched task 18717/60000 (pid=1242720) Dist=EG Rep=63 CellRange=Medium
+[16:34:28] Launched task 18718/60000 (pid=1242722) Dist=LN Rep=63 CellRange=Medium
+[16:34:30] Launched task 18719/60000 (pid=1242723) Dist=SX Rep=63 CellRange=Medium
+[16:34:32] Launched task 18720/60000 (pid=1242724) Dist=BB Rep=63 CellRange=Medium
+[16:34:33] Launched task 18721/60000 (pid=1242725) Dist=Beta Rep=63 CellRange=Low
+[16:34:36] Launched task 18722/60000 (pid=1242769) Dist=EG Rep=63 CellRange=Low
+[16:34:42] Launched task 18723/60000 (pid=1242771) Dist=LN Rep=63 CellRange=Low
+[16:34:42] Launched task 18724/60000 (pid=1242772) Dist=SX Rep=63 CellRange=Low
+[16:34:42] Launched task 18725/60000 (pid=1242773) Dist=BB Rep=63 CellRange=Low
+[16:34:44] Launched task 18726/60000 (pid=1242774) Dist=Beta Rep=63 CellRange=Low
+[16:34:44] Launched task 18727/60000 (pid=1242775) Dist=EG Rep=63 CellRange=Low
+[16:34:44] Launched task 18728/60000 (pid=1242776) Dist=LN Rep=63 CellRange=Low
+[16:34:44] Launched task 18729/60000 (pid=1242777) Dist=SX Rep=63 CellRange=Low
+[16:34:44] Launched task 18730/60000 (pid=1242778) Dist=BB Rep=63 CellRange=Low
+[16:34:46] Launched task 18731/60000 (pid=1242779) Dist=Beta Rep=63 CellRange=Low
+[16:34:46] Launched task 18732/60000 (pid=1242780) Dist=EG Rep=63 CellRange=Low
+[16:34:46] Launched task 18733/60000 (pid=1242781) Dist=LN Rep=63 CellRange=Low
+[16:34:50] Launched task 18734/60000 (pid=1242783) Dist=SX Rep=63 CellRange=Low
+[16:34:50] Launched task 18735/60000 (pid=1242784) Dist=BB Rep=63 CellRange=Low
+[16:34:56] Launched task 18736/60000 (pid=1242826) Dist=Beta Rep=63 CellRange=Low
+[16:34:57] Launched task 18737/60000 (pid=1242827) Dist=EG Rep=63 CellRange=Low
+[16:35:05] Launched task 18738/60000 (pid=1242983) Dist=LN Rep=63 CellRange=Low
+[16:35:05] Launched task 18739/60000 (pid=1242984) Dist=SX Rep=63 CellRange=Low
+[16:35:06] Launched task 18740/60000 (pid=1242985) Dist=BB Rep=63 CellRange=Low
+[16:35:07] Launched task 18741/60000 (pid=1242986) Dist=Beta Rep=63 CellRange=Low
+[16:35:08] Launched task 18742/60000 (pid=1242987) Dist=EG Rep=63 CellRange=Low
+[16:35:08] Launched task 18743/60000 (pid=1242988) Dist=LN Rep=63 CellRange=Low
+[16:35:10] Launched task 18744/60000 (pid=1242991) Dist=SX Rep=63 CellRange=Low
+[16:35:11] Launched task 18745/60000 (pid=1242992) Dist=BB Rep=63 CellRange=Low
+[16:35:12] Launched task 18746/60000 (pid=1242993) Dist=Beta Rep=63 CellRange=Low
+[16:35:13] Launched task 18747/60000 (pid=1242994) Dist=EG Rep=63 CellRange=Low
+[16:35:13] Launched task 18748/60000 (pid=1242995) Dist=LN Rep=63 CellRange=Low
+[16:35:13] Launched task 18749/60000 (pid=1242996) Dist=SX Rep=63 CellRange=Low
+[16:35:15] Launched task 18750/60000 (pid=1242997) Dist=BB Rep=63 CellRange=Low
+[16:35:17] Launched task 18751/60000 (pid=1242998) Dist=Beta Rep=63 CellRange=Low
+[16:35:20] Launched task 18752/60000 (pid=1243043) Dist=EG Rep=63 CellRange=Low
+[16:35:21] Launched task 18753/60000 (pid=1243044) Dist=LN Rep=63 CellRange=Low
+[16:35:24] Launched task 18754/60000 (pid=1243046) Dist=SX Rep=63 CellRange=Low
+[16:35:28] Launched task 18755/60000 (pid=1243047) Dist=BB Rep=63 CellRange=Low
+[16:35:28] Launched task 18756/60000 (pid=1243048) Dist=Beta Rep=63 CellRange=Low
+[16:35:29] Launched task 18757/60000 (pid=1243049) Dist=EG Rep=63 CellRange=Low
+[16:35:36] Launched task 18758/60000 (pid=1243075) Dist=LN Rep=63 CellRange=Low
+[16:35:37] Launched task 18759/60000 (pid=1243097) Dist=SX Rep=63 CellRange=Low
+[16:35:37] Launched task 18760/60000 (pid=1243098) Dist=BB Rep=63 CellRange=Low
+[16:35:38] Launched task 18761/60000 (pid=1243099) Dist=Beta Rep=63 CellRange=Low
+[16:35:41] Launched task 18762/60000 (pid=1243100) Dist=EG Rep=63 CellRange=Low
+[16:35:42] Launched task 18763/60000 (pid=1243102) Dist=LN Rep=63 CellRange=Low
+[16:35:42] Launched task 18764/60000 (pid=1243103) Dist=SX Rep=63 CellRange=Low
+[16:35:42] Launched task 18765/60000 (pid=1243104) Dist=BB Rep=63 CellRange=Low
+[16:35:45] Launched task 18766/60000 (pid=1243105) Dist=Beta Rep=63 CellRange=Low
+[16:35:48] Launched task 18767/60000 (pid=1243106) Dist=EG Rep=63 CellRange=Low
+[16:35:49] Launched task 18768/60000 (pid=1243107) Dist=LN Rep=63 CellRange=Low
+[16:35:50] Launched task 18769/60000 (pid=1243108) Dist=SX Rep=63 CellRange=Low
+[16:35:52] Launched task 18770/60000 (pid=1243119) Dist=BB Rep=63 CellRange=Low
+[16:35:52] Launched task 18771/60000 (pid=1243120) Dist=Beta Rep=63 CellRange=Low
+[16:35:53] Launched task 18772/60000 (pid=1243153) Dist=EG Rep=63 CellRange=Low
+[16:35:53] Launched task 18773/60000 (pid=1243154) Dist=LN Rep=63 CellRange=Low
+[16:36:00] Launched task 18774/60000 (pid=1243155) Dist=SX Rep=63 CellRange=Low
+[16:36:07] Launched task 18775/60000 (pid=1243309) Dist=BB Rep=63 CellRange=Low
+[16:36:08] Launched task 18776/60000 (pid=1243310) Dist=Beta Rep=63 CellRange=Low
+[16:36:08] Launched task 18777/60000 (pid=1243311) Dist=EG Rep=63 CellRange=Low
+[16:36:11] Launched task 18778/60000 (pid=1243312) Dist=LN Rep=63 CellRange=Low
+[16:36:14] Launched task 18779/60000 (pid=1243314) Dist=SX Rep=63 CellRange=Low
+[16:36:14] Launched task 18780/60000 (pid=1243315) Dist=BB Rep=63 CellRange=Low
+[16:36:15] Launched task 18781/60000 (pid=1243316) Dist=Beta Rep=63 CellRange=Very Low
+[16:36:16] Launched task 18782/60000 (pid=1243317) Dist=EG Rep=63 CellRange=Very Low
+[16:36:18] Launched task 18783/60000 (pid=1243329) Dist=LN Rep=63 CellRange=Very Low
+[16:36:19] Launched task 18784/60000 (pid=1243362) Dist=SX Rep=63 CellRange=Very Low
+[16:36:20] Launched task 18785/60000 (pid=1243363) Dist=BB Rep=63 CellRange=Very Low
+[16:36:20] Launched task 18786/60000 (pid=1243364) Dist=Beta Rep=63 CellRange=Very Low
+[16:36:21] Launched task 18787/60000 (pid=1243365) Dist=EG Rep=63 CellRange=Very Low
+[16:36:21] Launched task 18788/60000 (pid=1243366) Dist=LN Rep=63 CellRange=Very Low
+[16:36:23] Launched task 18789/60000 (pid=1243367) Dist=SX Rep=63 CellRange=Very Low
+[16:36:24] Launched task 18790/60000 (pid=1243369) Dist=BB Rep=63 CellRange=Very Low
+[16:36:25] Launched task 18791/60000 (pid=1243371) Dist=Beta Rep=63 CellRange=Very Low
+[16:36:25] Launched task 18792/60000 (pid=1243372) Dist=EG Rep=63 CellRange=Very Low
+[16:36:29] Launched task 18793/60000 (pid=1243373) Dist=LN Rep=63 CellRange=Very Low
+[16:36:36] Launched task 18794/60000 (pid=1243418) Dist=SX Rep=63 CellRange=Very Low
+[16:36:41] Launched task 18795/60000 (pid=1243419) Dist=BB Rep=63 CellRange=Very Low
+[16:36:41] Launched task 18796/60000 (pid=1243420) Dist=Beta Rep=63 CellRange=Very Low
+[16:36:45] Launched task 18797/60000 (pid=1243421) Dist=EG Rep=63 CellRange=Very Low
+[16:36:45] Launched task 18798/60000 (pid=1243422) Dist=LN Rep=63 CellRange=Very Low
+[16:36:46] Launched task 18799/60000 (pid=1243424) Dist=SX Rep=63 CellRange=Very Low
+[16:36:47] Launched task 18800/60000 (pid=1243425) Dist=BB Rep=63 CellRange=Very Low
+[16:36:47] Launched task 18801/60000 (pid=1243426) Dist=Beta Rep=63 CellRange=Very Low
+[16:36:49] Launched task 18802/60000 (pid=1243427) Dist=EG Rep=63 CellRange=Very Low
+[16:36:50] Launched task 18803/60000 (pid=1243428) Dist=LN Rep=63 CellRange=Very Low
+[16:36:51] Launched task 18804/60000 (pid=1243439) Dist=SX Rep=63 CellRange=Very Low
+[16:36:52] Launched task 18805/60000 (pid=1243471) Dist=BB Rep=63 CellRange=Very Low
+[16:36:53] Launched task 18806/60000 (pid=1243472) Dist=Beta Rep=63 CellRange=Very Low
+[16:36:57] Launched task 18807/60000 (pid=1243474) Dist=EG Rep=63 CellRange=Very Low
+[16:36:57] Launched task 18808/60000 (pid=1243475) Dist=LN Rep=63 CellRange=Very Low
+[16:36:58] Launched task 18809/60000 (pid=1243476) Dist=SX Rep=63 CellRange=Very Low
+[16:36:58] Launched task 18810/60000 (pid=1243477) Dist=BB Rep=63 CellRange=Very Low
+[16:37:00] Launched task 18811/60000 (pid=1243480) Dist=Beta Rep=63 CellRange=Very Low
+[16:37:02] Launched task 18812/60000 (pid=1243631) Dist=EG Rep=63 CellRange=Very Low
+[16:37:06] Launched task 18813/60000 (pid=1243632) Dist=LN Rep=63 CellRange=Very Low
+[16:37:13] Launched task 18814/60000 (pid=1243634) Dist=SX Rep=63 CellRange=Very Low
+[16:37:16] Launched task 18815/60000 (pid=1243635) Dist=BB Rep=63 CellRange=Very Low
+[16:37:16] Launched task 18816/60000 (pid=1243636) Dist=Beta Rep=63 CellRange=Very Low
+[16:37:16] Launched task 18817/60000 (pid=1243637) Dist=EG Rep=63 CellRange=Very Low
+[16:37:18] Launched task 18818/60000 (pid=1243650) Dist=LN Rep=63 CellRange=Very Low
+[16:37:18] Launched task 18819/60000 (pid=1243651) Dist=SX Rep=63 CellRange=Very Low
+[16:37:20] Launched task 18820/60000 (pid=1243684) Dist=BB Rep=63 CellRange=Very Low
+[16:37:20] Launched task 18821/60000 (pid=1243685) Dist=Beta Rep=63 CellRange=Very Low
+[16:37:21] Launched task 18822/60000 (pid=1243686) Dist=EG Rep=63 CellRange=Very Low
+[16:37:23] Launched task 18823/60000 (pid=1243687) Dist=LN Rep=63 CellRange=Very Low
+[16:37:27] Launched task 18824/60000 (pid=1243688) Dist=SX Rep=63 CellRange=Very Low
+[16:37:28] Launched task 18825/60000 (pid=1243689) Dist=BB Rep=63 CellRange=Very Low
+[16:37:28] Launched task 18826/60000 (pid=1243690) Dist=Beta Rep=63 CellRange=Very Low
+[16:37:32] Launched task 18827/60000 (pid=1243692) Dist=EG Rep=63 CellRange=Very Low
+[16:37:33] Launched task 18828/60000 (pid=1243693) Dist=LN Rep=63 CellRange=Very Low
+[16:37:33] Launched task 18829/60000 (pid=1243694) Dist=SX Rep=63 CellRange=Very Low
+[16:37:33] Launched task 18830/60000 (pid=1243695) Dist=BB Rep=63 CellRange=Very Low
+[16:37:36] Launched task 18831/60000 (pid=1243741) Dist=Beta Rep=63 CellRange=Very Low
+[16:37:37] Launched task 18832/60000 (pid=1243742) Dist=EG Rep=63 CellRange=Very Low
+[16:37:37] Launched task 18833/60000 (pid=1243743) Dist=LN Rep=63 CellRange=Very Low
+[16:37:46] Launched task 18834/60000 (pid=1243745) Dist=SX Rep=63 CellRange=Very Low
+[16:37:48] Launched task 18835/60000 (pid=1243746) Dist=BB Rep=63 CellRange=Very Low
+[16:37:48] Launched task 18836/60000 (pid=1243747) Dist=Beta Rep=63 CellRange=Very Low
+[16:37:52] Launched task 18837/60000 (pid=1243790) Dist=EG Rep=63 CellRange=Very Low
+[16:37:53] Launched task 18838/60000 (pid=1243791) Dist=LN Rep=63 CellRange=Very Low
+[16:37:56] Launched task 18839/60000 (pid=1243792) Dist=SX Rep=63 CellRange=Very Low
+[16:37:57] Launched task 18840/60000 (pid=1243793) Dist=BB Rep=63 CellRange=Very Low
+[16:37:59] Launched task 18841/60000 (pid=1243794) Dist=Beta Rep=63 CellRange=Extremely Low
+[16:38:00] Launched task 18842/60000 (pid=1243795) Dist=EG Rep=63 CellRange=Extremely Low
+[16:38:02] Launched task 18843/60000 (pid=1243915) Dist=LN Rep=63 CellRange=Extremely Low
+[16:38:02] Launched task 18844/60000 (pid=1243916) Dist=SX Rep=63 CellRange=Extremely Low
+[16:38:04] Launched task 18845/60000 (pid=1243951) Dist=BB Rep=63 CellRange=Extremely Low
+[16:38:05] Launched task 18846/60000 (pid=1243952) Dist=Beta Rep=63 CellRange=Extremely Low
+[16:38:05] Launched task 18847/60000 (pid=1243953) Dist=EG Rep=63 CellRange=Extremely Low
+[16:38:07] Launched task 18848/60000 (pid=1243954) Dist=LN Rep=63 CellRange=Extremely Low
+[16:38:07] Launched task 18849/60000 (pid=1243955) Dist=SX Rep=63 CellRange=Extremely Low
+[16:38:08] Launched task 18850/60000 (pid=1243956) Dist=BB Rep=63 CellRange=Extremely Low
+[16:38:11] Launched task 18851/60000 (pid=1243957) Dist=Beta Rep=63 CellRange=Extremely Low
+[16:38:12] Launched task 18852/60000 (pid=1243959) Dist=EG Rep=63 CellRange=Extremely Low
+[16:38:18] Launched task 18853/60000 (pid=1243971) Dist=LN Rep=63 CellRange=Extremely Low
+[16:38:23] Launched task 18854/60000 (pid=1244005) Dist=SX Rep=63 CellRange=Extremely Low
+[16:38:25] Launched task 18855/60000 (pid=1244006) Dist=BB Rep=63 CellRange=Extremely Low
+[16:38:25] Launched task 18856/60000 (pid=1244007) Dist=Beta Rep=63 CellRange=Extremely Low
+[16:38:27] Launched task 18857/60000 (pid=1244008) Dist=EG Rep=63 CellRange=Extremely Low
+[16:38:30] Launched task 18858/60000 (pid=1244009) Dist=LN Rep=63 CellRange=Extremely Low
+[16:38:31] Launched task 18859/60000 (pid=1244010) Dist=SX Rep=63 CellRange=Extremely Low
+[16:38:31] Launched task 18860/60000 (pid=1244011) Dist=BB Rep=63 CellRange=Extremely Low
+[16:38:31] Launched task 18861/60000 (pid=1244012) Dist=Beta Rep=63 CellRange=Extremely Low
+[16:38:34] Launched task 18862/60000 (pid=1244014) Dist=EG Rep=63 CellRange=Extremely Low
+[16:38:35] Launched task 18863/60000 (pid=1244026) Dist=LN Rep=63 CellRange=Extremely Low
+[16:38:36] Launched task 18864/60000 (pid=1244059) Dist=SX Rep=63 CellRange=Extremely Low
+[16:38:36] Launched task 18865/60000 (pid=1244060) Dist=BB Rep=63 CellRange=Extremely Low
+[16:38:38] Launched task 18866/60000 (pid=1244061) Dist=Beta Rep=63 CellRange=Extremely Low
+[16:38:40] Launched task 18867/60000 (pid=1244062) Dist=EG Rep=63 CellRange=Extremely Low
+[16:38:41] Launched task 18868/60000 (pid=1244063) Dist=LN Rep=63 CellRange=Extremely Low
+[16:38:42] Launched task 18869/60000 (pid=1244064) Dist=SX Rep=63 CellRange=Extremely Low
+[16:38:46] Launched task 18870/60000 (pid=1244067) Dist=BB Rep=63 CellRange=Extremely Low
+[16:38:49] Launched task 18871/60000 (pid=1244068) Dist=Beta Rep=63 CellRange=Extremely Low
+[16:38:50] Launched task 18872/60000 (pid=1244074) Dist=EG Rep=63 CellRange=Extremely Low
+[16:38:51] Launched task 18873/60000 (pid=1244080) Dist=LN Rep=63 CellRange=Extremely Low
+[16:38:53] Launched task 18874/60000 (pid=1244112) Dist=SX Rep=63 CellRange=Extremely Low
+[16:38:53] Launched task 18875/60000 (pid=1244113) Dist=BB Rep=63 CellRange=Extremely Low
+[16:38:53] Launched task 18876/60000 (pid=1244114) Dist=Beta Rep=63 CellRange=Extremely Low
+[16:38:55] Launched task 18877/60000 (pid=1244116) Dist=EG Rep=63 CellRange=Extremely Low
+[16:39:00] Launched task 18878/60000 (pid=1244119) Dist=LN Rep=63 CellRange=Extremely Low
+[16:39:01] Launched task 18879/60000 (pid=1244141) Dist=SX Rep=63 CellRange=Extremely Low
+[16:39:05] Launched task 18880/60000 (pid=1244272) Dist=BB Rep=63 CellRange=Extremely Low
+[16:39:07] Launched task 18881/60000 (pid=1244274) Dist=Beta Rep=63 CellRange=Extremely Low
+[16:39:08] Launched task 18882/60000 (pid=1244275) Dist=EG Rep=63 CellRange=Extremely Low
+[16:39:09] Launched task 18883/60000 (pid=1244276) Dist=LN Rep=63 CellRange=Extremely Low
+[16:39:11] Launched task 18884/60000 (pid=1244277) Dist=SX Rep=63 CellRange=Extremely Low
+[16:39:12] Launched task 18885/60000 (pid=1244278) Dist=BB Rep=63 CellRange=Extremely Low
+[16:39:14] Launched task 18886/60000 (pid=1244279) Dist=Beta Rep=63 CellRange=Extremely Low
+[16:39:19] Launched task 18887/60000 (pid=1244324) Dist=EG Rep=63 CellRange=Extremely Low
+[16:39:20] Launched task 18888/60000 (pid=1244325) Dist=LN Rep=63 CellRange=Extremely Low
+[16:39:20] Launched task 18889/60000 (pid=1244326) Dist=SX Rep=63 CellRange=Extremely Low
+[16:39:21] Launched task 18890/60000 (pid=1244327) Dist=BB Rep=63 CellRange=Extremely Low
+[16:39:22] Launched task 18891/60000 (pid=1244328) Dist=Beta Rep=63 CellRange=Extremely Low
+[16:39:22] Launched task 18892/60000 (pid=1244329) Dist=EG Rep=63 CellRange=Extremely Low
+[16:39:23] Launched task 18893/60000 (pid=1244330) Dist=LN Rep=63 CellRange=Extremely Low
+[16:39:26] Launched task 18894/60000 (pid=1244331) Dist=SX Rep=63 CellRange=Extremely Low
+[16:39:27] Launched task 18895/60000 (pid=1244332) Dist=BB Rep=63 CellRange=Extremely Low
+[16:39:32] Launched task 18896/60000 (pid=1244334) Dist=Beta Rep=63 CellRange=Extremely Low
+[16:39:33] Launched task 18897/60000 (pid=1244335) Dist=EG Rep=63 CellRange=Extremely Low
+[16:39:34] Launched task 18898/60000 (pid=1244344) Dist=LN Rep=63 CellRange=Extremely Low
+[16:39:35] Launched task 18899/60000 (pid=1244356) Dist=SX Rep=63 CellRange=Extremely Low
+[16:39:48] Launched task 18900/60000 (pid=1244390) Dist=BB Rep=63 CellRange=Extremely Low
+[16:39:48] Launched task 18901/60000 (pid=1244391) Dist=Beta Rep=64 CellRange=High
+[16:39:51] Launched task 18902/60000 (pid=1244402) Dist=EG Rep=64 CellRange=High
+[16:39:51] Launched task 18903/60000 (pid=1244404) Dist=LN Rep=64 CellRange=High
+[16:39:52] Launched task 18904/60000 (pid=1244416) Dist=SX Rep=64 CellRange=High
+[16:39:52] Launched task 18905/60000 (pid=1244417) Dist=BB Rep=64 CellRange=High
+[16:39:52] Launched task 18906/60000 (pid=1244418) Dist=Beta Rep=64 CellRange=High
+[16:39:53] Launched task 18907/60000 (pid=1244439) Dist=EG Rep=64 CellRange=High
+[16:39:53] Launched task 18908/60000 (pid=1244440) Dist=LN Rep=64 CellRange=High
+[16:39:54] Launched task 18909/60000 (pid=1244441) Dist=SX Rep=64 CellRange=High
+[16:39:56] Launched task 18910/60000 (pid=1244442) Dist=BB Rep=64 CellRange=High
+[16:39:56] Launched task 18911/60000 (pid=1244443) Dist=Beta Rep=64 CellRange=High
+[16:39:58] Launched task 18912/60000 (pid=1244444) Dist=EG Rep=64 CellRange=High
+[16:40:01] Launched task 18913/60000 (pid=1244565) Dist=LN Rep=64 CellRange=High
+[16:40:03] Launched task 18914/60000 (pid=1244592) Dist=SX Rep=64 CellRange=High
+[16:40:05] Launched task 18915/60000 (pid=1244603) Dist=BB Rep=64 CellRange=High
+[16:40:05] Launched task 18916/60000 (pid=1244604) Dist=Beta Rep=64 CellRange=High
+[16:40:08] Launched task 18917/60000 (pid=1244606) Dist=EG Rep=64 CellRange=High
+[16:40:09] Launched task 18918/60000 (pid=1244607) Dist=LN Rep=64 CellRange=High
+[16:40:11] Launched task 18919/60000 (pid=1244609) Dist=SX Rep=64 CellRange=High
+[16:40:11] Launched task 18920/60000 (pid=1244610) Dist=BB Rep=64 CellRange=High
+[16:40:12] Launched task 18921/60000 (pid=1244611) Dist=Beta Rep=64 CellRange=High
+[16:40:12] Launched task 18922/60000 (pid=1244612) Dist=EG Rep=64 CellRange=High
+[16:40:12] Launched task 18923/60000 (pid=1244613) Dist=LN Rep=64 CellRange=High
+[16:40:12] Launched task 18924/60000 (pid=1244614) Dist=SX Rep=64 CellRange=High
+[16:40:20] Launched task 18925/60000 (pid=1244660) Dist=BB Rep=64 CellRange=High
+[16:40:21] Launched task 18926/60000 (pid=1244662) Dist=Beta Rep=64 CellRange=High
+[16:40:21] Launched task 18927/60000 (pid=1244663) Dist=EG Rep=64 CellRange=High
+[16:40:21] Launched task 18928/60000 (pid=1244664) Dist=LN Rep=64 CellRange=High
+[16:40:21] Launched task 18929/60000 (pid=1244665) Dist=SX Rep=64 CellRange=High
+[16:40:21] Launched task 18930/60000 (pid=1244666) Dist=BB Rep=64 CellRange=High
+[16:40:21] Launched task 18931/60000 (pid=1244667) Dist=Beta Rep=64 CellRange=High
+[16:40:22] Launched task 18932/60000 (pid=1244668) Dist=EG Rep=64 CellRange=High
+[16:40:23] Launched task 18933/60000 (pid=1244669) Dist=LN Rep=64 CellRange=High
+[16:40:25] Launched task 18934/60000 (pid=1244670) Dist=SX Rep=64 CellRange=High
+[16:40:26] Launched task 18935/60000 (pid=1244671) Dist=BB Rep=64 CellRange=High
+[16:40:26] Launched task 18936/60000 (pid=1244672) Dist=Beta Rep=64 CellRange=High
+[16:40:29] Launched task 18937/60000 (pid=1244673) Dist=EG Rep=64 CellRange=High
+[16:40:31] Launched task 18938/60000 (pid=1244674) Dist=LN Rep=64 CellRange=High
+[16:40:31] Launched task 18939/60000 (pid=1244675) Dist=SX Rep=64 CellRange=High
+[16:40:33] Launched task 18940/60000 (pid=1244678) Dist=BB Rep=64 CellRange=High
+[16:40:34] Launched task 18941/60000 (pid=1244679) Dist=Beta Rep=64 CellRange=High
+[16:40:35] Launched task 18942/60000 (pid=1244691) Dist=EG Rep=64 CellRange=High
+[16:40:37] Launched task 18943/60000 (pid=1244724) Dist=LN Rep=64 CellRange=High
+[16:40:40] Launched task 18944/60000 (pid=1244725) Dist=SX Rep=64 CellRange=High
+[16:40:40] Launched task 18945/60000 (pid=1244726) Dist=BB Rep=64 CellRange=High
+[16:40:41] Launched task 18946/60000 (pid=1244727) Dist=Beta Rep=64 CellRange=High
+[16:40:42] Launched task 18947/60000 (pid=1244729) Dist=EG Rep=64 CellRange=High
+[16:40:42] Launched task 18948/60000 (pid=1244730) Dist=LN Rep=64 CellRange=High
+[16:40:52] Launched task 18949/60000 (pid=1244741) Dist=SX Rep=64 CellRange=High
+[16:40:53] Launched task 18950/60000 (pid=1244773) Dist=BB Rep=64 CellRange=High
+[16:40:54] Launched task 18951/60000 (pid=1244775) Dist=Beta Rep=64 CellRange=High
+[16:40:55] Launched task 18952/60000 (pid=1244776) Dist=EG Rep=64 CellRange=High
+[16:40:55] Launched task 18953/60000 (pid=1244777) Dist=LN Rep=64 CellRange=High
+[16:40:56] Launched task 18954/60000 (pid=1244778) Dist=SX Rep=64 CellRange=High
+[16:40:56] Launched task 18955/60000 (pid=1244779) Dist=BB Rep=64 CellRange=High
+[16:40:57] Launched task 18956/60000 (pid=1244780) Dist=Beta Rep=64 CellRange=High
+[16:40:58] Launched task 18957/60000 (pid=1244781) Dist=EG Rep=64 CellRange=High
+[16:41:02] Launched task 18958/60000 (pid=1244913) Dist=LN Rep=64 CellRange=High
+[16:41:02] Launched task 18959/60000 (pid=1244914) Dist=SX Rep=64 CellRange=High
+[16:41:04] Launched task 18960/60000 (pid=1244936) Dist=BB Rep=64 CellRange=High
+[16:41:06] Launched task 18961/60000 (pid=1244938) Dist=Beta Rep=64 CellRange=Medium
+[16:41:06] Launched task 18962/60000 (pid=1244939) Dist=EG Rep=64 CellRange=Medium
+[16:41:09] Launched task 18963/60000 (pid=1244940) Dist=LN Rep=64 CellRange=Medium
+[16:41:13] Launched task 18964/60000 (pid=1244941) Dist=SX Rep=64 CellRange=Medium
+[16:41:15] Launched task 18965/60000 (pid=1244943) Dist=BB Rep=64 CellRange=Medium
+[16:41:16] Launched task 18966/60000 (pid=1244944) Dist=Beta Rep=64 CellRange=Medium
+[16:41:17] Launched task 18967/60000 (pid=1244945) Dist=EG Rep=64 CellRange=Medium
+[16:41:25] Launched task 18968/60000 (pid=1244989) Dist=LN Rep=64 CellRange=Medium
+[16:41:25] Launched task 18969/60000 (pid=1244990) Dist=SX Rep=64 CellRange=Medium
+[16:41:26] Launched task 18970/60000 (pid=1244992) Dist=BB Rep=64 CellRange=Medium
+[16:41:27] Launched task 18971/60000 (pid=1244993) Dist=Beta Rep=64 CellRange=Medium
+[16:41:28] Launched task 18972/60000 (pid=1244994) Dist=EG Rep=64 CellRange=Medium
+[16:41:28] Launched task 18973/60000 (pid=1244995) Dist=LN Rep=64 CellRange=Medium
+[16:41:29] Launched task 18974/60000 (pid=1244996) Dist=SX Rep=64 CellRange=Medium
+[16:41:31] Launched task 18975/60000 (pid=1244997) Dist=BB Rep=64 CellRange=Medium
+[16:41:31] Launched task 18976/60000 (pid=1244998) Dist=Beta Rep=64 CellRange=Medium
+[16:41:31] Launched task 18977/60000 (pid=1244999) Dist=EG Rep=64 CellRange=Medium
+[16:41:33] Launched task 18978/60000 (pid=1245000) Dist=LN Rep=64 CellRange=Medium
+[16:41:33] Launched task 18979/60000 (pid=1245001) Dist=SX Rep=64 CellRange=Medium
+[16:41:33] Launched task 18980/60000 (pid=1245002) Dist=BB Rep=64 CellRange=Medium
+[16:41:34] Launched task 18981/60000 (pid=1245011) Dist=Beta Rep=64 CellRange=Medium
+[16:41:34] Launched task 18982/60000 (pid=1245012) Dist=EG Rep=64 CellRange=Medium
+[16:41:34] Launched task 18983/60000 (pid=1245017) Dist=LN Rep=64 CellRange=Medium
+[16:41:35] Launched task 18984/60000 (pid=1245026) Dist=SX Rep=64 CellRange=Medium
+[16:41:39] Launched task 18985/60000 (pid=1245053) Dist=BB Rep=64 CellRange=Medium
+[16:41:39] Launched task 18986/60000 (pid=1245054) Dist=Beta Rep=64 CellRange=Medium
+[16:41:45] Launched task 18987/60000 (pid=1245055) Dist=EG Rep=64 CellRange=Medium
+[16:41:46] Launched task 18988/60000 (pid=1245056) Dist=LN Rep=64 CellRange=Medium
+[16:41:47] Launched task 18989/60000 (pid=1245058) Dist=SX Rep=64 CellRange=Medium
+[16:41:48] Launched task 18990/60000 (pid=1245059) Dist=BB Rep=64 CellRange=Medium
+[16:41:49] Launched task 18991/60000 (pid=1245060) Dist=Beta Rep=64 CellRange=Medium
+[16:41:52] Launched task 18992/60000 (pid=1245102) Dist=EG Rep=64 CellRange=Medium
+[16:41:52] Launched task 18993/60000 (pid=1245103) Dist=LN Rep=64 CellRange=Medium
+[16:41:53] Launched task 18994/60000 (pid=1245104) Dist=SX Rep=64 CellRange=Medium
+[16:41:55] Launched task 18995/60000 (pid=1245105) Dist=BB Rep=64 CellRange=Medium
+[16:41:56] Launched task 18996/60000 (pid=1245106) Dist=Beta Rep=64 CellRange=Medium
+[16:41:57] Launched task 18997/60000 (pid=1245107) Dist=EG Rep=64 CellRange=Medium
+[16:42:00] Launched task 18998/60000 (pid=1245109) Dist=LN Rep=64 CellRange=Medium
+[16:42:01] Launched task 18999/60000 (pid=1245110) Dist=SX Rep=64 CellRange=Medium
+[16:42:04] Launched task 19000/60000 (pid=1245266) Dist=BB Rep=64 CellRange=Medium
+[16:42:04] Launched task 19001/60000 (pid=1245267) Dist=Beta Rep=64 CellRange=Medium
+[16:42:06] Launched task 19002/60000 (pid=1245268) Dist=EG Rep=64 CellRange=Medium
+[16:42:06] Launched task 19003/60000 (pid=1245269) Dist=LN Rep=64 CellRange=Medium
+[16:42:08] Launched task 19004/60000 (pid=1245272) Dist=SX Rep=64 CellRange=Medium
+[16:42:10] Launched task 19005/60000 (pid=1245273) Dist=BB Rep=64 CellRange=Medium
+[16:42:11] Launched task 19006/60000 (pid=1245274) Dist=Beta Rep=64 CellRange=Medium
+[16:42:12] Launched task 19007/60000 (pid=1245275) Dist=EG Rep=64 CellRange=Medium
+[16:42:18] Launched task 19008/60000 (pid=1245286) Dist=LN Rep=64 CellRange=Medium
+[16:42:19] Launched task 19009/60000 (pid=1245296) Dist=SX Rep=64 CellRange=Medium
+[16:42:19] Launched task 19010/60000 (pid=1245301) Dist=BB Rep=64 CellRange=Medium
+[16:42:23] Launched task 19011/60000 (pid=1245323) Dist=Beta Rep=64 CellRange=Medium
+[16:42:23] Launched task 19012/60000 (pid=1245324) Dist=EG Rep=64 CellRange=Medium
+[16:42:23] Launched task 19013/60000 (pid=1245325) Dist=LN Rep=64 CellRange=Medium
+[16:42:24] Launched task 19014/60000 (pid=1245326) Dist=SX Rep=64 CellRange=Medium
+[16:42:24] Launched task 19015/60000 (pid=1245327) Dist=BB Rep=64 CellRange=Medium
+[16:42:24] Launched task 19016/60000 (pid=1245328) Dist=Beta Rep=64 CellRange=Medium
+[16:42:31] Launched task 19017/60000 (pid=1245330) Dist=EG Rep=64 CellRange=Medium
+[16:42:32] Launched task 19018/60000 (pid=1245331) Dist=LN Rep=64 CellRange=Medium
+[16:42:32] Launched task 19019/60000 (pid=1245332) Dist=SX Rep=64 CellRange=Medium
+[16:42:36] Launched task 19020/60000 (pid=1245376) Dist=BB Rep=64 CellRange=Medium
+[16:42:37] Launched task 19021/60000 (pid=1245377) Dist=Beta Rep=64 CellRange=Low
+[16:42:40] Launched task 19022/60000 (pid=1245378) Dist=EG Rep=64 CellRange=Low
+[16:42:40] Launched task 19023/60000 (pid=1245379) Dist=LN Rep=64 CellRange=Low
+[16:42:41] Launched task 19024/60000 (pid=1245381) Dist=SX Rep=64 CellRange=Low
+[16:42:42] Launched task 19025/60000 (pid=1245382) Dist=BB Rep=64 CellRange=Low
+[16:42:50] Launched task 19026/60000 (pid=1245383) Dist=Beta Rep=64 CellRange=Low
+[16:42:51] Launched task 19027/60000 (pid=1245394) Dist=EG Rep=64 CellRange=Low
+[16:42:51] Launched task 19028/60000 (pid=1245395) Dist=LN Rep=64 CellRange=Low
+[16:42:51] Launched task 19029/60000 (pid=1245396) Dist=SX Rep=64 CellRange=Low
+[16:42:51] Launched task 19030/60000 (pid=1245397) Dist=BB Rep=64 CellRange=Low
+[16:42:55] Launched task 19031/60000 (pid=1245430) Dist=Beta Rep=64 CellRange=Low
+[16:42:55] Launched task 19032/60000 (pid=1245431) Dist=EG Rep=64 CellRange=Low
+[16:42:57] Launched task 19033/60000 (pid=1245432) Dist=LN Rep=64 CellRange=Low
+[16:43:00] Launched task 19034/60000 (pid=1245435) Dist=SX Rep=64 CellRange=Low
+[16:43:00] Launched task 19035/60000 (pid=1245436) Dist=BB Rep=64 CellRange=Low
+[16:43:02] Launched task 19036/60000 (pid=1245567) Dist=Beta Rep=64 CellRange=Low
+[16:43:04] Launched task 19037/60000 (pid=1245590) Dist=EG Rep=64 CellRange=Low
+[16:43:04] Launched task 19038/60000 (pid=1245591) Dist=LN Rep=64 CellRange=Low
+[16:43:05] Launched task 19039/60000 (pid=1245592) Dist=SX Rep=64 CellRange=Low
+[16:43:07] Launched task 19040/60000 (pid=1245593) Dist=BB Rep=64 CellRange=Low
+[16:43:08] Launched task 19041/60000 (pid=1245594) Dist=Beta Rep=64 CellRange=Low
+[16:43:09] Launched task 19042/60000 (pid=1245595) Dist=EG Rep=64 CellRange=Low
+[16:43:11] Launched task 19043/60000 (pid=1245596) Dist=LN Rep=64 CellRange=Low
+[16:43:13] Launched task 19044/60000 (pid=1245598) Dist=SX Rep=64 CellRange=Low
+[16:43:15] Launched task 19045/60000 (pid=1245599) Dist=BB Rep=64 CellRange=Low
+[16:43:16] Launched task 19046/60000 (pid=1245600) Dist=Beta Rep=64 CellRange=Low
+[16:43:17] Launched task 19047/60000 (pid=1245612) Dist=EG Rep=64 CellRange=Low
+[16:43:20] Launched task 19048/60000 (pid=1245645) Dist=LN Rep=64 CellRange=Low
+[16:43:23] Launched task 19049/60000 (pid=1245646) Dist=SX Rep=64 CellRange=Low
+[16:43:25] Launched task 19050/60000 (pid=1245648) Dist=BB Rep=64 CellRange=Low
+[16:43:27] Launched task 19051/60000 (pid=1245649) Dist=Beta Rep=64 CellRange=Low
+[16:43:28] Launched task 19052/60000 (pid=1245650) Dist=EG Rep=64 CellRange=Low
+[16:43:29] Launched task 19053/60000 (pid=1245651) Dist=LN Rep=64 CellRange=Low
+[16:43:31] Launched task 19054/60000 (pid=1245652) Dist=SX Rep=64 CellRange=Low
+[16:43:31] Launched task 19055/60000 (pid=1245653) Dist=BB Rep=64 CellRange=Low
+[16:43:32] Launched task 19056/60000 (pid=1245654) Dist=Beta Rep=64 CellRange=Low
+[16:43:36] Launched task 19057/60000 (pid=1245701) Dist=EG Rep=64 CellRange=Low
+[16:43:36] Launched task 19058/60000 (pid=1245702) Dist=LN Rep=64 CellRange=Low
+[16:43:37] Launched task 19059/60000 (pid=1245703) Dist=SX Rep=64 CellRange=Low
+[16:43:38] Launched task 19060/60000 (pid=1245704) Dist=BB Rep=64 CellRange=Low
+[16:43:38] Launched task 19061/60000 (pid=1245705) Dist=Beta Rep=64 CellRange=Low
+[16:43:39] Launched task 19062/60000 (pid=1245706) Dist=EG Rep=64 CellRange=Low
+[16:43:43] Launched task 19063/60000 (pid=1245707) Dist=LN Rep=64 CellRange=Low
+[16:43:43] Launched task 19064/60000 (pid=1245708) Dist=SX Rep=64 CellRange=Low
+[16:43:47] Launched task 19065/60000 (pid=1245710) Dist=BB Rep=64 CellRange=Low
+[16:43:49] Launched task 19066/60000 (pid=1245711) Dist=Beta Rep=64 CellRange=Low
+[16:43:54] Launched task 19067/60000 (pid=1245753) Dist=EG Rep=64 CellRange=Low
+[16:43:57] Launched task 19068/60000 (pid=1245755) Dist=LN Rep=64 CellRange=Low
+[16:43:59] Launched task 19069/60000 (pid=1245756) Dist=SX Rep=64 CellRange=Low
+[16:44:00] Launched task 19070/60000 (pid=1245757) Dist=BB Rep=64 CellRange=Low
+[16:44:01] Launched task 19071/60000 (pid=1245760) Dist=Beta Rep=64 CellRange=Low
+[16:44:02] Launched task 19072/60000 (pid=1245878) Dist=EG Rep=64 CellRange=Low
+[16:44:04] Launched task 19073/60000 (pid=1245911) Dist=LN Rep=64 CellRange=Low
+[16:44:05] Launched task 19074/60000 (pid=1245914) Dist=SX Rep=64 CellRange=Low
+[16:44:05] Launched task 19075/60000 (pid=1245915) Dist=BB Rep=64 CellRange=Low
+[16:44:13] Launched task 19076/60000 (pid=1245918) Dist=Beta Rep=64 CellRange=Low
+[16:44:14] Launched task 19077/60000 (pid=1245919) Dist=EG Rep=64 CellRange=Low
+[16:44:14] Launched task 19078/60000 (pid=1245920) Dist=LN Rep=64 CellRange=Low
+[16:44:14] Launched task 19079/60000 (pid=1245921) Dist=SX Rep=64 CellRange=Low
+[16:44:14] Launched task 19080/60000 (pid=1245922) Dist=BB Rep=64 CellRange=Low
+[16:44:17] Launched task 19081/60000 (pid=1245923) Dist=Beta Rep=64 CellRange=Very Low
+[16:44:17] Launched task 19082/60000 (pid=1245924) Dist=EG Rep=64 CellRange=Very Low
+[16:44:20] Launched task 19083/60000 (pid=1245969) Dist=LN Rep=64 CellRange=Very Low
+[16:44:23] Launched task 19084/60000 (pid=1245970) Dist=SX Rep=64 CellRange=Very Low
+[16:44:24] Launched task 19085/60000 (pid=1245971) Dist=BB Rep=64 CellRange=Very Low
+[16:44:27] Launched task 19086/60000 (pid=1245972) Dist=Beta Rep=64 CellRange=Very Low
+[16:44:27] Launched task 19087/60000 (pid=1245973) Dist=EG Rep=64 CellRange=Very Low
+[16:44:30] Launched task 19088/60000 (pid=1245975) Dist=LN Rep=64 CellRange=Very Low
+[16:44:33] Launched task 19089/60000 (pid=1245976) Dist=SX Rep=64 CellRange=Very Low
+[16:44:34] Launched task 19090/60000 (pid=1245988) Dist=BB Rep=64 CellRange=Very Low
+[16:44:34] Launched task 19091/60000 (pid=1245989) Dist=Beta Rep=64 CellRange=Very Low
+[16:44:36] Launched task 19092/60000 (pid=1246022) Dist=EG Rep=64 CellRange=Very Low
+[16:44:37] Launched task 19093/60000 (pid=1246023) Dist=LN Rep=64 CellRange=Very Low
+[16:44:40] Launched task 19094/60000 (pid=1246025) Dist=SX Rep=64 CellRange=Very Low
+[16:44:41] Launched task 19095/60000 (pid=1246026) Dist=BB Rep=64 CellRange=Very Low
+[16:44:42] Launched task 19096/60000 (pid=1246027) Dist=Beta Rep=64 CellRange=Very Low
+[16:44:47] Launched task 19097/60000 (pid=1246028) Dist=EG Rep=64 CellRange=Very Low
+[16:44:49] Launched task 19098/60000 (pid=1246029) Dist=LN Rep=64 CellRange=Very Low
+[16:44:50] Launched task 19099/60000 (pid=1246031) Dist=SX Rep=64 CellRange=Very Low
+[16:44:51] Launched task 19100/60000 (pid=1246042) Dist=BB Rep=64 CellRange=Very Low
+[16:44:51] Launched task 19101/60000 (pid=1246043) Dist=Beta Rep=64 CellRange=Very Low
+[16:44:52] Launched task 19102/60000 (pid=1246075) Dist=EG Rep=64 CellRange=Very Low
+[16:44:54] Launched task 19103/60000 (pid=1246076) Dist=LN Rep=64 CellRange=Very Low
+[16:44:58] Launched task 19104/60000 (pid=1246077) Dist=SX Rep=64 CellRange=Very Low
+[16:44:58] Launched task 19105/60000 (pid=1246078) Dist=BB Rep=64 CellRange=Very Low
+[16:45:00] Launched task 19106/60000 (pid=1246082) Dist=Beta Rep=64 CellRange=Very Low
+[16:45:04] Launched task 19107/60000 (pid=1246236) Dist=EG Rep=64 CellRange=Very Low
+[16:45:04] Launched task 19108/60000 (pid=1246237) Dist=LN Rep=64 CellRange=Very Low
+[16:45:07] Launched task 19109/60000 (pid=1246238) Dist=SX Rep=64 CellRange=Very Low
+[16:45:07] Launched task 19110/60000 (pid=1246239) Dist=BB Rep=64 CellRange=Very Low
+[16:45:10] Launched task 19111/60000 (pid=1246240) Dist=Beta Rep=64 CellRange=Very Low
+[16:45:10] Launched task 19112/60000 (pid=1246241) Dist=EG Rep=64 CellRange=Very Low
+[16:45:12] Launched task 19113/60000 (pid=1246243) Dist=LN Rep=64 CellRange=Very Low
+[16:45:12] Launched task 19114/60000 (pid=1246244) Dist=SX Rep=64 CellRange=Very Low
+[16:45:16] Launched task 19115/60000 (pid=1246245) Dist=BB Rep=64 CellRange=Very Low
+[16:45:18] Launched task 19116/60000 (pid=1246268) Dist=Beta Rep=64 CellRange=Very Low
+[16:45:18] Launched task 19117/60000 (pid=1246269) Dist=EG Rep=64 CellRange=Very Low
+[16:45:20] Launched task 19118/60000 (pid=1246291) Dist=LN Rep=64 CellRange=Very Low
+[16:45:23] Launched task 19119/60000 (pid=1246293) Dist=SX Rep=64 CellRange=Very Low
+[16:45:23] Launched task 19120/60000 (pid=1246294) Dist=BB Rep=64 CellRange=Very Low
+[16:45:25] Launched task 19121/60000 (pid=1246296) Dist=Beta Rep=64 CellRange=Very Low
+[16:45:28] Launched task 19122/60000 (pid=1246297) Dist=EG Rep=64 CellRange=Very Low
+[16:45:30] Launched task 19123/60000 (pid=1246298) Dist=LN Rep=64 CellRange=Very Low
+[16:45:32] Launched task 19124/60000 (pid=1246299) Dist=SX Rep=64 CellRange=Very Low
+[16:45:34] Launched task 19125/60000 (pid=1246314) Dist=BB Rep=64 CellRange=Very Low
+[16:45:42] Launched task 19126/60000 (pid=1246347) Dist=Beta Rep=64 CellRange=Very Low
+[16:45:42] Launched task 19127/60000 (pid=1246348) Dist=EG Rep=64 CellRange=Very Low
+[16:45:43] Launched task 19128/60000 (pid=1246349) Dist=LN Rep=64 CellRange=Very Low
+[16:45:44] Launched task 19129/60000 (pid=1246352) Dist=SX Rep=64 CellRange=Very Low
+[16:45:45] Launched task 19130/60000 (pid=1246353) Dist=BB Rep=64 CellRange=Very Low
+[16:45:48] Launched task 19131/60000 (pid=1246354) Dist=Beta Rep=64 CellRange=Very Low
+[16:45:48] Launched task 19132/60000 (pid=1246355) Dist=EG Rep=64 CellRange=Very Low
+[16:45:48] Launched task 19133/60000 (pid=1246356) Dist=LN Rep=64 CellRange=Very Low
+[16:45:48] Launched task 19134/60000 (pid=1246357) Dist=SX Rep=64 CellRange=Very Low
+[16:45:50] Launched task 19135/60000 (pid=1246358) Dist=BB Rep=64 CellRange=Very Low
+[16:45:51] Launched task 19136/60000 (pid=1246369) Dist=Beta Rep=64 CellRange=Very Low
+[16:45:55] Launched task 19137/60000 (pid=1246402) Dist=EG Rep=64 CellRange=Very Low
+[16:45:57] Launched task 19138/60000 (pid=1246403) Dist=LN Rep=64 CellRange=Very Low
+[16:46:03] Launched task 19139/60000 (pid=1246555) Dist=SX Rep=64 CellRange=Very Low
+[16:46:03] Launched task 19140/60000 (pid=1246556) Dist=BB Rep=64 CellRange=Very Low
+[16:46:03] Launched task 19141/60000 (pid=1246557) Dist=Beta Rep=64 CellRange=Extremely Low
+[16:46:08] Launched task 19142/60000 (pid=1246561) Dist=EG Rep=64 CellRange=Extremely Low
+[16:46:12] Launched task 19143/60000 (pid=1246562) Dist=LN Rep=64 CellRange=Extremely Low
+[16:46:13] Launched task 19144/60000 (pid=1246563) Dist=SX Rep=64 CellRange=Extremely Low
+[16:46:13] Launched task 19145/60000 (pid=1246564) Dist=BB Rep=64 CellRange=Extremely Low
+[16:46:14] Launched task 19146/60000 (pid=1246565) Dist=Beta Rep=64 CellRange=Extremely Low
+[16:46:14] Launched task 19147/60000 (pid=1246566) Dist=EG Rep=64 CellRange=Extremely Low
+[16:46:14] Launched task 19148/60000 (pid=1246567) Dist=LN Rep=64 CellRange=Extremely Low
+[16:46:16] Launched task 19149/60000 (pid=1246569) Dist=SX Rep=64 CellRange=Extremely Low
+[16:46:20] Launched task 19150/60000 (pid=1246613) Dist=BB Rep=64 CellRange=Extremely Low
+[16:46:21] Launched task 19151/60000 (pid=1246614) Dist=Beta Rep=64 CellRange=Extremely Low
+[16:46:23] Launched task 19152/60000 (pid=1246615) Dist=EG Rep=64 CellRange=Extremely Low
+[16:46:24] Launched task 19153/60000 (pid=1246616) Dist=LN Rep=64 CellRange=Extremely Low
+[16:46:24] Launched task 19154/60000 (pid=1246617) Dist=SX Rep=64 CellRange=Extremely Low
+[16:46:26] Launched task 19155/60000 (pid=1246618) Dist=BB Rep=64 CellRange=Extremely Low
+[16:46:31] Launched task 19156/60000 (pid=1246620) Dist=Beta Rep=64 CellRange=Extremely Low
+[16:46:33] Launched task 19157/60000 (pid=1246621) Dist=EG Rep=64 CellRange=Extremely Low
+[16:46:36] Launched task 19158/60000 (pid=1246665) Dist=LN Rep=64 CellRange=Extremely Low
+[16:46:38] Launched task 19159/60000 (pid=1246667) Dist=SX Rep=64 CellRange=Extremely Low
+[16:46:39] Launched task 19160/60000 (pid=1246668) Dist=BB Rep=64 CellRange=Extremely Low
+[16:46:42] Launched task 19161/60000 (pid=1246669) Dist=Beta Rep=64 CellRange=Extremely Low
+[16:46:42] Launched task 19162/60000 (pid=1246670) Dist=EG Rep=64 CellRange=Extremely Low
+[16:46:46] Launched task 19163/60000 (pid=1246671) Dist=LN Rep=64 CellRange=Extremely Low
+[16:46:47] Launched task 19164/60000 (pid=1246672) Dist=SX Rep=64 CellRange=Extremely Low
+[16:46:48] Launched task 19165/60000 (pid=1246674) Dist=BB Rep=64 CellRange=Extremely Low
+[16:46:49] Launched task 19166/60000 (pid=1246675) Dist=Beta Rep=64 CellRange=Extremely Low
+[16:46:49] Launched task 19167/60000 (pid=1246676) Dist=EG Rep=64 CellRange=Extremely Low
+[16:46:50] Launched task 19168/60000 (pid=1246687) Dist=LN Rep=64 CellRange=Extremely Low
+[16:46:50] Launched task 19169/60000 (pid=1246688) Dist=SX Rep=64 CellRange=Extremely Low
+[16:46:53] Launched task 19170/60000 (pid=1246720) Dist=BB Rep=64 CellRange=Extremely Low
+[16:46:58] Launched task 19171/60000 (pid=1246721) Dist=Beta Rep=64 CellRange=Extremely Low
+[16:46:59] Launched task 19172/60000 (pid=1246723) Dist=EG Rep=64 CellRange=Extremely Low
+[16:47:01] Launched task 19173/60000 (pid=1246810) Dist=LN Rep=64 CellRange=Extremely Low
+[16:47:03] Launched task 19174/60000 (pid=1246879) Dist=SX Rep=64 CellRange=Extremely Low
+[16:47:04] Launched task 19175/60000 (pid=1246880) Dist=BB Rep=64 CellRange=Extremely Low
+[16:47:05] Launched task 19176/60000 (pid=1246881) Dist=Beta Rep=64 CellRange=Extremely Low
+[16:47:05] Launched task 19177/60000 (pid=1246882) Dist=EG Rep=64 CellRange=Extremely Low
+[16:47:05] Launched task 19178/60000 (pid=1246883) Dist=LN Rep=64 CellRange=Extremely Low
+[16:47:13] Launched task 19179/60000 (pid=1246885) Dist=SX Rep=64 CellRange=Extremely Low
+[16:47:14] Launched task 19180/60000 (pid=1246886) Dist=BB Rep=64 CellRange=Extremely Low
+[16:47:18] Launched task 19181/60000 (pid=1246898) Dist=Beta Rep=64 CellRange=Extremely Low
+[16:47:18] Launched task 19182/60000 (pid=1246899) Dist=EG Rep=64 CellRange=Extremely Low
+[16:47:22] Launched task 19183/60000 (pid=1246933) Dist=LN Rep=64 CellRange=Extremely Low
+[16:47:22] Launched task 19184/60000 (pid=1246934) Dist=SX Rep=64 CellRange=Extremely Low
+[16:47:23] Launched task 19185/60000 (pid=1246935) Dist=BB Rep=64 CellRange=Extremely Low
+[16:47:26] Launched task 19186/60000 (pid=1246936) Dist=Beta Rep=64 CellRange=Extremely Low
+[16:47:29] Launched task 19187/60000 (pid=1246937) Dist=EG Rep=64 CellRange=Extremely Low
+[16:47:31] Launched task 19188/60000 (pid=1246938) Dist=LN Rep=64 CellRange=Extremely Low
+[16:47:31] Launched task 19189/60000 (pid=1246939) Dist=SX Rep=64 CellRange=Extremely Low
+[16:47:33] Launched task 19190/60000 (pid=1246941) Dist=BB Rep=64 CellRange=Extremely Low
+[16:47:33] Launched task 19191/60000 (pid=1246942) Dist=Beta Rep=64 CellRange=Extremely Low
+[16:47:34] Launched task 19192/60000 (pid=1246943) Dist=EG Rep=64 CellRange=Extremely Low
+[16:47:36] Launched task 19193/60000 (pid=1246989) Dist=LN Rep=64 CellRange=Extremely Low
+[16:47:37] Launched task 19194/60000 (pid=1246990) Dist=SX Rep=64 CellRange=Extremely Low
+[16:47:38] Launched task 19195/60000 (pid=1246991) Dist=BB Rep=64 CellRange=Extremely Low
+[16:47:39] Launched task 19196/60000 (pid=1246992) Dist=Beta Rep=64 CellRange=Extremely Low
+[16:47:39] Launched task 19197/60000 (pid=1246993) Dist=EG Rep=64 CellRange=Extremely Low
+[16:47:42] Launched task 19198/60000 (pid=1246995) Dist=LN Rep=64 CellRange=Extremely Low
+[16:47:49] Launched task 19199/60000 (pid=1246996) Dist=SX Rep=64 CellRange=Extremely Low
+[16:47:50] Launched task 19200/60000 (pid=1246997) Dist=BB Rep=64 CellRange=Extremely Low
+[16:47:56] Launched task 19201/60000 (pid=1247040) Dist=Beta Rep=65 CellRange=High
+[16:47:59] Launched task 19202/60000 (pid=1247041) Dist=EG Rep=65 CellRange=High
+[16:48:00] Launched task 19203/60000 (pid=1247042) Dist=LN Rep=65 CellRange=High
+[16:48:01] Launched task 19204/60000 (pid=1247153) Dist=SX Rep=65 CellRange=High
+[16:48:03] Launched task 19205/60000 (pid=1247196) Dist=BB Rep=65 CellRange=High
+[16:48:03] Launched task 19206/60000 (pid=1247197) Dist=Beta Rep=65 CellRange=High
+[16:48:04] Launched task 19207/60000 (pid=1247198) Dist=EG Rep=65 CellRange=High
+[16:48:05] Launched task 19208/60000 (pid=1247201) Dist=LN Rep=65 CellRange=High
+[16:48:06] Launched task 19209/60000 (pid=1247202) Dist=SX Rep=65 CellRange=High
+[16:48:06] Launched task 19210/60000 (pid=1247203) Dist=BB Rep=65 CellRange=High
+[16:48:11] Launched task 19211/60000 (pid=1247204) Dist=Beta Rep=65 CellRange=High
+[16:48:11] Launched task 19212/60000 (pid=1247205) Dist=EG Rep=65 CellRange=High
+[16:48:11] Launched task 19213/60000 (pid=1247206) Dist=LN Rep=65 CellRange=High
+[16:48:13] Launched task 19214/60000 (pid=1247207) Dist=SX Rep=65 CellRange=High
+[16:48:14] Launched task 19215/60000 (pid=1247209) Dist=BB Rep=65 CellRange=High
+[16:48:14] Launched task 19216/60000 (pid=1247210) Dist=Beta Rep=65 CellRange=High
+[16:48:16] Launched task 19217/60000 (pid=1247211) Dist=EG Rep=65 CellRange=High
+[16:48:16] Launched task 19218/60000 (pid=1247212) Dist=LN Rep=65 CellRange=High
+[16:48:19] Launched task 19219/60000 (pid=1247224) Dist=SX Rep=65 CellRange=High
+[16:48:20] Launched task 19220/60000 (pid=1247257) Dist=BB Rep=65 CellRange=High
+[16:48:21] Launched task 19221/60000 (pid=1247258) Dist=Beta Rep=65 CellRange=High
+[16:48:21] Launched task 19222/60000 (pid=1247259) Dist=EG Rep=65 CellRange=High
+[16:48:21] Launched task 19223/60000 (pid=1247260) Dist=LN Rep=65 CellRange=High
+[16:48:24] Launched task 19224/60000 (pid=1247261) Dist=SX Rep=65 CellRange=High
+[16:48:25] Launched task 19225/60000 (pid=1247263) Dist=BB Rep=65 CellRange=High
+[16:48:26] Launched task 19226/60000 (pid=1247264) Dist=Beta Rep=65 CellRange=High
+[16:48:26] Launched task 19227/60000 (pid=1247265) Dist=EG Rep=65 CellRange=High
+[16:48:28] Launched task 19228/60000 (pid=1247266) Dist=LN Rep=65 CellRange=High
+[16:48:28] Launched task 19229/60000 (pid=1247267) Dist=SX Rep=65 CellRange=High
+[16:48:29] Launched task 19230/60000 (pid=1247268) Dist=BB Rep=65 CellRange=High
+[16:48:31] Launched task 19231/60000 (pid=1247269) Dist=Beta Rep=65 CellRange=High
+[16:48:31] Launched task 19232/60000 (pid=1247270) Dist=EG Rep=65 CellRange=High
+[16:48:32] Launched task 19233/60000 (pid=1247271) Dist=LN Rep=65 CellRange=High
+[16:48:35] Launched task 19234/60000 (pid=1247283) Dist=SX Rep=65 CellRange=High
+[16:48:35] Launched task 19235/60000 (pid=1247284) Dist=BB Rep=65 CellRange=High
+[16:48:39] Launched task 19236/60000 (pid=1247318) Dist=Beta Rep=65 CellRange=High
+[16:48:40] Launched task 19237/60000 (pid=1247319) Dist=EG Rep=65 CellRange=High
+[16:48:40] Launched task 19238/60000 (pid=1247320) Dist=LN Rep=65 CellRange=High
+[16:48:40] Launched task 19239/60000 (pid=1247321) Dist=SX Rep=65 CellRange=High
+[16:48:44] Launched task 19240/60000 (pid=1247323) Dist=BB Rep=65 CellRange=High
+[16:48:44] Launched task 19241/60000 (pid=1247324) Dist=Beta Rep=65 CellRange=High
+[16:48:44] Launched task 19242/60000 (pid=1247325) Dist=EG Rep=65 CellRange=High
+[16:48:46] Launched task 19243/60000 (pid=1247326) Dist=LN Rep=65 CellRange=High
+[16:48:47] Launched task 19244/60000 (pid=1247328) Dist=SX Rep=65 CellRange=High
+[16:48:48] Launched task 19245/60000 (pid=1247329) Dist=BB Rep=65 CellRange=High
+[16:48:49] Launched task 19246/60000 (pid=1247330) Dist=Beta Rep=65 CellRange=High
+[16:48:50] Launched task 19247/60000 (pid=1247331) Dist=EG Rep=65 CellRange=High
+[16:48:53] Launched task 19248/60000 (pid=1247373) Dist=LN Rep=65 CellRange=High
+[16:48:53] Launched task 19249/60000 (pid=1247374) Dist=SX Rep=65 CellRange=High
+[16:48:58] Launched task 19250/60000 (pid=1247376) Dist=BB Rep=65 CellRange=High
+[16:49:01] Launched task 19251/60000 (pid=1247461) Dist=Beta Rep=65 CellRange=High
+[16:49:03] Launched task 19252/60000 (pid=1247531) Dist=EG Rep=65 CellRange=High
+[16:49:03] Launched task 19253/60000 (pid=1247532) Dist=LN Rep=65 CellRange=High
+[16:49:04] Launched task 19254/60000 (pid=1247533) Dist=SX Rep=65 CellRange=High
+[16:49:04] Launched task 19255/60000 (pid=1247534) Dist=BB Rep=65 CellRange=High
+[16:49:05] Launched task 19256/60000 (pid=1247535) Dist=Beta Rep=65 CellRange=High
+[16:49:05] Launched task 19257/60000 (pid=1247536) Dist=EG Rep=65 CellRange=High
+[16:49:08] Launched task 19258/60000 (pid=1247538) Dist=LN Rep=65 CellRange=High
+[16:49:10] Launched task 19259/60000 (pid=1247539) Dist=SX Rep=65 CellRange=High
+[16:49:11] Launched task 19260/60000 (pid=1247540) Dist=BB Rep=65 CellRange=High
+[16:49:15] Launched task 19261/60000 (pid=1247541) Dist=Beta Rep=65 CellRange=Medium
+[16:49:18] Launched task 19262/60000 (pid=1247554) Dist=EG Rep=65 CellRange=Medium
+[16:49:18] Launched task 19263/60000 (pid=1247555) Dist=LN Rep=65 CellRange=Medium
+[16:49:22] Launched task 19264/60000 (pid=1247588) Dist=SX Rep=65 CellRange=Medium
+[16:49:23] Launched task 19265/60000 (pid=1247589) Dist=BB Rep=65 CellRange=Medium
+[16:49:23] Launched task 19266/60000 (pid=1247590) Dist=Beta Rep=65 CellRange=Medium
+[16:49:23] Launched task 19267/60000 (pid=1247591) Dist=EG Rep=65 CellRange=Medium
+[16:49:24] Launched task 19268/60000 (pid=1247593) Dist=LN Rep=65 CellRange=Medium
+[16:49:28] Launched task 19269/60000 (pid=1247594) Dist=SX Rep=65 CellRange=Medium
+[16:49:28] Launched task 19270/60000 (pid=1247595) Dist=BB Rep=65 CellRange=Medium
+[16:49:30] Launched task 19271/60000 (pid=1247597) Dist=Beta Rep=65 CellRange=Medium
+[16:49:35] Launched task 19272/60000 (pid=1247622) Dist=EG Rep=65 CellRange=Medium
+[16:49:37] Launched task 19273/60000 (pid=1247644) Dist=LN Rep=65 CellRange=Medium
+[16:49:37] Launched task 19274/60000 (pid=1247645) Dist=SX Rep=65 CellRange=Medium
+[16:49:38] Launched task 19275/60000 (pid=1247646) Dist=BB Rep=65 CellRange=Medium
+[16:49:38] Launched task 19276/60000 (pid=1247647) Dist=Beta Rep=65 CellRange=Medium
+[16:49:38] Launched task 19277/60000 (pid=1247648) Dist=EG Rep=65 CellRange=Medium
+[16:49:38] Launched task 19278/60000 (pid=1247649) Dist=LN Rep=65 CellRange=Medium
+[16:49:40] Launched task 19279/60000 (pid=1247651) Dist=SX Rep=65 CellRange=Medium
+[16:49:41] Launched task 19280/60000 (pid=1247652) Dist=BB Rep=65 CellRange=Medium
+[16:49:43] Launched task 19281/60000 (pid=1247653) Dist=Beta Rep=65 CellRange=Medium
+[16:49:45] Launched task 19282/60000 (pid=1247654) Dist=EG Rep=65 CellRange=Medium
+[16:49:46] Launched task 19283/60000 (pid=1247655) Dist=LN Rep=65 CellRange=Medium
+[16:49:46] Launched task 19284/60000 (pid=1247656) Dist=SX Rep=65 CellRange=Medium
+[16:49:47] Launched task 19285/60000 (pid=1247657) Dist=BB Rep=65 CellRange=Medium
+[16:49:51] Launched task 19286/60000 (pid=1247669) Dist=Beta Rep=65 CellRange=Medium
+[16:49:53] Launched task 19287/60000 (pid=1247701) Dist=EG Rep=65 CellRange=Medium
+[16:49:54] Launched task 19288/60000 (pid=1247702) Dist=LN Rep=65 CellRange=Medium
+[16:49:55] Launched task 19289/60000 (pid=1247703) Dist=SX Rep=65 CellRange=Medium
+[16:49:55] Launched task 19290/60000 (pid=1247704) Dist=BB Rep=65 CellRange=Medium
+[16:49:55] Launched task 19291/60000 (pid=1247705) Dist=Beta Rep=65 CellRange=Medium
+[16:49:57] Launched task 19292/60000 (pid=1247710) Dist=EG Rep=65 CellRange=Medium
+[16:49:57] Launched task 19293/60000 (pid=1247711) Dist=LN Rep=65 CellRange=Medium
+[16:50:00] Launched task 19294/60000 (pid=1247712) Dist=SX Rep=65 CellRange=Medium
+[16:50:00] Launched task 19295/60000 (pid=1247713) Dist=BB Rep=65 CellRange=Medium
+[16:50:03] Launched task 19296/60000 (pid=1247868) Dist=Beta Rep=65 CellRange=Medium
+[16:50:05] Launched task 19297/60000 (pid=1247873) Dist=EG Rep=65 CellRange=Medium
+[16:50:06] Launched task 19298/60000 (pid=1247875) Dist=LN Rep=65 CellRange=Medium
+[16:50:09] Launched task 19299/60000 (pid=1247876) Dist=SX Rep=65 CellRange=Medium
+[16:50:09] Launched task 19300/60000 (pid=1247877) Dist=BB Rep=65 CellRange=Medium
+[16:50:10] Launched task 19301/60000 (pid=1247878) Dist=Beta Rep=65 CellRange=Medium
+[16:50:13] Launched task 19302/60000 (pid=1247880) Dist=EG Rep=65 CellRange=Medium
+[16:50:14] Launched task 19303/60000 (pid=1247881) Dist=LN Rep=65 CellRange=Medium
+[16:50:18] Launched task 19304/60000 (pid=1247893) Dist=SX Rep=65 CellRange=Medium
+[16:50:19] Launched task 19305/60000 (pid=1247906) Dist=BB Rep=65 CellRange=Medium
+[16:50:23] Launched task 19306/60000 (pid=1247928) Dist=Beta Rep=65 CellRange=Medium
+[16:50:26] Launched task 19307/60000 (pid=1247929) Dist=EG Rep=65 CellRange=Medium
+[16:50:27] Launched task 19308/60000 (pid=1247930) Dist=LN Rep=65 CellRange=Medium
+[16:50:30] Launched task 19309/60000 (pid=1247931) Dist=SX Rep=65 CellRange=Medium
+[16:50:30] Launched task 19310/60000 (pid=1247932) Dist=BB Rep=65 CellRange=Medium
+[16:50:31] Launched task 19311/60000 (pid=1247933) Dist=Beta Rep=65 CellRange=Medium
+[16:50:31] Launched task 19312/60000 (pid=1247934) Dist=EG Rep=65 CellRange=Medium
+[16:50:32] Launched task 19313/60000 (pid=1247935) Dist=LN Rep=65 CellRange=Medium
+[16:50:32] Launched task 19314/60000 (pid=1247936) Dist=SX Rep=65 CellRange=Medium
+[16:50:33] Launched task 19315/60000 (pid=1247937) Dist=BB Rep=65 CellRange=Medium
+[16:50:38] Launched task 19316/60000 (pid=1247982) Dist=Beta Rep=65 CellRange=Medium
+[16:50:38] Launched task 19317/60000 (pid=1247983) Dist=EG Rep=65 CellRange=Medium
+[16:50:38] Launched task 19318/60000 (pid=1247984) Dist=LN Rep=65 CellRange=Medium
+[16:50:42] Launched task 19319/60000 (pid=1247985) Dist=SX Rep=65 CellRange=Medium
+[16:50:44] Launched task 19320/60000 (pid=1247986) Dist=BB Rep=65 CellRange=Medium
+[16:50:47] Launched task 19321/60000 (pid=1247988) Dist=Beta Rep=65 CellRange=Low
+[16:50:48] Launched task 19322/60000 (pid=1247989) Dist=EG Rep=65 CellRange=Low
+[16:50:50] Launched task 19323/60000 (pid=1247990) Dist=LN Rep=65 CellRange=Low
+[16:50:50] Launched task 19324/60000 (pid=1247991) Dist=SX Rep=65 CellRange=Low
+[16:50:54] Launched task 19325/60000 (pid=1248033) Dist=BB Rep=65 CellRange=Low
+[16:51:01] Launched task 19326/60000 (pid=1248040) Dist=Beta Rep=65 CellRange=Low
+[16:51:02] Launched task 19327/60000 (pid=1248160) Dist=EG Rep=65 CellRange=Low
+[16:51:02] Launched task 19328/60000 (pid=1248161) Dist=LN Rep=65 CellRange=Low
+[16:51:02] Launched task 19329/60000 (pid=1248162) Dist=SX Rep=65 CellRange=Low
+[16:51:04] Launched task 19330/60000 (pid=1248195) Dist=BB Rep=65 CellRange=Low
+[16:51:04] Launched task 19331/60000 (pid=1248196) Dist=Beta Rep=65 CellRange=Low
+[16:51:05] Launched task 19332/60000 (pid=1248197) Dist=EG Rep=65 CellRange=Low
+[16:51:06] Launched task 19333/60000 (pid=1248199) Dist=LN Rep=65 CellRange=Low
+[16:51:07] Launched task 19334/60000 (pid=1248200) Dist=SX Rep=65 CellRange=Low
+[16:51:09] Launched task 19335/60000 (pid=1248201) Dist=BB Rep=65 CellRange=Low
+[16:51:14] Launched task 19336/60000 (pid=1248202) Dist=Beta Rep=65 CellRange=Low
+[16:51:16] Launched task 19337/60000 (pid=1248203) Dist=EG Rep=65 CellRange=Low
+[16:51:17] Launched task 19338/60000 (pid=1248205) Dist=LN Rep=65 CellRange=Low
+[16:51:17] Launched task 19339/60000 (pid=1248206) Dist=SX Rep=65 CellRange=Low
+[16:51:19] Launched task 19340/60000 (pid=1248218) Dist=BB Rep=65 CellRange=Low
+[16:51:19] Launched task 19341/60000 (pid=1248226) Dist=Beta Rep=65 CellRange=Low
+[16:51:19] Launched task 19342/60000 (pid=1248227) Dist=EG Rep=65 CellRange=Low
+[16:51:20] Launched task 19343/60000 (pid=1248253) Dist=LN Rep=65 CellRange=Low
+[16:51:23] Launched task 19344/60000 (pid=1248254) Dist=SX Rep=65 CellRange=Low
+[16:51:27] Launched task 19345/60000 (pid=1248256) Dist=BB Rep=65 CellRange=Low
+[16:51:33] Launched task 19346/60000 (pid=1248257) Dist=Beta Rep=65 CellRange=Low
+[16:51:35] Launched task 19347/60000 (pid=1248271) Dist=EG Rep=65 CellRange=Low
+[16:51:35] Launched task 19348/60000 (pid=1248272) Dist=LN Rep=65 CellRange=Low
+[16:51:36] Launched task 19349/60000 (pid=1248304) Dist=SX Rep=65 CellRange=Low
+[16:51:37] Launched task 19350/60000 (pid=1248306) Dist=BB Rep=65 CellRange=Low
+[16:51:39] Launched task 19351/60000 (pid=1248308) Dist=Beta Rep=65 CellRange=Low
+[16:51:40] Launched task 19352/60000 (pid=1248309) Dist=EG Rep=65 CellRange=Low
+[16:51:41] Launched task 19353/60000 (pid=1248310) Dist=LN Rep=65 CellRange=Low
+[16:51:42] Launched task 19354/60000 (pid=1248311) Dist=SX Rep=65 CellRange=Low
+[16:51:44] Launched task 19355/60000 (pid=1248312) Dist=BB Rep=65 CellRange=Low
+[16:51:47] Launched task 19356/60000 (pid=1248313) Dist=Beta Rep=65 CellRange=Low
+[16:51:48] Launched task 19357/60000 (pid=1248314) Dist=EG Rep=65 CellRange=Low
+[16:51:48] Launched task 19358/60000 (pid=1248315) Dist=LN Rep=65 CellRange=Low
+[16:51:48] Launched task 19359/60000 (pid=1248316) Dist=SX Rep=65 CellRange=Low
+[16:51:50] Launched task 19360/60000 (pid=1248318) Dist=BB Rep=65 CellRange=Low
+[16:51:50] Launched task 19361/60000 (pid=1248319) Dist=Beta Rep=65 CellRange=Low
+[16:51:51] Launched task 19362/60000 (pid=1248330) Dist=EG Rep=65 CellRange=Low
+[16:51:53] Launched task 19363/60000 (pid=1248362) Dist=LN Rep=65 CellRange=Low
+[16:51:57] Launched task 19364/60000 (pid=1248363) Dist=SX Rep=65 CellRange=Low
+[16:52:05] Launched task 19365/60000 (pid=1248519) Dist=BB Rep=65 CellRange=Low
+[16:52:11] Launched task 19366/60000 (pid=1248521) Dist=Beta Rep=65 CellRange=Low
+[16:52:12] Launched task 19367/60000 (pid=1248522) Dist=EG Rep=65 CellRange=Low
+[16:52:12] Launched task 19368/60000 (pid=1248523) Dist=LN Rep=65 CellRange=Low
+[16:52:13] Launched task 19369/60000 (pid=1248524) Dist=SX Rep=65 CellRange=Low
+[16:52:14] Launched task 19370/60000 (pid=1248525) Dist=BB Rep=65 CellRange=Low
+[16:52:14] Launched task 19371/60000 (pid=1248526) Dist=Beta Rep=65 CellRange=Low
+[16:52:14] Launched task 19372/60000 (pid=1248527) Dist=EG Rep=65 CellRange=Low
+[16:52:15] Launched task 19373/60000 (pid=1248528) Dist=LN Rep=65 CellRange=Low
+[16:52:18] Launched task 19374/60000 (pid=1248529) Dist=SX Rep=65 CellRange=Low
+[16:52:19] Launched task 19375/60000 (pid=1248541) Dist=BB Rep=65 CellRange=Low
+[16:52:30] Launched task 19376/60000 (pid=1248575) Dist=Beta Rep=65 CellRange=Low
+[16:52:31] Launched task 19377/60000 (pid=1248576) Dist=EG Rep=65 CellRange=Low
+[16:52:31] Launched task 19378/60000 (pid=1248577) Dist=LN Rep=65 CellRange=Low
+[16:52:31] Launched task 19379/60000 (pid=1248578) Dist=SX Rep=65 CellRange=Low
+[16:52:31] Launched task 19380/60000 (pid=1248579) Dist=BB Rep=65 CellRange=Low
+[16:52:31] Launched task 19381/60000 (pid=1248580) Dist=Beta Rep=65 CellRange=Very Low
+[16:52:31] Launched task 19382/60000 (pid=1248581) Dist=EG Rep=65 CellRange=Very Low
+[16:52:31] Launched task 19383/60000 (pid=1248582) Dist=LN Rep=65 CellRange=Very Low
+[16:52:38] Launched task 19384/60000 (pid=1248627) Dist=SX Rep=65 CellRange=Very Low
+[16:52:40] Launched task 19385/60000 (pid=1248628) Dist=BB Rep=65 CellRange=Very Low
+[16:52:44] Launched task 19386/60000 (pid=1248630) Dist=Beta Rep=65 CellRange=Very Low
+[16:52:44] Launched task 19387/60000 (pid=1248631) Dist=EG Rep=65 CellRange=Very Low
+[16:52:45] Launched task 19388/60000 (pid=1248632) Dist=LN Rep=65 CellRange=Very Low
+[16:52:45] Launched task 19389/60000 (pid=1248633) Dist=SX Rep=65 CellRange=Very Low
+[16:52:45] Launched task 19390/60000 (pid=1248634) Dist=BB Rep=65 CellRange=Very Low
+[16:52:51] Launched task 19391/60000 (pid=1248645) Dist=Beta Rep=65 CellRange=Very Low
+[16:52:51] Launched task 19392/60000 (pid=1248646) Dist=EG Rep=65 CellRange=Very Low
+[16:52:52] Launched task 19393/60000 (pid=1248658) Dist=LN Rep=65 CellRange=Very Low
+[16:52:55] Launched task 19394/60000 (pid=1248680) Dist=SX Rep=65 CellRange=Very Low
+[16:52:55] Launched task 19395/60000 (pid=1248681) Dist=BB Rep=65 CellRange=Very Low
+[16:52:58] Launched task 19396/60000 (pid=1248682) Dist=Beta Rep=65 CellRange=Very Low
+[16:53:01] Launched task 19397/60000 (pid=1248685) Dist=EG Rep=65 CellRange=Very Low
+[16:53:05] Launched task 19398/60000 (pid=1248838) Dist=LN Rep=65 CellRange=Very Low
+[16:53:07] Launched task 19399/60000 (pid=1248839) Dist=SX Rep=65 CellRange=Very Low
+[16:53:07] Launched task 19400/60000 (pid=1248840) Dist=BB Rep=65 CellRange=Very Low
+[16:53:08] Launched task 19401/60000 (pid=1248841) Dist=Beta Rep=65 CellRange=Very Low
+[16:53:11] Launched task 19402/60000 (pid=1248842) Dist=EG Rep=65 CellRange=Very Low
+[16:53:12] Launched task 19403/60000 (pid=1248843) Dist=LN Rep=65 CellRange=Very Low
+[16:53:12] Launched task 19404/60000 (pid=1248844) Dist=SX Rep=65 CellRange=Very Low
+[16:53:13] Launched task 19405/60000 (pid=1248845) Dist=BB Rep=65 CellRange=Very Low
+[16:53:15] Launched task 19406/60000 (pid=1248847) Dist=Beta Rep=65 CellRange=Very Low
+[16:53:18] Launched task 19407/60000 (pid=1248848) Dist=EG Rep=65 CellRange=Very Low
+[16:53:18] Launched task 19408/60000 (pid=1248849) Dist=LN Rep=65 CellRange=Very Low
+[16:53:19] Launched task 19409/60000 (pid=1248861) Dist=SX Rep=65 CellRange=Very Low
+[16:53:20] Launched task 19410/60000 (pid=1248894) Dist=BB Rep=65 CellRange=Very Low
+[16:53:20] Launched task 19411/60000 (pid=1248895) Dist=Beta Rep=65 CellRange=Very Low
+[16:53:30] Launched task 19412/60000 (pid=1248897) Dist=EG Rep=65 CellRange=Very Low
+[16:53:30] Launched task 19413/60000 (pid=1248898) Dist=LN Rep=65 CellRange=Very Low
+[16:53:31] Launched task 19414/60000 (pid=1248899) Dist=SX Rep=65 CellRange=Very Low
+[16:53:33] Launched task 19415/60000 (pid=1248900) Dist=BB Rep=65 CellRange=Very Low
+[16:53:33] Launched task 19416/60000 (pid=1248901) Dist=Beta Rep=65 CellRange=Very Low
+[16:53:34] Launched task 19417/60000 (pid=1248904) Dist=EG Rep=65 CellRange=Very Low
+[16:53:35] Launched task 19418/60000 (pid=1248916) Dist=LN Rep=65 CellRange=Very Low
+[16:53:40] Launched task 19419/60000 (pid=1248950) Dist=SX Rep=65 CellRange=Very Low
+[16:53:40] Launched task 19420/60000 (pid=1248951) Dist=BB Rep=65 CellRange=Very Low
+[16:53:44] Launched task 19421/60000 (pid=1248952) Dist=Beta Rep=65 CellRange=Very Low
+[16:53:45] Launched task 19422/60000 (pid=1248953) Dist=EG Rep=65 CellRange=Very Low
+[16:53:47] Launched task 19423/60000 (pid=1248954) Dist=LN Rep=65 CellRange=Very Low
+[16:53:51] Launched task 19424/60000 (pid=1248966) Dist=SX Rep=65 CellRange=Very Low
+[16:53:54] Launched task 19425/60000 (pid=1248998) Dist=BB Rep=65 CellRange=Very Low
+[16:53:54] Launched task 19426/60000 (pid=1248999) Dist=Beta Rep=65 CellRange=Very Low
+[16:53:54] Launched task 19427/60000 (pid=1249000) Dist=EG Rep=65 CellRange=Very Low
+[16:53:55] Launched task 19428/60000 (pid=1249001) Dist=LN Rep=65 CellRange=Very Low
+[16:53:55] Launched task 19429/60000 (pid=1249002) Dist=SX Rep=65 CellRange=Very Low
+[16:53:58] Launched task 19430/60000 (pid=1249003) Dist=BB Rep=65 CellRange=Very Low
+[16:53:59] Launched task 19431/60000 (pid=1249005) Dist=Beta Rep=65 CellRange=Very Low
+[16:54:00] Launched task 19432/60000 (pid=1249006) Dist=EG Rep=65 CellRange=Very Low
+[16:54:01] Launched task 19433/60000 (pid=1249096) Dist=LN Rep=65 CellRange=Very Low
+[16:54:03] Launched task 19434/60000 (pid=1249159) Dist=SX Rep=65 CellRange=Very Low
+[16:54:03] Launched task 19435/60000 (pid=1249160) Dist=BB Rep=65 CellRange=Very Low
+[16:54:03] Launched task 19436/60000 (pid=1249161) Dist=Beta Rep=65 CellRange=Very Low
+[16:54:09] Launched task 19437/60000 (pid=1249165) Dist=EG Rep=65 CellRange=Very Low
+[16:54:12] Launched task 19438/60000 (pid=1249166) Dist=LN Rep=65 CellRange=Very Low
+[16:54:19] Launched task 19439/60000 (pid=1249200) Dist=SX Rep=65 CellRange=Very Low
+[16:54:19] Launched task 19440/60000 (pid=1249206) Dist=BB Rep=65 CellRange=Very Low
+[16:54:21] Launched task 19441/60000 (pid=1249213) Dist=Beta Rep=65 CellRange=Extremely Low
+[16:54:24] Launched task 19442/60000 (pid=1249214) Dist=EG Rep=65 CellRange=Extremely Low
+[16:54:26] Launched task 19443/60000 (pid=1249215) Dist=LN Rep=65 CellRange=Extremely Low
+[16:54:26] Launched task 19444/60000 (pid=1249216) Dist=SX Rep=65 CellRange=Extremely Low
+[16:54:29] Launched task 19445/60000 (pid=1249217) Dist=BB Rep=65 CellRange=Extremely Low
+[16:54:29] Launched task 19446/60000 (pid=1249218) Dist=Beta Rep=65 CellRange=Extremely Low
+[16:54:29] Launched task 19447/60000 (pid=1249219) Dist=EG Rep=65 CellRange=Extremely Low
+[16:54:30] Launched task 19448/60000 (pid=1249221) Dist=LN Rep=65 CellRange=Extremely Low
+[16:54:31] Launched task 19449/60000 (pid=1249222) Dist=SX Rep=65 CellRange=Extremely Low
+[16:54:33] Launched task 19450/60000 (pid=1249223) Dist=BB Rep=65 CellRange=Extremely Low
+[16:54:34] Launched task 19451/60000 (pid=1249224) Dist=Beta Rep=65 CellRange=Extremely Low
+[16:54:35] Launched task 19452/60000 (pid=1249236) Dist=EG Rep=65 CellRange=Extremely Low
+[16:54:37] Launched task 19453/60000 (pid=1249269) Dist=LN Rep=65 CellRange=Extremely Low
+[16:54:38] Launched task 19454/60000 (pid=1249270) Dist=SX Rep=65 CellRange=Extremely Low
+[16:54:42] Launched task 19455/60000 (pid=1249272) Dist=BB Rep=65 CellRange=Extremely Low
+[16:54:46] Launched task 19456/60000 (pid=1249273) Dist=Beta Rep=65 CellRange=Extremely Low
+[16:54:51] Launched task 19457/60000 (pid=1249284) Dist=EG Rep=65 CellRange=Extremely Low
+[16:54:52] Launched task 19458/60000 (pid=1249317) Dist=LN Rep=65 CellRange=Extremely Low
+[16:54:52] Launched task 19459/60000 (pid=1249318) Dist=SX Rep=65 CellRange=Extremely Low
+[16:54:54] Launched task 19460/60000 (pid=1249319) Dist=BB Rep=65 CellRange=Extremely Low
+[16:54:58] Launched task 19461/60000 (pid=1249320) Dist=Beta Rep=65 CellRange=Extremely Low
+[16:54:58] Launched task 19462/60000 (pid=1249321) Dist=EG Rep=65 CellRange=Extremely Low
+[16:54:59] Launched task 19463/60000 (pid=1249324) Dist=LN Rep=65 CellRange=Extremely Low
+[16:54:59] Launched task 19464/60000 (pid=1249325) Dist=SX Rep=65 CellRange=Extremely Low
+[16:54:59] Launched task 19465/60000 (pid=1249326) Dist=BB Rep=65 CellRange=Extremely Low
+[16:55:01] Launched task 19466/60000 (pid=1249446) Dist=Beta Rep=65 CellRange=Extremely Low
+[16:55:02] Launched task 19467/60000 (pid=1249480) Dist=EG Rep=65 CellRange=Extremely Low
+[16:55:07] Launched task 19468/60000 (pid=1249483) Dist=LN Rep=65 CellRange=Extremely Low
+[16:55:08] Launched task 19469/60000 (pid=1249484) Dist=SX Rep=65 CellRange=Extremely Low
+[16:55:08] Launched task 19470/60000 (pid=1249485) Dist=BB Rep=65 CellRange=Extremely Low
+[16:55:09] Launched task 19471/60000 (pid=1249486) Dist=Beta Rep=65 CellRange=Extremely Low
+[16:55:09] Launched task 19472/60000 (pid=1249487) Dist=EG Rep=65 CellRange=Extremely Low
+[16:55:11] Launched task 19473/60000 (pid=1249488) Dist=LN Rep=65 CellRange=Extremely Low
+[16:55:15] Launched task 19474/60000 (pid=1249490) Dist=SX Rep=65 CellRange=Extremely Low
+[16:55:25] Launched task 19475/60000 (pid=1249536) Dist=BB Rep=65 CellRange=Extremely Low
+[16:55:25] Launched task 19476/60000 (pid=1249537) Dist=Beta Rep=65 CellRange=Extremely Low
+[16:55:26] Launched task 19477/60000 (pid=1249538) Dist=EG Rep=65 CellRange=Extremely Low
+[16:55:26] Launched task 19478/60000 (pid=1249539) Dist=LN Rep=65 CellRange=Extremely Low
+[16:55:26] Launched task 19479/60000 (pid=1249540) Dist=SX Rep=65 CellRange=Extremely Low
+[16:55:29] Launched task 19480/60000 (pid=1249541) Dist=BB Rep=65 CellRange=Extremely Low
+[16:55:30] Launched task 19481/60000 (pid=1249542) Dist=Beta Rep=65 CellRange=Extremely Low
+[16:55:33] Launched task 19482/60000 (pid=1249543) Dist=EG Rep=65 CellRange=Extremely Low
+[16:55:33] Launched task 19483/60000 (pid=1249544) Dist=LN Rep=65 CellRange=Extremely Low
+[16:55:35] Launched task 19484/60000 (pid=1249559) Dist=SX Rep=65 CellRange=Extremely Low
+[16:55:36] Launched task 19485/60000 (pid=1249592) Dist=BB Rep=65 CellRange=Extremely Low
+[16:55:41] Launched task 19486/60000 (pid=1249593) Dist=Beta Rep=65 CellRange=Extremely Low
+[16:55:41] Launched task 19487/60000 (pid=1249594) Dist=EG Rep=65 CellRange=Extremely Low
+[16:55:42] Launched task 19488/60000 (pid=1249595) Dist=LN Rep=65 CellRange=Extremely Low
+[16:55:42] Launched task 19489/60000 (pid=1249596) Dist=SX Rep=65 CellRange=Extremely Low
+[16:55:45] Launched task 19490/60000 (pid=1249597) Dist=BB Rep=65 CellRange=Extremely Low
+[16:55:46] Launched task 19491/60000 (pid=1249599) Dist=Beta Rep=65 CellRange=Extremely Low
+[16:55:46] Launched task 19492/60000 (pid=1249600) Dist=EG Rep=65 CellRange=Extremely Low
+[16:55:49] Launched task 19493/60000 (pid=1249601) Dist=LN Rep=65 CellRange=Extremely Low
+[16:55:50] Launched task 19494/60000 (pid=1249602) Dist=SX Rep=65 CellRange=Extremely Low
+[16:55:57] Launched task 19495/60000 (pid=1249646) Dist=BB Rep=65 CellRange=Extremely Low
+[16:56:04] Launched task 19496/60000 (pid=1249798) Dist=Beta Rep=65 CellRange=Extremely Low
+[16:56:04] Launched task 19497/60000 (pid=1249799) Dist=EG Rep=65 CellRange=Extremely Low
+[16:56:04] Launched task 19498/60000 (pid=1249800) Dist=LN Rep=65 CellRange=Extremely Low
+[16:56:05] Launched task 19499/60000 (pid=1249803) Dist=SX Rep=65 CellRange=Extremely Low
+[16:56:05] Launched task 19500/60000 (pid=1249804) Dist=BB Rep=65 CellRange=Extremely Low
+[16:56:10] Launched task 19501/60000 (pid=1249806) Dist=Beta Rep=66 CellRange=High
+[16:56:12] Launched task 19502/60000 (pid=1249807) Dist=EG Rep=66 CellRange=High
+[16:56:12] Launched task 19503/60000 (pid=1249808) Dist=LN Rep=66 CellRange=High
+[16:56:12] Launched task 19504/60000 (pid=1249809) Dist=SX Rep=66 CellRange=High
+[16:56:15] Launched task 19505/60000 (pid=1249810) Dist=BB Rep=66 CellRange=High
+[16:56:15] Launched task 19506/60000 (pid=1249811) Dist=Beta Rep=66 CellRange=High
+[16:56:15] Launched task 19507/60000 (pid=1249812) Dist=EG Rep=66 CellRange=High
+[16:56:15] Launched task 19508/60000 (pid=1249813) Dist=LN Rep=66 CellRange=High
+[16:56:16] Launched task 19509/60000 (pid=1249814) Dist=SX Rep=66 CellRange=High
+[16:56:17] Launched task 19510/60000 (pid=1249815) Dist=BB Rep=66 CellRange=High
+[16:56:21] Launched task 19511/60000 (pid=1249860) Dist=Beta Rep=66 CellRange=High
+[16:56:21] Launched task 19512/60000 (pid=1249861) Dist=EG Rep=66 CellRange=High
+[16:56:27] Launched task 19513/60000 (pid=1249862) Dist=LN Rep=66 CellRange=High
+[16:56:27] Launched task 19514/60000 (pid=1249863) Dist=SX Rep=66 CellRange=High
+[16:56:27] Launched task 19515/60000 (pid=1249864) Dist=BB Rep=66 CellRange=High
+[16:56:34] Launched task 19516/60000 (pid=1249866) Dist=Beta Rep=66 CellRange=High
+[16:56:37] Launched task 19517/60000 (pid=1249910) Dist=EG Rep=66 CellRange=High
+[16:56:37] Launched task 19518/60000 (pid=1249911) Dist=LN Rep=66 CellRange=High
+[16:56:39] Launched task 19519/60000 (pid=1249912) Dist=SX Rep=66 CellRange=High
+[16:56:40] Launched task 19520/60000 (pid=1249914) Dist=BB Rep=66 CellRange=High
+[16:56:40] Launched task 19521/60000 (pid=1249915) Dist=Beta Rep=66 CellRange=High
+[16:56:42] Launched task 19522/60000 (pid=1249916) Dist=EG Rep=66 CellRange=High
+[16:56:43] Launched task 19523/60000 (pid=1249917) Dist=LN Rep=66 CellRange=High
+[16:56:43] Launched task 19524/60000 (pid=1249918) Dist=SX Rep=66 CellRange=High
+[16:56:44] Launched task 19525/60000 (pid=1249919) Dist=BB Rep=66 CellRange=High
+[16:56:44] Launched task 19526/60000 (pid=1249920) Dist=Beta Rep=66 CellRange=High
+[16:56:44] Launched task 19527/60000 (pid=1249921) Dist=EG Rep=66 CellRange=High
+[16:56:44] Launched task 19528/60000 (pid=1249922) Dist=LN Rep=66 CellRange=High
+[16:56:46] Launched task 19529/60000 (pid=1249923) Dist=SX Rep=66 CellRange=High
+[16:56:46] Launched task 19530/60000 (pid=1249924) Dist=BB Rep=66 CellRange=High
+[16:56:48] Launched task 19531/60000 (pid=1249925) Dist=Beta Rep=66 CellRange=High
+[16:56:49] Launched task 19532/60000 (pid=1249926) Dist=EG Rep=66 CellRange=High
+[16:56:49] Launched task 19533/60000 (pid=1249927) Dist=LN Rep=66 CellRange=High
+[16:56:50] Launched task 19534/60000 (pid=1249929) Dist=SX Rep=66 CellRange=High
+[16:56:50] Launched task 19535/60000 (pid=1249930) Dist=BB Rep=66 CellRange=High
+[16:56:51] Launched task 19536/60000 (pid=1249941) Dist=Beta Rep=66 CellRange=High
+[16:56:54] Launched task 19537/60000 (pid=1249973) Dist=EG Rep=66 CellRange=High
+[16:56:58] Launched task 19538/60000 (pid=1249974) Dist=LN Rep=66 CellRange=High
+[16:57:00] Launched task 19539/60000 (pid=1249977) Dist=SX Rep=66 CellRange=High
+[16:57:03] Launched task 19540/60000 (pid=1250130) Dist=BB Rep=66 CellRange=High
+[16:57:04] Launched task 19541/60000 (pid=1250131) Dist=Beta Rep=66 CellRange=High
+[16:57:05] Launched task 19542/60000 (pid=1250132) Dist=EG Rep=66 CellRange=High
+[16:57:07] Launched task 19543/60000 (pid=1250133) Dist=LN Rep=66 CellRange=High
+[16:57:08] Launched task 19544/60000 (pid=1250134) Dist=SX Rep=66 CellRange=High
+[16:57:09] Launched task 19545/60000 (pid=1250135) Dist=BB Rep=66 CellRange=High
+[16:57:09] Launched task 19546/60000 (pid=1250136) Dist=Beta Rep=66 CellRange=High
+[16:57:11] Launched task 19547/60000 (pid=1250137) Dist=EG Rep=66 CellRange=High
+[16:57:15] Launched task 19548/60000 (pid=1250139) Dist=LN Rep=66 CellRange=High
+[16:57:18] Launched task 19549/60000 (pid=1250151) Dist=SX Rep=66 CellRange=High
+[16:57:18] Launched task 19550/60000 (pid=1250152) Dist=BB Rep=66 CellRange=High
+[16:57:19] Launched task 19551/60000 (pid=1250164) Dist=Beta Rep=66 CellRange=High
+[16:57:19] Launched task 19552/60000 (pid=1250166) Dist=EG Rep=66 CellRange=High
+[16:57:19] Launched task 19553/60000 (pid=1250177) Dist=LN Rep=66 CellRange=High
+[16:57:22] Launched task 19554/60000 (pid=1250188) Dist=SX Rep=66 CellRange=High
+[16:57:22] Launched task 19555/60000 (pid=1250189) Dist=BB Rep=66 CellRange=High
+[16:57:23] Launched task 19556/60000 (pid=1250191) Dist=Beta Rep=66 CellRange=High
+[16:57:23] Launched task 19557/60000 (pid=1250192) Dist=EG Rep=66 CellRange=High
+[16:57:23] Launched task 19558/60000 (pid=1250193) Dist=LN Rep=66 CellRange=High
+[16:57:23] Launched task 19559/60000 (pid=1250194) Dist=SX Rep=66 CellRange=High
+[16:57:29] Launched task 19560/60000 (pid=1250195) Dist=BB Rep=66 CellRange=High
+[16:57:29] Launched task 19561/60000 (pid=1250196) Dist=Beta Rep=66 CellRange=Medium
+[16:57:34] Launched task 19562/60000 (pid=1250198) Dist=EG Rep=66 CellRange=Medium
+[16:57:36] Launched task 19563/60000 (pid=1250244) Dist=LN Rep=66 CellRange=Medium
+[16:57:37] Launched task 19564/60000 (pid=1250245) Dist=SX Rep=66 CellRange=Medium
+[16:57:39] Launched task 19565/60000 (pid=1250246) Dist=BB Rep=66 CellRange=Medium
+[16:57:39] Launched task 19566/60000 (pid=1250247) Dist=Beta Rep=66 CellRange=Medium
+[16:57:42] Launched task 19567/60000 (pid=1250248) Dist=EG Rep=66 CellRange=Medium
+[16:57:42] Launched task 19568/60000 (pid=1250249) Dist=LN Rep=66 CellRange=Medium
+[16:57:43] Launched task 19569/60000 (pid=1250250) Dist=SX Rep=66 CellRange=Medium
+[16:57:43] Launched task 19570/60000 (pid=1250251) Dist=BB Rep=66 CellRange=Medium
+[16:57:49] Launched task 19571/60000 (pid=1250253) Dist=Beta Rep=66 CellRange=Medium
+[16:57:50] Launched task 19572/60000 (pid=1250254) Dist=EG Rep=66 CellRange=Medium
+[16:57:53] Launched task 19573/60000 (pid=1250296) Dist=LN Rep=66 CellRange=Medium
+[16:57:53] Launched task 19574/60000 (pid=1250297) Dist=SX Rep=66 CellRange=Medium
+[16:57:55] Launched task 19575/60000 (pid=1250299) Dist=BB Rep=66 CellRange=Medium
+[16:57:56] Launched task 19576/60000 (pid=1250300) Dist=Beta Rep=66 CellRange=Medium
+[16:57:56] Launched task 19577/60000 (pid=1250301) Dist=EG Rep=66 CellRange=Medium
+[16:57:57] Launched task 19578/60000 (pid=1250302) Dist=LN Rep=66 CellRange=Medium
+[16:57:58] Launched task 19579/60000 (pid=1250303) Dist=SX Rep=66 CellRange=Medium
+[16:57:58] Launched task 19580/60000 (pid=1250304) Dist=BB Rep=66 CellRange=Medium
+[16:57:59] Launched task 19581/60000 (pid=1250305) Dist=Beta Rep=66 CellRange=Medium
+[16:58:03] Launched task 19582/60000 (pid=1250457) Dist=EG Rep=66 CellRange=Medium
+[16:58:03] Launched task 19583/60000 (pid=1250458) Dist=LN Rep=66 CellRange=Medium
+[16:58:04] Launched task 19584/60000 (pid=1250459) Dist=SX Rep=66 CellRange=Medium
+[16:58:05] Launched task 19585/60000 (pid=1250462) Dist=BB Rep=66 CellRange=Medium
+[16:58:05] Launched task 19586/60000 (pid=1250463) Dist=Beta Rep=66 CellRange=Medium
+[16:58:05] Launched task 19587/60000 (pid=1250464) Dist=EG Rep=66 CellRange=Medium
+[16:58:08] Launched task 19588/60000 (pid=1250466) Dist=LN Rep=66 CellRange=Medium
+[16:58:08] Launched task 19589/60000 (pid=1250467) Dist=SX Rep=66 CellRange=Medium
+[16:58:11] Launched task 19590/60000 (pid=1250468) Dist=BB Rep=66 CellRange=Medium
+[16:58:11] Launched task 19591/60000 (pid=1250469) Dist=Beta Rep=66 CellRange=Medium
+[16:58:12] Launched task 19592/60000 (pid=1250470) Dist=EG Rep=66 CellRange=Medium
+[16:58:13] Launched task 19593/60000 (pid=1250471) Dist=LN Rep=66 CellRange=Medium
+[16:58:13] Launched task 19594/60000 (pid=1250472) Dist=SX Rep=66 CellRange=Medium
+[16:58:14] Launched task 19595/60000 (pid=1250473) Dist=BB Rep=66 CellRange=Medium
+[16:58:20] Launched task 19596/60000 (pid=1250518) Dist=Beta Rep=66 CellRange=Medium
+[16:58:21] Launched task 19597/60000 (pid=1250519) Dist=EG Rep=66 CellRange=Medium
+[16:58:23] Launched task 19598/60000 (pid=1250520) Dist=LN Rep=66 CellRange=Medium
+[16:58:23] Launched task 19599/60000 (pid=1250521) Dist=SX Rep=66 CellRange=Medium
+[16:58:24] Launched task 19600/60000 (pid=1250522) Dist=BB Rep=66 CellRange=Medium
+[16:58:26] Launched task 19601/60000 (pid=1250523) Dist=Beta Rep=66 CellRange=Medium
+[16:58:26] Launched task 19602/60000 (pid=1250524) Dist=EG Rep=66 CellRange=Medium
+[16:58:27] Launched task 19603/60000 (pid=1250526) Dist=LN Rep=66 CellRange=Medium
+[16:58:28] Launched task 19604/60000 (pid=1250527) Dist=SX Rep=66 CellRange=Medium
+[16:58:29] Launched task 19605/60000 (pid=1250528) Dist=BB Rep=66 CellRange=Medium
+[16:58:29] Launched task 19606/60000 (pid=1250529) Dist=Beta Rep=66 CellRange=Medium
+[16:58:29] Launched task 19607/60000 (pid=1250530) Dist=EG Rep=66 CellRange=Medium
+[16:58:36] Launched task 19608/60000 (pid=1250574) Dist=LN Rep=66 CellRange=Medium
+[16:58:38] Launched task 19609/60000 (pid=1250576) Dist=SX Rep=66 CellRange=Medium
+[16:58:40] Launched task 19610/60000 (pid=1250577) Dist=BB Rep=66 CellRange=Medium
+[16:58:40] Launched task 19611/60000 (pid=1250578) Dist=Beta Rep=66 CellRange=Medium
+[16:58:43] Launched task 19612/60000 (pid=1250579) Dist=EG Rep=66 CellRange=Medium
+[16:58:46] Launched task 19613/60000 (pid=1250581) Dist=LN Rep=66 CellRange=Medium
+[16:58:47] Launched task 19614/60000 (pid=1250582) Dist=SX Rep=66 CellRange=Medium
+[16:58:51] Launched task 19615/60000 (pid=1250584) Dist=BB Rep=66 CellRange=Medium
+[16:58:52] Launched task 19616/60000 (pid=1250595) Dist=Beta Rep=66 CellRange=Medium
+[16:58:54] Launched task 19617/60000 (pid=1250627) Dist=EG Rep=66 CellRange=Medium
+[16:58:54] Launched task 19618/60000 (pid=1250628) Dist=LN Rep=66 CellRange=Medium
+[16:58:54] Launched task 19619/60000 (pid=1250629) Dist=SX Rep=66 CellRange=Medium
+[16:58:54] Launched task 19620/60000 (pid=1250630) Dist=BB Rep=66 CellRange=Medium
+[16:58:56] Launched task 19621/60000 (pid=1250631) Dist=Beta Rep=66 CellRange=Low
+[16:58:57] Launched task 19622/60000 (pid=1250632) Dist=EG Rep=66 CellRange=Low
+[16:58:57] Launched task 19623/60000 (pid=1250633) Dist=LN Rep=66 CellRange=Low
+[16:59:00] Launched task 19624/60000 (pid=1250637) Dist=SX Rep=66 CellRange=Low
+[16:59:02] Launched task 19625/60000 (pid=1250768) Dist=BB Rep=66 CellRange=Low
+[16:59:09] Launched task 19626/60000 (pid=1250790) Dist=Beta Rep=66 CellRange=Low
+[16:59:10] Launched task 19627/60000 (pid=1250792) Dist=EG Rep=66 CellRange=Low
+[16:59:10] Launched task 19628/60000 (pid=1250793) Dist=LN Rep=66 CellRange=Low
+[16:59:10] Launched task 19629/60000 (pid=1250794) Dist=SX Rep=66 CellRange=Low
+[16:59:10] Launched task 19630/60000 (pid=1250795) Dist=BB Rep=66 CellRange=Low
+[16:59:10] Launched task 19631/60000 (pid=1250796) Dist=Beta Rep=66 CellRange=Low
+[16:59:15] Launched task 19632/60000 (pid=1250797) Dist=EG Rep=66 CellRange=Low
+[16:59:16] Launched task 19633/60000 (pid=1250798) Dist=LN Rep=66 CellRange=Low
+[16:59:19] Launched task 19634/60000 (pid=1250810) Dist=SX Rep=66 CellRange=Low
+[16:59:26] Launched task 19635/60000 (pid=1250844) Dist=BB Rep=66 CellRange=Low
+[16:59:27] Launched task 19636/60000 (pid=1250845) Dist=Beta Rep=66 CellRange=Low
+[16:59:27] Launched task 19637/60000 (pid=1250846) Dist=EG Rep=66 CellRange=Low
+[16:59:28] Launched task 19638/60000 (pid=1250847) Dist=LN Rep=66 CellRange=Low
+[16:59:28] Launched task 19639/60000 (pid=1250848) Dist=SX Rep=66 CellRange=Low
+[16:59:30] Launched task 19640/60000 (pid=1250849) Dist=BB Rep=66 CellRange=Low
+[16:59:31] Launched task 19641/60000 (pid=1250851) Dist=Beta Rep=66 CellRange=Low
+[16:59:32] Launched task 19642/60000 (pid=1250852) Dist=EG Rep=66 CellRange=Low
+[16:59:32] Launched task 19643/60000 (pid=1250853) Dist=LN Rep=66 CellRange=Low
+[16:59:32] Launched task 19644/60000 (pid=1250854) Dist=SX Rep=66 CellRange=Low
+[16:59:38] Launched task 19645/60000 (pid=1250900) Dist=BB Rep=66 CellRange=Low
+[16:59:41] Launched task 19646/60000 (pid=1250901) Dist=Beta Rep=66 CellRange=Low
+[16:59:42] Launched task 19647/60000 (pid=1250902) Dist=EG Rep=66 CellRange=Low
+[16:59:42] Launched task 19648/60000 (pid=1250903) Dist=LN Rep=66 CellRange=Low
+[16:59:45] Launched task 19649/60000 (pid=1250905) Dist=SX Rep=66 CellRange=Low
+[16:59:45] Launched task 19650/60000 (pid=1250906) Dist=BB Rep=66 CellRange=Low
+[16:59:46] Launched task 19651/60000 (pid=1250908) Dist=Beta Rep=66 CellRange=Low
+[16:59:47] Launched task 19652/60000 (pid=1250909) Dist=EG Rep=66 CellRange=Low
+[16:59:52] Launched task 19653/60000 (pid=1250951) Dist=LN Rep=66 CellRange=Low
+[16:59:55] Launched task 19654/60000 (pid=1250953) Dist=SX Rep=66 CellRange=Low
+[16:59:55] Launched task 19655/60000 (pid=1250954) Dist=BB Rep=66 CellRange=Low
+[16:59:56] Launched task 19656/60000 (pid=1250955) Dist=Beta Rep=66 CellRange=Low
+[16:59:58] Launched task 19657/60000 (pid=1250956) Dist=EG Rep=66 CellRange=Low
+[17:00:01] Launched task 19658/60000 (pid=1250957) Dist=LN Rep=66 CellRange=Low
+[17:00:02] Launched task 19659/60000 (pid=1251421) Dist=SX Rep=66 CellRange=Low
+[17:00:03] Launched task 19660/60000 (pid=1251454) Dist=BB Rep=66 CellRange=Low
+[17:00:05] Launched task 19661/60000 (pid=1251458) Dist=Beta Rep=66 CellRange=Low
+[17:00:08] Launched task 19662/60000 (pid=1251462) Dist=EG Rep=66 CellRange=Low
+[17:00:08] Launched task 19663/60000 (pid=1251463) Dist=LN Rep=66 CellRange=Low
+[17:00:12] Launched task 19664/60000 (pid=1251464) Dist=SX Rep=66 CellRange=Low
+[17:00:13] Launched task 19665/60000 (pid=1251465) Dist=BB Rep=66 CellRange=Low
+[17:00:16] Launched task 19666/60000 (pid=1251467) Dist=Beta Rep=66 CellRange=Low
+[17:00:16] Launched task 19667/60000 (pid=1251468) Dist=EG Rep=66 CellRange=Low
+[17:00:16] Launched task 19668/60000 (pid=1251469) Dist=LN Rep=66 CellRange=Low
+[17:00:19] Launched task 19669/60000 (pid=1251505) Dist=SX Rep=66 CellRange=Low
+[17:00:19] Launched task 19670/60000 (pid=1251510) Dist=BB Rep=66 CellRange=Low
+[17:00:21] Launched task 19671/60000 (pid=1251517) Dist=Beta Rep=66 CellRange=Low
+[17:00:23] Launched task 19672/60000 (pid=1251518) Dist=EG Rep=66 CellRange=Low
+[17:00:25] Launched task 19673/60000 (pid=1251520) Dist=LN Rep=66 CellRange=Low
+[17:00:26] Launched task 19674/60000 (pid=1251521) Dist=SX Rep=66 CellRange=Low
+[17:00:29] Launched task 19675/60000 (pid=1251522) Dist=BB Rep=66 CellRange=Low
+[17:00:37] Launched task 19676/60000 (pid=1251568) Dist=Beta Rep=66 CellRange=Low
+[17:00:38] Launched task 19677/60000 (pid=1251569) Dist=EG Rep=66 CellRange=Low
+[17:00:38] Launched task 19678/60000 (pid=1251570) Dist=LN Rep=66 CellRange=Low
+[17:00:38] Launched task 19679/60000 (pid=1251571) Dist=SX Rep=66 CellRange=Low
+[17:00:38] Launched task 19680/60000 (pid=1251572) Dist=BB Rep=66 CellRange=Low
+[17:00:39] Launched task 19681/60000 (pid=1251573) Dist=Beta Rep=66 CellRange=Very Low
+[17:00:43] Launched task 19682/60000 (pid=1251574) Dist=EG Rep=66 CellRange=Very Low
+[17:00:46] Launched task 19683/60000 (pid=1251576) Dist=LN Rep=66 CellRange=Very Low
+[17:00:47] Launched task 19684/60000 (pid=1251577) Dist=SX Rep=66 CellRange=Very Low
+[17:00:47] Launched task 19685/60000 (pid=1251578) Dist=BB Rep=66 CellRange=Very Low
+[17:00:48] Launched task 19686/60000 (pid=1251579) Dist=Beta Rep=66 CellRange=Very Low
+[17:00:50] Launched task 19687/60000 (pid=1251580) Dist=EG Rep=66 CellRange=Very Low
+[17:00:51] Launched task 19688/60000 (pid=1251591) Dist=LN Rep=66 CellRange=Very Low
+[17:00:52] Launched task 19689/60000 (pid=1251603) Dist=SX Rep=66 CellRange=Very Low
+[17:00:53] Launched task 19690/60000 (pid=1251624) Dist=BB Rep=66 CellRange=Very Low
+[17:00:55] Launched task 19691/60000 (pid=1251625) Dist=Beta Rep=66 CellRange=Very Low
+[17:00:56] Launched task 19692/60000 (pid=1251626) Dist=EG Rep=66 CellRange=Very Low
+[17:01:00] Launched task 19693/60000 (pid=1251628) Dist=LN Rep=66 CellRange=Very Low
+[17:01:01] Launched task 19694/60000 (pid=1251758) Dist=SX Rep=66 CellRange=Very Low
+[17:01:04] Launched task 19695/60000 (pid=1251794) Dist=BB Rep=66 CellRange=Very Low
+[17:01:08] Launched task 19696/60000 (pid=1251795) Dist=Beta Rep=66 CellRange=Very Low
+[17:01:13] Launched task 19697/60000 (pid=1251798) Dist=EG Rep=66 CellRange=Very Low
+[17:01:14] Launched task 19698/60000 (pid=1251799) Dist=LN Rep=66 CellRange=Very Low
+[17:01:16] Launched task 19699/60000 (pid=1251800) Dist=SX Rep=66 CellRange=Very Low
+[17:01:17] Launched task 19700/60000 (pid=1251801) Dist=BB Rep=66 CellRange=Very Low
+[17:01:17] Launched task 19701/60000 (pid=1251802) Dist=Beta Rep=66 CellRange=Very Low
+[17:01:18] Launched task 19702/60000 (pid=1251814) Dist=EG Rep=66 CellRange=Very Low
+[17:01:18] Launched task 19703/60000 (pid=1251815) Dist=LN Rep=66 CellRange=Very Low
+[17:01:19] Launched task 19704/60000 (pid=1251849) Dist=SX Rep=66 CellRange=Very Low
+[17:01:21] Launched task 19705/60000 (pid=1251850) Dist=BB Rep=66 CellRange=Very Low
+[17:01:25] Launched task 19706/60000 (pid=1251851) Dist=Beta Rep=66 CellRange=Very Low
+[17:01:27] Launched task 19707/60000 (pid=1251852) Dist=EG Rep=66 CellRange=Very Low
+[17:01:28] Launched task 19708/60000 (pid=1251853) Dist=LN Rep=66 CellRange=Very Low
+[17:01:29] Launched task 19709/60000 (pid=1251854) Dist=SX Rep=66 CellRange=Very Low
+[17:01:29] Launched task 19710/60000 (pid=1251855) Dist=BB Rep=66 CellRange=Very Low
+[17:01:34] Launched task 19711/60000 (pid=1251857) Dist=Beta Rep=66 CellRange=Very Low
+[17:01:35] Launched task 19712/60000 (pid=1251871) Dist=EG Rep=66 CellRange=Very Low
+[17:01:35] Launched task 19713/60000 (pid=1251872) Dist=LN Rep=66 CellRange=Very Low
+[17:01:35] Launched task 19714/60000 (pid=1251873) Dist=SX Rep=66 CellRange=Very Low
+[17:01:40] Launched task 19715/60000 (pid=1251907) Dist=BB Rep=66 CellRange=Very Low
+[17:01:40] Launched task 19716/60000 (pid=1251908) Dist=Beta Rep=66 CellRange=Very Low
+[17:01:43] Launched task 19717/60000 (pid=1251909) Dist=EG Rep=66 CellRange=Very Low
+[17:01:47] Launched task 19718/60000 (pid=1251910) Dist=LN Rep=66 CellRange=Very Low
+[17:01:47] Launched task 19719/60000 (pid=1251911) Dist=SX Rep=66 CellRange=Very Low
+[17:01:51] Launched task 19720/60000 (pid=1251922) Dist=BB Rep=66 CellRange=Very Low
+[17:01:51] Launched task 19721/60000 (pid=1251924) Dist=Beta Rep=66 CellRange=Very Low
+[17:01:52] Launched task 19722/60000 (pid=1251936) Dist=EG Rep=66 CellRange=Very Low
+[17:01:53] Launched task 19723/60000 (pid=1251957) Dist=LN Rep=66 CellRange=Very Low
+[17:01:54] Launched task 19724/60000 (pid=1251958) Dist=SX Rep=66 CellRange=Very Low
+[17:02:11] Launched task 19725/60000 (pid=1252116) Dist=BB Rep=66 CellRange=Very Low
+[17:02:11] Launched task 19726/60000 (pid=1252117) Dist=Beta Rep=66 CellRange=Very Low
+[17:02:12] Launched task 19727/60000 (pid=1252119) Dist=EG Rep=66 CellRange=Very Low
+[17:02:12] Launched task 19728/60000 (pid=1252120) Dist=LN Rep=66 CellRange=Very Low
+[17:02:12] Launched task 19729/60000 (pid=1252121) Dist=SX Rep=66 CellRange=Very Low
+[17:02:13] Launched task 19730/60000 (pid=1252122) Dist=BB Rep=66 CellRange=Very Low
+[17:02:13] Launched task 19731/60000 (pid=1252123) Dist=Beta Rep=66 CellRange=Very Low
+[17:02:13] Launched task 19732/60000 (pid=1252124) Dist=EG Rep=66 CellRange=Very Low
+[17:02:13] Launched task 19733/60000 (pid=1252125) Dist=LN Rep=66 CellRange=Very Low
+[17:02:13] Launched task 19734/60000 (pid=1252126) Dist=SX Rep=66 CellRange=Very Low
+[17:02:19] Launched task 19735/60000 (pid=1252138) Dist=BB Rep=66 CellRange=Very Low
+[17:02:20] Launched task 19736/60000 (pid=1252171) Dist=Beta Rep=66 CellRange=Very Low
+[17:02:23] Launched task 19737/60000 (pid=1252172) Dist=EG Rep=66 CellRange=Very Low
+[17:02:24] Launched task 19738/60000 (pid=1252174) Dist=LN Rep=66 CellRange=Very Low
+[17:02:25] Launched task 19739/60000 (pid=1252175) Dist=SX Rep=66 CellRange=Very Low
+[17:02:28] Launched task 19740/60000 (pid=1252176) Dist=BB Rep=66 CellRange=Very Low
+[17:02:29] Launched task 19741/60000 (pid=1252177) Dist=Beta Rep=66 CellRange=Extremely Low
+[17:02:32] Launched task 19742/60000 (pid=1252178) Dist=EG Rep=66 CellRange=Extremely Low
+[17:02:38] Launched task 19743/60000 (pid=1252223) Dist=LN Rep=66 CellRange=Extremely Low
+[17:02:44] Launched task 19744/60000 (pid=1252224) Dist=SX Rep=66 CellRange=Extremely Low
+[17:02:44] Launched task 19745/60000 (pid=1252225) Dist=BB Rep=66 CellRange=Extremely Low
+[17:02:44] Launched task 19746/60000 (pid=1252226) Dist=Beta Rep=66 CellRange=Extremely Low
+[17:02:45] Launched task 19747/60000 (pid=1252228) Dist=EG Rep=66 CellRange=Extremely Low
+[17:02:48] Launched task 19748/60000 (pid=1252229) Dist=LN Rep=66 CellRange=Extremely Low
+[17:02:48] Launched task 19749/60000 (pid=1252230) Dist=SX Rep=66 CellRange=Extremely Low
+[17:02:48] Launched task 19750/60000 (pid=1252231) Dist=BB Rep=66 CellRange=Extremely Low
+[17:02:49] Launched task 19751/60000 (pid=1252232) Dist=Beta Rep=66 CellRange=Extremely Low
+[17:02:50] Launched task 19752/60000 (pid=1252233) Dist=EG Rep=66 CellRange=Extremely Low
+[17:02:50] Launched task 19753/60000 (pid=1252234) Dist=LN Rep=66 CellRange=Extremely Low
+[17:02:55] Launched task 19754/60000 (pid=1252276) Dist=SX Rep=66 CellRange=Extremely Low
+[17:02:58] Launched task 19755/60000 (pid=1252278) Dist=BB Rep=66 CellRange=Extremely Low
+[17:03:00] Launched task 19756/60000 (pid=1252281) Dist=Beta Rep=66 CellRange=Extremely Low
+[17:03:01] Launched task 19757/60000 (pid=1252401) Dist=EG Rep=66 CellRange=Extremely Low
+[17:03:01] Launched task 19758/60000 (pid=1252402) Dist=LN Rep=66 CellRange=Extremely Low
+[17:03:02] Launched task 19759/60000 (pid=1252435) Dist=SX Rep=66 CellRange=Extremely Low
+[17:03:03] Launched task 19760/60000 (pid=1252436) Dist=BB Rep=66 CellRange=Extremely Low
+[17:03:08] Launched task 19761/60000 (pid=1252438) Dist=Beta Rep=66 CellRange=Extremely Low
+[17:03:09] Launched task 19762/60000 (pid=1252439) Dist=EG Rep=66 CellRange=Extremely Low
+[17:03:15] Launched task 19763/60000 (pid=1252440) Dist=LN Rep=66 CellRange=Extremely Low
+[17:03:15] Launched task 19764/60000 (pid=1252441) Dist=SX Rep=66 CellRange=Extremely Low
+[17:03:16] Launched task 19765/60000 (pid=1252442) Dist=BB Rep=66 CellRange=Extremely Low
+[17:03:19] Launched task 19766/60000 (pid=1252487) Dist=Beta Rep=66 CellRange=Extremely Low
+[17:03:22] Launched task 19767/60000 (pid=1252488) Dist=EG Rep=66 CellRange=Extremely Low
+[17:03:22] Launched task 19768/60000 (pid=1252489) Dist=LN Rep=66 CellRange=Extremely Low
+[17:03:24] Launched task 19769/60000 (pid=1252490) Dist=SX Rep=66 CellRange=Extremely Low
+[17:03:24] Launched task 19770/60000 (pid=1252491) Dist=BB Rep=66 CellRange=Extremely Low
+[17:03:24] Launched task 19771/60000 (pid=1252492) Dist=Beta Rep=66 CellRange=Extremely Low
+[17:03:28] Launched task 19772/60000 (pid=1252493) Dist=EG Rep=66 CellRange=Extremely Low
+[17:03:33] Launched task 19773/60000 (pid=1252495) Dist=LN Rep=66 CellRange=Extremely Low
+[17:03:34] Launched task 19774/60000 (pid=1252507) Dist=SX Rep=66 CellRange=Extremely Low
+[17:03:35] Launched task 19775/60000 (pid=1252521) Dist=BB Rep=66 CellRange=Extremely Low
+[17:03:37] Launched task 19776/60000 (pid=1252543) Dist=Beta Rep=66 CellRange=Extremely Low
+[17:03:37] Launched task 19777/60000 (pid=1252544) Dist=EG Rep=66 CellRange=Extremely Low
+[17:03:37] Launched task 19778/60000 (pid=1252545) Dist=LN Rep=66 CellRange=Extremely Low
+[17:03:39] Launched task 19779/60000 (pid=1252547) Dist=SX Rep=66 CellRange=Extremely Low
+[17:03:43] Launched task 19780/60000 (pid=1252548) Dist=BB Rep=66 CellRange=Extremely Low
+[17:03:43] Launched task 19781/60000 (pid=1252549) Dist=Beta Rep=66 CellRange=Extremely Low
+[17:03:47] Launched task 19782/60000 (pid=1252550) Dist=EG Rep=66 CellRange=Extremely Low
+[17:03:48] Launched task 19783/60000 (pid=1252551) Dist=LN Rep=66 CellRange=Extremely Low
+[17:03:51] Launched task 19784/60000 (pid=1252574) Dist=SX Rep=66 CellRange=Extremely Low
+[17:03:52] Launched task 19785/60000 (pid=1252595) Dist=BB Rep=66 CellRange=Extremely Low
+[17:03:56] Launched task 19786/60000 (pid=1252596) Dist=Beta Rep=66 CellRange=Extremely Low
+[17:03:59] Launched task 19787/60000 (pid=1252597) Dist=EG Rep=66 CellRange=Extremely Low
+[17:04:00] Launched task 19788/60000 (pid=1252598) Dist=LN Rep=66 CellRange=Extremely Low
+[17:04:00] Launched task 19789/60000 (pid=1252599) Dist=SX Rep=66 CellRange=Extremely Low
+[17:04:00] Launched task 19790/60000 (pid=1252600) Dist=BB Rep=66 CellRange=Extremely Low
+[17:04:05] Launched task 19791/60000 (pid=1252756) Dist=Beta Rep=66 CellRange=Extremely Low
+[17:04:05] Launched task 19792/60000 (pid=1252757) Dist=EG Rep=66 CellRange=Extremely Low
+[17:04:05] Launched task 19793/60000 (pid=1252758) Dist=LN Rep=66 CellRange=Extremely Low
+[17:04:06] Launched task 19794/60000 (pid=1252759) Dist=SX Rep=66 CellRange=Extremely Low
+[17:04:09] Launched task 19795/60000 (pid=1252760) Dist=BB Rep=66 CellRange=Extremely Low
+[17:04:10] Launched task 19796/60000 (pid=1252761) Dist=Beta Rep=66 CellRange=Extremely Low
+[17:04:12] Launched task 19797/60000 (pid=1252763) Dist=EG Rep=66 CellRange=Extremely Low
+[17:04:15] Launched task 19798/60000 (pid=1252764) Dist=LN Rep=66 CellRange=Extremely Low
+[17:04:16] Launched task 19799/60000 (pid=1252765) Dist=SX Rep=66 CellRange=Extremely Low
+[17:04:20] Launched task 19800/60000 (pid=1252809) Dist=BB Rep=66 CellRange=Extremely Low
+[17:04:23] Launched task 19801/60000 (pid=1252811) Dist=Beta Rep=67 CellRange=High
+[17:04:27] Launched task 19802/60000 (pid=1252812) Dist=EG Rep=67 CellRange=High
+[17:04:27] Launched task 19803/60000 (pid=1252813) Dist=LN Rep=67 CellRange=High
+[17:04:29] Launched task 19804/60000 (pid=1252814) Dist=SX Rep=67 CellRange=High
+[17:04:29] Launched task 19805/60000 (pid=1252815) Dist=BB Rep=67 CellRange=High
+[17:04:31] Launched task 19806/60000 (pid=1252816) Dist=Beta Rep=67 CellRange=High
+[17:04:32] Launched task 19807/60000 (pid=1252817) Dist=EG Rep=67 CellRange=High
+[17:04:36] Launched task 19808/60000 (pid=1252862) Dist=LN Rep=67 CellRange=High
+[17:04:36] Launched task 19809/60000 (pid=1252863) Dist=SX Rep=67 CellRange=High
+[17:04:41] Launched task 19810/60000 (pid=1252864) Dist=BB Rep=67 CellRange=High
+[17:04:41] Launched task 19811/60000 (pid=1252865) Dist=Beta Rep=67 CellRange=High
+[17:04:42] Launched task 19812/60000 (pid=1252866) Dist=EG Rep=67 CellRange=High
+[17:04:42] Launched task 19813/60000 (pid=1252867) Dist=LN Rep=67 CellRange=High
+[17:04:42] Launched task 19814/60000 (pid=1252868) Dist=SX Rep=67 CellRange=High
+[17:04:42] Launched task 19815/60000 (pid=1252869) Dist=BB Rep=67 CellRange=High
+[17:04:43] Launched task 19816/60000 (pid=1252871) Dist=Beta Rep=67 CellRange=High
+[17:04:43] Launched task 19817/60000 (pid=1252872) Dist=EG Rep=67 CellRange=High
+[17:04:47] Launched task 19818/60000 (pid=1252873) Dist=LN Rep=67 CellRange=High
+[17:04:47] Launched task 19819/60000 (pid=1252874) Dist=SX Rep=67 CellRange=High
+[17:04:50] Launched task 19820/60000 (pid=1252875) Dist=BB Rep=67 CellRange=High
+[17:04:53] Launched task 19821/60000 (pid=1252917) Dist=Beta Rep=67 CellRange=High
+[17:04:54] Launched task 19822/60000 (pid=1252919) Dist=EG Rep=67 CellRange=High
+[17:04:54] Launched task 19823/60000 (pid=1252920) Dist=LN Rep=67 CellRange=High
+[17:04:55] Launched task 19824/60000 (pid=1252921) Dist=SX Rep=67 CellRange=High
+[17:04:55] Launched task 19825/60000 (pid=1252922) Dist=BB Rep=67 CellRange=High
+[17:04:56] Launched task 19826/60000 (pid=1252923) Dist=Beta Rep=67 CellRange=High
