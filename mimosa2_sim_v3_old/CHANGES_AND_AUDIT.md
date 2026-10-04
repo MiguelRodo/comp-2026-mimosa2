@@ -6,8 +6,6 @@ Severity:
 - **B**: Morris process requirement not met.
 - **C**: cosmetic or minor.
 
-In the code, every change is marked `[CHANGE]`.
-
 ## 1. Compliance with Morris et al. (2019): before and after
 
 | Morris recommendation (section) | Version 2 | Version 3 |
@@ -73,10 +71,6 @@ Version 3 computes the same Wald statistic in closed form. The model is saturate
 **C. Unused code removed.**
 
 Unused families (uniform, odds-exponential, odds-gamma, unit-lognormal) and the abandoned shrinkage and bivariate EM comparators were removed. Keep the old file if you describe those comparators in an appendix.
-
-**A. Rejection sampling could hang (found by the smoke test on 4 October).**
-
-In profiles R1 and R4 only the stimulated proportions are redrawn. A subject with a large p(u,1) can then be almost impossible to accept. With the bimodal family at δ = 6.25×10⁻⁵, about 0.7% of R1 subjects had acceptance probability 0, so roughly 1 dataset in 20 would loop forever (version 2 had no limit). Version 3 also redraws the unstimulated proportion(s) of a subject that is still rejected after 10,000 rounds, and stores the number of such subjects per dataset (`n_stuck_redraws`; reported as `share_datasets_with_stuck_redraw` in `<study>_realised_dgm.csv`). Report this in the prior-family results.
 
 **C. `sum(components) != 1`.**
 

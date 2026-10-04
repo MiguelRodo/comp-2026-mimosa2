@@ -1,26 +1,29 @@
+# MIMOSA2 Simulation Study
+# Isabella Lethbridge and Tayyeb Abrahams 
+# October 2026
+# ==============================================================================
+# 31_plots_baseline.R: Figures and Tables for Study 1
+# Replaces Baseline_simulation_plots.R and Simulation_2.0.R
 # =============================================================================
-# 31_plots_baseline.R : figures and tables for Study 1 (baseline)
-# Replaces Baseline_simulation_plots.R and Simulation_2.0.R (version 2).
-# =============================================================================
-# [CHANGE] What changed relative to Baseline_simulation_plots.R:
-#  * Bands are mean +/- 1.96 x Monte Carlo SE of the per-dataset measure
-#    (Morris 5.2, 6.2). Version 2 used bootstrap CIs (mean_cl_boot), which
-#    estimate the same thing; MCSE is now computed explicitly and stored.
-#  * The DiD comparator is drawn next to MIMOSA2 in every figure (Morris 6.2:
-#    put the methods side by side). DiD calls use Benjamini-Hochberg so that
-#    both methods target the FDR at the same nominal level.
-#  * NEW figures: specificity / observed FDR (audit A3), per-dataset AUC and
-#    paired Delta AUC with MCSE (A4, A5), FDR calibration using the correct
-#    cumulative q-value rule (A2), and the null scenarios (B4).
-#  * ROC curves are vertically averaged per-dataset curves for ONE value of P
-#    at a time (version 2 pooled subjects across datasets and across P; A6).
-#  * Fixed: x-axis label "1-Sensitivity" (should be 1 - specificity), y label
-#    typo "Observed FDF", AUROC_matrix used an object (AUROC) whose code was
-#    commented out, and the first AUROC table had its two method columns
-#    swapped.
-#  * The Hanley-McNeil Delta-AUC intervals are removed (not valid here; see
-#    analysis_functions.R).
-# =============================================================================
+# What changed relative to Baseline_simulation_plots.R:
+# - Bands are mean +/- 1.96 x Monte Carlo SE of the per-dataset measure
+#   (Morris 5.2, 6.2). Version 2 used bootstrap CIs (mean_cl_boot), which
+#   estimate the same thing; MCSE is now computed explicitly and stored.
+# - The DiD comparator is drawn next to MIMOSA2 in every figure (Morris 6.2:
+#   put the methods side by side). DiD calls use Benjamini-Hochberg so that
+#   both methods target the FDR at the same nominal level.
+# - NEW figures: specificity / observed FDR (audit A3), per-dataset AUC and
+#   paired Delta AUC with MCSE (A4, A5), FDR calibration using the correct
+#   cumulative q-value rule (A2), and the null scenarios (B4).
+# - ROC curves are vertically averaged per-dataset curves for ONE value of P
+#   at a time (version 2 pooled subjects across datasets and across P; A6).
+# - Fixed: x-axis label "1-Sensitivity" (should be 1 - specificity), y label
+#   typo "Observed FDF", AUROC_matrix used an object (AUROC) whose code was
+#   commented out, and the first AUROC table had its two method columns
+#   swapped.
+# - The Hanley-McNeil Delta-AUC intervals are removed (not valid here; see
+#   analysis_functions.R).
+# ==============================================================================
 source("analysis/analysis_functions.R")
 res  <- load_results("baseline")
 perf <- performance_table(res) %>%
@@ -52,19 +55,19 @@ band_plot <- function(d, y, se, ylab, title, subtitle, hline = NULL, ylim = c(0,
   p
 }
 
-# ---- 1. Sensitivity at 1% nominal FDR (all scenarios) -------------------------
+# ----------- 1. Sensitivity at 1% nominal FDR (all scenarios) -----------------
 d <- main %>% filter(Alpha == 0.01)
 p <- band_plot(d, "TPR", "TPR_mcse", "True positive rate", "Sensitivity analysis of MIMOSA2.",
                "TPR at 1% nominal FDR (MIMOSA2: Bayesian FDR; DiD: Benjamini-Hochberg).") +
   facet_grid(Res_lab ~ P_lab)
 save_fig(p, "base_plot", 11, 11)
 
-# ---- 2. Clean version: P = 10, 50, 100; 10/50/90% responders ------------------
+# ---------- 2. Clean version: P = 10, 50, 100; 10/50/90% responders -----------
 d2 <- d %>% filter(P %in% c(10, 50, 100), Res_prop %in% c("Prop_0.10", "Prop_0.50", "Prop_0.90"))
 if (nrow(d2)) save_fig(band_plot(d2, "TPR", "TPR_mcse", "True positive rate", "Sensitivity analysis of MIMOSA2.",
                                  "TPR at 1% nominal FDR.") + facet_grid(Res_lab ~ P_lab), "base_plot_clean", 8, 7)
 
-# ---- 3. Specificity and observed FDR (NEW, audit A3) ------------------------------
+# ------------- 3. Specificity and observed FDR (NEW, audit A3) ----------------
 for (a in ALPHAS) {
   da <- main %>% filter(Alpha == a)
   save_fig(band_plot(da, "TNR", "TNR_mcse", "Specificity (TNR)", "Specificity of responder calls.",
@@ -76,7 +79,7 @@ for (a in ALPHAS) {
            sprintf("base_fdr_%03d", round(1000 * a)), 11, 11)
 }
 
-# ---- 4. Per-dataset AUC and paired Delta AUC ----------------------------------
+# ---------------- 4. Per-dataset AUC and paired Delta AUC ---------------------
 dA <- perf %>% filter(Res_prop != "Prop_0.00", Alpha == 0.01,
                       (Method == "MIMOSA2" & Rule == "BFDR") | (Method == "DiD" & Rule == "unadjusted")) %>%
   mutate(Label = ifelse(Method == "DiD", "DiD (BH)", "MIMOSA2"),   # same AUC for any DiD rule
@@ -105,7 +108,7 @@ p <- ggplot(dd, aes(Effect, dAUC_mean, colour = Cell_range)) +
   theme_mimosa()
 save_fig(p, "base_dAUC", 11, 11)
 
-# ---- 5. Vertically averaged ROC curves, P = P_SHOW --------------------------------
+# -------------- 5. Vertically averaged ROC curves, P = P_SHOW -----------------
 sel_eff <- effects[unique(c(1, ceiling(length(effects) / 2), length(effects)))]
 keep <- res$design %>% filter(P == P_SHOW, Effect %in% sel_eff,
                               Res_prop %in% c("Prop_0.10", "Prop_0.50", "Prop_0.90")) %>%
@@ -126,7 +129,7 @@ p <- ggplot(roc, aes(FPR, TPR_mean, colour = Cell_range, linetype = Method, grou
   theme_mimosa()
 save_fig(p, "ROC_plot_clean", 9, 9)
 
-# ---- 6. FDR calibration (correct rule) -----------------------------------------
+# --------------------- 6. FDR calibration (correct rule) ----------------------
 fc <- fdr_curve(res) %>% filter(P == P_SHOW, Res_prop %in% c("Prop_0.10", "Prop_0.50", "Prop_0.90"), Effect %in% sel_eff) %>%
   mutate(Cell_range = factor(Cell_range, levels = c("High", "Medium", "Low")),
          Res_lab = factor(res_lab(Res_prop), levels = res_lab(c("Prop_0.10", "Prop_0.50", "Prop_0.90"))),
@@ -146,7 +149,7 @@ p <- ggplot(fc, aes(Alpha, FDR, colour = Cell_range, fill = Cell_range, linetype
   theme_mimosa()
 save_fig(p, "fdr_plot_clean", 9, 9)
 
-# ---- 7. Null scenarios (rho = 0): known properties ---------------------------------
+# -------------- 7. Null scenarios (rho = 0): known properties -----------------
 null <- perf %>% filter(Res_prop == "Prop_0.00") %>%
   transmute(P, Cell_range, Method = method_label(Method, Rule), Alpha,
             `P(any false call)` = fmt_mcse(Any_FP, Any_FP_mcse),
@@ -157,7 +160,7 @@ message("\nNull scenarios (no responders). FDR-controlling rules (MIMOSA2 BFDR, 
 message("P(any false call) <= alpha; the unadjusted DiD test should give a per-subject FPR <= alpha.")
 print(knitr::kable(null))
 
-# ---- 8. Main summary table at P = P_SHOW (estimate (MCSE)) -------------------------
+# ---------- 8. Main summary table at P = P_SHOW (estimate (MCSE)) -------------
 tab <- perf %>% filter(P == P_SHOW, Res_prop != "Prop_0.00", Alpha == 0.01,
                        (Method == "MIMOSA2" & Rule == "BFDR") | (Method == "DiD" & Rule == "BH")) %>%
   arrange(Res_prop, desc(Effect), Cell_range) %>%

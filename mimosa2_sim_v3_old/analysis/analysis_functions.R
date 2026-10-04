@@ -1,46 +1,47 @@
-# =============================================================================
-# analysis_functions.R : performance measures WITH Monte Carlo SEs
-# (Morris et al. 2019, Sections 5.1-5.4 and 6.2).  NEW FILE.
-# =============================================================================
-# Used by analysis/30-35. Run the analysis scripts from the mimosa2_sim_v3
-# folder, on the cluster or locally after copying _simulations/ across:
+# MIMOSA2 Simulation Study
+# Isabella Lethbridge and Tayyeb Abrahams 
+# October 2026
+# ==============================================================================
+# analysis_functions.R: Performance measures with Monte Carlo Standard Errors
+# ==============================================================================
+# Used by analysis/30-35. 
+# Run the analysis scripts from the mimosa2_sim_v3 folder, on the cluster or 
+# locally after copying _simulations/ across:
 #   SIM_PROFILE=standard Rscript analysis/30_performance_tables.R
-# (In RStudio: setwd() to the mimosa2_sim_v3 folder and
-#  Sys.setenv(SIM_PROFILE = "standard") before sourcing.)
+# (In RStudio: setwd() to the mimosa2_sim_v3 folder and 
+# Sys.setenv(SIM_PROFILE = "standard") before sourcing.)
 #
-# Key definitions (state these in Chapter 3, "Performance measures"):
-#  * All measures are computed PER DATASET and then averaged over the nsim
-#    datasets of a scenario; the Monte Carlo SE of a mean is SD / sqrt(n)
-#    (Morris Table 6). Scenarios are never pooled (Morris 5.2).
-#  * TPR (sensitivity) = TP / (TP + FN) in datasets with >= 1 responder.
-#  * TNR (specificity) = TN / (TN + FP); FPR = 1 - TNR.
-#  * FDP = FP / (TP + FP), defined as 0 when nothing is called; the FDR is the
-#    mean FDP over datasets (this is the quantity the Bayesian FDR rule and
-#    Benjamini-Hochberg aim to control).
-#  * P(any FP) = proportion of datasets with at least one false positive
-#    (equals the FDR in the null scenarios, where every call is false).
-#  * AUC = per-dataset Mann-Whitney AUC (probability that a random responder
-#    in the dataset outscores a random non-responder). [CHANGE] Version 2
-#    pooled subjects ACROSS datasets before computing one AUC, which mixes
-#    posterior probabilities from different fitted models (audit A5).
-#  * Delta AUC = paired difference AUC_MIMOSA2 - AUC_DiD in the same dataset;
-#    its MCSE is SD(differences) / sqrt(n) (Morris 4.3: same datasets for both
-#    methods). [CHANGE] Replaces the Hanley-McNeil intervals, which treated all
-#    pooled subjects as independent, fixed 50% positives and assumed r = 0.5.
-#  * Fit failures (error / timeout / task failed) are the first performance
-#    measure (Morris 5.1) and are reported per scenario. Other measures are
-#    computed on successful fits only.
-# =============================================================================
-# [CHANGE 4 Oct] config.R first, so .libPaths() includes your R_libs folder
-# BEFORE any package is loaded (previously dplyr etc. were loaded first).
-for (f in c("R/config.R", "R/scenarios.R")) source(f)
+# Key definitions:
+# - All measures are computed PER DATASET and then averaged over the nsim
+#   datasets of a scenario; the Monte Carlo SE of a mean is SD / sqrt(n). 
+#   Scenarios are never pooled.
+# - TPR (sensitivity) = TP / (TP + FN) in datasets with >= 1 responder.
+# - TNR (specificity) = TN / (TN + FP); FPR = 1 - TNR.
+# - FDP = FP / (TP + FP), defined as 0 when nothing is called; the FDR is the
+#   mean FDP over datasets (this is the quantity the Bayesian FDR rule and
+#   Benjamini-Hochberg aim to control).
+# - P(any FP) = proportion of datasets with at least one false positive
+#   (equals the FDR in the null scenarios, where every call is false).
+# - AUC = per-dataset Mann-Whitney AUC (probability that a random responder
+#   in the dataset outscores a random non-responder). Version 2
+#   pooled subjects ACROSS datasets before computing one AUC, which mixes
+#   posterior probabilities from different fitted models.
+# - Delta AUC = paired difference AUC_MIMOSA2 - AUC_DiD in the same dataset;
+#   its MCSE is SD(differences) / sqrt(n). Replaces the Hanley-McNeil intervals, 
+#   which treated all pooled subjects as independent, fixed 50% positives and 
+#   assumed r = 0.5.
+# - Fit failures (error / timeout / task failed) are the first performance
+#   measure and are reported per scenario. Other measures are computed on 
+#   successful fits only.
+# ==============================================================================
 suppressPackageStartupMessages({
   library(dplyr); library(tidyr); library(purrr); library(ggplot2)
 })
+for (f in c("R/config.R", "R/scenarios.R")) source(f)
 
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Loading
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 load_results <- function(study, profile = PROFILE) {
   f <- file.path(OUT_DIR, study, sprintf("%s_results_%s.rds", study, profile))
   if (!file.exists(f)) stop("No results for ", study, " (", f, "). Run the simulation / sims/29_combine.R first.")
@@ -48,17 +49,17 @@ load_results <- function(study, profile = PROFILE) {
 }
 scenario_cols <- function(design) setdiff(names(design), c("Rep", "Task_ID", "Seed", "In_standard", "In_smoke"))
 
-# ---------------------------------------------------------------------------
-# Monte Carlo SE helpers (Morris Table 6)
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# Monte Carlo SE helpers 
+# ------------------------------------------------------------------------------
 mc_n    <- function(x) sum(!is.na(x))
 mc_mean <- function(x) if (mc_n(x) == 0) NA_real_ else mean(x, na.rm = TRUE)
 mc_se   <- function(x) if (mc_n(x) < 2) NA_real_ else sd(x, na.rm = TRUE) / sqrt(mc_n(x))
-nsim_needed <- function(sd, target) ceiling((sd / target)^2)       # Morris 5.3, eq. (1) generalised
+nsim_needed <- function(sd, target) ceiling((sd / target)^2)       
 
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Per-dataset measures
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 add_dataset_measures <- function(est) {
   est %>% mutate(
     TPR    = ifelse(Status == "ok" & n_resp > 0, TP / (TP + FN), NA_real_),
@@ -70,9 +71,9 @@ add_dataset_measures <- function(est) {
     AUC    = ifelse(Status == "ok", AUC, NA_real_))
 }
 
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Performance table: one row per scenario x method x rule x alpha
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 performance_table <- function(res) {
   sc <- scenario_cols(res$design)
   planned <- res$design %>% count(Scenario_ID, name = "n_planned")
@@ -121,14 +122,13 @@ paired_auc_diff <- function(res, m1, m2) {
   out
 }
 
-# ---------------------------------------------------------------------------
-# FDR calibration curve (per dataset, then averaged)  [CHANGE, audit A2]
+# ------------------------------------------------------------------------------
+# FDR calibration curve (per dataset, then averaged) 
 # Version 2 thresholded each subject's LOCAL posterior (1 - P(R) <= a) and
 # pooled subjects across datasets and P. The rule actually used is the
 # cumulative Bayesian FDR (q-value) of each dataset, so here a subject is
-# called at level a if q < a (exactly as MIMOSA2::getResponse), the FDP is computed per dataset, and FDR(a) is
-# the mean FDP over datasets with its MCSE.
-# ---------------------------------------------------------------------------
+# called at level a if q < a (exactly as MIMOSA2::getResponse), the FDP is computed per dataset, and FDR(a) is the mean FDP over datasets with its MCSE.
+# ------------------------------------------------------------------------------
 fdr_curve <- function(res, alphas = seq(0.01, 0.20, by = 0.01), prob_cols = NULL) {
   s <- res$subjects %>% filter(Eval)
   if (is.null(prob_cols)) prob_cols <- grep("^MIMOSA2.*_q$", names(s), value = TRUE)
@@ -154,11 +154,12 @@ fdr_curve <- function(res, alphas = seq(0.01, 0.20, by = 0.01), prob_cols = NULL
     left_join(distinct(res$design[, scenario_cols(res$design), drop = FALSE]), by = "Scenario_ID")
 }
 
-# ---------------------------------------------------------------------------
-# Vertically averaged ROC curves (Fawcett 2006): TPR of each dataset at a grid
-# of FPR values, averaged over datasets.  [CHANGE] Version 2 drew ONE ROC
-# curve per scenario from subjects pooled across datasets (and across P).
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# Vertically averaged ROC curves: TPR of each dataset at a grid of FPR values, 
+# averaged over datasets.
+# Version 2 drew ONE ROC curve per scenario from subjects pooled across datasets 
+# (and across P).
+# ------------------------------------------------------------------------------
 roc_at_grid <- function(score, truth, grid) {
   ok <- !is.na(score); score <- score[ok]; truth <- truth[ok]
   n1 <- sum(truth == 1); n0 <- sum(truth == 0)
@@ -190,9 +191,9 @@ roc_curves <- function(res, score_cols, grid = seq(0, 1, by = 0.02), keep_scenar
     left_join(distinct(res$design[, scenario_cols(res$design), drop = FALSE]), by = "Scenario_ID")
 }
 
-# ---------------------------------------------------------------------------
-# Failures and convergence (Morris 5.1)
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# Failures and convergence
+# ------------------------------------------------------------------------------
 failure_table <- function(res) {
   sc <- scenario_cols(res$design)
   planned <- res$design %>% count(Scenario_ID, name = "n_planned")
@@ -212,9 +213,9 @@ failure_table <- function(res) {
     left_join(distinct(res$design[, sc, drop = FALSE]), by = "Scenario_ID")
 }
 
-# ---------------------------------------------------------------------------
-# Precision report: was nsim large enough? (Morris 5.3, 6.2)
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# Precision report: was nsim large enough? 
+# ------------------------------------------------------------------------------
 precision_report <- function(perf, study, targets = c(TPR = 0.02, FDR = 0.01, AUC = 0.01)) {
   perf %>% filter(Alpha == ALPHAS[1]) %>%
     group_by(Method, Rule) %>%
@@ -228,9 +229,9 @@ precision_report <- function(perf, study, targets = c(TPR = 0.02, FDR = 0.01, AU
     mutate(Study = study, .before = 1)
 }
 
-# ---------------------------------------------------------------------------
-# Plot style (as in your version-2 figures)
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# Plot style 
+# ------------------------------------------------------------------------------
 CELL_COLOURS <- c("High" = "deeppink", "Medium" = "steelblue3", "Low" = "orange",
                   "Very Low" = "purple", "Extremely Low" = "darkgreen")
 METHOD_LINETYPES <- c("MIMOSA2" = "solid", "DiD" = "dotted", "DiD (BH)" = "dotted",

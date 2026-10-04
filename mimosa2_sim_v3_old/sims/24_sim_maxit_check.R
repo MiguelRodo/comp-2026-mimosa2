@@ -1,14 +1,17 @@
-# =============================================================================
-# 24_sim_maxit_check.R : Study 5 (NEW, small), is maxit = 30 enough?
-# See STUDY_DESCRIPTIONS.md (Study 5).
-# =============================================================================
+# MIMOSA2 Simulation Study
+# Isabella Lethbridge and Tayyeb Abrahams 
+# October 2026
+# ==============================================================================
+# 24_sim_maxit_check.R: Study 5 - justification of maxit=30
+# ==============================================================================
 # Uses the BASELINE design and its stored random-number streams, so the
-# datasets are exactly the baseline datasets with the same Task_ID. Each is
-# fitted with maxit = 30 (as in every study) and maxit = 100 (package
-# default). The analysis (analysis/35_maxit_check.R) checks
+# datasets are exactly the baseline datasets with the same Task_ID. 
+# Each is fitted with maxit = 30 (as in every study) and maxit = 100 (package
+# default). 
+# The analysis (analysis/35_maxit_check.R) checks
 #   (1) MIMOSA2_maxit30 results equal the baseline results (reproducibility),
 #   (2) how much AUC / calls change with maxit = 100.
-# =============================================================================
+# ==============================================================================
 source("sims/_header.R")
 STUDY <- "maxit_check"
 

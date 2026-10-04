@@ -13,18 +13,16 @@
 # =============================================================================
 #SBATCH --job-name=mimosa2_all
 #SBATCH --nodes=1
-#SBATCH --ntasks=20
-#SBATCH --time=48:00:00
+#SBATCH --ntasks=30
+#SBATCH --time=120:00:00
 #SBATCH --mem=48G
 #SBATCH --output=slurm_%x_%j.out
-##SBATCH --account=YOUR_ACCOUNT
-##SBATCH --partition=YOUR_PARTITION
+#SBATCH --partition=ada
 
 export SIM_PROFILE=standard
 export N_WORKERS=${SLURM_NTASKS:-20}
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 # module load software/R-4.x.x
-export R_LIBS=/scratch/abrmoe030/R_libs${R_LIBS:+:$R_LIBS}   # your package library (all R processes)
 
 set -e
 Rscript sims/10_dgm_checks.R

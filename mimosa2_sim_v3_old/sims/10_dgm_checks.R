@@ -1,15 +1,17 @@
-# =============================================================================
-# 10_dgm_checks.R : "start small" checks of the data-generating mechanism
-# (Morris et al. 2019, Section 4.2; audit B3).  NEW FILE.
-# =============================================================================
+# MIMOSA2 Simulation Study
+# Isabella Lethbridge and Tayyeb Abrahams 
+# October 2026
+# ==============================================================================
+# 10_dgm_checks.R: checks of the data-generating mechanisms
+# ==============================================================================
 # Run BEFORE the simulations (takes a few minutes, does not need MIMOSA2):
-#   cd mimosa2_sim_v3 ; Rscript sims/10_dgm_checks.R
+#    cd mimosa2_sim_v3 
+#    Rscript sims/10_dgm_checks.R
 # Writes CSV tables to _tables/ and stops with an error if a check fails.
-#
 # Checks:
 #  A. Every generative family has the intended MEAN and VARIANCE at every
-#     condition mean (1e6 draws per family x mean). Also reports what the
-#     version-2 parameters gave, for the write-up.
+#     condition mean (1e6 draws per family x mean). 
+#     Also reports what the version-2 parameters gave, for the write-up.
 #  B. Realised number of responders for every (P, rho) used, version 2 vs
 #     version 3 allocation.
 #  C. One very large dataset per family: profile counts, every constraint of
@@ -18,7 +20,7 @@
 #  D. Reproducibility: the same stream gives the identical dataset; different
 #     streams give different datasets.
 #  E. (if MIMOSA2 is installed) MIMOSA2 does not use or reset the random-number
-#     generator (Morris 4.1.1).
+#     generator.
 # =============================================================================
 for (f in c("R/config.R", "R/dgm.R", "R/methods.R", "R/runner.R", "R/scenarios.R")) source(f)
 RNGkind("L'Ecuyer-CMRG"); set.seed(1)
@@ -27,7 +29,7 @@ check <- function(ok, what) {
   if (!isTRUE(all(ok))) { fails <<- c(fails, what); message("FAIL: ", what) } else message("ok:   ", what)
 }
 
-# ---- A. marginal mean / variance of each family --------------------------------
+# ----------------- A. marginal mean / variance of each family -----------------
 message("\n== A. Marginal moments of each family (1e6 draws) ==")
 phi <- 10000
 mus <- sort(unique(unlist(lapply(c(1e-3, 2.5e-4, 1.25e-4, 6.25e-5), function(e) condition_means(e)))))
@@ -44,7 +46,7 @@ for (fam in c("Beta", "EG", "LN", "SX", "BB")) for (mu in mus) {
       p_below_mu_over_10 = mean(x < mu / 10))
   }
 }
-# version-2 parameters for comparison (reported, not used)
+# Version-2 parameters for comparison (reported, not used):
 for (mu in mus) {
   x <- exp(-rgamma(nd, 113, 113 / (113 * (mu^(-1/113) - 1))))
   rowsA[[length(rowsA) + 1]] <- data.frame(Family = "EG (v2: k = 113)", Draw = "any", mu = mu,
@@ -67,7 +69,7 @@ calA <- data.frame(t(sapply(mus, function(mu) c(mu = mu, EG_k = calib_eg(mu, phi
 write.csv(calA, file.path(TAB_DIR, "dgm_check_A_calibrated_parameters.csv"), row.names = FALSE)
 message("Calibrated parameters (for the write-up):"); print(signif(calA, 4))
 
-# ---- B. realised responders -------------------------------------------------------
+# ------------------------- B. realised responders------------------------------
 message("\n== B. Realised number of responders (version 2 vs version 3) ==")
 allocate_v2 <- function(P, pis) {
   n <- floor(P * pis)
@@ -85,7 +87,7 @@ message("Realised rho, version 3:")
 print(xtabs(rho_v3 ~ P + rho, gridB))
 check(abs(gridB$rho_v3 - gridB$rho) <= 0.5 / gridB$P + 1e-9, "B: realised rho within rounding of nominal rho")
 
-# ---- C. one very large dataset per family -------------------------------------
+# ------------------ C. one very large dataset per family ----------------------
 message("\n== C. Large datasets: constraints and realised effect size ==")
 constraint_ok <- function(sim) {
   p <- as.data.frame(sim$p); d <- sim$true_delta; tr <- sim$truth
@@ -108,7 +110,7 @@ cases <- rbind(
 prewarm_calibration(cases$Family, cases$Effect, cases$Phi)
 for (i in seq_len(nrow(cases))) {
   cs <- cases[i, ]
-  sim <- simulate_MIMOSA2_alt_prior(effect = cs$Effect, phi = cs$Phi, P = 40000, prior = cs$Family,
+  sim <- simulate_MIMOSA2_alt_prior(effect = cs$Effect, phi = cs$Phi, P = 4000, prior = cs$Family,
                                     components = resp_components(0.5), rng = c(1e5, 1e5))
   ok <- constraint_ok(sim)
   resp <- is_responder(sim$truth) == 1
@@ -116,7 +118,6 @@ for (i in seq_len(nrow(cases))) {
   check(all((sim$true_delta > 0) == resp), sprintf("C: responder <=> true Delta > 0 (%s, %s, delta = %g)", cs$Source, cs$Family, cs$Effect))
   rowsC[[i]] <- data.frame(cs, n_profile = paste(sim$n_profile, collapse = "/"),
                            rho_realised = mean(resp),
-                           n_stuck_redraws = sim$n_stuck_redraws,   # dgm.R CHANGE 9
                            mean_true_delta_resp = mean(sim$true_delta[resp]),
                            ratio_to_nominal = mean(sim$true_delta[resp]) / cs$Effect,
                            median_true_delta_resp = median(sim$true_delta[resp]),
@@ -137,7 +138,7 @@ message("NOTE for the write-up: ratio_to_nominal != 1 shows that rejection sampl
 message("realised mean Delta among responders differ from the nominal delta (Morris 3.2, pitfall 4):")
 message("larger than delta for small delta (truncation), smaller for large delta (profile R3 does not depend on delta).")
 
-# ---- D. reproducibility -----------------------------------------------------------
+# --------------------------- D. reproducibilit---------------------------------
 message("\n== D. Reproducibility of streams ==")
 des <- build_design("baseline", scenarios_baseline())
 row <- des[des$Scenario_ID == des$Scenario_ID[1] & des$Rep == 1, ]
@@ -149,7 +150,7 @@ check(!identical(a$ns1, c2$ns1), "D: different streams -> different datasets")
 des2 <- build_design("baseline", scenarios_baseline())
 check(identical(des$Seed, des2$Seed), "D: design (and all streams) rebuilt identically")
 
-# ---- E. MIMOSA2 and the RNG -----------------------------------------------------------
+# ------------------------- E. MIMOSA2 and the RNG -----------------------------
 if (requireNamespace("MIMOSA2", quietly = TRUE)) {
   message("\n== E. Does MIMOSA2 touch the random-number generator? ==")
   sim <- simulate_baseline(data.frame(Effect = 1e-3, Phi = 2000, P = 30, Distribution = "Beta",

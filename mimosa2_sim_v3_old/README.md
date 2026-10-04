@@ -4,6 +4,8 @@ Isabella Lethbridge & Tayyeb Abrahams. Prepared 2–3 October 2026 for the re-ru
 
 This folder replaces the version-2 simulation and plotting scripts. It keeps your designs (the same factors and levels). It fixes the errors found in the audit and brings the study in line with Morris, White & Crowther (2019).
 
+*Morris, White & Crowther (2019) - Using simulation studies to evaluate statistical methods* 
+
 There are three documents:
 
 | File | What it is for |
@@ -11,8 +13,6 @@ There are three documents:
 | `README.md` (this file) | how to run everything tomorrow |
 | `STUDY_DESCRIPTIONS.md` | what each of the five studies does, in ADEMP order (use for Chapter 3) |
 | `CHANGES_AND_AUDIT.md` | file-by-file audit of version 2, what changed and why, a Morris checklist, limitations and write-up notes |
-
-Every change in the code is marked with a `[CHANGE]` comment that explains it.
 
 > **Important: this code has not been run yet.** R could not be installed where it was written. The numerical parts (calibration, allocation, AUC, ROC averaging) were checked by re-implementing them in Python. The R code was then reviewed line by line, independently, and the problems found were fixed. **Run the smoke test first (step 2).** It takes about 15–30 minutes, exercises every script end to end on a tiny grid, and stops with a clear FAIL message if anything is wrong.
 
@@ -44,7 +44,7 @@ Always run scripts **from inside `mimosa2_sim_v3/`**, e.g. `Rscript sims/20_sim_
 
 ---
 
-## Run sheet for tomorrow
+## Run sheet
 
 ### Step 0. Copy and edit (5 min)
 

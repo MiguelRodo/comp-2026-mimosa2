@@ -8,6 +8,5 @@
 # Usage: SIM_PROFILE=extended sbatch slurm/combine.sh baseline prior heterogeneity imbalance maxit_check
 export SIM_PROFILE=${SIM_PROFILE:-extended}
 # module load software/R-4.x.x
-export R_LIBS=/scratch/abrmoe030/R_libs${R_LIBS:+:$R_LIBS}   # your package library (all R processes)
 Rscript sims/29_combine.R "$@"
 Rscript analysis/30_performance_tables.R

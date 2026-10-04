@@ -1,26 +1,24 @@
-# =============================================================================
-# scenarios.R : the data-generating mechanisms (scenarios) of every study
-# =============================================================================
-# [CHANGE] NEW FILE. Each version-2 script defined its own grid, and the
-# plotting scripts re-typed the factor levels (which is how the prior plots
-# lost the "Extremely Low" level and the imbalance plots lost every scenario).
+# MIMOSA2 Simulation Study
+# Isabella Lethbridge and Tayyeb Abrahams 
+# October 2026
+# ==============================================================================
+# scenarios.R: DGM (scenario) of every study 
+# ==============================================================================
 # All grids are now defined once, here, and used by the simulation, check and
-# analysis scripts. Column In_standard marks the scenarios run in the
-# standard (~20 core) profile; the extended profile runs every row.
+# analysis scripts. 
+# Column In_standard marks the scenarios run in the standard (~20 core) profile
+# The extended profile runs every row.
 # In_smoke marks a handful of scenarios for the smoke test.
-#
 # The factor levels are those of version 2 ("fix errors, keep designs").
-# Labels: the 15,000-cell level is called "Low" everywhere (it was "Sparse"
-# in the baseline script and "Low" in the others).
+# Labels: the 15,000-cell level is called "Low" everywhere 
 # =============================================================================
-
-# ---- shared lists ---------------------------------------------------------------
+# ------------------------------ Shared lists ----------------------------------
 resp_components <- function(rho) c(rep(rho / 4, 4), rep((1 - rho) / 4, 4))
 
 CELL_LEVELS <- c("High", "Medium", "Low", "Very Low", "Extremely Low")
 CELL_COUNTS <- c("High" = 250000, "Medium" = 100000, "Low" = 15000,
                  "Very Low" = 7000, "Extremely Low" = 3000)
-cell_rng <- function(level) rep(CELL_COUNTS[[level]], 2)   # min = max, as in version 2
+cell_rng <- function(level) rep(CELL_COUNTS[[level]], 2)
 
 RES_LEVELS <- c("Prop_0.00", "Prop_0.10", "Prop_0.20", "Prop_0.25", "Prop_0.50",
                 "Prop_0.75", "Prop_0.80", "Prop_0.90")
@@ -29,12 +27,12 @@ res_rho <- function(lbl) as.numeric(sub("Prop_", "", lbl))
 # =============================================================================
 # Study 1: BASELINE (Beta DGM, MIMOSA2's own assumptions)
 # =============================================================================
-# As Simulation.R: 5 responder proportions x 6 P x 5 effects x 3 cell counts,
-# phi = 2000. ADDED (Morris 4.2, "methods with known properties"; audit B4):
-# a NULL scenario with no responders (rho = 0) for every P x cell count. Every
-# call there is a false positive, so it checks FDR control of MIMOSA2 and the
-# type I error of the DiD test directly. (delta = 0 would NOT give a null:
-# the rejection sampling still forces Delta > 0 for profiles R1-R4.)
+# As Simulation.R: 
+#    5 responder proportions x 6 P x 5 effects x 3 cell counts
+#    phi = 2000. 
+# Added a NULL scenario with no responders (rho = 0) for every P x cell count 
+# (every call there is a false positive, so it checks FDR control of MIMOSA2 and the type I error of the DiD test directly. 
+# (delta = 0 would NOT give a null: the rejection sampling still forces Delta > 0 for profiles R1-R4.)
 scenarios_baseline <- function() {
   main <- expand.grid(Res_prop = c("Prop_0.10", "Prop_0.25", "Prop_0.50", "Prop_0.75", "Prop_0.90"),
                       P = c(10, 20, 30, 50, 75, 100),
@@ -64,12 +62,13 @@ simulate_baseline <- function(row) {
 # =============================================================================
 # Study 2: PRIOR FAMILY (robustness to the Beta assumption)
 # =============================================================================
-# As Prior_simulations.R: 5 families x 3 P x 4 effects x 5 cell counts,
-# rho = 0.5. phi = 10000 is now the precision of the Beta REFERENCE, and every
+# As Prior_simulations.R: 
+#    5 families x 3 P x 4 effects x 5 cell counts
+#    rho = 0.5
+#    phi = 10000 is now the precision of the Beta REFERENCE, and every
 # family is calibrated to the Beta mean and variance at each condition mean
-# (dgm.R, CHANGE 2). Version 2 passed family-specific numbers instead
-# (EG 113, LN 2.05, SX 10000, BB 10000).
-# Standard profile: P = 50 only (the design described in Chapter 3).
+# (dgm.R, CHANGE 2). 
+# Standard profile: P = 50 only
 scenarios_prior <- function() {
   s <- expand.grid(Distribution = c("Beta", "EG", "LN", "SX", "BB"),
                    P = c(20, 50, 100),
@@ -98,17 +97,20 @@ simulate_prior <- function(row) {
 # fitted to all subjects together (pooled) vs to the focal subjects alone
 # (separate), and for DiD.
 #
-# [CHANGE] BUG FIX. In Heterogeneous_effect_sim.R the effect pairs are
-# c(smaller, larger), but the code set eff_large <- pair[1] (the SMALLER one)
-# and eff_small <- pair[2] (the LARGER one). The subgroup that was evaluated
-# (rows 1:p_small, labelled "Small_effect") therefore had the LARGER effect,
-# the opposite of the design in Chapter 3. Here the names are explicit:
+# In Heterogeneous_effect_sim.R the effect pairs are c(smaller, larger), but the 
+# code set eff_large <- pair[1] (the SMALLER one) and eff_small <- pair[2] (the 
+# LARGER one). 
+# The subgroup that was evaluated (rows 1:p_small, labelled "Small_effect") 
+# therefore had the LARGER effect, the opposite of the design in Chapter 3. 
+# Here the names are explicit:
 # Effect_focal < Effect_other, and the focal group is evaluated.
-#
-# Grid as version 2: rho in {0.2, 0.5, 0.8}; (P_focal, P_other) in
-# {(20,80), (50,50), (80,20)}; delta_focal in {5e-4, 6.25e-4};
-# delta_other in {6.25e-4, 8e-4, 1e-3, 1e-2, 5e-2} with delta_other >
-# delta_focal (9 pairs); 5 cell counts; phi = 5000.
+# Grid: 
+#    rho in {0.2, 0.5, 0.8}
+#    (P_focal, P_other) in {(20,80), (50,50), (80,20)}
+#    delta_focal in {5e-4, 6.25e-4}
+#    delta_other in {6.25e-4, 8e-4, 1e-3, 1e-2, 5e-2} with delta_other > delta_focal (9 pairs)
+#    5 cell counts
+#    phi = 5000.
 # Standard profile: rho = 0.5, delta_focal = 5e-4, cell counts Medium and Low.
 scenarios_heterogeneity <- function() {
   pairs <- expand.grid(Effect_focal = c(5e-4, 6.25e-4),
@@ -140,11 +142,16 @@ simulate_heterogeneity <- function(row) {
 # =============================================================================
 # Study 4: CELL-COUNT IMBALANCE
 # =============================================================================
-# As Count_Imbalanced_Sim.R: reference 150,000 cells in every assay; one, two
-# or three assays depleted to a fraction f of the reference ("Imbalanced"),
-# and "Balanced" controls with the same TOTAL spread equally over the four
-# assays, (4 - k + k f) / 4 * 150,000 per assay for k depleted assays.
-# delta = 5e-4, phi = 5000, P = 100, rho = 0.25.
+# As Count_Imbalanced_Sim.R: 
+#    Reference 150,000 cells in every assay
+#    one, two or three assays depleted to a fraction f of the reference 
+#    ("Imbalanced") and "Balanced" controls with the same TOTAL spread equally 
+#    over the four assays, (4 - k + k f) / 4 * 150,000 per assay for k depleted 
+#    assays.
+#    delta = 5e-4
+#    phi = 5000
+#    P = 100
+#    rho = 0.25
 # The 120 scenarios are now generated from (pattern, f) instead of a
 # hand-typed list, and the depleted assays are stored explicitly.
 # Standard profile: reference, Balanced k = 1, 2, the four single-assay
@@ -199,13 +206,13 @@ simulate_imbalance <- function(row) {
 }
 
 # =============================================================================
-# Study 5 (small, NEW): is maxit = 30 enough?
+# Study 5: is maxit = 30 enough?
 # =============================================================================
 # Re-generates EXACTLY the same datasets as the baseline study (same streams)
 # for 12 baseline scenarios and fits MIMOSA2 with maxit = 30 and maxit = 100.
-# Answers the Chapter 3 TODO "justify maxit = 30", and shows that the stored
-# random-number states reproduce datasets exactly (the maxit = 30 results
-# must equal the baseline results for the same Task_ID).
+# Justifies 'maxit=30' and shows that the stored random-number states reproduce 
+# datasets exactly (the maxit = 30 results must equal the baseline results for the 
+# same Task_ID).
 maxit_check_subset <- function(scen_baseline) {
   with(scen_baseline, Res_prop == "Prop_0.50" & P %in% c(20, 50, 100) &
          Effect %in% c(2.5e-4, 6.25e-5) & Cell_range %in% c("Medium", "Low"))

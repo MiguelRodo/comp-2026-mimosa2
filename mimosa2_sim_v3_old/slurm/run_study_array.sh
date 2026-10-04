@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # =============================================================================
 # OPTION 2 (more cores): split one study over several nodes with a job array.
 # Each array element is a separate 20-core (or larger) job that runs every
@@ -28,7 +28,6 @@ export N_WORKERS=${SLURM_NTASKS:-20}
 export N_CHUNKS=${N_CHUNKS:-${SLURM_ARRAY_TASK_COUNT:?"submit with --array, or set N_CHUNKS"}}
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 # module load software/R-4.x.x
-export R_LIBS=/scratch/abrmoe030/R_libs${R_LIBS:+:$R_LIBS}   # your package library (all R processes)
 
 case $STUDY in
   baseline)      SCRIPT=sims/20_sim_baseline.R ;;

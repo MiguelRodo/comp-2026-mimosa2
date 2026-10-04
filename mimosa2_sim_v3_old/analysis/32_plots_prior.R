@@ -1,23 +1,26 @@
-# =============================================================================
-# 32_plots_prior.R : figures and tables for Study 2 (generative distribution)
+# MIMOSA2 Simulation Study
+# Isabella Lethbridge and Tayyeb Abrahams 
+# October 2026
+# ==============================================================================
+# 32_plots_prior.R: Figures and Tables for Study 2
 # Replaces Prior_simulation_plots.R, Variance_Solver.R (figures),
 # Bimodal_prior.R and Wonky_prior.R (version 2).
-# =============================================================================
-# [CHANGE] What changed relative to Prior_simulation_plots.R:
-#  * Its factor levels for Cell_range omitted "Extremely Low", so those
-#    scenarios became NA in every figure; levels now come from scenarios.R.
-#  * Results are shown for one P at a time (version 2 pooled P = 20, 50, 100
-#    in the ROC curves and averaged over P in the AUROC tables; audit A6).
-#  * Family effects are shown as DIFFERENCES from the Beta reference in the
-#    same (P, effect, cell count), with MCSE = sqrt(MCSE_1^2 + MCSE_2^2)
-#    (scenarios are simulated independently).
-#  * The table marked "# INCORRECT" (method columns swapped) is replaced.
-#  * The density figure is drawn from the samplers actually used in the
-#    simulation (Bimodal_prior.R drew a DIFFERENT bimodal distribution, with
-#    mean 6e-4, variance 2e-8 and a 50:50 mixture, from the one simulated).
-#    A second panel shows the version-2 vs version-3 EG and LN distributions
-#    at the stimulated responder mean, for the write-up.
-# =============================================================================
+# ==============================================================================
+# What changed relative to Prior_simulation_plots.R:
+# - Its factor levels for Cell_range omitted "Extremely Low", so those
+#   scenarios became NA in every figure; levels now come from scenarios.R.
+# - Results are shown for one P at a time (version 2 pooled P = 20, 50, 100
+#   in the ROC curves and averaged over P in the AUROC tables; audit A6).
+# - Family effects are shown as DIFFERENCES from the Beta reference in the
+#   same (P, effect, cell count), with MCSE = sqrt(MCSE_1^2 + MCSE_2^2)
+#   (scenarios are simulated independently).
+# - The table marked "# INCORRECT" (method columns swapped) is replaced.
+# - The density figure is drawn from the samplers actually used in the
+#   simulation (Bimodal_prior.R drew a DIFFERENT bimodal distribution, with
+#   mean 6e-4, variance 2e-8 and a 50:50 mixture, from the one simulated).
+#   A second panel shows the version-2 vs version-3 EG and LN distributions
+#   at the stimulated responder mean, for the write-up.
+# ==============================================================================
 source("analysis/analysis_functions.R")
 source("R/dgm.R")
 FAM_LEVELS <- c("Beta", "SX", "BB", "EG", "LN")
@@ -25,7 +28,7 @@ FAM_LABELS <- c("Beta", "Inverse-Gaussian odds (simplex-type)", "Bimodal Beta", 
 fam_factor <- function(x) factor(x, levels = FAM_LEVELS, labels = FAM_LABELS)
 FAM_COLOURS <- setNames(c("black", "deeppink", "steelblue3", "orange", "purple"), FAM_LABELS)
 
-# ---- 0. Density figure (does not need simulation results) -----------------------
+# ---------- 0. Density figure (does not need simulation results) --------------
 set.seed(2026)
 mu_list <- c("Mean 1e-4 (unstimulated background)" = 1e-4,
              "Mean 1.1e-3 (stimulated, responders, delta = 1e-3)" = 1.1e-3)
@@ -70,7 +73,7 @@ p <- ggplot(old_new, aes(x, colour = Version)) + geom_density(linewidth = 0.7) +
        x = "Proportion", y = "Density") + theme_mimosa() + guides(colour = guide_legend(nrow = 2))
 save_fig(p, "prior_v2_vs_v3", 10, 5)
 
-# ---- Simulation results -------------------------------------------------------------
+# -------------------------- Simulation results --------------------------------
 res <- tryCatch(load_results("prior"), error = function(e) { message(conditionMessage(e)); NULL })
 if (is.null(res)) stop("No prior-family results yet: the density figures above were made; run sims/21_sim_prior.R for the rest.")
 perf <- performance_table(res) %>%
@@ -111,7 +114,7 @@ for (pp in sort(unique(perf$P))) {
            sprintf("prior_auc_P%d", pp), 13, 4.5)
 }
 
-# ---- Difference from the Beta reference (same P, effect, cell count) -----------------
+# ------ Difference from the Beta reference (same P, effect, cell count) -------
 ref <- perf %>% filter(Distribution == "Beta") %>%
   select(P, Effect, Cell_range, Method, Rule, Alpha, AUC_ref = AUC, AUC_ref_mcse = AUC_mcse,
          TPR_ref = TPR, TPR_ref_mcse = TPR_mcse)
@@ -136,7 +139,7 @@ for (pp in sort(unique(vs$P))) {
   save_fig(p, sprintf("prior_dAUC_vs_beta_P%d", pp), 12, 4.5)
 }
 
-# ---- Vertically averaged ROC curves, Beta vs each family ---------------------------
+# ----------- Vertically averaged ROC curves, Beta vs each family --------------
 P_SHOW <- if (50 %in% perf$P) 50 else max(perf$P)
 E_SHOW <- effects[ceiling(length(effects) / 2)]
 keep <- res$design %>% filter(P == P_SHOW, Effect == E_SHOW) %>% pull(Scenario_ID) %>% unique()
@@ -154,7 +157,7 @@ p <- ggplot(roc, aes(FPR, TPR_mean, colour = Fam, linetype = Method, group = int
   theme_mimosa() + guides(colour = guide_legend(nrow = 2))
 save_fig(p, "prior_ROC_comp_plot", 13, 5)
 
-# ---- Summary table (estimate (MCSE)) --------------------------------------------------
+# --------------------- Summary table (estimate (MCSE)) ------------------------
 tab <- perf %>% filter(P == P_SHOW, Alpha == 0.01, Rule %in% c("BFDR", "unadjusted")) %>%
   arrange(Fam, desc(Effect), Cell_range) %>%
   transmute(Distribution = Fam, Effect = effect_lab(Effect), Cell_range,

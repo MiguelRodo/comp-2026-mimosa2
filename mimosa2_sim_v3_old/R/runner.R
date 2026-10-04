@@ -1,35 +1,31 @@
-# =============================================================================
-# runner.R : reproducible, resumable parallel execution of a simulation study
-# =============================================================================
-#
-# [CHANGE] Replaces the scheduler loop copied into each version-2 script.
-# What it does differently (and why):
-#
-# 1. RANDOM NUMBERS (Morris 4.1, 4.1.1; audit B1). The master seed is set ONCE
+# MIMOSA2 Simulation Study
+# Isabella Lethbridge and Tayyeb Abrahams 
+# October 2026
+# ==============================================================================
+# runner.R: reproducible, resumable parallel execution of a simulation study
+# ==============================================================================
+# Replaces the scheduler loop
+# 1. RANDOM NUMBERS. The master seed is set ONCE
 #    per study with the L'Ecuyer-CMRG generator, and every dataset (task) gets
 #    its own random-number stream (parallel::nextRNGStream). The stream seed
 #    of every task is stored in the design table (the "states" dataset of
 #    Morris Table 5). Any single dataset, e.g. one where MIMOSA2 failed, can
 #    be regenerated exactly with regenerate_dataset(). Results no longer
 #    depend on how many workers were used or in which order tasks finished.
-#
 # 2. ONE FILE PER TASK, RESUMABLE. Each task writes its own small .rds file.
 #    If the job hits the wall-time or crashes, re-submitting the same command
 #    skips completed tasks. Version 2 kept everything in memory and its
 #    "checkpoint every 50 tasks" condition (n_done %% 50 == 0) re-saved the
 #    whole partial result on every pass of the loop while n_done stayed at a
 #    multiple of 50.
-#
 # 3. REPETITION-MAJOR ORDER. Tasks run in the order rep 1 of every scenario,
 #    then rep 2 of every scenario, and so on. If the run stops early, every
 #    scenario has (almost) the same number of repetitions, rather than some
 #    scenarios being complete and others empty.
-#
 # 4. NESTED PROFILES. The design is built for the largest nsim of any profile
 #    and the full (extended) grid; the standard profile is a subset of rows.
 #    Task IDs and streams are therefore identical across profiles.
-#
-# 5. FAILURES ARE RECORDED, NOT DROPPED (Morris 5.1). A MIMOSA2 fit that errors
+# 5. FAILURES ARE RECORDED, NOT DROPPED. A MIMOSA2 fit that errors
 #    or exceeds FIT_TIMEOUT is stored with status "error"/"timeout". A task
 #    whose whole process dies is recorded as "task_failed" when results are
 #    combined, so every planned dataset appears in the results.
@@ -37,7 +33,7 @@
 
 suppressPackageStartupMessages(library(parallel))
 
-# ---- Design table with one RNG stream per task -----------------------------
+# --------------- Design table with one RNG stream per task --------------------
 # scenarios: data.frame, one row per scenario (data-generating mechanism),
 #            must contain Scenario_ID and a logical column In_standard.
 # Returns one row per (scenario, repetition) with Task_ID and Seed.
@@ -60,12 +56,12 @@ build_design <- function(study, scenarios, nsim_max = NSIM_MAX[[study]]) {
     s <- nextRNGStream(s)
   }
   design$Seed <- seeds
-  attr(design, "end_state") <- paste(s, collapse = ",")   # Morris: store final state too
+  attr(design, "end_state") <- paste(s, collapse = ",") 
   attr(design, "study") <- study
   design
 }
 
-# Rows to run in the current profile
+# Rows to run in the current profile:
 select_profile <- function(design, study, profile = PROFILE) {
   nsim <- NSIM[[profile]][[study]]
   keep <- design$Rep <= nsim
@@ -82,7 +78,7 @@ set_task_seed <- function(seed_string) {
 task_dir  <- function(study) file.path(OUT_DIR, study, "tasks")
 task_file <- function(study, task_id) file.path(task_dir(study), sprintf("task_%06d.rds", task_id))
 
-# ---- Run one task in the current process ------------------------------------
+# ------------------ Run one task in the current process -----------------------
 run_task <- function(study, row, task_fun) {
   set_task_seed(row$Seed)
   t0 <- Sys.time()
@@ -96,18 +92,18 @@ run_task <- function(study, row, task_fun) {
   invisible(TRUE)
 }
 
-# ---- Parallel scheduler with an outer safety time limit ---------------------
-# Each MIMOSA2 fit has its own FIT_TIMEOUT (methods.R). The outer limit only
-# catches a task whose process hangs for some other reason.
+# ---------- Parallel scheduler with an outer safety time limit ----------------
+# Each MIMOSA2 fit has its own FIT_TIMEOUT (methods.R). 
+# The outer limit only catches a task whose process hangs for some other reason.
 run_study <- function(study, design, task_fun, n_fits = 1,
                       n_workers = N_WORKERS, chunk_id = CHUNK_ID, n_chunks = N_CHUNKS) {
   dir.create(task_dir(study), recursive = TRUE, showWarnings = FALSE)
   stopifnot(chunk_id >= 0, chunk_id < n_chunks)
   # this chunk is (re)starting: remove its old 'finished' marker
   unlink(file.path(OUT_DIR, study, sprintf("finished_%s_chunk%02d.txt", PROFILE, chunk_id)))
-  dfile <- file.path(OUT_DIR, study, "design_full.rds")             # states dataset (Morris Table 5)
-  tmpd <- paste0(dfile, ".tmp", Sys.getpid())                       # atomic write: array jobs may
-  saveRDS(design, tmpd); file.rename(tmpd, dfile)                   # start at the same moment
+  dfile <- file.path(OUT_DIR, study, "design_full.rds")             
+  tmpd <- paste0(dfile, ".tmp", Sys.getpid())     
+  saveRDS(design, tmpd); file.rename(tmpd, dfile)                   
   todo <- select_profile(design, study)
   todo <- todo[(seq_len(nrow(todo)) - 1) %% n_chunks == chunk_id, , drop = FALSE]
   done <- file.exists(task_file(study, todo$Task_ID))
@@ -197,7 +193,7 @@ run_is_finished <- function(study, profile = PROFILE) {
   length(f) >= n_chunks
 }
 
-# ---- Combine task files into four tables ------------------------------------
+# ------------------- Combine task files into four tables ----------------------
 # Writes _simulations/<study>/<study>_results.rds containing:
 #   design    : one row per planned dataset in this profile (+ Seed)
 #   datasets  : realised DGM quantities per dataset (n responders, true Delta...)
@@ -246,7 +242,7 @@ combine_study <- function(study, profile = PROFILE, keep_subjects = TRUE) {
   invisible(out)
 }
 
-# ---- Re-create one dataset exactly (Morris 4.1) ------------------------------
+# ---------------------- Re-create one dataset exactly -------------------------
 # e.g. bad <- subset(res$fits, Status == "timeout")[1, ]
 #      row <- subset(res$design, Task_ID == bad$Task_ID)
 #      sim <- regenerate_dataset(row, simulate_fun)   # then inspect / refit
