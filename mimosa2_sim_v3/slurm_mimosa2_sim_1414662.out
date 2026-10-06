@@ -1,0 +1,9 @@
+Tue Oct  6 12:38:35 PM SAST 2026 start baseline profile=standard workers=20
+Found SIF: /scratch/abrmoe030/.cache/apptainer/mimosa2.sif
+Running inside container: Rscript -e "source("sims/20_sim_baseline.R")"
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=standard workers=20 chunk=1/1 maxit=30 timeout=600s
+Baseline: 468 scenarios; this profile runs 46800 datasets
+[baseline] 46800 tasks in this chunk, 0 already done, 46800 to run on 20 workers
+[10:44] 500/46800 finished (0 failed). 5093 tasks/hour; ~9.1 h left
+slurmstepd: error: *** JOB 1414662 ON srvrochpc107 CANCELLED AT 2026-10-06T12:45:06 ***
