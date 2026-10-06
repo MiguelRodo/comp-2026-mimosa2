@@ -218,3 +218,702 @@ Running inside container: Rscript -e "source("sims/21_sim_prior.R")"
 Prior family: 300 scenarios; 10 calibrated (family, mean) pairs; this profile runs 10000 datasets
 [prior] 10000 tasks in this chunk, 0 already done, 10000 to run on 20 workers
 [13:22] 502/10000 finished (0 failed). 4950 tasks/hour; ~1.9 h left
+[13:28] 1002/10000 finished (0 failed). 4849 tasks/hour; ~1.9 h left
+[13:35] 1502/10000 finished (0 failed). 4821 tasks/hour; ~1.8 h left
+[13:41] 2002/10000 finished (0 failed). 4786 tasks/hour; ~1.7 h left
+[13:47] 2503/10000 finished (0 failed). 4806 tasks/hour; ~1.6 h left
+[13:53] 3003/10000 finished (0 failed). 4834 tasks/hour; ~1.4 h left
+[14:00] 3503/10000 finished (0 failed). 4828 tasks/hour; ~1.3 h left
+[14:06] 4003/10000 finished (0 failed). 4826 tasks/hour; ~1.2 h left
+[14:12] 4503/10000 finished (0 failed). 4824 tasks/hour; ~1.1 h left
+[14:18] 5004/10000 finished (0 failed). 4832 tasks/hour; ~1.0 h left
+[14:24] 5504/10000 finished (0 failed). 4853 tasks/hour; ~0.9 h left
+[14:30] 6004/10000 finished (0 failed). 4875 tasks/hour; ~0.8 h left
+[14:36] 6504/10000 finished (0 failed). 4895 tasks/hour; ~0.7 h left
+[14:42] 7004/10000 finished (0 failed). 4903 tasks/hour; ~0.6 h left
+[14:48] 7504/10000 finished (0 failed). 4910 tasks/hour; ~0.5 h left
+[14:54] 8004/10000 finished (0 failed). 4902 tasks/hour; ~0.4 h left
+[15:00] 8505/10000 finished (0 failed). 4893 tasks/hour; ~0.3 h left
+[15:06] 9005/10000 finished (0 failed). 4890 tasks/hour; ~0.2 h left
+[15:12] 9505/10000 finished (0 failed). 4896 tasks/hour; ~0.1 h left
+[prior] finished: 10000 ok, 0 failed (see _simulations/prior/progress_chunk00.log)
+[prior] combining 10000 of 10000 planned tasks
+Sun Oct  4 05:19:18 PM SAST 2026 end sims/21_sim_prior.R
+Sun Oct  4 05:19:18 PM SAST 2026 start sims/23_sim_imbalance.R
+Found SIF: /scratch/abrmoe030/.cache/apptainer/mimosa2.sif
+Running inside container: Rscript -e "source("sims/23_sim_imbalance.R")"
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=standard workers=20 chunk=1/1 maxit=30 timeout=600s
+Imbalance: 120 scenarios; this profile runs 5700 datasets
+[imbalance] 5700 tasks in this chunk, 0 already done, 5700 to run on 20 workers
+[15:26] 501/5700 finished (0 failed). 4277 tasks/hour; ~1.2 h left
+[15:33] 1001/5700 finished (0 failed). 4305 tasks/hour; ~1.1 h left
+[15:40] 1502/5700 finished (0 failed). 4316 tasks/hour; ~1.0 h left
+[15:47] 2002/5700 finished (0 failed). 4313 tasks/hour; ~0.9 h left
+[15:54] 2502/5700 finished (0 failed). 4309 tasks/hour; ~0.7 h left
+[16:01] 3002/5700 finished (0 failed). 4305 tasks/hour; ~0.6 h left
+[16:08] 3502/5700 finished (0 failed). 4268 tasks/hour; ~0.5 h left
+[16:16] 4002/5700 finished (0 failed). 4231 tasks/hour; ~0.4 h left
+[16:23] 4502/5700 finished (0 failed). 4196 tasks/hour; ~0.3 h left
+[16:31] 5002/5700 finished (0 failed). 4172 tasks/hour; ~0.2 h left
+[16:38] 5502/5700 finished (0 failed). 4154 tasks/hour; ~0.0 h left
+[imbalance] finished: 5700 ok, 0 failed (see _simulations/imbalance/progress_chunk00.log)
+[imbalance] combining 5700 of 5700 planned tasks
+Sun Oct  4 06:41:52 PM SAST 2026 end sims/23_sim_imbalance.R
+Sun Oct  4 06:41:52 PM SAST 2026 start sims/22_sim_heterogeneity.R
+Found SIF: /scratch/abrmoe030/.cache/apptainer/mimosa2.sif
+Running inside container: Rscript -e "source("sims/22_sim_heterogeneity.R")"
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=standard workers=20 chunk=1/1 maxit=30 timeout=600s
+Heterogeneity: 405 scenarios; this profile runs 3000 datasets
+[heterogeneity] 3000 tasks in this chunk, 0 already done, 3000 to run on 20 workers
+[16:54] 500/3000 finished (0 failed). 2327 tasks/hour; ~1.1 h left
+[17:07] 1000/3000 finished (0 failed). 2388 tasks/hour; ~0.8 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=21582690, which is more than MessageTimeout (20s). The result won't be delivered
+[17:19] 1500/3000 finished (0 failed). 2408 tasks/hour; ~0.6 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=29365628, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=23619459, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=23017112, which is more than MessageTimeout (20s). The result won't be delivered
+[17:31] 2000/3000 finished (0 failed). 2427 tasks/hour; ~0.4 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=26227860, which is more than MessageTimeout (20s). The result won't be delivered
+[17:44] 2502/3000 finished (0 failed). 2407 tasks/hour; ~0.2 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=29939993, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=44319376, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=30841358, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=22232196, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=22020842, which is more than MessageTimeout (20s). The result won't be delivered
+[heterogeneity] finished: 3000 ok, 0 failed (see _simulations/heterogeneity/progress_chunk00.log)
+[heterogeneity] combining 3000 of 3000 planned tasks
+Sun Oct  4 07:57:22 PM SAST 2026 end sims/22_sim_heterogeneity.R
+Sun Oct  4 07:57:23 PM SAST 2026 start sims/24_sim_maxit_check.R
+Found SIF: /scratch/abrmoe030/.cache/apptainer/mimosa2.sif
+Running inside container: Rscript -e "source("sims/24_sim_maxit_check.R")"
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=standard workers=20 chunk=1/1 maxit=30 timeout=600s
+maxit check: 12 scenarios; this profile runs 600 datasets
+[maxit_check] 600 tasks in this chunk, 0 already done, 600 to run on 20 workers
+slurmstepd: error: _handle_stat_jobacct: Took usec=34395413, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=31998875, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=53230932, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=33296292, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=21129958, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=22611438, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=22517520, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=37999781, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=20537123, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=26239574, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=25755024, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=30696649, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=34128217, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=21260988, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=27280184, which is more than MessageTimeout (20s). The result won't be delivered
+[18:20] 500/600 finished (0 failed). 1308 tasks/hour; ~0.1 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=27234220, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=43680659, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=24890862, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=26549016, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=25304969, which is more than MessageTimeout (20s). The result won't be delivered
+[maxit_check] finished: 600 ok, 0 failed (see _simulations/maxit_check/progress_chunk00.log)
+[maxit_check] combining 600 of 600 planned tasks
+Sun Oct  4 08:25:10 PM SAST 2026 end sims/24_sim_maxit_check.R
+Sun Oct  4 08:25:10 PM SAST 2026 start sims/20_sim_baseline.R
+Found SIF: /scratch/abrmoe030/.cache/apptainer/mimosa2.sif
+Running inside container: Rscript -e "source("sims/20_sim_baseline.R")"
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=standard workers=20 chunk=1/1 maxit=30 timeout=600s
+Baseline: 468 scenarios; this profile runs 46800 datasets
+[baseline] 46800 tasks in this chunk, 0 already done, 46800 to run on 20 workers
+slurmstepd: error: _handle_stat_jobacct: Took usec=32050137, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=38466377, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=28263657, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=21190212, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=27195295, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=21456578, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=24027367, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=36337503, which is more than MessageTimeout (20s). The result won't be delivered
+[18:31] 500/46800 finished (0 failed). 4702 tasks/hour; ~9.8 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=25964873, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=34809169, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=39480349, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=24157309, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=22608629, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=20135678, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=34959493, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=45503070, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=36732295, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=24524427, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=28225215, which is more than MessageTimeout (20s). The result won't be delivered
+[18:38] 1000/46800 finished (0 failed). 4617 tasks/hour; ~9.9 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=20647060, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=21272274, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=31401518, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=23414401, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=66951104, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=34897728, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=21396448, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=34093734, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=22002139, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=29819663, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=22582925, which is more than MessageTimeout (20s). The result won't be delivered
+[18:45] 1500/46800 finished (0 failed). 4528 tasks/hour; ~10.0 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=22048522, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=39469288, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=52881272, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=46083489, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=39202492, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=25750419, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=41525246, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=32596107, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=22664403, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=38349805, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=58774873, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=50616221, which is more than MessageTimeout (20s). The result won't be delivered
+[18:52] 2000/46800 finished (0 failed). 4497 tasks/hour; ~10.0 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=36883854, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=53401231, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=45091103, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=31891290, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=47030796, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=39546744, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=58308997, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=52692473, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=69885328, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=39390172, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=50599639, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=43440473, which is more than MessageTimeout (20s). The result won't be delivered
+[18:58] 2500/46800 finished (0 failed). 4470 tasks/hour; ~9.9 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=36560715, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=47605022, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=42412776, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=64858207, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=33131166, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=47272157, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=41565955, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=35471488, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=25430809, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=45047035, which is more than MessageTimeout (20s). The result won't be delivered
+[19:05] 3000/46800 finished (0 failed). 4507 tasks/hour; ~9.7 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=39791750, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=59428161, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=53509708, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=74241668, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=45485272, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=59591782, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=55033629, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=51060444, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=62354631, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=87136511, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=118308382, which is more than MessageTimeout (20s). The result won't be delivered
+[19:11] 3500/46800 finished (0 failed). 4542 tasks/hour; ~9.5 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=58902815, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=74676200, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=71547168, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=58504966, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=55126681, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=121841907, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=54254323, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=71131310, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=67474621, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=128366932, which is more than MessageTimeout (20s). The result won't be delivered
+[19:17] 4000/46800 finished (0 failed). 4568 tasks/hour; ~9.4 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=66380165, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=57640392, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=80595298, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=53404717, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=96097231, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=154084313, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=96705585, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=151566560, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=88996603, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=86457251, which is more than MessageTimeout (20s). The result won't be delivered
+[19:24] 4500/46800 finished (0 failed). 4587 tasks/hour; ~9.2 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=87119755, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=78774079, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=77079606, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=99987969, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=158984714, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=94706095, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=95141395, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=179282540, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=86349684, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=85112935, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=59304338, which is more than MessageTimeout (20s). The result won't be delivered
+[19:30] 5000/46800 finished (0 failed). 4603 tasks/hour; ~9.1 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=77943881, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=101527296, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=102830212, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=157794681, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=97496908, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=95899314, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=100828977, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=93838917, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=91709636, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=97058033, which is more than MessageTimeout (20s). The result won't be delivered
+[19:36] 5500/46800 finished (0 failed). 4613 tasks/hour; ~9.0 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=122237866, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=120915480, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=120376796, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=129135779, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=122861612, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=130766834, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=126662448, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=246597952, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=126230929, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=154931592, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=131338172, which is more than MessageTimeout (20s). The result won't be delivered
+[19:43] 6000/46800 finished (0 failed). 4621 tasks/hour; ~8.8 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=158697521, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=159442991, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=135646796, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=129197141, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=140255522, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=165679408, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=172265075, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=170765747, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=290722117, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=145541343, which is more than MessageTimeout (20s). The result won't be delivered
+[19:49] 6500/46800 finished (0 failed). 4632 tasks/hour; ~8.7 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=172363142, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=172927895, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=150373018, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=146361342, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=179490852, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=183275553, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=182946644, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=303333891, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=159109433, which is more than MessageTimeout (20s). The result won't be delivered
+[19:55] 7001/46800 finished (0 failed). 4639 tasks/hour; ~8.6 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=153270946, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=188310024, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=373801296, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=166661019, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=193428461, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=194590377, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=175779609, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=206208109, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=208331209, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=327964362, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=152213866, which is more than MessageTimeout (20s). The result won't be delivered
+[20:02] 7501/46800 finished (0 failed). 4644 tasks/hour; ~8.5 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=154472939, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=199448755, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=354016932, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=231369713, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=232818825, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=212356980, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=385788444, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=209681460, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=212750120, which is more than MessageTimeout (20s). The result won't be delivered
+[20:08] 8002/46800 finished (0 failed). 4649 tasks/hour; ~8.3 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=226403349, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=255258703, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=258257762, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=262099108, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=240776946, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=242247626, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=260904018, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=263135023, which is more than MessageTimeout (20s). The result won't be delivered
+[20:14] 8502/46800 finished (0 failed). 4655 tasks/hour; ~8.2 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=295151789, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=277440720, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=482947532, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=275910554, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=280820186, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=263985949, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=298769645, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=538435625, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=303684303, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=284554393, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=315078136, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=321911369, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=327388488, which is more than MessageTimeout (20s). The result won't be delivered
+[20:21] 9002/46800 finished (0 failed). 4636 tasks/hour; ~8.2 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=308801013, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=308563788, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=314784603, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=332844936, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=332729774, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=339153435, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=373279125, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=354540026, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=354883152, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=359113542, which is more than MessageTimeout (20s). The result won't be delivered
+[20:28] 9502/46800 finished (0 failed). 4632 tasks/hour; ~8.1 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=342663605, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=342761325, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=347186106, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=366620756, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=398040120, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=405029559, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=412014910, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=394788105, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=395066725, which is more than MessageTimeout (20s). The result won't be delivered
+[20:34] 10002/46800 finished (0 failed). 4635 tasks/hour; ~7.9 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=405771304, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=387633378, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=396228460, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=433266043, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=463469617, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=466864850, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=459165782, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=462331505, which is more than MessageTimeout (20s). The result won't be delivered
+[20:41] 10502/46800 finished (0 failed). 4627 tasks/hour; ~7.8 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=470955791, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=454446262, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=487461959, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=495040594, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=854474790, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=487164491, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=490030304, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=499921001, which is more than MessageTimeout (20s). The result won't be delivered
+[20:48] 11002/46800 finished (0 failed). 4615 tasks/hour; ~7.8 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=528029389, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=978521531, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=535803302, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=574468708, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=559787292, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=564430651, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=573103471, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=560692679, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=564290503, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=574081101, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1054444347, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=559257894, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=591829635, which is more than MessageTimeout (20s). The result won't be delivered
+[20:55] 11502/46800 finished (0 failed). 4599 tasks/hour; ~7.7 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=602946411, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=613752241, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=599315606, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=651278849, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1167374805, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=660826365, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=650573439, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=660019586, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=699506459, which is more than MessageTimeout (20s). The result won't be delivered
+[21:02] 12003/46800 finished (0 failed). 4592 tasks/hour; ~7.6 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=685222846, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=690615876, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=699993686, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=686803854, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=690136701, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=701115357, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=687540138, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=719447713, which is more than MessageTimeout (20s). The result won't be delivered
+[21:08] 12503/46800 finished (0 failed). 4600 tasks/hour; ~7.5 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=739442246, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=725994267, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=731928384, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=743368541, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=769425431, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=774670337, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1410303206, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=826665352, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=817674227, which is more than MessageTimeout (20s). The result won't be delivered
+[21:14] 13004/46800 finished (0 failed). 4601 tasks/hour; ~7.3 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=823218610, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=833595172, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=822192093, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=840180738, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=870518893, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=882459752, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=894117620, which is more than MessageTimeout (20s). The result won't be delivered
+[21:21] 13504/46800 finished (0 failed). 4593 tasks/hour; ~7.2 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=884753454, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=893128875, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1612825286, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=903905324, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=892707201, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=899068068, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=910537656, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=956103612, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=945255655, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1000917062, which is more than MessageTimeout (20s). The result won't be delivered
+[21:28] 14004/46800 finished (0 failed). 4580 tasks/hour; ~7.2 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=1015971342, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1005181249, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1779123652, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1012398568, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1026346408, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1015204811, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1055780085, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1071601180, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1085380824, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1074777420, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1879351959, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1083939940, which is more than MessageTimeout (20s). The result won't be delivered
+[21:35] 14504/46800 finished (0 failed). 4571 tasks/hour; ~7.1 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=1098135812, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1883978843, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1085413713, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1097376619, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1112554805, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1156586704, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1146684851, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1159732945, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1173669745, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1164217156, which is more than MessageTimeout (20s). The result won't be delivered
+[21:42] 15004/46800 finished (0 failed). 4561 tasks/hour; ~7.0 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=1188859253, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1180191876, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1221972815, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1239466707, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1254286980, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1244547637, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1255185583, which is more than MessageTimeout (20s). The result won't be delivered
+[21:49] 15504/46800 finished (0 failed). 4556 tasks/hour; ~6.9 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=1322801578, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1326225344, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1342221164, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1385842164, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1379747227, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1394217319, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1409861223, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1399341483, which is more than MessageTimeout (20s). The result won't be delivered
+[21:56] 16004/46800 finished (0 failed). 4547 tasks/hour; ~6.8 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=1409338294, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1425769683, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1462500935, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1495495743, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1488563801, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1500208956, which is more than MessageTimeout (20s). The result won't be delivered
+[22:03] 16504/46800 finished (0 failed). 4542 tasks/hour; ~6.7 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=1517881094, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1511213616, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1587744069, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1582906267, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1595613240, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1612352515, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1606461096, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2770079605, which is more than MessageTimeout (20s). The result won't be delivered
+[22:10] 17004/46800 finished (0 failed). 4536 tasks/hour; ~6.6 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=1618876840, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1636803983, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1632010196, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1710814013, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1702541661, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1715335433, which is more than MessageTimeout (20s). The result won't be delivered
+[22:16] 17504/46800 finished (0 failed). 4534 tasks/hour; ~6.5 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=1734022964, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1734561810, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1744322324, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1867530744, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3133654784, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1869778740, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1883920399, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1903888091, which is more than MessageTimeout (20s). The result won't be delivered
+[22:23] 18004/46800 finished (0 failed). 4529 tasks/hour; ~6.4 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=1899022298, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1929842085, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1971401267, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=1991579631, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2012214240, which is more than MessageTimeout (20s). The result won't be delivered
+[22:30] 18504/46800 finished (0 failed). 4523 tasks/hour; ~6.3 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=2028497578, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2048914658, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3434405010, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2045533137, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2059931698, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2082022712, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2136418290, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3607645882, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2133551189, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2150401722, which is more than MessageTimeout (20s). The result won't be delivered
+[22:37] 19004/46800 finished (0 failed). 4520 tasks/hour; ~6.1 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=2170971008, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2168240490, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2184529255, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2204097812, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3673799381, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2201221303, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2246167988, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2266112932, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3796187048, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2288313171, which is more than MessageTimeout (20s). The result won't be delivered
+[22:44] 19504/46800 finished (0 failed). 4516 tasks/hour; ~6.0 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=2285951067, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2303777819, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2325163755, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2323116506, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2342063769, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2365655419, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2416357100, which is more than MessageTimeout (20s). The result won't be delivered
+[22:50] 20004/46800 finished (0 failed). 4519 tasks/hour; ~5.9 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=2415646946, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2432537016, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2454767072, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2452799005, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=4126972217, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2473219712, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=4153312482, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2495883280, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2496306182, which is more than MessageTimeout (20s). The result won't be delivered
+[22:57] 20504/46800 finished (0 failed). 4519 tasks/hour; ~5.8 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=2550163919, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2578688153, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2601951059, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2598331908, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2614959871, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2638139140, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2638900514, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2657055618, which is more than MessageTimeout (20s). The result won't be delivered
+[23:04] 21005/46800 finished (0 failed). 4520 tasks/hour; ~5.7 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=2744804819, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2801467815, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=4602161796, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2801458022, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2821590609, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2845187513, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2845754200, which is more than MessageTimeout (20s). The result won't be delivered
+[23:10] 21505/46800 finished (0 failed). 4520 tasks/hour; ~5.6 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=2862345237, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2887549246, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2887143268, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2936877825, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=4826069844, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2983381357, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=4903210071, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=2984878808, which is more than MessageTimeout (20s). The result won't be delivered
+[23:17] 22005/46800 finished (0 failed). 4524 tasks/hour; ~5.5 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=2999760085, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3026880033, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3049859037, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3074715645, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3129960537, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=5116950376, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3131949754, which is more than MessageTimeout (20s). The result won't be delivered
+[23:23] 22505/46800 finished (0 failed). 4525 tasks/hour; ~5.4 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=3154888397, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3181477149, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3184048688, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3203415728, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3228953163, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3231344898, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3281428527, which is more than MessageTimeout (20s). The result won't be delivered
+[23:30] 23005/46800 finished (0 failed). 4526 tasks/hour; ~5.3 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=3304038324, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3332472841, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3334681031, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3356555898, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3388503589, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3411560306, which is more than MessageTimeout (20s). The result won't be delivered
+[23:36] 23507/46800 finished (0 failed). 4528 tasks/hour; ~5.1 h left
+slurmstepd: error: _handle_stat_jobacct: Took usec=3496322289, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=4428897726, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=4278312319, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3678258118, which is more than MessageTimeout (20s). The result won't be delivered
+slurmstepd: error: _handle_stat_jobacct: Took usec=3559282375, which is more than MessageTimeout (20s). The result won't be delivered
+[23:43] 24007/46800 finished (0 failed). 4527 tasks/hour; ~5.0 h left
+[23:49] 24508/46800 finished (0 failed). 4530 tasks/hour; ~4.9 h left
+[23:56] 25008/46800 finished (0 failed). 4531 tasks/hour; ~4.8 h left
+[00:03] 25508/46800 finished (0 failed). 4531 tasks/hour; ~4.7 h left
+[00:09] 26008/46800 finished (0 failed). 4531 tasks/hour; ~4.6 h left
+[00:16] 26509/46800 finished (0 failed). 4533 tasks/hour; ~4.5 h left
+[00:22] 27009/46800 finished (0 failed). 4536 tasks/hour; ~4.4 h left
+[00:28] 27509/46800 finished (0 failed). 4541 tasks/hour; ~4.2 h left
+[00:34] 28010/46800 finished (0 failed). 4548 tasks/hour; ~4.1 h left
+[00:41] 28510/46800 finished (0 failed). 4553 tasks/hour; ~4.0 h left
+[00:47] 29010/46800 finished (0 failed). 4557 tasks/hour; ~3.9 h left
+[00:53] 29510/46800 finished (0 failed). 4563 tasks/hour; ~3.8 h left
+[00:59] 30010/46800 finished (0 failed). 4568 tasks/hour; ~3.7 h left
+[01:05] 30510/46800 finished (0 failed). 4575 tasks/hour; ~3.6 h left
+[01:11] 31010/46800 finished (0 failed). 4580 tasks/hour; ~3.4 h left
+[01:17] 31510/46800 finished (0 failed). 4586 tasks/hour; ~3.3 h left
+[01:23] 32010/46800 finished (0 failed). 4592 tasks/hour; ~3.2 h left
+[01:29] 32510/46800 finished (0 failed). 4596 tasks/hour; ~3.1 h left
+[01:35] 33010/46800 finished (0 failed). 4601 tasks/hour; ~3.0 h left
+[01:41] 33510/46800 finished (0 failed). 4605 tasks/hour; ~2.9 h left
+[01:48] 34010/46800 finished (0 failed). 4609 tasks/hour; ~2.8 h left
+[01:54] 34510/46800 finished (0 failed). 4614 tasks/hour; ~2.7 h left
+[02:00] 35010/46800 finished (0 failed). 4619 tasks/hour; ~2.6 h left
+[02:06] 35510/46800 finished (0 failed). 4623 tasks/hour; ~2.4 h left
+[02:12] 36010/46800 finished (0 failed). 4625 tasks/hour; ~2.3 h left
+[02:18] 36510/46800 finished (0 failed). 4630 tasks/hour; ~2.2 h left
+[02:24] 37010/46800 finished (0 failed). 4634 tasks/hour; ~2.1 h left
+[02:30] 37510/46800 finished (0 failed). 4639 tasks/hour; ~2.0 h left
+[02:36] 38010/46800 finished (0 failed). 4643 tasks/hour; ~1.9 h left
+[02:42] 38510/46800 finished (0 failed). 4646 tasks/hour; ~1.8 h left
+[02:48] 39010/46800 finished (0 failed). 4648 tasks/hour; ~1.7 h left
+[02:54] 39510/46800 finished (0 failed). 4652 tasks/hour; ~1.6 h left
+[03:00] 40010/46800 finished (0 failed). 4656 tasks/hour; ~1.5 h left
+[03:07] 40510/46800 finished (0 failed). 4659 tasks/hour; ~1.4 h left
+[03:13] 41010/46800 finished (0 failed). 4662 tasks/hour; ~1.2 h left
+[03:19] 41510/46800 finished (0 failed). 4665 tasks/hour; ~1.1 h left
+[03:25] 42010/46800 finished (0 failed). 4668 tasks/hour; ~1.0 h left
+[03:31] 42510/46800 finished (0 failed). 4671 tasks/hour; ~0.9 h left
+[03:37] 43010/46800 finished (0 failed). 4673 tasks/hour; ~0.8 h left
+[03:43] 43510/46800 finished (0 failed). 4675 tasks/hour; ~0.7 h left
+[03:49] 44010/46800 finished (0 failed). 4679 tasks/hour; ~0.6 h left
+[03:55] 44510/46800 finished (0 failed). 4682 tasks/hour; ~0.5 h left
+[04:01] 45010/46800 finished (0 failed). 4685 tasks/hour; ~0.4 h left
+[04:07] 45511/46800 finished (0 failed). 4688 tasks/hour; ~0.3 h left
+[04:13] 46011/46800 finished (0 failed). 4690 tasks/hour; ~0.2 h left
+[04:19] 46511/46800 finished (0 failed). 4693 tasks/hour; ~0.1 h left
+[baseline] finished: 46800 ok, 0 failed (see _simulations/baseline/progress_chunk00.log)
+[baseline] combining 46800 of 46800 planned tasks
+Mon Oct  5 06:24:55 AM SAST 2026 end sims/20_sim_baseline.R
+Found SIF: /scratch/abrmoe030/.cache/apptainer/mimosa2.sif
+Running inside container: Rscript -e "source("analysis/30_performance_tables.R")"
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=standard workers=20 chunk=1/1 maxit=30 timeout=600s
+
+==== baseline ====
+saved _tables/baseline_performance.csv
+saved _tables/baseline_failures.csv
+MIMOSA2 fits: 46800 planned datasets, failure rate 0.16% (errors 76, timeouts 0); whole tasks failed: 0
+saved _tables/baseline_realised_dgm.csv
+saved _tables/baseline_dAUC_MIMOSA2_vs_DiD.csv
+
+==== prior ====
+saved _tables/prior_performance.csv
+saved _tables/prior_failures.csv
+MIMOSA2 fits: 10000 planned datasets, failure rate 0.00% (errors 0, timeouts 0); whole tasks failed: 0
+saved _tables/prior_realised_dgm.csv
+saved _tables/prior_dAUC_MIMOSA2_vs_DiD.csv
+
+==== heterogeneity ====
+saved _tables/heterogeneity_performance.csv
+saved _tables/heterogeneity_failures.csv
+MIMOSA2 fits: 3000 planned datasets, failure rate 0.00% (errors 0, timeouts 0); whole tasks failed: 0
+saved _tables/heterogeneity_realised_dgm.csv
+saved _tables/heterogeneity_dAUC_MIMOSA2_pooled_vs_DiD.csv
+saved _tables/heterogeneity_dAUC_MIMOSA2_separate_vs_DiD.csv
+saved _tables/heterogeneity_dAUC_pooled_vs_separate.csv
+
+==== imbalance ====
+saved _tables/imbalance_performance.csv
+saved _tables/imbalance_failures.csv
+MIMOSA2 fits: 5700 planned datasets, failure rate 0.00% (errors 0, timeouts 0); whole tasks failed: 0
+saved _tables/imbalance_realised_dgm.csv
+saved _tables/imbalance_dAUC_MIMOSA2_vs_DiD.csv
+saved _tables/precision_report.csv
+
+Monte Carlo precision achieved (max over scenarios) and nsim needed for
+target MCSE of 0.02 (TPR), 0.01 (FDR), 0.01 (AUC):
+           Study           Method       Rule nsim_max max_TPR_mcse max_FDR_mcse
+1       baseline              DiD         BH      100      0.05024      0.01407
+2       baseline              DiD unadjusted      100      0.05009      0.05009
+3       baseline          MIMOSA2       BFDR      100      0.05102      0.01804
+4          prior              DiD         BH      100      0.01146      0.01000
+5          prior              DiD unadjusted      100      0.01136      0.02570
+6          prior          MIMOSA2       BFDR      100      0.01286      0.01777
+7  heterogeneity              DiD         BH      100      0.01555      0.01000
+8  heterogeneity              DiD unadjusted      100      0.01427      0.01313
+9  heterogeneity   MIMOSA2_pooled       BFDR      100      0.01545      0.00681
+10 heterogeneity MIMOSA2_separate       BFDR      100      0.01697      0.00612
+11     imbalance              DiD         BH      100      0.01110      0.03304
+12     imbalance              DiD unadjusted      100      0.00961      0.03557
+13     imbalance          MIMOSA2       BFDR      100      0.01376      0.01138
+   max_AUC_mcse nsim_for_TPR_target nsim_for_FDR_target nsim_for_AUC_target
+1       0.02717                 632                 198                 739
+2       0.02717                 628                2510                 739
+3       0.03222                 631                 310                 966
+4       0.00862                  33                 100                  75
+5       0.00862                  33                 661                  75
+6       0.00851                  42                 316                  73
+7       0.01010                  61                 100                 103
+8       0.01010                  51                 173                 103
+9       0.00991                  60                  47                  99
+10      0.00976                  73                  38                  96
+11      0.00543                  31                1092                  30
+12      0.00543                  24                1265                  30
+13      0.00595                  48                 130                  36
