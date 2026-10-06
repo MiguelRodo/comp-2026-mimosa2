@@ -32,4 +32,5 @@ for S in analysis/30_performance_tables.R analysis/31_plots_baseline.R analysis/
          analysis/33_plots_heterogeneity.R analysis/34_plots_imbalance.R analysis/35_maxit_check.R; do
   echo "$(date) $S"; run_r "$S"
 done
+run_r sims/41_export_rdata.R                  # [v3.1] .Rdata copy of every results file (the .rds files are kept)
 echo "$(date) done"

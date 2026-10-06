@@ -243,6 +243,8 @@ The baseline uses exactly the same 46,800 datasets as on 5 October (same seeds),
   - `prior_density` should have three panels.
   - The ΔAUC figures should have axes reading "Difference in AUC".
 
+**`.Rdata` copies.** At the end, the fix job also writes `_simulations/<study>/<study>_results_standard.Rdata` next to each `.rds` file. `load()` it to get `<study>_results` (the full list) and `<study>_design`, `_datasets`, `_fits`, `_estimates` and `_subjects` as separate data frames. The pipeline itself keeps reading the `.rds` files. To make the copies on their own: `SIM_PROFILE=standard Rscript sims/41_export_rdata.R`.
+
 **Step 7. Back up the results.** Copy all five `_simulations/<study>/<study>_results_standard.rds` files somewhere safe. Delete a `tasks/` folder only after its results file exists and has been backed up.
 
 **If something fails:** send the `.out` file. If the baseline job hits its time limit, submit the same command again. It continues where it stopped, provided the `tasks/` folder is left in place.
@@ -265,7 +267,8 @@ The baseline uses exactly the same 46,800 datasets as on 5 October (same seeds),
 | `analysis/32_plots_prior.R` | changed | density figure; ROC axes |
 | `analysis/33_plots_heterogeneity.R` | changed | categorical x-axis; ΔAUC label |
 | `analysis/34_plots_imbalance.R` | changed | ΔAUC label |
-| `slurm/fix_v31.sh` | **new** | runs 40 and analysis 30–35 |
+| `sims/41_export_rdata.R` | **new** | saves a `.Rdata` copy of every results file (the `.rds` files are kept) |
+| `slurm/fix_v31.sh` | **new** | runs 40, analysis 30–35, then 41 |
 | `FIXES_v3.1.md` | **new** | detailed review with evidence |
 | `README_v3.1.md` | **new** | this file |
 
