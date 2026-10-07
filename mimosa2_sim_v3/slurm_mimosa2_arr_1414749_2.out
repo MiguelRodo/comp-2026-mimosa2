@@ -1,0 +1,19 @@
+Tue Oct  6 01:59:32 PM SAST 2026 start heterogeneity chunk 2 of 8
+Found SIF: /scratch/abrmoe030/.cache/apptainer/mimosa2.sif
+Running inside container: Rscript -e "source("sims/22_sim_heterogeneity.R")"
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=extended workers=20 chunk=3/8 maxit=30 timeout=600s
+Heterogeneity: 405 scenarios; this profile runs 40500 datasets
+[heterogeneity] 5063 tasks in this chunk, 0 already done, 5063 to run on 20 workers
+[12:13] 500/5063 finished (0 failed). 2112 tasks/hour; ~2.2 h left
+[12:27] 1000/5063 finished (0 failed). 2146 tasks/hour; ~1.9 h left
+[12:41] 1500/5063 finished (0 failed). 2155 tasks/hour; ~1.7 h left
+[12:55] 2000/5063 finished (0 failed). 2153 tasks/hour; ~1.4 h left
+[13:09] 2500/5063 finished (0 failed). 2161 tasks/hour; ~1.2 h left
+[13:22] 3000/5063 finished (0 failed). 2166 tasks/hour; ~1.0 h left
+[13:36] 3500/5063 finished (0 failed). 2164 tasks/hour; ~0.7 h left
+[13:50] 4000/5063 finished (0 failed). 2163 tasks/hour; ~0.5 h left
+[14:04] 4500/5063 finished (0 failed). 2166 tasks/hour; ~0.3 h left
+[14:18] 5000/5063 finished (0 failed). 2164 tasks/hour; ~0.0 h left
+[heterogeneity] finished: 5063 ok, 0 failed (see _simulations/heterogeneity/progress_chunk02.log)
+Tue Oct  6 04:20:15 PM SAST 2026 end

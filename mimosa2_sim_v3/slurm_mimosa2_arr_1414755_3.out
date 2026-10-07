@@ -1,0 +1,20 @@
+Tue Oct  6 05:49:06 PM SAST 2026 start imbalance chunk 3 of 4
+Found SIF: /scratch/abrmoe030/.cache/apptainer/mimosa2.sif
+Running inside container: Rscript -e "source("sims/23_sim_imbalance.R")"
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=extended workers=20 chunk=4/4 maxit=30 timeout=600s
+Imbalance: 120 scenarios; this profile runs 24000 datasets
+[imbalance] 6000 tasks in this chunk, 0 already done, 6000 to run on 20 workers
+[15:56] 501/6000 finished (0 failed). 4129 tasks/hour; ~1.3 h left
+[16:03] 1003/6000 finished (0 failed). 4156 tasks/hour; ~1.2 h left
+[16:10] 1503/6000 finished (0 failed). 4162 tasks/hour; ~1.1 h left
+[16:17] 2004/6000 finished (0 failed). 4172 tasks/hour; ~1.0 h left
+[16:25] 2505/6000 finished (0 failed). 4178 tasks/hour; ~0.8 h left
+[16:32] 3005/6000 finished (0 failed). 4169 tasks/hour; ~0.7 h left
+[16:39] 3505/6000 finished (0 failed). 4180 tasks/hour; ~0.6 h left
+[16:46] 4006/6000 finished (0 failed). 4180 tasks/hour; ~0.5 h left
+[16:53] 4506/6000 finished (0 failed). 4181 tasks/hour; ~0.4 h left
+[17:00] 5006/6000 finished (0 failed). 4181 tasks/hour; ~0.2 h left
+[17:08] 5506/6000 finished (0 failed). 4179 tasks/hour; ~0.1 h left
+[imbalance] finished: 6000 ok, 0 failed (see _simulations/imbalance/progress_chunk03.log)
+Tue Oct  6 07:15:13 PM SAST 2026 end
