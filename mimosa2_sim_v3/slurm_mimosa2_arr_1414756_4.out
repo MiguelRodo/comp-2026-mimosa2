@@ -1,0 +1,28 @@
+Tue Oct  6 06:41:29 PM SAST 2026 start prior chunk 4 of 6
+Found SIF: /scratch/abrmoe030/.cache/apptainer/mimosa2.sif
+Running inside container: Rscript -e "source("sims/21_sim_prior.R")"
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=extended workers=20 chunk=5/6 maxit=30 timeout=600s
+Prior family: 300 scenarios; 10 calibrated (family, mean) pairs; this profile runs 60000 datasets
+[prior] 10000 tasks in this chunk, 0 already done, 10000 to run on 20 workers
+[16:48] 500/10000 finished (0 failed). 4135 tasks/hour; ~2.3 h left
+[16:56] 1000/10000 finished (0 failed). 4149 tasks/hour; ~2.2 h left
+[17:03] 1500/10000 finished (0 failed). 4185 tasks/hour; ~2.0 h left
+[17:10] 2001/10000 finished (0 failed). 4211 tasks/hour; ~1.9 h left
+[17:17] 2501/10000 finished (0 failed). 4207 tasks/hour; ~1.8 h left
+[17:24] 3001/10000 finished (0 failed). 4196 tasks/hour; ~1.7 h left
+[17:31] 3501/10000 finished (0 failed). 4191 tasks/hour; ~1.6 h left
+[17:38] 4001/10000 finished (0 failed). 4192 tasks/hour; ~1.4 h left
+[17:45] 4501/10000 finished (0 failed). 4197 tasks/hour; ~1.3 h left
+[17:53] 5001/10000 finished (0 failed). 4194 tasks/hour; ~1.2 h left
+[18:00] 5501/10000 finished (0 failed). 4198 tasks/hour; ~1.1 h left
+[18:07] 6001/10000 finished (0 failed). 4206 tasks/hour; ~1.0 h left
+[18:14] 6501/10000 finished (0 failed). 4203 tasks/hour; ~0.8 h left
+[18:21] 7001/10000 finished (0 failed). 4201 tasks/hour; ~0.7 h left
+[18:28] 7501/10000 finished (0 failed). 4197 tasks/hour; ~0.6 h left
+[18:36] 8001/10000 finished (0 failed). 4194 tasks/hour; ~0.5 h left
+[18:43] 8501/10000 finished (0 failed). 4187 tasks/hour; ~0.4 h left
+[18:50] 9001/10000 finished (0 failed). 4184 tasks/hour; ~0.2 h left
+[18:57] 9501/10000 finished (0 failed). 4205 tasks/hour; ~0.1 h left
+[prior] finished: 10000 ok, 0 failed (see _simulations/prior/progress_chunk04.log)
+Tue Oct  6 09:03:23 PM SAST 2026 end
