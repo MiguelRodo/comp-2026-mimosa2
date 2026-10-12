@@ -72,6 +72,12 @@ FIT_TIMEOUT <- 600   # [CHANGE] ONE time limit (seconds) per MIMOSA2 fit in ever
                      # Version 2 used 600/180/120/none. A fit that runs longer is
                      # killed and recorded as a "timeout" failure (Morris 5.1).
 ALPHAS      <- c(0.01, 0.05)  # nominal levels for responder calls
+# [CHANGE v3.1, 6 Oct] Continuity correction used in the VARIANCE of the DiD
+# Wald test: p_tilde = (x + DID_CC) / (N + 2 * DID_CC). With DID_CC = 0 (v3.0)
+# an assay with a zero count contributed zero variance, which made the test
+# badly anti-conservative when s0 or u1 had few cells (imbalance study: 26% of
+# non-responders called at alpha = 0.05). The estimate itself is unchanged.
+DID_CC      <- 0.5
 
 # ---- Seeds: ONE master seed per study (Morris 4.1: set the seed once) --------
 # [CHANGE] Version 2: baseline had no seed; the others called set.seed() but
