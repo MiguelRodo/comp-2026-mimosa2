@@ -24,14 +24,22 @@
 # now also defined for est < 0). Ranking for ROC/AUC uses z itself, which has
 # no ties even when Phi(z) rounds to 1.
 # If all four observed proportions are 0 (SE = 0 and estimate 0), z = 0.
-DiD_wald <- function(Ntot, ns1, nu1, ns0, nu0) {
+# [CHANGE v3.1, 6 Oct] Continuity-corrected variance (cc = DID_CC, config.R).
+# With cc = 0 (version 3.0) a zero count gave p_hat (1 - p_hat) / N = 0, so a
+# depleted assay that happened to have no positive cells added NO variance:
+# depleting s0 or u1 (the assays with a minus sign) produced large z values for
+# non-responders (imbalance study, f = 2.5%: 26% / 20% false calls at 5%), and
+# depleting s1 / u0 the opposite. cc = 0.5 uses p_tilde = (x + 0.5) / (N + 1)
+# in the variance only; the estimate is still the observed DiD. DiD_wald(cc = 0)
+# reproduces version 3.0 exactly.
+DiD_wald <- function(Ntot, ns1, nu1, ns0, nu0, cc = DID_CC) {
   N_s1 <- Ntot[, "ns1"]; N_u1 <- Ntot[, "nu1"]; N_s0 <- Ntot[, "ns0"]; N_u0 <- Ntot[, "nu0"]
   p_s1 <- ns1 / N_s1; p_u1 <- nu1 / N_u1; p_s0 <- ns0 / N_s0; p_u0 <- nu0 / N_u0
   est <- (p_s1 - p_u1) - (p_s0 - p_u0)
-  se  <- sqrt(p_s1 * (1 - p_s1) / N_s1 + p_u1 * (1 - p_u1) / N_u1 +
-              p_s0 * (1 - p_s0) / N_s0 + p_u0 * (1 - p_u0) / N_u0)
+  v <- function(x, N) { pt <- (x + cc) / (N + 2 * cc); pt * (1 - pt) / N }
+  se  <- sqrt(v(ns1, N_s1) + v(nu1, N_u1) + v(ns0, N_s0) + v(nu0, N_u0))
   z <- est / se
-  z[se == 0 & est == 0] <- 0
+  z[se == 0] <- 0                                  # only possible when cc = 0 and all counts are 0
   data.frame(DiD_est = est, DiD_se = se, DiD_z = z,
              DiD_p = pnorm(z, lower.tail = FALSE),   # one-sided H1: Delta > 0
              DiD_score = pnorm(z))                   # = old 'DiD_GLM_prob' when est >= 0
