@@ -1,0 +1,61 @@
+Found SIF: /scratch/abrmoe030/.cache/apptainer/mimosa2.sif
+Running inside container: Rscript -e "source("sims/29_combine.R")"
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=extended workers=1 chunk=1/1 maxit=30 timeout=600s
+[heterogeneity] combining 40500 of 40500 planned tasks
+[imbalance] combining 24000 of 24000 planned tasks
+[prior] combining 60000 of 60000 planned tasks
+Found SIF: /scratch/abrmoe030/.cache/apptainer/mimosa2.sif
+Running inside container: Rscript -e "source("analysis/30_performance_tables.R")"
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=extended workers=1 chunk=1/1 maxit=30 timeout=600s
+skip baseline: No results for baseline (_simulations/baseline/baseline_results_extended.rds). Run the simulation / sims/29_combine.R first.
+
+==== prior ====
+saved _tables/prior_performance.csv
+saved _tables/prior_failures.csv
+MIMOSA2 fits: 60000 planned datasets, failure rate 0.00% (errors 2, timeouts 0); whole tasks failed: 0
+saved _tables/prior_realised_dgm.csv
+saved _tables/prior_dAUC_MIMOSA2_vs_DiD.csv
+
+==== heterogeneity ====
+saved _tables/heterogeneity_performance.csv
+saved _tables/heterogeneity_failures.csv
+MIMOSA2 fits: 40500 planned datasets, failure rate 0.00% (errors 2, timeouts 0); whole tasks failed: 0
+saved _tables/heterogeneity_realised_dgm.csv
+saved _tables/heterogeneity_dAUC_MIMOSA2_pooled_vs_DiD.csv
+saved _tables/heterogeneity_dAUC_MIMOSA2_separate_vs_DiD.csv
+saved _tables/heterogeneity_dAUC_pooled_vs_separate.csv
+
+==== imbalance ====
+saved _tables/imbalance_performance.csv
+saved _tables/imbalance_failures.csv
+MIMOSA2 fits: 24000 planned datasets, failure rate 0.00% (errors 0, timeouts 0); whole tasks failed: 0
+saved _tables/imbalance_realised_dgm.csv
+saved _tables/imbalance_dAUC_MIMOSA2_vs_DiD.csv
+saved _tables/precision_report.csv
+
+Monte Carlo precision achieved (max over scenarios) and nsim needed for
+target MCSE of 0.02 (TPR), 0.01 (FDR), 0.01 (AUC):
+           Study           Method       Rule nsim_max max_TPR_mcse max_FDR_mcse
+1          prior              DiD         BH      200      0.01216      0.00500
+2          prior              DiD unadjusted      200      0.01112      0.01834
+3          prior          MIMOSA2       BFDR      200      0.01396      0.01132
+4  heterogeneity              DiD         BH      100      0.02437      0.01000
+5  heterogeneity              DiD unadjusted      100      0.02384      0.02279
+6  heterogeneity   MIMOSA2_pooled       BFDR      100      0.02406      0.02674
+7  heterogeneity MIMOSA2_separate       BFDR      100      0.02596      0.01886
+8      imbalance              DiD         BH      200      0.00785      0.02986
+9      imbalance              DiD unadjusted      200      0.00688      0.02443
+10     imbalance          MIMOSA2       BFDR      200      0.00917      0.00808
+   max_AUC_mcse nsim_for_TPR_target nsim_for_FDR_target nsim_for_AUC_target
+1       0.00931                  74                  50                 174
+2       0.00931                  62                 673                 174
+3       0.00966                  98                 257                 187
+4       0.01816                 149                 100                 330
+5       0.01816                 143                 520                 330
+6       0.01916                 145                 716                 368
+7       0.01952                 169                 356                 382
+8       0.00421                  31                1784                  36
+9       0.00421                  24                1194                  36
+10      0.00454                  43                 131                  42
