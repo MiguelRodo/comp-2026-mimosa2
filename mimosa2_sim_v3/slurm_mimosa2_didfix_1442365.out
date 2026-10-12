@@ -1,0 +1,80 @@
+Mon Oct 12 02:54:50 PM SAST 2026 results files found:
+-rw-r--r-- 1 abrmoe030 eresearch_hpc_users 111156927 Oct  5 06:24 _simulations/baseline/baseline_results_standard.rds
+-rw-r--r-- 1 abrmoe030 eresearch_hpc_users 215340181 Oct 12 14:50 _simulations/heterogeneity/heterogeneity_results_extended_before_didfix.rds
+-rw-r--r-- 1 abrmoe030 eresearch_hpc_users 215340181 Oct 12 14:28 _simulations/heterogeneity/heterogeneity_results_extended.rds
+-rw-r--r-- 1 abrmoe030 eresearch_hpc_users  17407396 Oct  4 19:57 _simulations/heterogeneity/heterogeneity_results_standard.rds
+-rw-r--r-- 1 abrmoe030 eresearch_hpc_users 139131047 Oct 12 14:29 _simulations/imbalance/imbalance_results_extended.rds
+-rw-r--r-- 1 abrmoe030 eresearch_hpc_users  33538243 Oct  4 18:41 _simulations/imbalance/imbalance_results_standard.rds
+-rw-r--r-- 1 abrmoe030 eresearch_hpc_users   2079023 Oct  4 20:25 _simulations/maxit_check/maxit_check_results_standard.rds
+-rw-r--r-- 1 abrmoe030 eresearch_hpc_users 159557863 Oct 12 14:30 _simulations/prior/prior_results_extended.rds
+-rw-r--r-- 1 abrmoe030 eresearch_hpc_users  24876150 Oct  4 17:19 _simulations/prior/prior_results_standard.rds
+Mon Oct 12 02:54:50 PM SAST 2026 ==== DiD fix: extended ====
+Found SIF: /scratch/abrmoe030/.cache/apptainer/mimosa2.sif
+Running inside container: Rscript -e "source("sims/40_recompute_did.R")"
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=extended workers=20 chunk=1/1 maxit=30 timeout=600s
+
+==== heterogeneity ====
+[heterogeneity] regenerated 40500 datasets in 0.2 min
+[heterogeneity] reproducibility: max |DiD_est regenerated - stored| = 0 over 4050000 subjects
+[heterogeneity] non-responders called by unadjusted DiD at 5%: v3.0 0.029 -> v3.1 0.018
+written: _simulations/heterogeneity/heterogeneity_results_extended.rds
+
+==== imbalance ====
+backup: _simulations/imbalance/imbalance_results_extended_before_didfix.rds
+[imbalance] regenerated 24000 datasets in 0.1 min
+[imbalance] reproducibility: max |DiD_est regenerated - stored| = 0 over 2400000 subjects
+[imbalance] non-responders called by unadjusted DiD at 5%: v3.0 0.052 -> v3.1 0.024
+written: _simulations/imbalance/imbalance_results_extended.rds
+
+==== prior ====
+backup: _simulations/prior/prior_results_extended_before_didfix.rds
+[prior] regenerated 60000 datasets in 1.4 min
+[prior] reproducibility: max |DiD_est regenerated - stored| = 0 over 3400000 subjects
+[prior] non-responders called by unadjusted DiD at 5%: v3.0 0.031 -> v3.1 0.020
+written: _simulations/prior/prior_results_extended.rds
+
+Done. Now re-run analysis/30_performance_tables.R and analysis/31-35.
+Mon Oct 12 02:57:37 PM SAST 2026 ==== DiD fix: standard ====
+Found SIF: /scratch/abrmoe030/.cache/apptainer/mimosa2.sif
+Running inside container: Rscript -e "source("sims/40_recompute_did.R")"
+[config] R library paths: /scratch/abrmoe030/R_libs | /workspaces/.local/lib/R | /home/abrmoe030/R/x86_64-pc-linux-gnu-library/4.6 | /usr/local/lib/R/site-library | /usr/local/lib/R/library
+[config] profile=standard workers=20 chunk=1/1 maxit=30 timeout=600s
+
+==== baseline ====
+backup: _simulations/baseline/baseline_results_standard_before_didfix.rds
+[baseline] regenerated 46800 datasets in 0.2 min
+[baseline] reproducibility: max |DiD_est regenerated - stored| = 0 over 2223000 subjects
+[baseline] non-responders called by unadjusted DiD at 5%: v3.0 0.029 -> v3.1 0.022
+written: _simulations/baseline/baseline_results_standard.rds
+
+==== maxit_check ====
+backup: _simulations/maxit_check/maxit_check_results_standard_before_didfix.rds
+[maxit_check] regenerated 600 datasets in 0.0 min
+[maxit_check] reproducibility: max |DiD_est regenerated - stored| = 0 over 34000 subjects
+[maxit_check] non-responders called by unadjusted DiD at 5%: v3.0 0.028 -> v3.1 0.019
+written: _simulations/maxit_check/maxit_check_results_standard.rds
+
+==== heterogeneity ====
+backup: _simulations/heterogeneity/heterogeneity_results_standard_before_didfix.rds
+[heterogeneity] regenerated 3000 datasets in 0.0 min
+[heterogeneity] reproducibility: max |DiD_est regenerated - stored| = 0 over 300000 subjects
+[heterogeneity] non-responders called by unadjusted DiD at 5%: v3.0 0.033 -> v3.1 0.024
+written: _simulations/heterogeneity/heterogeneity_results_standard.rds
+
+==== imbalance ====
+backup: _simulations/imbalance/imbalance_results_standard_before_didfix.rds
+[imbalance] regenerated 5700 datasets in 0.0 min
+[imbalance] reproducibility: max |DiD_est regenerated - stored| = 0 over 570000 subjects
+[imbalance] non-responders called by unadjusted DiD at 5%: v3.0 0.048 -> v3.1 0.026
+written: _simulations/imbalance/imbalance_results_standard.rds
+
+==== prior ====
+backup: _simulations/prior/prior_results_standard_before_didfix.rds
+[prior] regenerated 10000 datasets in 0.3 min
+[prior] reproducibility: max |DiD_est regenerated - stored| = 0 over 500000 subjects
+[prior] non-responders called by unadjusted DiD at 5%: v3.0 0.030 -> v3.1 0.019
+written: _simulations/prior/prior_results_standard.rds
+
+Done. Now re-run analysis/30_performance_tables.R and analysis/31-35.
+Mon Oct 12 02:58:39 PM SAST 2026 done
