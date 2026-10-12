@@ -1,0 +1,19 @@
+Mon Oct 12 02:40:49 PM SAST 2026 results files found:
+-rw-r--r-- 1 abrmoe030 eresearch_hpc_users 111156927 Oct  5 06:24 _simulations/baseline/baseline_results_standard.rds
+-rw-r--r-- 1 abrmoe030 eresearch_hpc_users 215340181 Oct 12 14:28 _simulations/heterogeneity/heterogeneity_results_extended.rds
+-rw-r--r-- 1 abrmoe030 eresearch_hpc_users  17407396 Oct  4 19:57 _simulations/heterogeneity/heterogeneity_results_standard.rds
+-rw-r--r-- 1 abrmoe030 eresearch_hpc_users 139131047 Oct 12 14:29 _simulations/imbalance/imbalance_results_extended.rds
+-rw-r--r-- 1 abrmoe030 eresearch_hpc_users  33538243 Oct  4 18:41 _simulations/imbalance/imbalance_results_standard.rds
+-rw-r--r-- 1 abrmoe030 eresearch_hpc_users   2079023 Oct  4 20:25 _simulations/maxit_check/maxit_check_results_standard.rds
+-rw-r--r-- 1 abrmoe030 eresearch_hpc_users 159557863 Oct 12 14:30 _simulations/prior/prior_results_extended.rds
+-rw-r--r-- 1 abrmoe030 eresearch_hpc_users  24876150 Oct  4 17:19 _simulations/prior/prior_results_standard.rds
+Mon Oct 12 02:40:49 PM SAST 2026 ==== DiD fix: extended ====
+Found SIF: /scratch/abrmoe030/.cache/apptainer/mimosa2.sif
+Running inside container: Rscript -e "source("sims/40_recompute_did.R")"
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'sims/40_recompute_did.R': No such file or directory
+Execution halted
