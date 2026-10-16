@@ -45,6 +45,7 @@ for (st in studies) {
   for (m in mims) save_tab(paired_auc_diff(res, m, "DiD"), sprintf("%s_dAUC_%s_vs_DiD", st, m))
   if (all(c("MIMOSA2_pooled", "MIMOSA2_separate") %in% mims))
     save_tab(paired_auc_diff(res, "MIMOSA2_pooled", "MIMOSA2_separate"), sprintf("%s_dAUC_pooled_vs_separate", st))
+  save_tab(profile_table(res, 0.01), paste0(st, "_by_profile"))   # [v3.1] detection per response profile
   prec[[st]] <- precision_report(perf, st)
 }
 if (length(prec)) {

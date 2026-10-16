@@ -41,9 +41,14 @@ suppressPackageStartupMessages({
 # ---------------------------------------------------------------------------
 # Loading
 # ---------------------------------------------------------------------------
-load_results <- function(study, profile = PROFILE) {
+# Profile used for each study in the write-up (12 Oct 2026)
+STUDY_PROFILE <- c(baseline = "standard", maxit_check = "standard",
+                   prior = "extended", heterogeneity = "extended", imbalance = "extended")
+load_results <- function(study, profile = NULL) {
+  if (is.null(profile)) profile <- if (study %in% names(STUDY_PROFILE)) STUDY_PROFILE[[study]] else PROFILE
   f <- file.path(OUT_DIR, study, sprintf("%s_results_%s.rds", study, profile))
   if (!file.exists(f)) stop("No results for ", study, " (", f, "). Run the simulation / sims/29_combine.R first.")
+  message("loading ", f)
   readRDS(f)
 }
 scenario_cols <- function(design) setdiff(names(design), c("Rep", "Task_ID", "Seed", "In_standard", "In_smoke"))
@@ -167,7 +172,14 @@ roc_at_grid <- function(score, truth, grid) {
   last <- c(s[-1] != s[-length(s)], TRUE)           # end of each block of tied scores
   tp <- c(0, cumsum(t == 1)[last] / n1)
   fp <- c(0, cumsum(t == 0)[last] / n0)
-  tp[findInterval(grid, fp)]
+  # [CHANGE v3.1, 6 Oct] A block of TIED scores (e.g. the ~10% of subjects whose
+  # MIMOSA2 posterior is exactly 0, or DiD z = 0) is a straight diagonal segment
+  # of the ROC curve (Fawcett 2006, the same convention as the Mann-Whitney AUC
+  # with ties counted 1/2). v3.0 read the curve as a step function
+  # (findInterval), which drew such a block as a long flat line followed by a
+  # jump at FPR = 1, and made those ROC curves look worse than their AUC.
+  # Linear interpolation; at vertical segments the top value is used.
+  stats::approx(fp, tp, xout = grid, method = "linear", ties = max, rule = 2)$y
 }
 roc_curves <- function(res, score_cols, grid = seq(0, 1, by = 0.02), keep_scenarios = NULL) {
   s <- res$subjects %>% filter(Eval)
@@ -187,6 +199,30 @@ roc_curves <- function(res, score_cols, grid = seq(0, 1, by = 0.02), keep_scenar
     group_by(Scenario_ID, Method, FPR) %>%
     summarise(TPR_mean = mean(TPR, na.rm = TRUE), TPR_mcse = sd(TPR, na.rm = TRUE) / sqrt(sum(!is.na(TPR))),
               n = sum(!is.na(TPR)), .groups = "drop") %>%
+    left_join(distinct(res$design[, scenario_cols(res$design), drop = FALSE]), by = "Scenario_ID")
+}
+
+# ---------------------------------------------------------------------------
+# [NEW v3.1] Detection by response profile. The eight DGM profiles behave very
+# differently: e.g. R3 (p(s,1) = p(s,0)) has a true Delta that does not grow
+# with delta, so it caps the TPR of every method; NSR / NR2 drive the false
+# calls. Call rate = share of subjects of that profile called at level alpha,
+# pooled over the datasets of the scenario (descriptive; no MCSE).
+# ---------------------------------------------------------------------------
+profile_table <- function(res, alpha = 0.01) {
+  s <- res$subjects %>% filter(Eval)
+  qcols <- grep("^MIMOSA2.*_q$", names(s), value = TRUE)
+  s <- s %>% group_by(Task_ID) %>% mutate(DiD_BH = p.adjust(DiD_p, "BH")) %>% ungroup()
+  calls <- lapply(qcols, function(qc) data.frame(Task_ID = s$Task_ID, Profile = s$Profile, True_delta = s$True_delta,
+                                                 Method = sub("_q$", "", qc), Call = s[[qc]] < alpha))
+  calls[[length(calls) + 1]] <- data.frame(Task_ID = s$Task_ID, Profile = s$Profile, True_delta = s$True_delta,
+                                           Method = "DiD (BH)", Call = s$DiD_BH <= alpha)
+  bind_rows(calls) %>%
+    left_join(res$design %>% select(Task_ID, Scenario_ID), by = "Task_ID") %>%
+    group_by(Scenario_ID, Method, Profile) %>%
+    summarise(n_subjects = n(), call_rate = mean(Call, na.rm = TRUE),
+              median_true_delta = median(True_delta), .groups = "drop") %>%
+    mutate(Alpha = alpha) %>%
     left_join(distinct(res$design[, scenario_cols(res$design), drop = FALSE]), by = "Scenario_ID")
 }
 
@@ -228,36 +264,124 @@ precision_report <- function(perf, study, targets = c(TPR = 0.02, FDR = 0.01, AU
     mutate(Study = study, .before = 1)
 }
 
-# ---------------------------------------------------------------------------
-# Plot style (as in your version-2 figures)
-# ---------------------------------------------------------------------------
-CELL_COLOURS <- c("High" = "deeppink", "Medium" = "steelblue3", "Low" = "orange",
-                  "Very Low" = "purple", "Extremely Low" = "darkgreen")
-METHOD_LINETYPES <- c("MIMOSA2" = "solid", "DiD" = "dotted", "DiD (BH)" = "dotted",
-                      "DiD (unadjusted)" = "dashed",
-                      "MIMOSA2_pooled" = "solid", "MIMOSA2_separate" = "dashed")
-theme_mimosa <- function(base_size = 14) {
-  theme_bw(base_size = base_size) +
-    theme(plot.title = element_text(face = "bold", size = 12, hjust = 0.5),
-          plot.subtitle = element_text(size = 10, hjust = 0.5, colour = "grey30"),
-          plot.caption = element_text(size = 8, colour = "grey30", hjust = 0),
-          axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
-          strip.text = element_text(face = "bold", size = 9),
-          strip.background = element_rect(fill = "grey92", colour = NA),
-          panel.grid.minor = element_blank(),
-          legend.position = "bottom", legend.box = "horizontal")
+# =============================================================================
+# Thesis plot style  [v3.2, 14 Oct 2026; replaces the v3.1 style section]
+# Decisions are logged in the project doc claude/figure_conventions.md.
+#  * Every figure is drawn FIG_W = 8 in wide and included at \textwidth
+#    (about 6.3 in), i.e. scaled by about 0.79. The 14 pt axis titles and
+#    10 pt legend text then print at about 11 pt and 8 pt.
+#  * Numbers on effect-size axes and in strips: 2 decimals x 10^k
+#    (6.25 x 10^-5, 1.00 x 10^-3), never "6.2e-05".
+#  * Strips: rho = 0.1, P = 50, delta = ... (plotmath, label_parsed).
+#  * Legends list MIMOSA2 first. DiD calls (TPR, FDR) are "DiD-BH"; for AUC,
+#    ROC and Delta AUC the label is LAB_DID_AUC (BH does not change the ranking,
+#    so the AUC is the same with or without it).
+#  * PDFs are written with cairo_pdf, which embeds the fonts. The plain pdf()
+#    device does not, which is why the Greek Delta disappeared from the v3.1
+#    figures. If cairo is unavailable on the cluster, run the 3x scripts locally.
+# =============================================================================
+FIG_W <- 8
+
+# ---- Colours --------------------------------------------------------------------
+PAL_GREEN  <- "#006400"   # accent 1 (two-way comparisons)
+PAL_ORCHID <- "#DA70D6"   # accent 2 (two-way comparisons)
+PAL_REF    <- "black"     # reference scenario / reference family
+PAL_DID    <- "#4D4D4D"   # DiD comparator
+PAL_OCHRE  <- "#B07D2B"   # extra muted tone (only when 5 categories are needed)
+PAL_SLATE  <- "#6B7A8F"   # extra muted tone
+CELL_COLOURS <- c("High" = "#C2477F", "Medium" = "#8A52B8", "Low" = "#3F7CC0",
+                  "Very Low" = "#2E9488", "Extremely Low" = "#4E9A45")
+CELL_LABELS  <- c("High" = "High", "Medium" = "Medium", "Low" = "Low",
+                  "Very Low" = "Very low", "Extremely Low" = "Extremely low")
+CELL_TITLE   <- "Parent cell count"
+scale_cell <- function(name = CELL_TITLE, aesthetics = c("colour", "fill"))
+  scale_colour_manual(values = CELL_COLOURS, labels = CELL_LABELS, name = name, aesthetics = aesthetics)
+
+# ---- Methods ----------------------------------------------------------------------
+LAB_DID_BH  <- "DiD-BH"
+LAB_DID_AUC <- "DiD"          # set to "DiD-BH" to use that label on the AUC figures too
+METHOD_ORDER     <- c("MIMOSA2", LAB_DID_BH, LAB_DID_AUC, "DiD (unadjusted)")
+METHOD_LINETYPES <- setNames(c("solid", "dotted", "dotted", "dashed"), METHOD_ORDER)
+METHOD_TITLE     <- "Model"
+# Factor with MIMOSA2 first: the legend follows the factor levels
+method_factor <- function(x) factor(x, levels = intersect(unique(METHOD_ORDER), unique(x)))
+plot_method <- function(method, rule, auc = FALSE) {
+  lab <- case_when(method == "DiD" & auc ~ LAB_DID_AUC,
+                   method == "DiD" & rule == "BH" ~ LAB_DID_BH,
+                   method == "DiD" & rule == "unadjusted" ~ "DiD (unadjusted)",
+                   TRUE ~ method)
+  method_factor(lab)
 }
+scale_method <- function(name = METHOD_TITLE) scale_linetype_manual(values = METHOD_LINETYPES, name = name)
+
+# ---- Theme --------------------------------------------------------------------------
+theme_mimosa <- function() {
+  theme_bw(base_size = 11) +
+    theme(axis.title        = element_text(size = 14),
+          axis.title.x      = element_text(margin = margin(t = 8)),
+          axis.title.y      = element_text(margin = margin(r = 8)),
+          axis.text         = element_text(size = 10),
+          strip.text        = element_text(face = "bold", size = 11),
+          strip.background  = element_blank(),
+          panel.border      = element_rect(fill = NA, colour = "grey30", linewidth = 0.3),
+          panel.spacing     = unit(0.6, "lines"),
+          panel.grid.minor  = element_blank(),
+          legend.position   = "bottom", legend.box = "horizontal",
+          legend.title      = element_text(size = 10),
+          legend.text       = element_text(size = 10),
+          legend.key.width  = unit(2, "lines"),        # long enough to tell dotted from solid
+          legend.background = element_blank(),
+          legend.key        = element_blank())
+}
+# 45-degree x labels: only for effect-size axes in multi-panel figures, where
+# 2-decimal scientific labels do not fit horizontally
+# (extra horizontal panel spacing so the tilted labels of neighbouring panels do not touch)
+tilt_x <- function() theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
+                           panel.spacing.x = unit(1.4, "lines"))
+
+save_fig <- function(p, name, height, width = FIG_W) {
+  # No title, subtitle or caption inside the figure (captions go in LaTeX)
+  p <- p + theme(plot.title = element_blank(), plot.subtitle = element_blank(),
+                 plot.caption = element_blank())
+  f <- file.path(FIG_DIR, paste0(name, ".pdf"))
+  dev <- if (isTRUE(capabilities("cairo"))) cairo_pdf else grDevices::pdf
+  ggsave(f, plot = p, width = width, height = height, device = dev)
+  message("saved ", f)
+}
+
+# ---- Labels -------------------------------------------------------------------------
+# Plotmath strings: sci_math(6.25e-5) = '"6.25" %*% 10^-5'; 0 stays "0"
+sci_math <- function(x, digits = 2) {
+  out <- rep("''", length(x))
+  ok <- !is.na(x)
+  out[ok & x == 0] <- "0"
+  nz <- which(ok & x != 0)
+  if (length(nz)) {
+    e <- floor(log10(abs(x[nz])) + 1e-9)
+    m <- x[nz] / 10^e
+    up <- abs(round(m, digits)) >= 10            # 9.999 -> 10.00: move to the next power
+    m[up] <- m[up] / 10; e[up] <- e[up] + 1
+    # mantissa quoted, so plotmath prints it as text and keeps trailing zeros (2.50, 1.00)
+    out[nz] <- sprintf(paste0('"%.', digits, 'f" %%*%% 10^%d'), m, e)
+  }
+  out
+}
+sci_axis    <- function(digits = 2) function(b) parse(text = sci_math(b, digits))
+effect_axis <- sci_axis(2)                                    # use as scale_x_*(labels = effect_axis)
+math_factor <- function(x, fmt) { u <- sort(unique(x)); factor(fmt(x), levels = unique(fmt(u))) }
+rho_math    <- function(x) paste0("rho == ", res_rho(x))      # x = "Prop_0.10" -> rho = 0.1
+P_math      <- function(x) paste0("italic(P) == ", x)
+delta_math  <- function(x) paste0("delta == ", sci_math(x))
+X_EFFECT    <- expression("Effect size " * delta)
+DAUC_LAB    <- function(what) bquote(Delta * "AUC (" * .(what) * ")")
+
+# ---- Table helpers (unchanged: the table code reads these column names) ------------
 effect_lab <- function(x) formatC(x, format = "e", digits = 1)
 res_lab <- function(x) paste0(round(100 * res_rho(x)), "% responders")
 method_label <- function(method, rule) {
   case_when(method == "DiD" & rule == "BH" ~ "DiD (BH)",
             method == "DiD" & rule == "unadjusted" ~ "DiD (unadjusted)",
             TRUE ~ method)
-}
-save_fig <- function(p, name, width, height) {
-  f <- file.path(FIG_DIR, paste0(name, ".pdf"))
-  ggsave(f, plot = p, width = width, height = height)
-  message("saved ", f)
 }
 save_tab <- function(x, name) {
   f <- file.path(TAB_DIR, paste0(name, ".csv"))
