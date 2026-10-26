@@ -28,40 +28,41 @@ band_plot <- function(d, y, se, ylab, ylim = c(0, 1)) {
   ggplot(d, aes(x = Effect, y = .data[[y]], colour = Cell_range, fill = Cell_range,
                 linetype = Label, group = interaction(Cell_range, Label))) +
     geom_ribbon(aes(ymin = pmax(.data[[y]] - 1.96 * .data[[se]], ylim[1]),
-                    ymax = pmin(.data[[y]] + 1.96 * .data[[se]], ylim[2])), alpha = 0.15, colour = NA) +
+                    ymax = pmin(.data[[y]] + 1.96 * .data[[se]], ylim[2])), alpha = BAND_ALPHA, colour = NA) +
     geom_line(linewidth = 0.7) + geom_point(size = 1.2) +
     scale_x_log10(breaks = effects, labels = effect_axis) +
     scale_cell() + scale_method() +
     coord_cartesian(ylim = ylim) +
     labs(x = X_EFFECT, y = ylab) +
-    theme_mimosa() + tilt_x()
+    theme_mimosa()                       # [v3.3] labels fit untilted (R6)
 }
 
 # ---- 1. Sensitivity at 1% nominal FDR ---------------------------------------------
 d <- main %>% filter(Alpha == 0.01)
-save_fig(band_plot(d, "TPR", "TPR_mcse", "True positive rate") + FG, "base_plot", height = 10.5)    # appendix
+# [v3.3] The six-column appendix figures keep tilted labels: untilted, 0.06 and 0.13 would touch.
+save_fig(band_plot(d, "TPR", "TPR_mcse", "Sensitivity") + FG + tilt_x(), "base_plot", height = 10.5)    # appendix
 d2 <- d %>% filter(P %in% CLEAN_P, Res_prop %in% CLEAN_RHO)
-save_fig(band_plot(d2, "TPR", "TPR_mcse", "True positive rate") + FG, "base_plot_clean", height = 8)  # 4.1
+save_fig(band_plot(d2, "TPR", "TPR_mcse", "Sensitivity") + FG, "base_plot_clean", height = 8)  # 4.1
 
 # ---- 2. Mean per-dataset AUC (appendix) ----------------------------------------------
 # The AUC does not depend on the calling rule; the unadjusted DiD rows carry it.
 dA <- perf %>% filter(Res_prop != "Prop_0.00", Alpha == 0.01,
                       (Method == "MIMOSA2" & Rule == "BFDR") | (Method == "DiD" & Rule == "unadjusted")) %>%
   mutate(Label = plot_method(Method, Rule, auc = TRUE)) %>% add_strips()
-save_fig(band_plot(dA, "AUC", "AUC_mcse", "Average AUC", ylim = c(0.5, 1)) + FG, "base_auc", height = 10.5)
+save_fig(band_plot(dA, "AUC", "AUC_mcse", "Average AUC", ylim = c(0.5, 1)) + FG + tilt_x(), "base_auc", height = 10.5)
 
 # ---- 3. Paired Delta AUC, every scenario (appendix) ------------------------------------
 dd <- paired_auc_diff(res, "MIMOSA2", "DiD") %>% filter(Res_prop != "Prop_0.00") %>%
   mutate(Cell_range = factor(Cell_range, levels = c("High", "Medium", "Low"))) %>% add_strips()
 save_tab(dd, "baseline_dAUC_table")
 p <- ggplot(dd, aes(Effect, dAUC_mean, colour = Cell_range)) +
-  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey20") +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = PAL_REFLINE) +
   geom_pointrange(aes(ymin = lower, ymax = upper), position = position_dodge(width = 0.15),
                   size = 0.2, linewidth = 0.4) +
   scale_x_log10(breaks = effects, labels = effect_axis) +
   scale_cell(aesthetics = "colour") + FG +
   labs(x = X_EFFECT, y = DAUC_LAB(paste("MIMOSA2 -", LAB_DID_AUC))) +
-  theme_mimosa() + tilt_x()
+  theme_mimosa() + tilt_x()                 # six columns: keep tilted
 save_fig(p, "base_dAUC", height = 10.5)
 
 # ---- 4. One-panel summary of the paired Delta AUC (4.1) ------------------------------
@@ -73,7 +74,7 @@ dd_sum <- dd %>%
             q75 = quantile(dAUC_mean, 0.75), n_scen = n(), .groups = "drop")
 save_tab(dd_sum, "baseline_dAUC_summary")
 p <- ggplot(dd_sum, aes(Effect, dAUC_med, colour = Cell_range, group = Cell_range)) +
-  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey20") +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = PAL_REFLINE) +
   geom_line(position = position_dodge(width = 0.12), linewidth = 0.7) +
   geom_pointrange(aes(ymin = q25, ymax = q75), position = position_dodge(width = 0.12),
                   size = 0.35, linewidth = 0.6) +
@@ -94,7 +95,7 @@ roc <- roc_curves(res, c(MIMOSA2 = "MIMOSA2_prob", DiD = "DiD_z"), keep_scenario
          Eff_lab = math_factor(Effect, delta_math))
 p <- ggplot(roc, aes(FPR, TPR_mean, colour = Cell_range, linetype = Label,
                      group = interaction(Label, Cell_range))) +
-  geom_abline(slope = 1, intercept = 0, linetype = "dashed", colour = "grey10", linewidth = 0.4) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", colour = PAL_REFLINE, linewidth = 0.4) +
   geom_line(linewidth = 0.7) +
   scale_cell(aesthetics = "colour") + scale_method() +
   scale_x_continuous(breaks = c(0, 0.5, 1), labels = c("0", "0.5", "1")) +
@@ -114,9 +115,9 @@ fc <- fdr_curve(res) %>% filter(P == P_SHOW, Res_prop %in% CLEAN_RHO, Effect %in
 save_tab(fc, "baseline_fdr_calibration")
 p <- ggplot(fc, aes(Alpha, FDR, colour = Cell_range, fill = Cell_range, linetype = Label,
                     group = interaction(Label, Cell_range))) +
-  geom_abline(slope = 1, intercept = 0, linetype = "dashed", colour = "grey10", linewidth = 0.4) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", colour = PAL_REFLINE, linewidth = 0.4) +
   geom_ribbon(aes(ymin = pmax(FDR - 1.96 * FDR_mcse, 0), ymax = FDR + 1.96 * FDR_mcse),
-              alpha = 0.12, colour = NA) +
+              alpha = BAND_ALPHA, colour = NA) +
   geom_line(linewidth = 0.7) +
   scale_cell() + scale_method() +
   # Zoomed to the levels discussed in the text; the full 0.01-0.20 range is in
@@ -124,7 +125,7 @@ p <- ggplot(fc, aes(Alpha, FDR, colour = Cell_range, fill = Cell_range, linetype
   scale_x_continuous(breaks = c(0.01, 0.05, 0.10)) +
   coord_cartesian(xlim = c(0.01, 0.10), ylim = c(0, 0.25)) +
   facet_grid(Res_lab ~ Eff_lab, labeller = label_parsed) +
-  labs(x = "Nominal FDR", y = "Observed FDR") +
+  labs(x = expression("Nominal level " * alpha), y = "Observed FDR") +   # [v3.3] R3 axis title
   theme_mimosa()
 save_fig(p, "fdr_plot_clean", height = 8.6)
 

@@ -283,17 +283,32 @@ precision_report <- function(perf, study, targets = c(TPR = 0.02, FDR = 0.01, AU
 FIG_W <- 8
 
 # ---- Colours --------------------------------------------------------------------
-PAL_GREEN  <- "#006400"   # accent 1 (two-way comparisons)
-PAL_ORCHID <- "#DA70D6"   # accent 2 (two-way comparisons)
-PAL_REF    <- "black"     # reference scenario / reference family
-PAL_DID    <- "#4D4D4D"   # DiD comparator
-PAL_OCHRE  <- "#B07D2B"   # extra muted tone (only when 5 categories are needed)
-PAL_SLATE  <- "#6B7A8F"   # extra muted tone
-CELL_COLOURS <- c("High" = "#C2477F", "Medium" = "#8A52B8", "Low" = "#3F7CC0",
-                  "Very Low" = "#2E9488", "Extremely Low" = "#4E9A45")
+# [v3.4] Thesis palette v2 (project doc claude/figure_colours_v2.tex). One blue
+# ramp, one warm accent, greys. Every colour has ONE meaning in every figure:
+#   blue ramp = an ordered quantity, darker = more (cell count, delta_o)
+#   PAL_REF   = the reference / baseline condition
+#   PAL_ALT   = the departure from the baseline (pooled fit, imbalance, large delta_o)
+#   PAL_DID   = DiD (always dotted); PAL_REFLINE = dashed reference lines
+# All colours are defined HERE only; the 3x scripts must not use hex codes.
+PAL_REF     <- "#1A1A1A"   # reference / baseline (ink)
+PAL_ALT     <- "#D55E00"   # departure from the baseline (vermilion)
+PAL_ALT_DK  <- "#8C2D04"   # stronger departure (rust)
+PAL_BLUE    <- "#225EA8"   # second comparison series (e.g. balanced control)
+PAL_DID     <- "#4D4D4D"   # DiD comparator, always dotted
+PAL_REFLINE <- "#333333"   # dashed reference lines (zero, diagonal, nominal level)
+PAL_MU      <- "#808080"   # condition-mean line in prior_density
+BAND_ALPHA  <- 0.15        # opacity of every +/- 1.96 MCSE band
+# Blue ramp (ColorBrewer YlGnBu): dark = high cell count
+PAL_RAMP <- c("#081D58", "#253494", "#225EA8", "#1D91C0", "#41B6C4")
+CELL_COLOURS <- setNames(PAL_RAMP, c("High", "Medium", "Low", "Very Low", "Extremely Low"))
+# Generative distributions (unordered; Okabe-Ito). Beta = the default = PAL_REF.
+FAM_COLOURS <- c("Beta" = PAL_REF, "Simplex-type" = "#009E73", "Bimodal Beta" = "#CC79A7",
+                 "Exponential-gamma" = "#E69F00", "Logit-normal" = PAL_BLUE)
+# delta_o, smallest to largest: ramp for <= 2 delta_f, warm for 20x and 100x
+DELTA_O_COLOURS <- c(PAL_RAMP[5], PAL_RAMP[4], PAL_RAMP[2], PAL_ALT, PAL_ALT_DK)
 CELL_LABELS  <- c("High" = "High", "Medium" = "Medium", "Low" = "Low",
                   "Very Low" = "Very low", "Extremely Low" = "Extremely low")
-CELL_TITLE   <- "Parent cell count"
+CELL_TITLE   <- "Cell count"   # [v3.3] key term: was "Parent cell count"
 scale_cell <- function(name = CELL_TITLE, aesthetics = c("colour", "fill"))
   scale_colour_manual(values = CELL_COLOURS, labels = CELL_LABELS, name = name, aesthetics = aesthetics)
 
@@ -302,7 +317,7 @@ LAB_DID_BH  <- "DiD-BH"
 LAB_DID_AUC <- "DiD"          # set to "DiD-BH" to use that label on the AUC figures too
 METHOD_ORDER     <- c("MIMOSA2", LAB_DID_BH, LAB_DID_AUC, "DiD (unadjusted)")
 METHOD_LINETYPES <- setNames(c("solid", "dotted", "dotted", "dashed"), METHOD_ORDER)
-METHOD_TITLE     <- "Model"
+METHOD_TITLE     <- "Method"   # [v3.3] the text says "method"
 # Factor with MIMOSA2 first: the legend follows the factor levels
 method_factor <- function(x) factor(x, levels = intersect(unique(METHOD_ORDER), unique(x)))
 plot_method <- function(method, rule, auc = FALSE) {
@@ -367,12 +382,18 @@ sci_math <- function(x, digits = 2) {
   out
 }
 sci_axis    <- function(digits = 2) function(b) parse(text = sci_math(b, digits))
-effect_axis <- sci_axis(2)                                    # use as scale_x_*(labels = effect_axis)
+# [v3.3, R6] Effect-size axes in units of 10^-3, labelled 0.06, 0.13, 0.25, 0.5, 1
+# (rounded half-up), so the labels fit untilted. The axis title carries the unit.
+effect_axis <- function(b) {
+  v <- floor(b * 1e3 * 100 + 0.5) / 100
+  vapply(v, function(x) if (is.na(x)) "" else format(x, drop0trailing = TRUE, scientific = FALSE), "")
+}
+effect_axis_sci <- sci_axis(2)                                # old 2-decimal x 10^k labels
 math_factor <- function(x, fmt) { u <- sort(unique(x)); factor(fmt(x), levels = unique(fmt(u))) }
 rho_math    <- function(x) paste0("rho == ", res_rho(x))      # x = "Prop_0.10" -> rho = 0.1
 P_math      <- function(x) paste0("italic(P) == ", x)
 delta_math  <- function(x) paste0("delta == ", sci_math(x))
-X_EFFECT    <- expression("Effect size " * delta)
+X_EFFECT    <- expression("Nominal effect size " * delta * " (" * "\u00D7" * 10^{-3} * ")")   # [v3.3] key term + unit
 DAUC_LAB    <- function(what) bquote(Delta * "AUC (" * .(what) * ")")
 
 # ---- Table helpers (unchanged: the table code reads these column names) ------------

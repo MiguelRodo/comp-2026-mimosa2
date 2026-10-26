@@ -36,10 +36,13 @@ save_tab(imb, "imbalance_vs_balanced_and_reference")
 
 # ---- AUC against the fraction kept: imbalanced, balanced control, reference -------------
 fr <- sort(unique(imb$Fraction))
-frac_f <- function(x) factor(x, levels = fr, labels = paste0(100 * fr, "%"))
-pat_lab <- function(x) gsub("_", " + ", x)
-SERIES <- c("Imbalanced", "Balanced (same total)", "Reference (150,000 in every assay)")
-SERIES_COL <- setNames(c(PAL_GREEN, PAL_ORCHID, PAL_REF), SERIES)
+# [v3.3] x labels are the fraction f itself (the key term in Table 3.9 and the caption)
+frac_f <- function(x) factor(x, levels = fr, labels = as.character(signif(fr, 3)))
+# [v3.3] strips in maths: "s1_u0" -> s[1] + u[0]
+pat_lab <- function(x) gsub("_", " + ", gsub("([su])([01])", "\\1[\\2]", x))
+SERIES <- c("Imbalanced", "Balanced (same total)", "Reference (150 000 in every assay)")
+# [v3.4] palette v2: imbalanced = PAL_ALT (departure), balanced = PAL_BLUE, reference = PAL_REF
+SERIES_COL <- setNames(c(PAL_ALT, PAL_BLUE, PAL_REF), SERIES)
 mod_f <- function(m) plot_method(m, "unadjusted", auc = TRUE)
 curves <- bind_rows(
   imb %>% transmute(Pattern, Model, Fraction, Series = SERIES[1], AUC, AUC_mcse),
@@ -54,13 +57,13 @@ auc_plot <- function(pats, ncol) {
   ggplot(cv, aes(Frac, AUC, colour = Series, linetype = Label, group = interaction(Series, Label))) +
     geom_hline(data = rl, aes(yintercept = AUC_ref, colour = Series, linetype = Label), linewidth = 0.6) +
     geom_ribbon(aes(ymin = AUC - 1.96 * AUC_mcse, ymax = AUC + 1.96 * AUC_mcse, fill = Series),
-                alpha = 0.12, colour = NA) +
+                alpha = BAND_ALPHA, colour = NA) +
     geom_line(linewidth = 0.7) + geom_point(size = 1.2) +
     scale_colour_manual(values = SERIES_COL, name = NULL, drop = FALSE) +
     scale_fill_manual(values = SERIES_COL, name = NULL, drop = FALSE, guide = "none") +
     scale_method() +
-    facet_wrap(~ Pattern, ncol = ncol, labeller = labeller(Pattern = pat_lab)) +
-    labs(x = "Depleted assay cell count", y = "Average AUC") +
+    facet_wrap(~ Pattern, ncol = ncol, labeller = labeller(Pattern = as_labeller(pat_lab, label_parsed))) +
+    labs(x = expression("Fraction of cells kept in the depleted assay, " * italic(f)), y = "Average AUC") +
     theme_mimosa() + guides(colour = guide_legend(order = 1, nrow = 2), linetype = guide_legend(order = 2))
 }
 # 4.4: the four single-assay patterns

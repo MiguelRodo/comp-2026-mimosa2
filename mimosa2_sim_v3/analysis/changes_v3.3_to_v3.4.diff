@@ -1,0 +1,212 @@
+diff -ru v33/31_plots_baseline.R v34/31_plots_baseline.R
+--- v33/31_plots_baseline.R	2026-10-21 18:44:01.671653562 +0200
++++ v34/31_plots_baseline.R	2026-10-21 18:44:33.578120272 +0200
+@@ -28,7 +28,7 @@
+   ggplot(d, aes(x = Effect, y = .data[[y]], colour = Cell_range, fill = Cell_range,
+                 linetype = Label, group = interaction(Cell_range, Label))) +
+     geom_ribbon(aes(ymin = pmax(.data[[y]] - 1.96 * .data[[se]], ylim[1]),
+-                    ymax = pmin(.data[[y]] + 1.96 * .data[[se]], ylim[2])), alpha = 0.15, colour = NA) +
++                    ymax = pmin(.data[[y]] + 1.96 * .data[[se]], ylim[2])), alpha = BAND_ALPHA, colour = NA) +
+     geom_line(linewidth = 0.7) + geom_point(size = 1.2) +
+     scale_x_log10(breaks = effects, labels = effect_axis) +
+     scale_cell() + scale_method() +
+@@ -56,7 +56,7 @@
+   mutate(Cell_range = factor(Cell_range, levels = c("High", "Medium", "Low"))) %>% add_strips()
+ save_tab(dd, "baseline_dAUC_table")
+ p <- ggplot(dd, aes(Effect, dAUC_mean, colour = Cell_range)) +
+-  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey20") +
++  geom_hline(yintercept = 0, linetype = "dashed", colour = PAL_REFLINE) +
+   geom_pointrange(aes(ymin = lower, ymax = upper), position = position_dodge(width = 0.15),
+                   size = 0.2, linewidth = 0.4) +
+   scale_x_log10(breaks = effects, labels = effect_axis) +
+@@ -74,7 +74,7 @@
+             q75 = quantile(dAUC_mean, 0.75), n_scen = n(), .groups = "drop")
+ save_tab(dd_sum, "baseline_dAUC_summary")
+ p <- ggplot(dd_sum, aes(Effect, dAUC_med, colour = Cell_range, group = Cell_range)) +
+-  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey20") +
++  geom_hline(yintercept = 0, linetype = "dashed", colour = PAL_REFLINE) +
+   geom_line(position = position_dodge(width = 0.12), linewidth = 0.7) +
+   geom_pointrange(aes(ymin = q25, ymax = q75), position = position_dodge(width = 0.12),
+                   size = 0.35, linewidth = 0.6) +
+@@ -95,7 +95,7 @@
+          Eff_lab = math_factor(Effect, delta_math))
+ p <- ggplot(roc, aes(FPR, TPR_mean, colour = Cell_range, linetype = Label,
+                      group = interaction(Label, Cell_range))) +
+-  geom_abline(slope = 1, intercept = 0, linetype = "dashed", colour = "grey10", linewidth = 0.4) +
++  geom_abline(slope = 1, intercept = 0, linetype = "dashed", colour = PAL_REFLINE, linewidth = 0.4) +
+   geom_line(linewidth = 0.7) +
+   scale_cell(aesthetics = "colour") + scale_method() +
+   scale_x_continuous(breaks = c(0, 0.5, 1), labels = c("0", "0.5", "1")) +
+@@ -115,9 +115,9 @@
+ save_tab(fc, "baseline_fdr_calibration")
+ p <- ggplot(fc, aes(Alpha, FDR, colour = Cell_range, fill = Cell_range, linetype = Label,
+                     group = interaction(Label, Cell_range))) +
+-  geom_abline(slope = 1, intercept = 0, linetype = "dashed", colour = "grey10", linewidth = 0.4) +
++  geom_abline(slope = 1, intercept = 0, linetype = "dashed", colour = PAL_REFLINE, linewidth = 0.4) +
+   geom_ribbon(aes(ymin = pmax(FDR - 1.96 * FDR_mcse, 0), ymax = FDR + 1.96 * FDR_mcse),
+-              alpha = 0.12, colour = NA) +
++              alpha = BAND_ALPHA, colour = NA) +
+   geom_line(linewidth = 0.7) +
+   scale_cell() + scale_method() +
+   # Zoomed to the levels discussed in the text; the full 0.01-0.20 range is in
+diff -ru v33/32_plots_prior.R v34/32_plots_prior.R
+--- v33/32_plots_prior.R	2026-10-21 18:44:01.655665693 +0200
++++ v34/32_plots_prior.R	2026-10-21 18:44:33.582604130 +0200
+@@ -15,7 +15,8 @@
+ FAM_LEVELS <- c("Beta", "SX", "BB", "EG", "LN")
+ FAM_LABELS <- c("Beta", "Simplex-type", "Bimodal Beta", "Exponential-gamma", "Logit-normal")
+ fam_factor <- function(x) factor(x, levels = FAM_LEVELS, labels = FAM_LABELS)
+-FAM_COLOURS <- setNames(c(PAL_REF, PAL_GREEN, PAL_ORCHID, PAL_OCHRE, PAL_SLATE), FAM_LABELS)
++# [v3.4] FAM_COLOURS is now defined in analysis_functions.R (palette v2)
++stopifnot(all(FAM_LABELS %in% names(FAM_COLOURS)))
+ 
+ # Legend inside the figure, in the empty panel slot (x, y in 0-1 figure units)
+ legend_inside <- function(x, y) {
+@@ -54,7 +55,7 @@
+ })) %>% mutate(Family = fam_factor(Family), Panel = factor(Panel, levels = panels$strip[c(2, 3, 1)]))
+ p <- ggplot(dens, aes(x, y, colour = Family)) +
+   geom_vline(data = distinct(dens, Panel, mu), aes(xintercept = mu),
+-             linetype = "dashed", colour = "grey50", linewidth = 0.4, show.legend = FALSE) +
++             linetype = "dashed", colour = PAL_MU, linewidth = 0.4, show.legend = FALSE) +
+   geom_line(linewidth = 0.8) +
+   facet_wrap(~ Panel, ncol = 2, scales = "free", labeller = label_parsed, as.table = FALSE) +
+   scale_x_continuous(breaks = scales::breaks_pretty(n = 3), labels = sci_axis(2)) +
+@@ -80,7 +81,7 @@
+   p <- ggplot(d, aes(Effect, .data[[y]], colour = Cell_range, fill = Cell_range, linetype = Label,
+                      group = interaction(Cell_range, Label))) +
+     geom_ribbon(aes(ymin = pmax(.data[[y]] - 1.96 * .data[[se]], ylim[1]),
+-                    ymax = pmin(.data[[y]] + 1.96 * .data[[se]], ylim[2])), alpha = 0.15, colour = NA) +
++                    ymax = pmin(.data[[y]] + 1.96 * .data[[se]], ylim[2])), alpha = BAND_ALPHA, colour = NA) +
+     geom_line(linewidth = 0.7) + geom_point(size = 1.2) +
+     scale_x_log10(breaks = effects, labels = effect_axis) +
+     scale_cell() + scale_method() +
+@@ -88,7 +89,7 @@
+     facet_wrap(~ Fam_grid, ncol = 3, as.table = FALSE) +
+     labs(x = X_EFFECT, y = ylab) +
+     theme_mimosa() + legend_inside(0.84, 0.76)          # [v3.3] untilted (R6)
+-  if (!is.null(hline)) p <- p + geom_hline(yintercept = hline, linetype = "dashed", colour = "grey20")
++  if (!is.null(hline)) p <- p + geom_hline(yintercept = hline, linetype = "dashed", colour = PAL_REFLINE)
+   p
+ }
+ for (pp in sort(unique(perf$P))) {
+@@ -116,7 +117,7 @@
+ save_tab(vs, "prior_difference_from_beta")
+ for (pp in sort(unique(vs$P))) {
+   p <- ggplot(vs %>% filter(P == pp), aes(Effect, dAUC, colour = Cell_range)) +
+-    geom_hline(yintercept = 0, linetype = "dashed", colour = "grey20") +
++    geom_hline(yintercept = 0, linetype = "dashed", colour = PAL_REFLINE) +
+     geom_pointrange(aes(ymin = dAUC - 1.96 * dAUC_mcse, ymax = dAUC + 1.96 * dAUC_mcse),
+                     position = position_dodge(width = 0.2), size = 0.2, linewidth = 0.4) +
+     scale_x_log10(breaks = effects, labels = effect_axis) +
+diff -ru v33/33_plots_heterogeneity.R v34/33_plots_heterogeneity.R
+--- v33/33_plots_heterogeneity.R	2026-10-21 18:44:01.641725201 +0200
++++ v34/33_plots_heterogeneity.R	2026-10-21 18:44:33.596670304 +0200
+@@ -24,9 +24,9 @@
+ CELL_X <- scale_x_discrete(labels = CELL_LABELS)
+ RHO_SHOW <- "Prop_0.50"; EF_SHOW <- 5e-4
+ 
+-# Colour per value of delta_o: blues = mild (at most 2x delta_f), oranges = strong
+-DO_COLOURS <- c("6.25e-04" = "#9ECAE1", "8.00e-04" = "#6BAED6", "1.00e-03" = "#2171B5",
+-                "1.00e-02" = "#E6550D", "5.00e-02" = "#7F2704")
++# Colour per value of delta_o: blue ramp = mild (at most 2x delta_f), vermilion/rust = strong
++# [v3.4] palette v2: DELTA_O_COLOURS from analysis_functions.R
++DO_COLOURS <- setNames(DELTA_O_COLOURS, c("6.25e-04", "8.00e-04", "1.00e-03", "1.00e-02", "5.00e-02"))
+ do_key <- function(x) sprintf("%.2e", x)
+ do_labels <- function(eo, ef) {                       # "6.25 x 10^-4 (1.25 delta_f)"
+   parse(text = sprintf('%s ~ "(" * %s * delta[f] * ")"', sci_math(eo), signif(eo / ef, 3)))
+@@ -45,7 +45,7 @@
+   if (!is.null(DO_MULT_SHOW)) d <- d %>% filter(sapply(Effect_other / ef, function(m) any(abs(m - DO_MULT_SHOW) < 1e-6)))
+   eo <- sort(unique(d$Effect_other))
+   p <- ggplot(d, aes(Cell_range, dAUC_mean, colour = Eo, group = Eo)) +
+-    geom_hline(yintercept = 0, linetype = "dashed", colour = "grey20") +
++    geom_hline(yintercept = 0, linetype = "dashed", colour = PAL_REFLINE) +
+     geom_line(position = position_dodge(width = 0.35), linewidth = 0.6) +
+     geom_pointrange(aes(ymin = lower, ymax = upper), position = position_dodge(width = 0.35),
+                     size = 0.2, linewidth = 0.4) +
+@@ -59,10 +59,9 @@
+ }
+ 
+ # ---- 2. AUC levels: pooled vs separate vs DiD, mild and strong heterogeneity ------------
+-# [v3.3, R5] separate fit = black (the reference analysis), pooled fit = ochre,
+-# DiD = grey dotted. Green/orchid are no longer used, so nothing clashes with
+-# the cell-count palette.
+-MCOL <- c("MIMOSA2 (separate fit)" = PAL_REF, "MIMOSA2 (pooled fit)" = PAL_OCHRE)
++# [v3.4] palette v2: separate fit = PAL_REF (the reference analysis),
++# pooled fit = PAL_ALT (the departure from it), DiD = grey dotted.
++MCOL <- c("MIMOSA2 (separate fit)" = PAL_REF, "MIMOSA2 (pooled fit)" = PAL_ALT)
+ MCOL[LAB_DID_AUC] <- PAL_DID
+ MLTY <- setNames(c("solid", "solid", "dotted"), names(MCOL))
+ mlab <- function(m) factor(recode(m, MIMOSA2_pooled = "MIMOSA2 (pooled fit)",
+@@ -77,7 +76,7 @@
+   mutate(Eo_lab = math_factor(Effect_other, function(x)
+     sprintf('delta[o] == %s ~ "(" * %s * delta[f] * ")"', sci_math(x), signif(x / EF_SHOW, 3))))
+ p <- ggplot(lv, aes(Cell_range, AUC, colour = Model, fill = Model, linetype = Model, group = Model)) +
+-  geom_ribbon(aes(ymin = AUC - 1.96 * AUC_mcse, ymax = AUC + 1.96 * AUC_mcse), alpha = 0.15, colour = NA) +
++  geom_ribbon(aes(ymin = AUC - 1.96 * AUC_mcse, ymax = AUC + 1.96 * AUC_mcse), alpha = BAND_ALPHA, colour = NA) +
+   geom_line(linewidth = 0.7) + geom_point(size = 1.2) +
+   scale_colour_manual(values = MCOL, name = NULL) + scale_fill_manual(values = MCOL, name = NULL) +
+   scale_linetype_manual(values = MLTY, name = NULL) +
+diff -ru v33/34_plots_imbalance.R v34/34_plots_imbalance.R
+--- v33/34_plots_imbalance.R	2026-10-21 18:44:01.633412076 +0200
++++ v34/34_plots_imbalance.R	2026-10-21 18:44:33.596916114 +0200
+@@ -41,8 +41,8 @@
+ # [v3.3] strips in maths: "s1_u0" -> s[1] + u[0]
+ pat_lab <- function(x) gsub("_", " + ", gsub("([su])([01])", "\\1[\\2]", x))
+ SERIES <- c("Imbalanced", "Balanced (same total)", "Reference (150 000 in every assay)")
+-# [v3.3, R5] ochre / slate instead of green / orchid (no clash with the cell-count palette)
+-SERIES_COL <- setNames(c(PAL_OCHRE, PAL_SLATE, PAL_REF), SERIES)
++# [v3.4] palette v2: imbalanced = PAL_ALT (departure), balanced = PAL_BLUE, reference = PAL_REF
++SERIES_COL <- setNames(c(PAL_ALT, PAL_BLUE, PAL_REF), SERIES)
+ mod_f <- function(m) plot_method(m, "unadjusted", auc = TRUE)
+ curves <- bind_rows(
+   imb %>% transmute(Pattern, Model, Fraction, Series = SERIES[1], AUC, AUC_mcse),
+@@ -57,7 +57,7 @@
+   ggplot(cv, aes(Frac, AUC, colour = Series, linetype = Label, group = interaction(Series, Label))) +
+     geom_hline(data = rl, aes(yintercept = AUC_ref, colour = Series, linetype = Label), linewidth = 0.6) +
+     geom_ribbon(aes(ymin = AUC - 1.96 * AUC_mcse, ymax = AUC + 1.96 * AUC_mcse, fill = Series),
+-                alpha = 0.12, colour = NA) +
++                alpha = BAND_ALPHA, colour = NA) +
+     geom_line(linewidth = 0.7) + geom_point(size = 1.2) +
+     scale_colour_manual(values = SERIES_COL, name = NULL, drop = FALSE) +
+     scale_fill_manual(values = SERIES_COL, name = NULL, drop = FALSE, guide = "none") +
+diff -ru v33/analysis_functions.R v34/analysis_functions.R
+--- v33/analysis_functions.R	2026-10-21 18:44:01.625743765 +0200
++++ v34/analysis_functions.R	2026-10-21 18:44:20.927508815 +0200
+@@ -283,14 +283,29 @@
+ FIG_W <- 8
+ 
+ # ---- Colours --------------------------------------------------------------------
+-PAL_GREEN  <- "#006400"   # accent 1 (two-way comparisons)
+-PAL_ORCHID <- "#DA70D6"   # accent 2 (two-way comparisons)
+-PAL_REF    <- "black"     # reference scenario / reference family
+-PAL_DID    <- "#4D4D4D"   # DiD comparator
+-PAL_OCHRE  <- "#B07D2B"   # extra muted tone (only when 5 categories are needed)
+-PAL_SLATE  <- "#6B7A8F"   # extra muted tone
+-CELL_COLOURS <- c("High" = "#C2477F", "Medium" = "#8A52B8", "Low" = "#3F7CC0",
+-                  "Very Low" = "#2E9488", "Extremely Low" = "#4E9A45")
++# [v3.4] Thesis palette v2 (project doc claude/figure_colours_v2.tex). One blue
++# ramp, one warm accent, greys. Every colour has ONE meaning in every figure:
++#   blue ramp = an ordered quantity, darker = more (cell count, delta_o)
++#   PAL_REF   = the reference / baseline condition
++#   PAL_ALT   = the departure from the baseline (pooled fit, imbalance, large delta_o)
++#   PAL_DID   = DiD (always dotted); PAL_REFLINE = dashed reference lines
++# All colours are defined HERE only; the 3x scripts must not use hex codes.
++PAL_REF     <- "#1A1A1A"   # reference / baseline (ink)
++PAL_ALT     <- "#D55E00"   # departure from the baseline (vermilion)
++PAL_ALT_DK  <- "#8C2D04"   # stronger departure (rust)
++PAL_BLUE    <- "#225EA8"   # second comparison series (e.g. balanced control)
++PAL_DID     <- "#4D4D4D"   # DiD comparator, always dotted
++PAL_REFLINE <- "#333333"   # dashed reference lines (zero, diagonal, nominal level)
++PAL_MU      <- "#808080"   # condition-mean line in prior_density
++BAND_ALPHA  <- 0.15        # opacity of every +/- 1.96 MCSE band
++# Blue ramp (ColorBrewer YlGnBu): dark = high cell count
++PAL_RAMP <- c("#081D58", "#253494", "#225EA8", "#1D91C0", "#41B6C4")
++CELL_COLOURS <- setNames(PAL_RAMP, c("High", "Medium", "Low", "Very Low", "Extremely Low"))
++# Generative distributions (unordered; Okabe-Ito). Beta = the default = PAL_REF.
++FAM_COLOURS <- c("Beta" = PAL_REF, "Simplex-type" = "#009E73", "Bimodal Beta" = "#CC79A7",
++                 "Exponential-gamma" = "#E69F00", "Logit-normal" = PAL_BLUE)
++# delta_o, smallest to largest: ramp for <= 2 delta_f, warm for 20x and 100x
++DELTA_O_COLOURS <- c(PAL_RAMP[5], PAL_RAMP[4], PAL_RAMP[2], PAL_ALT, PAL_ALT_DK)
+ CELL_LABELS  <- c("High" = "High", "Medium" = "Medium", "Low" = "Low",
+                   "Very Low" = "Very low", "Extremely Low" = "Extremely low")
+ CELL_TITLE   <- "Cell count"   # [v3.3] key term: was "Parent cell count"

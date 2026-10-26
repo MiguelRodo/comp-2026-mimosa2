@@ -24,24 +24,28 @@ add_split <- function(d) d %>% mutate(Split = factor(sprintf("%d focal : %d othe
 CELL_X <- scale_x_discrete(labels = CELL_LABELS)
 RHO_SHOW <- "Prop_0.50"; EF_SHOW <- 5e-4
 
-# Colour per value of delta_o: blues = mild (at most 2x delta_f), oranges = strong
-DO_COLOURS <- c("6.25e-04" = "#9ECAE1", "8.00e-04" = "#6BAED6", "1.00e-03" = "#2171B5",
-                "1.00e-02" = "#E6550D", "5.00e-02" = "#7F2704")
+# Colour per value of delta_o: blue ramp = mild (at most 2x delta_f), vermilion/rust = strong
+# [v3.4] palette v2: DELTA_O_COLOURS from analysis_functions.R
+DO_COLOURS <- setNames(DELTA_O_COLOURS, c("6.25e-04", "8.00e-04", "1.00e-03", "1.00e-02", "5.00e-02"))
 do_key <- function(x) sprintf("%.2e", x)
 do_labels <- function(eo, ef) {                       # "6.25 x 10^-4 (1.25 delta_f)"
   parse(text = sprintf('%s ~ "(" * %s * delta[f] * ")"', sci_math(eo), signif(eo / ef, 3)))
 }
-DO_TITLE <- expression("Effect of the other subgroup, " * delta[o])
+DO_TITLE <- expression("Effect size of the other subgroup, " * delta[o])   # [v3.3] key term
 
 # ---- 1. Cost of pooling ---------------------------------------------------------------
 dd <- paired_auc_diff(res, "MIMOSA2_pooled", "MIMOSA2_separate") %>% add_split() %>%
   mutate(Res_lab = math_factor(Res_prop, rho_math), Eo = do_key(Effect_other))
 save_tab(dd, "heterogeneity_dAUC_pooled_minus_separate")
+# [v3.3, R4] Optional: show only some values of delta_o as multiples of delta_f
+# (e.g. c(2, 20, 100) drops the 1.25x and 1.6x lines). NULL keeps all five.
+DO_MULT_SHOW <- NULL
 for (ef in sort(unique(dd$Effect_focal))) {
   d <- dd %>% filter(Effect_focal == ef)
+  if (!is.null(DO_MULT_SHOW)) d <- d %>% filter(sapply(Effect_other / ef, function(m) any(abs(m - DO_MULT_SHOW) < 1e-6)))
   eo <- sort(unique(d$Effect_other))
   p <- ggplot(d, aes(Cell_range, dAUC_mean, colour = Eo, group = Eo)) +
-    geom_hline(yintercept = 0, linetype = "dashed", colour = "grey20") +
+    geom_hline(yintercept = 0, linetype = "dashed", colour = PAL_REFLINE) +
     geom_line(position = position_dodge(width = 0.35), linewidth = 0.6) +
     geom_pointrange(aes(ymin = lower, ymax = upper), position = position_dodge(width = 0.35),
                     size = 0.2, linewidth = 0.4) +
@@ -55,7 +59,9 @@ for (ef in sort(unique(dd$Effect_focal))) {
 }
 
 # ---- 2. AUC levels: pooled vs separate vs DiD, mild and strong heterogeneity ------------
-MCOL <- c("MIMOSA2 (pooled fit)" = PAL_ORCHID, "MIMOSA2 (separate fit)" = PAL_GREEN)
+# [v3.4] palette v2: separate fit = PAL_REF (the reference analysis),
+# pooled fit = PAL_ALT (the departure from it), DiD = grey dotted.
+MCOL <- c("MIMOSA2 (separate fit)" = PAL_REF, "MIMOSA2 (pooled fit)" = PAL_ALT)
 MCOL[LAB_DID_AUC] <- PAL_DID
 MLTY <- setNames(c("solid", "solid", "dotted"), names(MCOL))
 mlab <- function(m) factor(recode(m, MIMOSA2_pooled = "MIMOSA2 (pooled fit)",
@@ -70,7 +76,7 @@ lv <- perf %>% filter(Res_prop == RHO_SHOW, Effect_focal == EF_SHOW,
   mutate(Eo_lab = math_factor(Effect_other, function(x)
     sprintf('delta[o] == %s ~ "(" * %s * delta[f] * ")"', sci_math(x), signif(x / EF_SHOW, 3))))
 p <- ggplot(lv, aes(Cell_range, AUC, colour = Model, fill = Model, linetype = Model, group = Model)) +
-  geom_ribbon(aes(ymin = AUC - 1.96 * AUC_mcse, ymax = AUC + 1.96 * AUC_mcse), alpha = 0.15, colour = NA) +
+  geom_ribbon(aes(ymin = AUC - 1.96 * AUC_mcse, ymax = AUC + 1.96 * AUC_mcse), alpha = BAND_ALPHA, colour = NA) +
   geom_line(linewidth = 0.7) + geom_point(size = 1.2) +
   scale_colour_manual(values = MCOL, name = NULL) + scale_fill_manual(values = MCOL, name = NULL) +
   scale_linetype_manual(values = MLTY, name = NULL) +
